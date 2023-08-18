@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">BebeVindo</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="title">Bem-Vinda de Volta!</string>
+    <string name="description">Estamos animados para seguir te auxiliando na jornada da maternidade.</string>
+    <string name="screen_description_forgot_password">Sem Problemas! Vamos Recuperar o Acesso para Continuar na Sua Jornada.</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="title_register">Bem-Vinda!</string>
+    <string name="description_register">Preparada para Começar a Jornada?Bebê-Vindo, Seu Apoio na Maternidade.</string>
+
+    <!-- Register Password   -->
+    <string name="title_register_password">Escolha uma senha</string>
+    <string name="description_register_password">Sua senha deve ser segura. Não compartilhe com ninguém!</string>
+
+    <!--    -->
+    <string name="username">Username</string>
+    <string name="name_password">Senha</string>
+    <string name="types_of_users">Email</string>
+
+    <string name="text_field_nome">Nome Completo</string>
+    <string name="text_field_telefone">Telefone</string>
+
+    <string name="text_field_nascimento">Data de Nascimento</string>
+
+
+    <string name="button_enter">Entrar</string>
+    <string name="enter_the_app">Ou entre usando</string>
+    <string name="new_password">Nova senha</string>
+    <string name="confirm_new_password">Confirmar nova senha</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="button_confirm">Confirmar</string>
+    <string name="button_next">Próximo</string>
+
+
+
+</resources>
