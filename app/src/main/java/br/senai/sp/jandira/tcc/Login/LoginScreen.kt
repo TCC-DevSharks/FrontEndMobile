@@ -33,6 +33,8 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
+import br.senai.sp.jandira.tcc.componentes.TextDescription
+import br.senai.sp.jandira.tcc.componentes.TextTitulo
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,39 +57,17 @@ fun LoginScreen(navController: NavController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Column {
 
                 ArrowLeftPurple(navController = navController, rota = "home")
 
-            Row(
-                modifier = Modifier.padding(top = 25.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(id = br.senai.sp.jandira.tcc.R.string.title),
-                    fontSize = 30.sp,
-                    fontWeight = Bold,
-                    color = Color(46, 44, 44),
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 15.dp, start = 10.dp, end = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(id = br.senai.sp.jandira.tcc.R.string.description),
-                    fontSize = 15.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color(66, 61, 61)
+                TextTitulo(texto = R.string.title_login)
 
+                TextDescription(texto = R.string.description_login)
 
-                )
+                Spacer(modifier = Modifier.height(20.dp))
+
             }
-            Spacer(modifier = Modifier.height(18.dp))
 
             Column(
                 modifier = Modifier.fillMaxWidth()

@@ -23,45 +23,25 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
+import br.senai.sp.jandira.tcc.componentes.TextDescription
+import br.senai.sp.jandira.tcc.componentes.TextTitulo
 
 @Composable
 fun RegisterPasswordScreen(navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
+        Column {
+
             ArrowLeftPurple(navController = navController, rota = "register")
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 30.dp)
-        ) {
-            Text(
-                stringResource(id = R.string.title_register_password),
-                modifier = Modifier.fillMaxWidth(),
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                fontSize = 30.sp,
-            )
+            TextTitulo(texto = R.string.title_register_password)
+
+            TextDescription(texto = R.string.description_register_password)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
         }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-        ) {
-            Text(
-                stringResource(id = R.string.description_register_password),
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                fontSize = 18.sp
-            )
-        }
-
-        Spacer(modifier = Modifier.height(45.dp))
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -87,7 +67,7 @@ fun RegisterPasswordScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "home")
+            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week")
 
         }
 

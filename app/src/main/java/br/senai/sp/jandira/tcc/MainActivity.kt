@@ -11,15 +11,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.ForgotPassword.ForgotPasswordScreen
+import br.senai.sp.jandira.tcc.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
 import br.senai.sp.jandira.tcc.Home.CadastroScren
 import br.senai.sp.jandira.tcc.Login.LoginScreen
 import br.senai.sp.jandira.tcc.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.StartScreen.LoadingScreen
+import br.senai.sp.jandira.tcc.dao.repository.semanaRepository.Companion.getSemanasList
+import br.senai.sp.jandira.tcc.model.week
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -45,6 +50,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
+    val semana: List<week> = getSemanasList()
     val navController = rememberAnimatedNavController()
 
     AnimatedNavHost(
@@ -59,8 +65,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "register") { RegisterScreen (navController) }
             composable(route = "register_password") { RegisterPasswordScreen (navController) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-
-
+            composable(route = "week") { GestationWeekScreen (semana, navController) }
         }
 }
 

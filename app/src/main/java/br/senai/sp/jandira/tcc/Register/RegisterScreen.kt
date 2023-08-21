@@ -30,9 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.AddItem
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
+import br.senai.sp.jandira.tcc.componentes.TextDescription
+import br.senai.sp.jandira.tcc.componentes.TextTitulo
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -41,36 +44,17 @@ fun RegisterScreen(navController: NavController) {
         .fillMaxSize()
         .background(Color.White)) {
 
+        Column {
+
             ArrowLeftPurple(navController = navController, rota = "home")
 
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 14.dp)) {
-            Text(
-                stringResource(id = R.string.title_register),
-                modifier = Modifier.fillMaxWidth(),
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                fontSize = 30.sp,
-            )
+            TextTitulo(texto = R.string.title_register)
+
+            TextDescription(texto = R.string.description_register)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
         }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 30.dp)){
-            Text(
-                stringResource(id = R.string.description_register),
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                fontSize = 18.sp
-
-            )
-        }
-
-        Spacer(modifier = Modifier.height(25.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),

@@ -19,8 +19,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun TextDescription(
-
-//    texto: Int
+    texto: Int
 
 ) {
 
@@ -32,7 +31,7 @@ fun TextDescription(
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(id = R.string.screen_description_forgot_password),
+            text = stringResource(id = texto),
             fontSize = 17.sp,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,
@@ -42,8 +41,8 @@ fun TextDescription(
     }
 }
 
-@Preview (showBackground = true, showSystemUi = true)
-@Composable
-fun TextDescriptionPreview() {
-    TextDescription()
-}
+//@Preview (showBackground = true, showSystemUi = true)
+//@Composable
+//fun TextDescriptionPreview() {
+//    TextDescription()
+//}

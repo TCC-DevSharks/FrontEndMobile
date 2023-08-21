@@ -2,8 +2,8 @@
     <string name="app_name">BebeVindo</string>
     <string name="title_activity_home">Home</string>
 
-    <string name="title">Bem-Vinda de Volta!</string>
-    <string name="description">Estamos animados para seguir te auxiliando na jornada da maternidade.</string>
+    <string name="title_login">Bem-Vinda de Volta!</string>
+    <string name="description_login">Estamos animados para seguir te auxiliando na jornada da maternidade.</string>
     <string name="screen_description_forgot_password">Sem Problemas! Vamos Recuperar o Acesso para Continuar na Sua Jornada.</string>
     <string name="forgot_password">Esqueceu a senha?</string>
     <string name="title_register">Bem-Vinda!</string>
@@ -13,6 +13,10 @@
     <string name="title_register_password">Escolha uma senha</string>
     <string name="description_register_password">Sua senha deve ser segura. Não compartilhe com ninguém!</string>
 
+    <!---->
+    <string name="title_week">Selecione sua semana gestacional</string>
+    <string name="description_week">Escolha a sua semana e vamos acompanhar juntos o crescimento do seu bebê!</string>
+
     <!--    -->
     <string name="username">Username</string>
     <string name="name_password">Senha</string>
@@ -20,7 +24,6 @@
 
     <string name="text_field_nome">Nome Completo</string>
     <string name="text_field_telefone">Telefone</string>
-
     <string name="text_field_nascimento">Data de Nascimento</string>
 
 

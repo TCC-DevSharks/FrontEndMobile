@@ -27,6 +27,8 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
+import br.senai.sp.jandira.tcc.componentes.TextDescription
+import br.senai.sp.jandira.tcc.componentes.TextTitulo
 
 @Composable
 fun ForgotPasswordScreen(navController: NavController) {
@@ -40,37 +42,16 @@ fun ForgotPasswordScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-            ArrowLeftPurple(navController = navController, rota = "login")
+          Column () {
 
-        Row(
-            modifier = Modifier.padding(top = 35.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(id = R.string.forgot_password),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(46, 44, 44),
-            )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 26.dp, start = 20.dp, end = 20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.screen_description_forgot_password),
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                color = Color(66, 61, 61)
-            )
-        }
+              ArrowLeftPurple(navController = navController, rota = "login")
 
-        Spacer(modifier = Modifier.height(18.dp))
+              TextTitulo(texto = R.string.forgot_password)
+
+              TextDescription(texto = R.string.screen_description_forgot_password)
+
+              Spacer(modifier = Modifier.height(20.dp))
+          }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
