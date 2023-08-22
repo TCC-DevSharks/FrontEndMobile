@@ -81,4 +81,8 @@ dependencies {
     // Biblioteca para o Calendario
     implementation("com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2")
 
+    // Import Calendario
+    implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.1.6")
+
 }

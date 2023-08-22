@@ -84,7 +84,7 @@ fun LazyColumnWithSelection(){
 }
 
 @Composable
-fun GestationWeekScreen(weeks : List<week>, navController: NavController) {
+fun GestationWeekScreen(navController: NavController) {
 
     Column (modifier = Modifier.fillMaxSize()) {
 
@@ -108,7 +108,7 @@ fun GestationWeekScreen(weeks : List<week>, navController: NavController) {
 
 
 
-        ButtonPurple(navController = navController, texto = R.string.button_next, rota = "home")
+        ButtonPurple(navController = navController, texto = R.string.button_next, rota = "calendar")
 
     }
 
