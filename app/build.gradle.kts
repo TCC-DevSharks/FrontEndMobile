@@ -81,6 +81,4 @@ dependencies {
     // Biblioteca para o Calendario
     implementation("com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2")
 
-
-
 }

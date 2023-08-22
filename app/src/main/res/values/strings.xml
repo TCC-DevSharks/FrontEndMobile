@@ -17,6 +17,11 @@
     <string name="title_week">Selecione sua semana gestacional</string>
     <string name="description_week">Escolha a sua semana e vamos acompanhar juntos o crescimento do seu bebê!</string>
 
+
+    <!---->
+    <string name="title_calendar">Data do parto</string>
+    <string name="description_calendar">Baseado em sua semana gestacional, essa é a data prevista para o parto. Você pode alterar mais tarde no seu perfil.</string>
+
     <!--    -->
     <string name="username">Username</string>
     <string name="name_password">Senha</string>

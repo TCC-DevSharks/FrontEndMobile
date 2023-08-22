@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.GestationWeek
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -52,14 +53,18 @@ fun ItemView(index: Int, selected: Boolean, onClick: (Int) -> Unit){
             .padding(12.dp),
         textAlign = TextAlign.Center,
         color = if (selected) Color(182,182,246) else Color.Black,
-        fontSize =  if (selected) 25.sp  else 20.sp,
+        fontSize =  if (selected) 28.sp  else 22.sp,
     )
 }
 
 @Composable
 fun LazyColumnWithSelection(){
-    var selectedIndex by remember { mutableStateOf(0) }
+    var selectedIndex by remember { mutableStateOf(1) }
+
     val onItemClick = { index: Int -> selectedIndex = index}
+
+    Log.i("DS6M", "${selectedIndex}")
+
     LazyColumn(
         modifier = Modifier.height(308.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,13 +74,15 @@ fun LazyColumnWithSelection(){
     ){
         items(40){ index ->
             ItemView(
-                index = index,
-                selected = selectedIndex == index,
+                index = index + 1,
+                selected = selectedIndex == index + 1,
                 onClick = onItemClick,
             )
         }
+
     }
 }
+
 @Composable
 fun GestationWeekScreen(weeks : List<week>, navController: NavController) {
 
@@ -98,6 +105,7 @@ fun GestationWeekScreen(weeks : List<week>, navController: NavController) {
         LazyColumnWithSelection()
 
         Spacer(modifier = Modifier.height(60.dp))
+
 
 
         ButtonPurple(navController = navController, texto = R.string.button_next, rota = "home")
