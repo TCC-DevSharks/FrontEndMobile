@@ -34,6 +34,7 @@ import br.senai.sp.jandira.tcc.componentes.AddItem
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
+import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitulo
 
@@ -56,34 +57,7 @@ fun RegisterScreen(navController: NavController) {
 
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-
-            ) {
-                Card(
-                    modifier = Modifier
-                        .size(100.dp),
-                    shape = CircleShape,
-                    border = BorderStroke(3.5.dp, Color(182, 182, 246))
-
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.perfil_bebe),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_24),
-
-                    contentDescription = null,
-                    modifier = Modifier.align(Alignment.BottomEnd))
-                }
-            }
+        Profile()
 
         Spacer(modifier = Modifier.height(20.dp))
 

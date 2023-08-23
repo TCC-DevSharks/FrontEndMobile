@@ -13,6 +13,11 @@
     <string name="title_register_password">Escolha uma senha</string>
     <string name="description_register_password">Sua senha deve ser segura. Não compartilhe com ninguém!</string>
 
+    <!-- Home   -->
+    <string name="title_home">Maternidade Apoiada</string>
+    <string name="segundo_title_home">a Cada Passo.</string>
+    <string name="description_home">Guiando cada passo, nutrindo cada momento. Maternidade com Suporte Total. Bebê-Vindo - Sua Companhia na Jornada da Maternidade</string>
+
     <!---->
     <string name="title_week">Selecione sua semana gestacional</string>
     <string name="description_week">Escolha a sua semana e vamos acompanhar juntos o crescimento do seu bebê!</string>
@@ -31,8 +36,11 @@
     <string name="text_field_telefone">Telefone</string>
     <string name="text_field_nascimento">Data de Nascimento</string>
 
+    <string name="text_switch">Entrar como profissional</string>
+
 
     <string name="button_enter">Entrar</string>
+    <string name="button_register">Cadastrar</string>
     <string name="enter_the_app">Ou entre usando</string>
     <string name="new_password">Nova senha</string>
     <string name="confirm_new_password">Confirmar nova senha</string>

@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -80,7 +81,7 @@ fun CadastroScren (navController: NavController) {
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Maternidade Apoiada",
+                text = stringResource(id = R.string.title_home),
                 textAlign = TextAlign.Center,
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -96,7 +97,7 @@ fun CadastroScren (navController: NavController) {
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "a Cada Passo.",
+                text = stringResource(id = R.string.segundo_title_home),
                 textAlign = TextAlign.Center,
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -112,7 +113,7 @@ fun CadastroScren (navController: NavController) {
         ) {
 
             Text(
-                text = "Guiando cada passo, nutrindo cada momento. Maternidade com Suporte Total. Bebê-Vindo - Sua Companhia na Jornada da Maternidade",
+                text = stringResource(id = R.string.description_home) ,
                 textAlign = TextAlign.Center,
                 fontSize = 14.sp,
                 fontWeight = FontWeight(300),
@@ -142,7 +143,7 @@ fun CadastroScren (navController: NavController) {
                 border = BorderStroke(width = .1.dp, Color.Gray)
             ) {
                 Text(
-                    text = "Cadastrar",
+                    text = stringResource(id = R.string.button_register),
                     fontSize = 20.sp,
                     fontWeight = FontWeight(800),
                     color = Color.Black,
@@ -166,7 +167,7 @@ fun CadastroScren (navController: NavController) {
                 border = BorderStroke(width = .1.dp, Color.Gray)
             ) {
                 Text(
-                    text = "Entrar",
+                    text = stringResource(id = R.string.button_enter) ,
                     fontSize = 20.sp,
                     fontWeight = FontWeight(800),
                     color = Color.Black,
@@ -186,7 +187,7 @@ fun CadastroScren (navController: NavController) {
 
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Entrar como profissional",
+                text = stringResource(id = R.string.text_switch),
                 textAlign = TextAlign.Center,
                 fontSize = 13.sp,
                 fontWeight = FontWeight(300)
