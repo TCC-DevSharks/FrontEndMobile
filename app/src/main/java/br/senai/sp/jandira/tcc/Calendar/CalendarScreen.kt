@@ -3,20 +3,20 @@ package br.senai.sp.jandira.tcc.Calendar
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -35,16 +34,12 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextDescription
-import br.senai.sp.jandira.tcc.componentes.TextTitulo
+import br.senai.sp.jandira.tcc.componentes.TextTitle
 import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.DatePickerColors
 import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.datetime.time.timepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun CalendarScreen(navController: NavController) {
@@ -93,10 +88,13 @@ fun CalendarScreen(navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
+        Row (modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
 
-        ArrowLeftPurple(navController = navController, rota = "week")
+            ArrowLeftPurple(navController = navController, rota = "week")
 
-        TextTitulo(texto = R.string.title_calendar)
+        }
+
+        TextTitle(texto = R.string.title_calendar)
 
         TextDescription(texto = R.string.description_calendar)
 
@@ -152,7 +150,7 @@ fun CalendarScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "fdf")
+        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home")
 
 
     }

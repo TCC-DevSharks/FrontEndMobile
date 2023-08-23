@@ -8,23 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
-import br.senai.sp.jandira.tcc.componentes.TextTitulo
+import br.senai.sp.jandira.tcc.componentes.TextTitle
 
 @Composable
 fun RegisterPasswordScreen(navController: NavController) {
@@ -33,9 +27,13 @@ fun RegisterPasswordScreen(navController: NavController) {
 
         Column {
 
-            ArrowLeftPurple(navController = navController, rota = "register")
+            Row (modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
+                ArrowLeftPurple(navController = navController, rota = "register")
 
-            TextTitulo(texto = R.string.title_register_password)
+            }
+
+
+            TextTitle(texto = R.string.title_register_password)
 
             TextDescription(texto = R.string.description_register_password)
 

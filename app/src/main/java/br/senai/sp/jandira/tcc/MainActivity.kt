@@ -25,7 +25,6 @@ import br.senai.sp.jandira.tcc.Login.LoginScreen
 import br.senai.sp.jandira.tcc.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.StartScreen.LoadingScreen
-import br.senai.sp.jandira.tcc.model.week
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController

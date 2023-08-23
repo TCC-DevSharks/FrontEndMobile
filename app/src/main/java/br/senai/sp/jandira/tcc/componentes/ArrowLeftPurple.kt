@@ -17,11 +17,9 @@ import br.senai.sp.jandira.tcc.R
 fun ArrowLeftPurple(
     navController: NavController,
     rota: String,
+//    start = 26.dp, top = 35.dp)
 )
 {
-    Row (modifier = Modifier.fillMaxWidth()
-        .padding(start = 26.dp, top = 35.dp),
-    ) {
 
         Image(painter = painterResource(id = R.drawable.arrow_circle_purple_24),
             contentDescription = null,
@@ -29,6 +27,5 @@ fun ArrowLeftPurple(
                 navController.navigate(rota)
             }.size(40.dp),
         )
-    }
 
 }

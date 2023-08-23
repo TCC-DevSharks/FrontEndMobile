@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +33,7 @@ import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
-import br.senai.sp.jandira.tcc.componentes.TextTitulo
+import br.senai.sp.jandira.tcc.componentes.TextTitle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,9 +58,14 @@ fun LoginScreen(navController: NavController) {
         ) {
             Column {
 
-                ArrowLeftPurple(navController = navController, rota = "home")
+                Row (modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
 
-                TextTitulo(texto = R.string.title_login)
+                    ArrowLeftPurple(navController = navController, rota = "home")
+
+                }
+
+
+                TextTitle(texto = R.string.title_login)
 
                 TextDescription(texto = R.string.description_login)
 

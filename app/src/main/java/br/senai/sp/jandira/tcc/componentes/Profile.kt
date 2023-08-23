@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.componentes
 
+import android.media.Image
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -44,6 +45,7 @@ fun Profile() {
                     modifier = Modifier.fillMaxSize()
                 )
             }
+
             Image(
                 painter = painterResource(id = R.drawable.baseline_add_circle_24),
 
