@@ -144,7 +144,12 @@ fun LoginScreen(navController: NavController) {
                         //Duas exclamações seignificam que pode vir nulo
                         login = response.body()!!.login
 
-                        Log.d("qwe", "${login}")
+                        if (login[0].id !== 0){
+
+                            navController.navigate("home")
+                        }else{
+                            email = "senha errada"
+                        }
 
                     }
 
@@ -155,16 +160,8 @@ fun LoginScreen(navController: NavController) {
                         )
                     }
                 })
-                Log.d("assad","entrou")
-                if (login.isNotEmpty()){
-                    Log.d("assad","${login}")
-                    Log.d("bssad","${email}")
-                    Log.d("cssad","${password}")
 
-                    navController.navigate("home")
-                }else{
-                    email = "senha errada"
-                }
+
             })
 
             Spacer(modifier = Modifier.height(30.dp))
