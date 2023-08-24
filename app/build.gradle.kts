@@ -85,4 +85,10 @@ dependencies {
     implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:1.1.6")
 
+    //Retrofit dependencies
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Coil dependencies
+    implementation ("io.coil-kt:coil-compose:2.3.0")
 }

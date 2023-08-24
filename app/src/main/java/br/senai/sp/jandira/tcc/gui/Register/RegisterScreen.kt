@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.Register
+package br.senai.sp.jandira.tcc.gui.Register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +28,11 @@ import br.senai.sp.jandira.tcc.componentes.TextTitle
 
 @Composable
 fun RegisterScreen(navController: NavController) {
+
+    var email by rememberSaveable { mutableStateOf("") }
+    var nome by rememberSaveable { mutableStateOf("") }
+    var dataNascimento by rememberSaveable { mutableStateOf("") }
+    var telefone by rememberSaveable { mutableStateOf("") }
 
     Column (modifier = Modifier
         .fillMaxSize()
@@ -55,22 +64,46 @@ fun RegisterScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally) {
 
 
-            OutlinedTextFieldTodos(texto = R.string.text_field_nome, meuType = KeyboardType.Text)
+            OutlinedTextFieldTodos(
+                texto = R.string.text_field_nome,
+                meuType = KeyboardType.Text,
+                nome
+            ){
+                nome = it
+            }
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextFieldTodos(texto = R.string.types_of_users, meuType = KeyboardType.Email)
+            OutlinedTextFieldTodos(
+                texto = R.string.types_of_users,
+                meuType = KeyboardType.Email,
+                email
+            ){
+                email = it
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextFieldTodos(texto = R.string.text_field_telefone, meuType = KeyboardType.Phone)
+            OutlinedTextFieldTodos(
+                texto = R.string.text_field_telefone,
+                meuType = KeyboardType.Phone,
+                telefone
+            ){
+                telefone = it
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextFieldTodos(texto = R.string.text_field_nascimento, meuType = KeyboardType.Number)
+            OutlinedTextFieldTodos(
+                texto = R.string.text_field_nascimento,
+                meuType = KeyboardType.Number,
+                dataNascimento
+            ){
+                dataNascimento = it
+            }
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password",)
+            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password", onclick = {})
         }
 
         }

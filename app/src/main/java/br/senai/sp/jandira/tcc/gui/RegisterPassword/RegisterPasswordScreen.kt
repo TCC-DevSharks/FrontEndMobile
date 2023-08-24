@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.RegisterPassword
+package br.senai.sp.jandira.tcc.gui.RegisterPassword
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,6 +26,9 @@ import br.senai.sp.jandira.tcc.componentes.TextTitle
 
 @Composable
 fun RegisterPasswordScreen(navController: NavController) {
+
+    var password by rememberSaveable { mutableStateOf("") }
+    var passwordConfirmation by rememberSaveable { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -47,14 +54,17 @@ fun RegisterPasswordScreen(navController: NavController) {
         ) {
 
             OutlinedTextFieldSenha(
-                texto = R.string.name_password,
-            )
+                texto = R.string.name_password,password){
+                password = it
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
 
             OutlinedTextFieldSenha(
-                texto = R.string.confirm_password,
-            )
+                texto = R.string.confirm_password,passwordConfirmation
+            ){
+                passwordConfirmation = it
+            }
         }
 
         Spacer(modifier = Modifier.height(45.dp))
@@ -65,7 +75,7 @@ fun RegisterPasswordScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week")
+            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week", onclick = {})
 
         }
 

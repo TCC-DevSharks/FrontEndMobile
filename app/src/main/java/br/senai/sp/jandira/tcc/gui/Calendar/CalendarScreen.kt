@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.Calendar
+package br.senai.sp.jandira.tcc.gui.Calendar
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -150,7 +150,7 @@ fun CalendarScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home")
+        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home", onclick = {})
 
 
     }

@@ -25,7 +25,8 @@ fun ButtonPurple(
     navController: NavController,
     texto: Int,
     rota: String,
-    cor: Color = Color(182, 182, 246)
+    cor: Color = Color(182, 182, 246),
+    onclick: (NavController) -> Unit
 
 ) {
 
@@ -35,9 +36,9 @@ fun ButtonPurple(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = {
-                navController.navigate(rota)
-            },
+            onClick =
+            {onclick(navController)}
+            ,
             modifier = Modifier
                 .width(327.dp)
                 .height(48.dp),

@@ -31,9 +31,11 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun OutlinedTextFieldSenha(
     texto: Int,
+    password: String,
+    onValueChange: (String) -> Unit
 ) {
 
-    var password by rememberSaveable { mutableStateOf("") }
+//    var password by rememberSaveable { mutableStateOf("") }
 
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -46,7 +48,7 @@ fun OutlinedTextFieldSenha(
     OutlinedTextField(
         value = password,
         onValueChange = {
-            password = it
+          onValueChange(it)
         },
         modifier = Modifier
             .width(355.dp),

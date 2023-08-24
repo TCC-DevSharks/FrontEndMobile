@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.StartScreen
+package br.senai.sp.jandira.tcc.gui.StartScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

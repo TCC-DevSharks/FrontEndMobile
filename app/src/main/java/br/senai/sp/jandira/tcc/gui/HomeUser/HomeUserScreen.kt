@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.HomeUser
+package br.senai.sp.jandira.tcc.gui.HomeUser
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

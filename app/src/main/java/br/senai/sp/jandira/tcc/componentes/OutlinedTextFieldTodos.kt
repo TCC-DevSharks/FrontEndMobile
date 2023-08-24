@@ -23,15 +23,15 @@ import androidx.compose.ui.unit.dp
 fun OutlinedTextFieldTodos(
     texto: Int,
     meuType: KeyboardType,
+    email: String,
+    onValueChange: (String) -> Unit
 )
 {
-
-    var email by remember { mutableStateOf("") }
 
     OutlinedTextField(
         value = email,
         onValueChange = {
-            email = it
+            onValueChange(it)
         },
         modifier = Modifier
             .width(355.dp),

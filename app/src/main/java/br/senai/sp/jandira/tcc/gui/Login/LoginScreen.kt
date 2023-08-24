@@ -1,5 +1,6 @@
-package br.senai.sp.jandira.tcc.Login
+package br.senai.sp.jandira.tcc.gui.Login
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
@@ -34,6 +36,12 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.Login
+import br.senai.sp.jandira.tcc.model.LoginList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,81 +49,123 @@ import br.senai.sp.jandira.tcc.componentes.TextTitle
 fun LoginScreen(navController: NavController) {
 
     @OptIn(ExperimentalMaterial3Api::class)
-        val context = LocalContext.current
+    val context = LocalContext.current
+    var password by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+
+    val call = RetrofitFactory().getLoginService().getLogin(email = email,senha = password)
+
+    var login by remember {
+        mutableStateOf(listOf<Login>())
+    }
+
+    val lineColor = Color(182, 182, 246) // Cor linear
+    val word = "Entre"
 
 
-        val lineColor = Color(182, 182, 246) // Cor linear
-        val word = "Entre"
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .fillMaxHeight(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Column {
+
+            Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
+
+                ArrowLeftPurple(navController = navController, rota = "home")
+
+            }
 
 
+            TextTitle(texto = R.string.title_login)
+
+            TextDescription(texto = R.string.description_login)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+        }
+
+        Column(
+            modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            OutlinedTextFieldTodos(
+                texto = R.string.types_of_users,
+                meuType = KeyboardType.Email,
+                email
+            ) {
+                email = it
+            }
+
+            OutlinedTextFieldSenha(
+                texto = R.string.name_password, password
+            ) {
+                password = it
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp, start = 10.dp, end = 25.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navController.navigate("forgot_password")
+                        },
+                    text = stringResource(id = br.senai.sp.jandira.tcc.R.string.forgot_password),
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.End,
+                    color = Color(66, 61, 61)
+
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(35.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Top,
+                .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column {
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "", onclick = {
 
-                Row (modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
+                call.enqueue(object : retrofit2.Callback<LoginList> {
+                    override fun onResponse(
+                        call: Call<LoginList>,
+                        response: Response<LoginList>
 
-                    ArrowLeftPurple(navController = navController, rota = "home")
+                    ) {
+                        //Duas exclamações seignificam que pode vir nulo
+                        login = response.body()!!.login
 
+                        Log.d("qwe", "${login}")
+
+                    }
+
+                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                    }
+                })
+                Log.d("assad","entrou")
+                if (login.isNotEmpty()){
+                    Log.d("assad","${login}")
+                    Log.d("bssad","${email}")
+                    Log.d("cssad","${password}")
+
+                    navController.navigate("home")
+                }else{
+                    email = "senha errada"
                 }
-
-
-                TextTitle(texto = R.string.title_login)
-
-                TextDescription(texto = R.string.description_login)
-
-                Spacer(modifier = Modifier.height(20.dp))
-
-            }
-
-            Column(
-                modifier = Modifier.fillMaxWidth()
-                , horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                OutlinedTextFieldTodos(
-                    texto = R.string.types_of_users,
-                    meuType = KeyboardType.Email
-                )
-
-                OutlinedTextFieldSenha(
-                    texto = R.string.name_password,
-                    )
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, start = 10.dp, end = 25.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                navController.navigate("forgot_password")
-                            },
-                        text = stringResource(id = br.senai.sp.jandira.tcc.R.string.forgot_password),
-                        fontSize = 15.sp,
-                        textAlign = TextAlign.End,
-                        color = Color(66, 61, 61)
-
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(35.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 0.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ButtonPurple(navController ,texto = R.string.button_enter, rota = "home")
-                }
+            })
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -209,7 +259,7 @@ fun LoginScreen(navController: NavController) {
 
         }
     }
-
+}
 //@Preview (showSystemUi = true, showBackground = true)
 //@Composable
 //fun LoginPreview() {
