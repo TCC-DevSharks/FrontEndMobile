@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
@@ -15,7 +16,8 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun AddItem(
     navController: NavController,
-    rota: String
+    rota: String,
+    size: Dp
     ) {
 
     Row() {
@@ -24,7 +26,7 @@ fun AddItem(
             contentDescription = null,
             modifier = Modifier.clickable {
                 navController.navigate(rota)
-            }
+            }.size(size)
         )
     }
     

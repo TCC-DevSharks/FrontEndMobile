@@ -47,7 +47,7 @@ fun RegisterScreen(navController: NavController) {
 
         }
 
-        Profile()
+        Profile(size = 24.dp)
 
         Spacer(modifier = Modifier.height(20.dp))
 

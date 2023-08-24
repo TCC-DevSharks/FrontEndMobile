@@ -34,7 +34,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun Schedule() {
+fun Schedule(navController: NavController) {
 
     Column(
         modifier = Modifier
@@ -79,12 +79,7 @@ fun Schedule() {
                     )
                 }
 
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_24),
-                    contentDescription = null,
-                    alignment = Alignment.BottomEnd,
-                    modifier = Modifier.size(32.dp)
-                )
+               AddItem(navController = navController, rota = "", size = 30.dp)
             }
 
             Column(modifier = Modifier
@@ -317,8 +312,8 @@ fun Schedule() {
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ScredulePreview() {
-    Schedule()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun ScredulePreview() {
+//    Schedule()
+//}

@@ -18,11 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun Profile() {
+fun Profile(
+    size: Dp
+) {
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -50,14 +53,16 @@ fun Profile() {
                 painter = painterResource(id = R.drawable.baseline_add_circle_24),
 
                 contentDescription = null,
-                modifier = Modifier.align(Alignment.BottomEnd))
+                modifier = Modifier.align(Alignment.BottomEnd)
+                    .size(size)
+            )
         }
     }
 
 }
 
-@Preview (showBackground = true, showSystemUi = true)
-@Composable
-fun ProfilePreviwe() {
-    Profile()
-}
+//@Preview (showBackground = true, showSystemUi = true)
+//@Composable
+//fun ProfilePreviwe() {
+//    Profile()
+//}
