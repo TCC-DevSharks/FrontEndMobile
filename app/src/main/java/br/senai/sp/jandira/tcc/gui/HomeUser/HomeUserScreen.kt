@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -77,20 +78,22 @@ fun HomeUserScreen() {
             Card(
                 modifier = Modifier
                     .width(360.dp)
-                    .height(250.dp)
-                    .background(Color(182, 182, 246, 43)),
+                    .height(250.dp),
+                colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+                border = BorderStroke(2.dp, Color(182, 182, 246, 38))
             ) {
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 48.8.dp, start = 10.dp)
+                        .padding(top = 49.dp, start = 22.dp)
                 ) {
 
                     Text(
-                        text = "Oi, Alviatyrtyryhtyhtyhyt!",
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        text = "Oi, Alvia!",
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color(182, 182, 246)
                     )
 
                 }
@@ -100,36 +103,81 @@ fun HomeUserScreen() {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 10.dp)
+                        .padding(start = 22.dp)
                 ) {
 
                     Text(
                         text = "Como está se sentindo hoje?",
                         fontSize = 15.sp,
-                        fontWeight = FontWeight.Light,
+                        fontWeight = FontWeight(600),
+                        color = Color(182, 182, 246)
                     )
 
                 }
 
-                Spacer(modifier = Modifier.height(11.dp))
+                Spacer(modifier = Modifier.height(31.dp))
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 10.dp),
+                        .padding(start = 22.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
 
                     Text(
                         textAlign = TextAlign.Center,
                         text = "11 semanas, 2 dias",
-                        fontSize = 19.sp,
-                        fontWeight = FontWeight.Medium
+                        fontSize = 21.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color(182, 182, 246)
                     )
 
-//                    Button(modifier = Modifier.size(100.dp, 40.dp),onClick = { /*TODO*/ }) {
-//
-//                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
+                ) {
+
+                    Row(
+                        modifier = Modifier
+//                            .fillMaxWidth()
+                            .height(2.5.dp)
+                            .width(120.dp)
+                            .background(Color(182, 182, 246))
+                    ) {
+
+
+
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text(
+                        text = "11 semanas",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(182, 182, 246)
+                    )
+
+                    Text(
+                        text = "Out 11 Fev",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(182, 182, 246)
+                    )
                 }
 
 

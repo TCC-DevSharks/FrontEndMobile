@@ -1,10 +1,12 @@
 package br.senai.sp.jandira.tcc.componentes
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -34,12 +37,12 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun Schedule(navController: NavController) {
+fun Schedule() {
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Blue),
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -49,9 +52,9 @@ fun Schedule(navController: NavController) {
             modifier = Modifier
                 .width(350.dp)
                 .height(174.dp),
-            colors = CardDefaults.cardColors(Color.White)
-
-            ) {
+            colors = CardDefaults.cardColors(Color.White),
+            border = BorderStroke(2.dp, Color(182, 182, 246, 38))
+        ) {
 
             Row(
                 modifier = Modifier
@@ -62,7 +65,8 @@ fun Schedule(navController: NavController) {
 
             ) {
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center) {
 
                     Image(
                         painter = painterResource(id = R.drawable.calendar),
@@ -70,16 +74,41 @@ fun Schedule(navController: NavController) {
                         modifier = Modifier.size(30.dp)
                     )
 
-                    Text(
-                        text = "Sua agenda",
-                        fontSize = 17.sp,
-                        modifier = Modifier.padding(start = 16.dp),
-                        fontWeight = FontWeight.SemiBold,
+                    Column (modifier = Modifier.padding(start = 16.dp),horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center) {
+
+                        Text(
+                            text = "Sua agenda",
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
 //                        textDecoration = TextDecoration.Underline,
-                    )
+                        )
+
+                        Spacer(modifier = Modifier.height(2.dp))
+
+                        Column (modifier = Modifier
+                            .width(90.dp)
+                            .height(3.2.dp)
+                            .background(
+                                Color(182, 182, 246),
+                                shape = RoundedCornerShape(
+                                    topStart = 2.dp,
+                                    topEnd = 2.dp,
+                                    bottomStart = 2.dp,
+                                    bottomEnd = 2.dp
+                                )
+                            )
+
+                        ) {
+
+                        }
+
+                    }
+
                 }
 
-               AddItem(navController = navController, rota = "", size = 30.dp)
+//               AddItem(navController = navController, rota = "", size = 30.dp)
             }
 
             Column(modifier = Modifier
@@ -312,8 +341,8 @@ fun Schedule(navController: NavController) {
 
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun ScredulePreview() {
-//    Schedule()
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ScredulePreview() {
+    Schedule()
+}
