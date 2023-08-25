@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.Register
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import androidx.navigation.navArgument
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
@@ -25,9 +29,10 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelRegister
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
     var email by rememberSaveable { mutableStateOf("") }
     var nome by rememberSaveable { mutableStateOf("") }
@@ -103,7 +108,10 @@ fun RegisterScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password", onclick = {})
+            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password", onclick = {
+                viewModel.nome = nome
+                navController.navigate("register_password")
+            })
         }
 
         }

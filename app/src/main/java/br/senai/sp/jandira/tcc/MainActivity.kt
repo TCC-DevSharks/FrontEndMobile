@@ -16,6 +16,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -26,6 +28,7 @@ import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.componentes.Schedule
+import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -58,6 +61,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 
     val navController = rememberAnimatedNavController()
+    val viewModel = ModelRegister()
 
     AnimatedNavHost(
         navController = navController,
@@ -68,8 +72,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
             composable(route = "login") { LoginScreen (navController) }
-            composable(route = "register") { RegisterScreen (navController) }
-            composable(route = "register_password") { RegisterPasswordScreen (navController) }
+            composable(route = "register") { RegisterScreen (navController, viewModel)}
+            composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController) }
             composable(route = "calendar") { CalendarScreen (navController) }

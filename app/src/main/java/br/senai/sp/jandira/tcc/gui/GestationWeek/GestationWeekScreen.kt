@@ -101,7 +101,10 @@ fun GestationWeekScreen(navController: NavController) {
 
 
 
-        ButtonPurple(navController = navController, texto = R.string.button_next, rota = "calendar", onclick = {})
+        ButtonPurple(navController = navController, texto = R.string.button_next, rota = "calendar", onclick = {
+
+            navController.navigate("calendar")
+        })
 
     }
 

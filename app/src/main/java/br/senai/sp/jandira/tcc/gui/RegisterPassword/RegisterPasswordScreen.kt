@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.RegisterPassword
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
@@ -23,9 +26,10 @@ import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelRegister
 
 @Composable
-fun RegisterPasswordScreen(navController: NavController) {
+fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegister) {
 
     var password by rememberSaveable { mutableStateOf("") }
     var passwordConfirmation by rememberSaveable { mutableStateOf("") }
@@ -65,6 +69,7 @@ fun RegisterPasswordScreen(navController: NavController) {
             ){
                 passwordConfirmation = it
             }
+
         }
 
         Spacer(modifier = Modifier.height(45.dp))
@@ -75,7 +80,10 @@ fun RegisterPasswordScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week", onclick = {})
+            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week", onclick = {
+
+                navController.navigate("week")
+            })
 
         }
 
