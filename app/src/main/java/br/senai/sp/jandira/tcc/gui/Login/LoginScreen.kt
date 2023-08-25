@@ -143,9 +143,11 @@ fun LoginScreen(navController: NavController) {
                     ) {
                         //Duas exclamações seignificam que pode vir nulo
                         login = response.body()!!.login
+                        Log.d("asfdss", "${login}")
+
 
                         if (login[0].id !== 0){
-
+                            Log.d("asfdss", "entrou")
                             navController.navigate("home")
                         }else{
                             email = "senha errada"
