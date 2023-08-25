@@ -150,7 +150,7 @@ fun CalendarScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home", onclick = {})
+        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "homeUser", onclick = {})
 
 
     }

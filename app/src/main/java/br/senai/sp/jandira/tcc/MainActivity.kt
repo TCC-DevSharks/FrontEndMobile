@@ -26,6 +26,7 @@ import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.componentes.Schedule
+import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -73,7 +74,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController) }
             composable(route = "calendar") { CalendarScreen (navController) }
-            composable(route = "homeUser") { Schedule (navController) }
+            composable(route = "homeUser") { HomeUserScreen (navController) }
         }
 }
 

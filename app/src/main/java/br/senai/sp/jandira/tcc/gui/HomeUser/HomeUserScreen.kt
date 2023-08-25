@@ -17,9 +17,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
@@ -38,15 +41,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Profile
+import br.senai.sp.jandira.tcc.componentes.Schedule
+import br.senai.sp.jandira.tcc.componentes.TextDescription
 
 
 @Composable
-fun HomeUserScreen() {
+fun HomeUserScreen(navController: NavController) {
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -140,16 +149,16 @@ fun HomeUserScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 24.dp)
+                        .background(Color.White)
                 ) {
 
                     Row(
                         modifier = Modifier
 //                            .fillMaxWidth()
-                            .height(2.5.dp)
+                            .height(3.2.dp)
                             .width(120.dp)
-                            .background(Color(182, 182, 246))
+                            .background(Color(182, 182, 246)),
                     ) {
-
 
 
                     }
@@ -179,18 +188,88 @@ fun HomeUserScreen() {
                         color = Color(182, 182, 246)
                     )
                 }
+            }
+        }
 
+        Spacer(modifier = Modifier.height(35.dp))
+
+        Schedule()
+
+        Spacer(modifier = Modifier.height(29.dp))
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 26.dp)
+        ) {
+
+            Text(
+                text = "Espaço Gravidez e Conversa",
+                fontSize = 15.7.sp,
+                fontWeight = FontWeight(300),
+            )
+        }
+
+        Spacer(modifier = Modifier.height(9.dp))
+
+
+        Button(
+            modifier = Modifier.size(360.dp, 50.dp),
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.buttonColors(Color(182,182,246, 23)),
+            border = BorderStroke( .3.dp, Color(182, 182, 246)),
+            shape = RoundedCornerShape(16.dp)
+
+        ) {
+            Row (modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically) {
+
+                Image(
+                    painter = painterResource(id = R.drawable.comments),
+                    contentDescription = null,
+                    modifier = Modifier.size(26.dp)
+                )
+
+                Text(modifier = Modifier.padding(start = 15.dp),
+                    text = "Fórum",
+                    fontSize = 16.sp,
+                    color = Color(182,182,246),
+
+
+                    )
 
             }
 
-
         }
+
+        Spacer(modifier = Modifier.height(29.dp))
+
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 26.dp)
+        ) {
+
+            Text(
+                text = "Guia Materno",
+                fontSize = 15.7.sp,
+                fontWeight = FontWeight(300),
+            )
+        }
+
+        Spacer(modifier = Modifier.height(9.dp))
+
+
+
     }
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun HomeUserPreview() {
-    HomeUserScreen()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun HomeUserPreview() {
+//    HomeUserScreen()
+//}
