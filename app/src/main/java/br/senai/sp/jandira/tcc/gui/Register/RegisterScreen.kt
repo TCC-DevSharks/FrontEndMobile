@@ -109,8 +109,19 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             Spacer(modifier = Modifier.height(40.dp))
 
             ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password", onclick = {
-                viewModel.nome = nome
-                navController.navigate("register_password")
+
+                if (nome.isNotEmpty() and email.isNotEmpty() and telefone.isNotEmpty() and dataNascimento.isNotEmpty()){
+                    viewModel.nome = nome
+                    viewModel.email = email
+                    viewModel.telefone = telefone
+                    viewModel.data_nascimento = dataNascimento
+                    navController.navigate("register_password")
+                }else{
+                    Log.i("erro", "todos os campos devem ser preenchidas")
+                }
+
+
+
             })
         }
 

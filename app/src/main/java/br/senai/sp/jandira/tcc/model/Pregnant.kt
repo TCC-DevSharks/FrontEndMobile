@@ -10,7 +10,7 @@ data class Pregnant(
     val altura: Double,
     val data_parto: String,
     val foto: String,
-    val semana_gestacao: Double,
+    val semana_gestacao: Int,
     val telefone: String
 
 )

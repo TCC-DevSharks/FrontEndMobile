@@ -35,6 +35,9 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelRegister
+import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
@@ -42,8 +45,21 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
 
 @Composable
-fun CalendarScreen(navController: NavController) {
+fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
+    var pregnant = Pregnant(
+        nome = viewModel.nome,
+        data_nascimento = viewModel.data_nascimento,
+        email = viewModel.email,
+        senha = viewModel.senha,
+        cpf = viewModel.cpf,
+        peso = viewModel.peso,
+        altura = viewModel.altura,
+        data_parto = viewModel.data_parto,
+        foto = viewModel.foto,
+        semana_gestacao = viewModel.semana_gestacao,
+        telefone = viewModel.telefone
+    )
     val context = LocalContext.current // Obtenha o contexto local
 
     var pickedDate by remember {
@@ -150,7 +166,13 @@ fun CalendarScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home", onclick = {})
+        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "home", onclick = {
+            if(pickedDate != LocalDate.now()){
+                viewModel.data_parto = pickedDate.toString()
+                navController.navigate("home")
+            }
+
+        })
 
 
     }

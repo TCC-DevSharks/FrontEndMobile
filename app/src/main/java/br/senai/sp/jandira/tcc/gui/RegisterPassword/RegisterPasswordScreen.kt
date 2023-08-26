@@ -82,7 +82,20 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
 
             ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week", onclick = {
 
-                navController.navigate("week")
+                if (password.isNotEmpty() and passwordConfirmation.isNotEmpty()){
+                    if (password == passwordConfirmation){
+                        viewModel.senha = password
+
+                        navController.navigate("week")
+
+                    }else{
+                        Log.i("Erro","Senhas devem ser iguais")
+                    }
+                }else{
+                    Log.i("Erro","Não podem ficar vazio" )
+
+                }
+
             })
 
         }

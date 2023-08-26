@@ -23,12 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelRegister
 
 
 @Composable
@@ -48,19 +50,17 @@ fun ItemView(index: Int, selected: Boolean, onClick: (Int) -> Unit){
 }
 
 @Composable
-fun LazyColumnWithSelection(){
-    var selectedIndex by remember { mutableStateOf(1) }
+fun LazyColumnWithSelection(viewModel: ModelRegister){
+    var selectedIndex by remember { mutableStateOf(0) }
 
     val onItemClick = { index: Int -> selectedIndex = index}
 
-    Log.i("DS6M", "${selectedIndex}")
 
+    viewModel.semana_gestacao = selectedIndex
     LazyColumn(
         modifier = Modifier.height(308.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-
-
     ){
         items(40){ index ->
             ItemView(
@@ -74,7 +74,9 @@ fun LazyColumnWithSelection(){
 }
 
 @Composable
-fun GestationWeekScreen(navController: NavController) {
+fun GestationWeekScreen(navController: NavController, viewModel: ModelRegister) {
+
+
 
     Column (modifier = Modifier.fillMaxSize()) {
 
@@ -95,7 +97,7 @@ fun GestationWeekScreen(navController: NavController) {
 
         }
 
-        LazyColumnWithSelection()
+        LazyColumnWithSelection(viewModel)
 
         Spacer(modifier = Modifier.height(60.dp))
 
@@ -103,7 +105,11 @@ fun GestationWeekScreen(navController: NavController) {
 
         ButtonPurple(navController = navController, texto = R.string.button_next, rota = "calendar", onclick = {
 
-            navController.navigate("calendar")
+            if (viewModel.semana_gestacao != 0){
+                navController.navigate("calendar")
+            }else{
+                Log.i("erro","Selecione uma semana")
+            }
         })
 
     }
