@@ -60,7 +60,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         cpf = viewModel.cpf,
         peso = 1.1,
         altura = 0.0,
-        data_parto = "2020-01-01",
+        data_parto = viewModel.data_parto,
         foto = "foto",
         semana_gestacao = viewModel.semana_gestacao,
         telefone = viewModel.telefone
@@ -109,6 +109,8 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
         ) {
             pickedDate = it
+            viewModel.data_parto = "${pickedDate}"
+
         }
     }
 
@@ -181,7 +183,6 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
             texto = R.string.button_finish,
             rota = "home",
             onclick = {
-//                viewModel.data_parto = "${pickedDate}"
 
                     call.enqueue(object : Callback<ResponseBody> {
                         override fun onResponse(

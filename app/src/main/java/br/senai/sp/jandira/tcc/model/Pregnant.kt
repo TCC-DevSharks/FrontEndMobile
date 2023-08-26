@@ -5,7 +5,7 @@ data class Pregnant(
     val data_nascimento: String,
     val email: String,
     val senha: String,
-    val cpf: String,
+    val cpf: String?,
     val peso: Double,
     val altura: Double,
     val data_parto: String,
