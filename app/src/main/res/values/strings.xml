@@ -8,6 +8,7 @@
     <string name="forgot_password">Esqueceu a senha?</string>
     <string name="title_register">Bem-Vinda!</string>
     <string name="description_register">Preparada para Começar a Jornada?Bebê-Vindo, Seu Apoio na Maternidade.</string>
+    <string name="error_password">Your e-mail address or password is incorrect!</string>
 
     <!-- Register Password   -->
     <string name="title_register_password">Escolha uma senha</string>

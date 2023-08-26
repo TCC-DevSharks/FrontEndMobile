@@ -1,6 +1,10 @@
 package br.senai.sp.jandira.tcc.gui.Login
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +31,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
@@ -52,22 +57,19 @@ fun LoginScreen(navController: NavController) {
     val context = LocalContext.current
     var password by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
-
-    val call = RetrofitFactory().getLoginService().getLogin(email = email,senha = password)
-
+    val call = RetrofitFactory().getLoginService().getLogin(email = email, senha = password)
     var login by remember {
         mutableStateOf(listOf<Login>())
     }
-
     val lineColor = Color(182, 182, 246) // Cor linear
-    val word = "Entre"
+    var visible by remember { mutableStateOf(false) }
+
 
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .background(Color.White)
-            .fillMaxHeight(),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -79,10 +81,33 @@ fun LoginScreen(navController: NavController) {
 
             }
 
-
             TextTitle(texto = R.string.title_login)
 
             TextDescription(texto = R.string.description_login)
+
+
+            AnimatedVisibility(
+                visible = visible,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                enter = fadeIn(
+                    initialAlpha = 0.4f
+                ),
+                exit = fadeOut(
+                    animationSpec = tween(durationMillis = 250)
+                )
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = stringResource(id = R.string.error_password),
+                        color = Color.Red
+
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -146,11 +171,11 @@ fun LoginScreen(navController: NavController) {
                         Log.d("asfdss", "${login}")
 
 
-                        if (login[0].id !== 0){
+                        if (login[0].id !== 0) {
                             Log.d("asfdss", "entrou")
                             navController.navigate("home")
-                        }else{
-                            email = "senha errada"
+                        } else {
+                            visible = true
                         }
 
                     }
