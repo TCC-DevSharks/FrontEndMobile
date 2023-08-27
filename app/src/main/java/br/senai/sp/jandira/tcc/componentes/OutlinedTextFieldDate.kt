@@ -2,10 +2,12 @@ package br.senai.sp.jandira.tcc.componentes
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,9 +15,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,17 +36,15 @@ fun OutlinedTextFieldDate (
 
     )
 {
-
     val datePattern = "^\\d{2}/\\d{2}/\\d{4}\$".toRegex()
-    var isValidPhone by remember { mutableStateOf(true) }
+    var isValidDate by remember { mutableStateOf(true) }
 
-
-
-    OutlinedTextField(
+   TextField(
         value = data,
         onValueChange = {
             onValueChange(it)
-            isValidPhone = datePattern.matches(it)
+            isValidDate = datePattern.matches(it)
+
         },
         modifier = Modifier
             .width(355.dp),
@@ -46,13 +52,13 @@ fun OutlinedTextFieldDate (
         label = {
             Text(text = stringResource(id = texto))
         },
-        keyboardOptions = KeyboardOptions(keyboardType = meuType),
+        keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Done),
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color(243, 243, 243),
             focusedIndicatorColor = Color(243, 243, 243),
             unfocusedIndicatorColor = Color(243, 243, 243)
         ),
-        isError = !isValidPhone
+        isError = !isValidDate
     )
 
 
