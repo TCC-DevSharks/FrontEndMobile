@@ -141,27 +141,13 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 telefone = it
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            OutlinedTextFieldDate(
-                texto = R.string.text_field_nascimento,
-                meuType = KeyboardType.Text,
-                dataNascimento
-            ) {
-                dataNascimento = it
+            DateField( texto = R.string.text_field_nascimento, meuType = KeyboardType.Text,dataNascimento)
+            { dataNascimento = it}
 
-                if (dataNascimento.length > 1) {
-                    val rawInput = it.replace(Regex("[^\\d]"), "")
-                    val formattedDate = formatDate(rawInput)
-                    dataNascimento = formattedDate
-                }
-
-            }
 
             Spacer(modifier = Modifier.height(40.dp))
-
-            DateField(dataNascimento, { dataNascimento = it})
-            }
 
             ButtonPurple(
                 navController = navController,
@@ -189,7 +175,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
         }
 
     }
-
+}
 
 
 private fun formatDate(input: String): String {

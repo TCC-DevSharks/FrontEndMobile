@@ -1,22 +1,35 @@
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateField(
-    initValue: String,
+    texto: Int,
+    meuType: KeyboardType,
+    data: String,
     onValueChange: (String) -> Unit
 ) {
     var tfv by remember {
-        val selection = TextRange(initValue.length)
-        val textFieldValue = TextFieldValue(text = initValue, selection = selection)
+        val selection = TextRange(data.length)
+        val textFieldValue = TextFieldValue(text = data, selection = selection)
         mutableStateOf(textFieldValue)
     }
 
@@ -28,9 +41,19 @@ fun DateField(
                 val formattedDate = formatDate(rawInput)
                 tfv = it.copy(text = formattedDate, selection = TextRange(formattedDate.length))
                 onValueChange(formattedDate)
-
-
-        }
+        },
+        modifier = Modifier
+                .width(355.dp),
+        shape = RoundedCornerShape(20.dp),
+        label = {
+            Text(text = stringResource(id = texto))
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Done),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color(243, 243, 243),
+            focusedIndicatorColor = Color(243, 243, 243),
+            unfocusedIndicatorColor = Color(243, 243, 243)
+        ),
     )
 }
 
