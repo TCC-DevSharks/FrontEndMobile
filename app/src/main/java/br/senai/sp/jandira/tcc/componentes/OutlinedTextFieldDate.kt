@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OutlinedTextFieldTodos(
+fun OutlinedTextFieldDate (
     texto: Int,
     meuType: KeyboardType,
     email: String,
@@ -29,11 +29,14 @@ fun OutlinedTextFieldTodos(
 
 )
 {
+    val datePattern = "^\\d{2}/\\d{2}/\\d{4}\$".toRegex()
+    var isValidPhone by remember { mutableStateOf(true) }
 
     OutlinedTextField(
         value = email,
         onValueChange = {
             onValueChange(it)
+            isValidPhone = datePattern.matches(it)
         },
         modifier = Modifier
             .width(355.dp),
@@ -47,7 +50,8 @@ fun OutlinedTextFieldTodos(
             focusedIndicatorColor = Color(243, 243, 243),
             unfocusedIndicatorColor = Color(243, 243, 243)
         ),
-
+        isError = !isValidPhone
+        
 
     )
 }

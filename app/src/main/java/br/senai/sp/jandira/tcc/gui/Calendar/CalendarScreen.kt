@@ -73,8 +73,8 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
     var pickedDate by remember {
         mutableStateOf(LocalDate.now())
     }
-
-    viewModel.data_parto = "${pickedDate}"
+    var date = LocalDate.now()
+    var initialDate = date.plusWeeks(viewModel.semana_gestacao.toLong())
 
     val dateDialogState = rememberMaterialDialogState()
 
@@ -100,7 +100,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
     ) {
         datepicker(
-            initialDate = LocalDate.now(),
+            initialDate = initialDate,
             title = "Selecione a data de parto",
             colors = DatePickerDefaults.colors(
                 headerBackgroundColor = Color(182, 182, 246), // Cor do Header
@@ -190,8 +190,8 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
                             response: Response<ResponseBody>
                         ) {
                             // handle the response
-                            Log.i("qwe","${response.errorBody()}")
-                            Log.i("qwdfe","${response.body()}")
+                            Log.i("qwdfe","${response.errorBody()}")
+                            Log.i("qweqwe","${response.body()}")
                             Log.i("qweqwe","${response}")
                             Log.i("qweqwe","${pregnant}")
                             if (pickedDate != LocalDate.now()) {

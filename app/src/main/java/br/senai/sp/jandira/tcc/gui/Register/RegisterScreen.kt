@@ -18,18 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import androidx.navigation.navArgument
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
+import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldDate
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.ModelRegister
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
@@ -91,16 +91,17 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             OutlinedTextFieldTodos(
                 texto = R.string.text_field_telefone,
                 meuType = KeyboardType.Phone,
-                telefone
+                telefone,
+
             ){
                 telefone = it
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextFieldTodos(
+            OutlinedTextFieldDate(
                 texto = R.string.text_field_nascimento,
-                meuType = KeyboardType.Number,
+                meuType = KeyboardType.Text,
                 dataNascimento
             ){
                 dataNascimento = it
@@ -111,10 +112,14 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             ButtonPurple(navController = navController, texto = R.string.button_next, rota = "register_password", onclick = {
 
                 if (nome.isNotEmpty() and email.isNotEmpty() and telefone.isNotEmpty() and dataNascimento.isNotEmpty()){
+                    var date = LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")).format(
+                        DateTimeFormatter.ISO_LOCAL_DATE)
+
                     viewModel.nome = nome
                     viewModel.email = email
                     viewModel.telefone = telefone
-                    viewModel.data_nascimento = dataNascimento
+                    viewModel.data_nascimento = date
+                    Log.i("rty", "${date}")
                     navController.navigate("register_password")
                 }else{
                     Log.i("erro", "todos os campos devem ser preenchidas")
