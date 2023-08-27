@@ -2,7 +2,6 @@ package br.senai.sp.jandira.tcc.componentes
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -24,16 +23,19 @@ import androidx.compose.ui.unit.dp
 fun OutlinedTextFieldDate (
     texto: Int,
     meuType: KeyboardType,
-    email: String,
+    data: String,
     onValueChange: (String) -> Unit,
 
-)
+    )
 {
+
     val datePattern = "^\\d{2}/\\d{2}/\\d{4}\$".toRegex()
     var isValidPhone by remember { mutableStateOf(true) }
 
+
+
     OutlinedTextField(
-        value = email,
+        value = data,
         onValueChange = {
             onValueChange(it)
             isValidPhone = datePattern.matches(it)
@@ -51,7 +53,8 @@ fun OutlinedTextFieldDate (
             unfocusedIndicatorColor = Color(243, 243, 243)
         ),
         isError = !isValidPhone
-        
-
     )
+
+
 }
+

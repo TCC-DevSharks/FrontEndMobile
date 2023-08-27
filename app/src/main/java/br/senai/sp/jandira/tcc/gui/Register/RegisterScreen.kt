@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
@@ -48,6 +49,11 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
     var dataNascimento by rememberSaveable { mutableStateOf("") }
     var telefone by rememberSaveable { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
+    var maxCharNome =150
+    var maxCharEmail =255
+
+
+
 
 
     Column (modifier = Modifier
@@ -106,7 +112,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 meuType = KeyboardType.Text,
                 nome
             ){
-                nome = it
+               if(it.length <= maxCharNome) nome = it
             }
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -115,7 +121,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 meuType = KeyboardType.Email,
                 email
             ){
-                email = it
+                if(it.length <= maxCharEmail)   email = it
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -137,6 +143,13 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 dataNascimento
             ){
                 dataNascimento = it
+
+                if(dataNascimento.length > 1){
+                    val rawInput = it.replace(Regex("[^\\d]"), "")
+                    val formattedDate = formatDate(rawInput)
+                    dataNascimento = formattedDate
+                }
+
             }
 
             Spacer(modifier = Modifier.height(40.dp))
@@ -165,8 +178,16 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
     }
 
-//@Preview (showSystemUi = true, showBackground = true)
-//@Composable
-//fun RegisterPreview() {
-//    RegisterScreen()
-//}
+private fun formatDate(input: String): String {
+    val formattedInput = input.take(8) // Limit the input to 8 characters
+    return when (formattedInput.length) {
+        1, 2 -> formattedInput // Keep 1 or 2 digits as is
+        3 -> "${formattedInput.substring(0, 2)}/${formattedInput[2]}"
+        4 -> "${formattedInput.substring(0, 2)}/${formattedInput.substring(2, 4)}"
+        5 -> "${formattedInput.substring(0, 2)}/${formattedInput.substring(2, 4)}/${formattedInput[4]}"
+        6 -> "${formattedInput.substring(0, 2)}/${formattedInput.substring(2, 4)}/${formattedInput.substring(4, 6)}"
+        7 -> "${formattedInput.substring(0, 2)}/${formattedInput.substring(2, 4)}/${formattedInput.substring(4, 7)}"
+        8 -> "${formattedInput.substring(0, 2)}/${formattedInput.substring(2, 4)}/${formattedInput.substring(4, 8)}"
+        else -> formattedInput.substring(0, 8)
+    }
+}

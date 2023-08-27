@@ -1,6 +1,10 @@
 package br.senai.sp.jandira.tcc.gui.RegisterPassword
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,10 +17,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -33,6 +40,9 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
 
     var password by rememberSaveable { mutableStateOf("") }
     var passwordConfirmation by rememberSaveable { mutableStateOf("") }
+    var visible by remember { mutableStateOf(false) }
+    var visibleEmpty by remember { mutableStateOf(false) }
+
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -50,6 +60,52 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
 
             Spacer(modifier = Modifier.height(20.dp))
 
+        }
+
+        AnimatedVisibility(
+            visible = visible,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 15.dp),
+            enter = fadeIn(
+                initialAlpha = 0.4f
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 250)
+            )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = stringResource(id = R.string.fields_not_match),
+                    color = Color.Red
+
+                )
+            }
+        }
+
+        AnimatedVisibility(
+            visible = visibleEmpty,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 15.dp),
+            enter = fadeIn(
+                initialAlpha = 0.4f
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 250)
+            )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = stringResource(id = R.string.empty_fields),
+                    color = Color.Red
+
+                )
+            }
         }
 
         Column(
@@ -89,10 +145,10 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
                         navController.navigate("week")
 
                     }else{
-                        Log.i("Erro","Senhas devem ser iguais")
+                        visible = true
                     }
                 }else{
-                    Log.i("Erro","Não podem ficar vazio" )
+                   visibleEmpty = true
 
                 }
 
