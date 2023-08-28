@@ -74,7 +74,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         mutableStateOf(LocalDate.now())
     }
     var date = LocalDate.now()
-    var initialDate = date.plusWeeks(viewModel.semana_gestacao.toLong())
+    var initialDate = date.plusWeeks(40 - viewModel.semana_gestacao.toLong())
 
     val dateDialogState = rememberMaterialDialogState()
 
@@ -194,10 +194,8 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
                             Log.i("qweqwe","${response.body()}")
                             Log.i("qweqwe","${response}")
                             Log.i("qweqwe","${pregnant}")
-                            if (pickedDate != LocalDate.now()) {
-                                navController.navigate("home")
 
-                            }
+                                navController.navigate("home")
 
                         }
 

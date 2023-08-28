@@ -1,7 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.Register
 
 import DateField
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -27,13 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
-import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldDate
+import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldPhone
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.TextDescription
@@ -52,6 +50,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
     var visible by remember { mutableStateOf(false) }
     var maxCharNome = 150
     var maxCharEmail = 255
+    var maxCharPhone = 15
 
 
 
@@ -132,13 +131,8 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextFieldTodos(
-                texto = R.string.text_field_telefone,
-                meuType = KeyboardType.Phone,
-                telefone,
-
-                ) {
-                telefone = it
+            OutlinedTextFieldPhone(texto = stringResource(id = R.string.text_field_telefone), meuType = KeyboardType.Phone, data = telefone){
+                if (it.length <= maxCharPhone) telefone= it
             }
 
             Spacer(modifier = Modifier.height(20.dp))
