@@ -31,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -43,6 +44,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.CardPreparations
+import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.componentes.TextDescription
@@ -55,140 +58,148 @@ fun HomeUserScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .verticalScroll(rememberScrollState()).padding(vertical = 70.dp),
     ) {
 
+//        Spacer(modifier = Modifier.height(70.dp))
 
-        Box(
-            modifier = Modifier
-                .size(360.dp, 250.dp),
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Box(
                 modifier = Modifier
-                    .padding(top = 20.dp, end = 48.dp)
-                    .align(Alignment.TopEnd)
-                    .offset(y = (-68).dp)
-                    .zIndex(1f)
-                    .border(4.dp, Color(182, 182, 246), CircleShape),
+                    .size(360.dp, 250.dp),
             ) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.perfil_bebe),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                Box(
                     modifier = Modifier
-                        .size(100.dp)
-                )
-            }
-
-            Card(
-                modifier = Modifier
-                    .width(360.dp)
-                    .height(250.dp),
-                colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
-                border = BorderStroke(2.dp, Color(182, 182, 246, 38))
-            ) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 49.dp, start = 22.dp)
+                        .padding(top = 20.dp, end = 48.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(y = (-68).dp)
+                        .zIndex(1f)
+                        .border(4.dp, Color(182, 182, 246), CircleShape),
                 ) {
 
-                    Text(
-                        text = "Oi, Alvia!",
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color(182, 182, 246)
+                    Image(
+                        painter = painterResource(id = R.drawable.avia),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
                     )
-
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Row(
+                Card(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 22.dp)
-                ) {
-
-                    Text(
-                        text = "Como está se sentindo hoje?",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight(600),
-                        color = Color(182, 182, 246)
-                    )
-
-                }
-
-                Spacer(modifier = Modifier.height(31.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 22.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-
-                    Text(
-                        textAlign = TextAlign.Center,
-                        text = "11 semanas, 2 dias",
-                        fontSize = 21.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color(182, 182, 246)
-                    )
-
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
-                        .background(Color.White)
+                        .width(360.dp)
+                        .height(250.dp),
+                    colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+                    border = BorderStroke(2.dp, Color(182, 182, 246, 38))
                 ) {
 
                     Row(
                         modifier = Modifier
-//                            .fillMaxWidth()
-                            .height(3.2.dp)
-                            .width(120.dp)
-                            .background(Color(182, 182, 246)),
+                            .fillMaxWidth()
+                            .padding(top = 49.dp, start = 22.dp)
                     ) {
 
+                        Text(
+                            text = "Oi, Alvia!",
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(182, 182, 246)
+                        )
 
                     }
-                }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 22.dp)
+                    ) {
+
+                        Text(
+                            text = "Como está se sentindo hoje?",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight(600),
+                            color = Color(182, 182, 246)
+                        )
+
+                    }
+
+                    Spacer(modifier = Modifier.height(31.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 22.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+
+                        Text(
+                            textAlign = TextAlign.Center,
+                            text = "11 semanas, 2 dias",
+                            fontSize = 21.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(182, 182, 246)
+                        )
+
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                            .background(Color.White)
+                    ) {
+
+                        Row(
+                            modifier = Modifier
+//                            .fillMaxWidth()
+                                .height(3.2.dp)
+                                .width(120.dp)
+                                .background(Color(182, 182, 246)),
+                        ) {
 
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
+                        }
+                    }
 
-                    Text(
-                        text = "11 semanas",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(182, 182, 246)
-                    )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                    Text(
-                        text = "Out 11 Fev",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(182, 182, 246)
-                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Text(
+                            text = "11 semanas",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(182, 182, 246)
+                        )
+
+                        Text(
+                            text = "Out 11 Fev",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(182, 182, 246)
+                        )
+                    }
                 }
             }
+
+
         }
 
         Spacer(modifier = Modifier.height(35.dp))
@@ -213,35 +224,42 @@ fun HomeUserScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(9.dp))
 
-
-        Button(
-            modifier = Modifier.size(360.dp, 50.dp),
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(Color(182,182,246, 23)),
-            border = BorderStroke( .3.dp, Color(182, 182, 246)),
-            shape = RoundedCornerShape(16.dp)
-
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Row (modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically) {
+            Button(
+                modifier = Modifier.size(360.dp, 50.dp),
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(Color(182, 182, 246, 23)),
+                border = BorderStroke(.3.dp, Color(182, 182, 246)),
+                shape = RoundedCornerShape(16.dp)
 
-                Image(
-                    painter = painterResource(id = R.drawable.comments),
-                    contentDescription = null,
-                    modifier = Modifier.size(26.dp)
-                )
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
-                Text(modifier = Modifier.padding(start = 15.dp),
-                    text = "Fórum",
-                    fontSize = 16.sp,
-                    color = Color(182,182,246),
-
-
+                    Image(
+                        painter = painterResource(id = R.drawable.comments),
+                        contentDescription = null,
+                        modifier = Modifier.size(26.dp)
                     )
 
-            }
+                    Text(
+                        modifier = Modifier.padding(start = 15.dp),
+                        text = "Fórum",
+                        fontSize = 16.sp,
+                        color = Color(182, 182, 246),
 
+
+                        )
+
+                }
+
+            }
         }
 
         Spacer(modifier = Modifier.height(29.dp))
@@ -263,7 +281,45 @@ fun HomeUserScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(9.dp))
 
 
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(start = 26.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
 
+            MarternalGuide()
+ //
+        }
+
+        Spacer(modifier = Modifier.height(29.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 26.dp)
+        ) {
+
+            Text(
+                text = "Preparativos",
+                fontSize = 15.7.sp,
+                fontWeight = FontWeight(300),
+            )
+        }
+
+        Spacer(modifier = Modifier.height(9.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 26.dp),
+        )  {
+
+            CardPreparations()
+
+            CardPreparations()
+
+        }
+
+//        Spacer(modifier = Modifier.height(70.dp))
     }
 }
 

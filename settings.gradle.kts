@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TCC"
 include(":app")
+
