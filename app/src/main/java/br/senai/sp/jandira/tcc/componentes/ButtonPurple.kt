@@ -38,8 +38,7 @@ fun ButtonPurple(
         Button(
             onClick =
             {
-//                onclick(navController)
-            navController.navigate(rota)
+               onclick(navController)
             }
             ,
             modifier = Modifier

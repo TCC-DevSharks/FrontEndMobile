@@ -44,6 +44,8 @@ import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
 import br.senai.sp.jandira.tcc.model.LoginList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Response
 //import retrofit2.Call
 //import retrofit2.Response
 import javax.security.auth.callback.Callback
@@ -158,7 +160,7 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "home", onclick = {
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {
 
                 call.enqueue(object : retrofit2.Callback<LoginList> {
                     override fun onResponse(
@@ -173,7 +175,7 @@ fun LoginScreen(navController: NavController) {
 
                         if (login[0].id !== 0) {
                             Log.d("asfdss", "entrou")
-                            navController.navigate("home")
+                            navController.navigate("homeUser")
                         } else {
                             visible = true
                         }
@@ -185,6 +187,7 @@ fun LoginScreen(navController: NavController) {
                             "ds2m",
                             "onFailure: ${t.message}"
                         )
+                        println(t.message + t.cause)
                     }
                 })
 

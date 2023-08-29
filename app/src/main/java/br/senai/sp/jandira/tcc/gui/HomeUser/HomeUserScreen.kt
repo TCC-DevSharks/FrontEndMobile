@@ -50,11 +50,12 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.componentes.TextDescription
+import coil.compose.AsyncImage
 
 
 @Composable
 fun HomeUserScreen(navController: NavController) {
-
+    val path = "https://cangurunews.com.br/wp-content/uploads/2020/10/coluna-carloseduardo-mes-crianca-696x497.jpg"
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -87,14 +88,13 @@ fun HomeUserScreen(navController: NavController) {
                             .border(4.dp, Color(182, 182, 246), CircleShape),
                     ) {
 
-                        Image(
-                            painter = painterResource(id = R.drawable.avia),
-                            contentDescription = null,
+
+                        AsyncImage(model = path,
+                            contentDescription = "",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(100.dp)
-                                .clip(CircleShape)
-                        )
+                                .clip(CircleShape))
                     }
 
                     Card(
@@ -338,7 +338,7 @@ fun HomeUserScreen(navController: NavController) {
                 .align(Alignment.BottomCenter)
                 .border(
                     .9.dp,
-                    Color(182,182,246),
+                    Color(182, 182, 246),
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {

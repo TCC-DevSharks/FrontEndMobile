@@ -77,8 +77,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "register") { RegisterScreen (navController, viewModel)}
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-            composable(route = "week") { GestationWeekScreen (navController) }
-            composable(route = "calendar") { CalendarScreen (navController) }
+            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
+            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
             composable(route = "homeUser") { HomeUserScreen (navController) }
             composable(route = "navigation") { Navigation (navController) }
 
