@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+
+
 android {
     namespace = "br.senai.sp.jandira.tcc"
     compileSdk = 33
@@ -91,4 +93,7 @@ dependencies {
 
     //Coil dependencies
     implementation ("io.coil-kt:coil-compose:2.3.0")
+
+    // Biblioteca Font Awasome
+    implementation ("br.com.devsrsouza.compose.icons.android:font-awesome:0.1.1")
 }

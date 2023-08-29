@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +26,9 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun Profile(
     size: Dp
+
+//    colors = CardDefaults.cardColors(Color(182, 182, 246, 80))
+
 ) {
 
     Row(

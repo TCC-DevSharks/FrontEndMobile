@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.senai.sp.jandira.tcc.componentes.Navigation
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
@@ -28,6 +29,7 @@ import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.componentes.Schedule
+import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -75,9 +77,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "register") { RegisterScreen (navController, viewModel)}
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
-            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { Schedule (navController) }
+            composable(route = "week") { GestationWeekScreen (navController) }
+            composable(route = "calendar") { CalendarScreen (navController) }
+            composable(route = "homeUser") { HomeUserScreen (navController) }
+            composable(route = "navigation") { Navigation (navController) }
+
+
         }
 }
 

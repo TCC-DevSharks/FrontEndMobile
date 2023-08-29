@@ -178,6 +178,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
+
         ButtonPurple(
             navController = navController,
             texto = R.string.button_finish,
@@ -207,7 +208,6 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
                     )
             })
-
 
     }
 }
