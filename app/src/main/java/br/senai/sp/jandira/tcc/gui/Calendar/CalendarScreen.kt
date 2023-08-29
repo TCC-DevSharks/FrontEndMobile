@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.Calendar
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -35,20 +36,45 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelRegister
+import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import java.time.LocalDate
+import retrofit2.Callback
 
 @Composable
-fun CalendarScreen(navController: NavController) {
+fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
+
+    var pregnant = Pregnant(
+        nome = viewModel.nome,
+        data_nascimento = viewModel.data_nascimento,
+        email = viewModel.email,
+        senha = viewModel.senha,
+        cpf = viewModel.cpf,
+        peso = 1.1,
+        altura = 0.0,
+        data_parto = viewModel.data_parto,
+        foto = "foto",
+        semana_gestacao = viewModel.semana_gestacao,
+        telefone = viewModel.telefone
+    )
+
+    var call = RetrofitFactory().insertPregnant().insertPregnant(pregnant)
 
     val context = LocalContext.current // Obtenha o contexto local
 
     var pickedDate by remember {
         mutableStateOf(LocalDate.now())
     }
+    var date = LocalDate.now()
+    var initialDate = date.plusWeeks(40 - viewModel.semana_gestacao.toLong())
 
     val dateDialogState = rememberMaterialDialogState()
 
@@ -74,7 +100,7 @@ fun CalendarScreen(navController: NavController) {
 
     ) {
         datepicker(
-            initialDate = LocalDate.now(),
+            initialDate = initialDate,
             title = "Selecione a data de parto",
             colors = DatePickerDefaults.colors(
                 headerBackgroundColor = Color(182, 182, 246), // Cor do Header
@@ -83,12 +109,14 @@ fun CalendarScreen(navController: NavController) {
 
         ) {
             pickedDate = it
+            viewModel.data_parto = "${pickedDate}"
+
         }
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        Row (modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
+        Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
 
             ArrowLeftPurple(navController = navController, rota = "week")
 
@@ -150,12 +178,38 @@ fun CalendarScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(45.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.button_finish, rota = "homeUser", onclick = {})
 
+        ButtonPurple(
+            navController = navController,
+            texto = R.string.button_finish,
+            rota = "home",
+            onclick = {
+
+                    call.enqueue(object : Callback<ResponseBody> {
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: Response<ResponseBody>
+                        ) {
+                            // handle the response
+                            Log.i("qwdfe","${response.errorBody()}")
+                            Log.i("qweqwe","${response.body()}")
+                            Log.i("qweqwe","${response}")
+                            Log.i("qweqwe","${pregnant}")
+
+                                navController.navigate("home")
+
+                        }
+
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            // handle the failure
+                        }
+
+                    }
+
+                    )
+            })
 
     }
-
-
 }
 
 //@Preview (showSystemUi = true, showBackground = true)
