@@ -29,10 +29,9 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun CardPreparations() {
 
+
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.padding(start = 16.dp),
     ) {
 
         Card(

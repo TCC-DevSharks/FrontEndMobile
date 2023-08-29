@@ -10,11 +10,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,53 +20,48 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
 
 
 @Composable
-fun Navigation() {
+fun Navigation(navController: NavController) {
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 18.dp)
-                .size(400.dp, 80.dp)
+                .background(Color.White)
         ) {
 
             Row(
-                modifier = Modifier.fillMaxWidth().background(Color.Black),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 7.7.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
 
 
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier
+                    .clickable {
+//                    navController.navigate("home")
 
                 }) {
                     Image(
-                        painter = painterResource(id = R.drawable.dumbbell_branco),
+                        painter = painterResource(id = R.drawable.dumbbell_cinza),
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(27.dp)
                     )
 
                 }
 
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+//                    navController.navigate("calendar")
+
                 }) {
                     Image(
-                        painter = painterResource(id = R.drawable.utensils_branco),
+                        painter = painterResource(id = R.drawable.utensils_cinza),
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(27.dp)
                     )
                 }
 
@@ -78,13 +71,15 @@ fun Navigation() {
                 Box(
                     modifier = Modifier
                         .background(Color(182, 182, 246), CircleShape)
-                        .size(60.dp), contentAlignment = Alignment.Center
+                        .size(60.dp).clickable {
+//                            navController.navigate("week")
+                        }, contentAlignment = Alignment.Center
                 ) {
 
                     Image(
                         painter = painterResource(id = R.drawable.house_branco),
                         contentDescription = null,
-                        modifier = Modifier.size(33.dp),
+                        modifier = Modifier.size(27.dp),
                     )
                 }
 
@@ -92,26 +87,27 @@ fun Navigation() {
 
                 Box(contentAlignment = Alignment.Center,
                     modifier = Modifier.clickable {
+//                        navController.navigate("register")
+
                     }) {
                     Image(
-                        painter = painterResource(id = R.drawable.chat_branco),
+                        painter = painterResource(id = R.drawable.chat_cinza),
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(27.dp)
                     )
                 }
 
 
                 Box(contentAlignment = Alignment.Center,
                     modifier = Modifier.clickable {
+//                        navController.navigate("forgot_password")
 
-
-
-                }) {
+                    }) {
 
                     Image(
-                        painter = painterResource(id = R.drawable.search_branco),
+                        painter = painterResource(id = R.drawable.search_cinza),
                         contentDescription = null,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(27.dp)
                     )
 
                 }
@@ -122,13 +118,13 @@ fun Navigation() {
 
         }
 
-    }
+
 
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun NavigationPreview() {
-    Navigation()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun NavigationPreview() {
+//    Navigation()
+//}

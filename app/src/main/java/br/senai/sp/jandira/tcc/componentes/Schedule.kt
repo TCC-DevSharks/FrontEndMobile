@@ -54,7 +54,7 @@ fun Schedule() {
         Card(
             modifier = Modifier
                 .width(360.dp)
-                .height(144.dp),
+                .height(184.dp),
             colors = CardDefaults.cardColors(Color.White),
             border = BorderStroke(2.dp, Color(182, 182, 246, 38))
         ) {

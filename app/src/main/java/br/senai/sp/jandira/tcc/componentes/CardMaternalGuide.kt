@@ -27,7 +27,7 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun MarternalGuide() {
 
-    Column () {
+    Column (modifier = Modifier.padding(start = 16.dp)) {
 
         Card(
             modifier = Modifier.size(250.dp, 215.dp),

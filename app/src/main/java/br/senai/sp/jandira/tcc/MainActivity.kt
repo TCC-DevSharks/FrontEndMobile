@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -75,6 +76,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "week") { GestationWeekScreen (navController) }
             composable(route = "calendar") { CalendarScreen (navController) }
             composable(route = "homeUser") { HomeUserScreen (navController) }
+            composable(route = "navigation") { Navigation (navController) }
         }
 }
 
