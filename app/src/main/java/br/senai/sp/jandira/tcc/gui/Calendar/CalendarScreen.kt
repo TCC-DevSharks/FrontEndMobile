@@ -61,7 +61,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         peso = 1.1,
         altura = 0.0,
         data_parto = viewModel.data_parto,
-        foto = "foto",
+        foto = viewModel.foto,
         semana_gestacao = viewModel.semana_gestacao,
         telefone = viewModel.telefone
     )

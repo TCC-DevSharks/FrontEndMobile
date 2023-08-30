@@ -43,6 +43,7 @@ import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
 import br.senai.sp.jandira.tcc.model.LoginList
+import br.senai.sp.jandira.tcc.service.PregnantService
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
@@ -62,6 +63,10 @@ fun LoginScreen(navController: NavController) {
     val call = RetrofitFactory().getLoginService().getLogin(email = email, senha = password)
     var login by remember {
         mutableStateOf(listOf<Login>())
+    }
+    val callResponse = RetrofitFactory().getPregnant().getPregnant()
+    var pregnant by remember {
+        mutableStateOf(listOf<PregnantService>())
     }
     val lineColor = Color(182, 182, 246) // Cor linear
     var visible by remember { mutableStateOf(false) }
@@ -170,11 +175,10 @@ fun LoginScreen(navController: NavController) {
                     ) {
                         //Duas exclamações seignificam que pode vir nulo
                         login = response.body()!!.login
-                        Log.d("asfdss", "${login}")
+                        Log.d("asfdss", "${login[0].id}")
 
 
                         if (login[0].id !== 0) {
-                            Log.d("asfdss", "entrou")
                             navController.navigate("homeUser")
                         } else {
                             visible = true

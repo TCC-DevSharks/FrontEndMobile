@@ -1,6 +1,10 @@
 package br.senai.sp.jandira.tcc.gui.Register
 
 import DateField
+import android.net.Uri
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -24,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -37,6 +42,8 @@ import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.ModelRegister
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -53,6 +60,17 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
     var maxCharPhone = 15
 
 
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    // variavel que vai pegar a URI
+    var launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        photoUri = uri
+        viewModel.foto = "${uri}"
+    }
 
 
 
@@ -80,7 +98,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
         }
 
-        Profile(size = 24.dp)
+        Profile(size = 24.dp, launcher, photoUri)
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -149,6 +167,8 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 rota = "register_password",
                 onclick = {
 
+                    println(viewModel.foto)
+                    Log.i("abc", "${viewModel.foto}")
                     if (nome.isNotEmpty() and email.isNotEmpty() and telefone.isNotEmpty() and dataNascimento.isNotEmpty()) {
                         var date = LocalDate.parse(
                             dataNascimento,

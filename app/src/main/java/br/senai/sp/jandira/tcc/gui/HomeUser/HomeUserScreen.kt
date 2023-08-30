@@ -55,7 +55,8 @@ import coil.compose.AsyncImage
 
 @Composable
 fun HomeUserScreen(navController: NavController) {
-    val path = "https://cangurunews.com.br/wp-content/uploads/2020/10/coluna-carloseduardo-mes-crianca-696x497.jpg"
+
+    val path = "content://com.android.providers.media.documents/document/image%3A31"
     Box(
         modifier = Modifier
             .fillMaxSize()
