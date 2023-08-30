@@ -20,7 +20,9 @@ import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
+
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
+import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -73,6 +75,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "homeUser") { HomeUserScreen (navController) }
             composable(route = "navigation") { Navigation (navController) }
             composable(route = "Add") { MaternityBagScreen () }
+
 
 
         }
