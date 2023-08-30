@@ -158,37 +158,37 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "home", onclick = {
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {
 
-                call.enqueue(object : retrofit2.Callback<LoginList> {
-                    override fun onResponse(
-                        call: Call<LoginList>,
-                        response: Response<LoginList>
-
-                    ) {
-                        //Duas exclamações seignificam que pode vir nulo
-                        login = response.body()!!.login
-                        Log.d("asfdss", "${login}")
-
-
-                        if (login[0].id !== 0) {
-                            Log.d("asfdss", "entrou")
-                            navController.navigate("home")
-                        } else {
-                            visible = true
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
-                        Log.i(
-                            "ds2m",
-                            "onFailure: ${t.message}"
-                        )
-                    }
-                })
-
-
+//                call.enqueue(object : retrofit2.Callback<LoginList> {
+//                    override fun onResponse(
+//                        call: Call<LoginList>,
+//                        response: Response<LoginList>
+//
+//                    ) {
+//                        //Duas exclamações seignificam que pode vir nulo
+//                        login = response.body()!!.login
+//                        Log.d("asfdss", "${login}")
+//
+//
+//                        if (login[0].id !== 0) {
+//                            Log.d("asfdss", "entrou")
+//                            navController.navigate("home")
+//                        } else {
+//                            visible = true
+//                        }
+//
+//                    }
+//
+//                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
+//                        Log.i(
+//                            "ds2m",
+//                            "onFailure: ${t.message}"
+//                        )
+//                    }
+//                })
+//
+//
 
             })
 

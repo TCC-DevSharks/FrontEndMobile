@@ -1,24 +1,15 @@
 package br.senai.sp.jandira.tcc
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -28,8 +19,8 @@ import br.senai.sp.jandira.tcc.gui.Login.LoginScreen
 import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
-import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
+import br.senai.sp.jandira.tcc.gui.teste
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -67,7 +58,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "start",
+        startDestination = "add",
     )
 
         {
@@ -77,10 +68,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "register") { RegisterScreen (navController, viewModel)}
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-            composable(route = "week") { GestationWeekScreen (navController) }
-            composable(route = "calendar") { CalendarScreen (navController) }
+            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
+            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
             composable(route = "homeUser") { HomeUserScreen (navController) }
             composable(route = "navigation") { Navigation (navController) }
+            composable(route = "Add") { teste (navController) }
 
 
         }

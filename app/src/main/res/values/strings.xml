@@ -16,6 +16,23 @@
     <string name="title_register_password">Escolha uma senha</string>
     <string name="description_register_password">Sua senha deve ser segura. Não compartilhe com ninguém!</string>
 
+    <!-- Header Preparations   -->
+    <string name="header_maternity_bag">Mala de Maternidade</string>
+    <string name="header_trousseau">Enxoval</string>
+    <string name="header_delivery_plan">Plano de Parto</string>
+    <string name="name_suggestion">Sugestão de Nomes</string>
+
+
+    <!-- Sub Header Preparations   -->
+    <string name="my_list">Minha lista</string>
+    <string name="suggested">Sugeridos</string>
+    <string name="favorites">Favoritos</string>
+    <string name="all">Todos</string>
+
+
+
+
+
     <!-- Home   -->
     <string name="title_home">Maternidade Apoiada</string>
     <string name="segundo_title_home">a Cada Passo.</string>
@@ -51,7 +68,5 @@
     <string name="button_confirm">Confirmar</string>
     <string name="button_finish">Finalizar</string>
     <string name="button_next">Próximo</string>
-
-
 
 </resources>
