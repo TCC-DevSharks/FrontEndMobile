@@ -31,8 +31,8 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun Header(
     titulo: String,
-    rota: String,
-    navController: NavController
+//    rota: String,
+//    navController: NavController
 ) {
 
     Row(
@@ -47,7 +47,7 @@ fun Header(
             contentDescription = null,
             Modifier
                 .clickable {
-                    navController.navigate(rota)
+//                    navController.navigate(rota)
 
                 }
                 .size(40.dp),
