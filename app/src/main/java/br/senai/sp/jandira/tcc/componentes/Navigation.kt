@@ -27,91 +27,90 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun Navigation(navController: NavController) {
 
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+    ) {
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .padding(horizontal = 18.dp, vertical = 7.7.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = 18.dp, vertical = 7.7.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
 
-
-                Box(contentAlignment = Alignment.Center, modifier = Modifier
-                    .clickable {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier
+                .clickable {
 //                    navController.navigate("home")
 
                 }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.dumbbell_cinza),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp)
-                    )
+                Image(
+                    painter = painterResource(id = R.drawable.dumbbell_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
 
-                }
+            }
 
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
 //                    navController.navigate("calendar")
 
-                }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.utensils_cinza),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp)
-                    )
-                }
+            }) {
+                Image(
+                    painter = painterResource(id = R.drawable.utensils_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
 
 
 
 
-                Box(
-                    modifier = Modifier
-                        .background(Color(182, 182, 246), CircleShape)
-                        .size(60.dp).clickable {
+            Box(
+                modifier = Modifier
+                    .background(Color(182, 182, 246), CircleShape)
+                    .size(60.dp)
+                    .clickable {
 //                            navController.navigate("week")
-                        }, contentAlignment = Alignment.Center
-                ) {
+                    }, contentAlignment = Alignment.Center
+            ) {
 
-                    Image(
-                        painter = painterResource(id = R.drawable.house_branco),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp),
-                    )
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.house_branco),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp),
+                )
+            }
 
 
 
-                Box(contentAlignment = Alignment.Center,
-                    modifier = Modifier.clickable {
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.clickable {
 //                        navController.navigate("register")
 
-                    }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.chat_cinza),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp)
-                    )
-                }
+                }) {
+                Image(
+                    painter = painterResource(id = R.drawable.chat_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
 
 
-                Box(contentAlignment = Alignment.Center,
-                    modifier = Modifier.clickable {
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.clickable {
 //                        navController.navigate("forgot_password")
 
-                    }) {
+                }) {
 
-                    Image(
-                        painter = painterResource(id = R.drawable.search_cinza),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp)
-                    )
-
-                }
-
+                Image(
+                    painter = painterResource(id = R.drawable.search_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
 
             }
 
@@ -119,6 +118,7 @@ fun Navigation(navController: NavController) {
         }
 
 
+    }
 
 
 }

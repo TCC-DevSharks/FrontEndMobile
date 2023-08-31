@@ -12,11 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,20 +22,13 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun CardAlong() {
-
-    val expanded = remember { mutableStateOf(false) }
+fun CardBirthPlan() {
 
 
     Column(
         modifier = Modifier
             .fillMaxWidth(1f)
-            .padding(vertical = 10.dp, horizontal = 29.dp)
-//                    .background(Color.Yellow)
-            .clickable {
-
-                expanded.value = !expanded.value
-            }
+            .padding(vertical = 13.dp, horizontal = 29.dp)
 
     ) {
 
@@ -62,39 +52,18 @@ fun CardAlong() {
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Mamadeiras e Bicos",
-                fontSize = 18.sp,
-                fontWeight = FontWeight(700),
+                text = "Gostaria de ter um acompanhante durante o trabalho de parto, parto e puerpério.",
+                fontSize = 16.sp,
+                fontWeight = FontWeight(400),
             )
         }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(1f)
-                .padding(
-                    vertical = 5.dp,
-                    horizontal = 14.dp
-                )
-        ) {
-
-            if (expanded.value) {
-                Text(
-                    text = "Ter várias garrafas permitirá que você lave e esterilize todas de uma só vez, economizando um pouco de tempo e esforço.",
-                    fontSize = 14.sp, // Reduced font size
-                    fontWeight = FontWeight.Normal, // Use FontWeight.Normal enum
-                    color = Color.Gray
-                )
-            }
-
-        }
-
 
     }
 
 }
 
-@Preview (showBackground = true, showSystemUi = true)
+@Preview (showSystemUi = true, showBackground = true)
 @Composable
-fun CardAlongPreview() {
-    CardAlong()
+fun BirthPlanPreview() {
+    CardBirthPlan()
 }

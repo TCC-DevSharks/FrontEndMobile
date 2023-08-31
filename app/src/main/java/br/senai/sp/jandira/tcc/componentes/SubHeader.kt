@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,9 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -28,80 +25,75 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun SubHeader(
     leftText: String,
-    rightText: String
+    rightText: String,
 ) {
 
+    var selectedColumn by remember { mutableStateOf(1) }
 
 
-        var selectedColumn by remember { mutableStateOf(1) }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+
+        Text(
+            text = leftText,
+            fontSize = 17.sp,
+            fontWeight = FontWeight(500),
+            modifier = Modifier.clickable {
+                selectedColumn = 1
+            },
+            color = if (selectedColumn == 1) Color(182, 182, 246) else Color.Black
 
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
+        )
+        Text(
+            text = rightText,
+            fontSize = 17.sp,
+            fontWeight = FontWeight(500),
+            modifier = Modifier.clickable { selectedColumn = 2 },
+            color = if (selectedColumn == 2) Color(182, 182, 246) else Color.Black
 
-            Text(
-                text = leftText,
-                fontSize = 17.sp,
-                fontWeight = FontWeight(500),
-                modifier = Modifier.clickable {
-                    selectedColumn = 1
-                                              },
-                color = if (selectedColumn == 1) Color(182, 182, 246) else Color.Black
+        )
 
+    }
 
-            )
-            Text(
-                text = rightText,
-                fontSize = 17.sp,
-                fontWeight = FontWeight(500),
-                modifier = Modifier.clickable { selectedColumn = 2 },
-                color = if (selectedColumn == 2) Color(182, 182, 246) else Color.Black
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 6.4.dp)
+            .background(Color(209, 209, 214))
+    ) {
 
-            )
-
-        }
-
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 6.4.dp)
-                .background(Color(209, 209, 214))
-        ) {
-
-            Column(
-                modifier = Modifier
-                    .size(200.dp, 2.9.dp)
-                    .background(
-                        if (selectedColumn == 1) Color(182, 182, 246) else Color(
-                            209,
-                            209,
-                            214
-                        )
+                .size(200.dp, 2.9.dp)
+                .background(
+                    if (selectedColumn == 1) Color(182, 182, 246) else Color(
+                        209,
+                        209,
+                        214
                     )
-            ) {
+                )
+        ) {}
 
-            }
-
-            Column(
-                modifier = Modifier
-                    .size(220.dp, 2.9.dp)
-                    .background(
-                        if (selectedColumn == 2) Color(182, 182, 246) else Color(
-                            209,
-                            209,
-                            214
-                        )
+        Column(
+            modifier = Modifier
+                .size(220.dp, 2.9.dp)
+                .background(
+                    if (selectedColumn == 2) Color(182, 182, 246) else Color(
+                        209,
+                        209,
+                        214
                     )
+                )
 
-            ) {
+        ) {}
 
-            }
+    }
 
-        }
-    
 }
+
 
 //@Preview (showBackground = true, showSystemUi = true)
 //@Composable

@@ -23,6 +23,7 @@ import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
+import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -60,7 +61,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "add",
+        startDestination = "trousseau",
     )
 
         {
@@ -74,10 +75,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
             composable(route = "homeUser") { HomeUserScreen (navController) }
             composable(route = "navigation") { Navigation (navController) }
-            composable(route = "Add") { MaternityBagScreen () }
-
-
-
+            composable(route = "bag") { MaternityBagScreen (navController) }
+            composable(route = "trousseau") { TrousseauScreen (navController) }
         }
 }
 
