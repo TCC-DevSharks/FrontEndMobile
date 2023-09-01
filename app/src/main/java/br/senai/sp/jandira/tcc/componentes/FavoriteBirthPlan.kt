@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.componentes
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,49 +39,59 @@ fun FavoriteBirthPlan() {
     ) {
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(1f),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            Row(
+                modifier = Modifier
+                    .weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_add_circle_65),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clickable {
+                            // navController.navigate(rota)
+                        }
+                        .size(30.dp)
+                )
 
-            Row () {
+                Spacer(modifier = Modifier.width(15.dp))
 
+                Text(
+                    text = "Gostaria de ter um acompanhante durante o trabalho de parto, parto e puerpério.",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(400),
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
-
-
-
+            Spacer(modifier = Modifier.width(20.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-
                 Image(
                     painter = painterResource(id = R.drawable.trash),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(24.dp)
                         .clickable {
-
                             Log.i("DS3m", "fdhgdfhgfhsdgfjhsdgfjhsdgfdhf")
-
                         }
                 )
-
             }
-
-
         }
 
-
-
-        }
 
     }
 
+}
 
-@Preview
+
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun FavoriteBirthPlanPreview() {
     FavoriteBirthPlan()

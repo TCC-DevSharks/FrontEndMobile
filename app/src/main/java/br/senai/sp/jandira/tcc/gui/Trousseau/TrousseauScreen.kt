@@ -49,14 +49,13 @@ fun TrousseauScreen(navController: NavController) {
 
           FavoriteBirthPlan()
           FavoriteBirthPlan()
+          CardBirthPlan()
+          CardBirthPlan()
+          CardBirthPlan()
           FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
+          CardBirthPlan()
+          CardBirthPlan()
+          CardBirthPlan()
 
             }
 
