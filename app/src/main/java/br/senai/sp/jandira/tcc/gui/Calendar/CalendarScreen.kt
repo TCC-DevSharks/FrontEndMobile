@@ -155,9 +155,6 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
             }
             Spacer(modifier = Modifier.height(50.dp))
 
-//            Text(text = formattedDate)
-
-//            Spacer(modifier = Modifier.height(15.dp))
 
         }
 

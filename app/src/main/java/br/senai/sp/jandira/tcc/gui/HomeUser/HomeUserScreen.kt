@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.HomeUser
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,20 +25,20 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -47,16 +47,64 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.CardPreparations
 import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.componentes.Profile
 import br.senai.sp.jandira.tcc.componentes.Schedule
-import br.senai.sp.jandira.tcc.componentes.TextDescription
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.PregnantResponse
+import br.senai.sp.jandira.tcc.model.PregnantResponseList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import retrofit2.Call
+import retrofit2.Response
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 
 @Composable
-fun HomeUserScreen(navController: NavController) {
+fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
-    val path = "content://com.android.providers.media.documents/document/image%3A31"
+
+    var gestante by remember {
+        mutableStateOf(listOf<PregnantResponse>())
+    }
+    val call = RetrofitFactory().getPregnant().getPregnant(viewModel.id)
+
+    call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
+        override fun onResponse(
+            call: Call<PregnantResponseList>,
+            response: Response<PregnantResponseList>
+
+        ) {
+            //Duas exclamações seignificam que pode vir nulo
+            gestante = response.body()!!.gestante
+
+                viewModel.id = gestante[0].id
+                viewModel.cpf = gestante[0].cpf
+                viewModel.altura = gestante[0].altura
+                viewModel.data_nascimento = gestante[0].data_nascimento
+                viewModel.data_parto = gestante[0].data_parto
+                viewModel.email = gestante[0].email
+                viewModel.foto = gestante[0].foto
+                viewModel.nome = gestante[0].nome
+                viewModel.peso = gestante[0].peso
+                viewModel.senha = gestante[0].senha
+                viewModel.telefone = gestante[0].telefone
+                viewModel.semana_gestacao = gestante[0].semana_gestacao
+        }
+
+        override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -89,8 +137,7 @@ fun HomeUserScreen(navController: NavController) {
                             .border(4.dp, Color(182, 182, 246), CircleShape),
                     ) {
 
-
-                        AsyncImage(model = path,
+                        AsyncImage(model = viewModel.foto,
                             contentDescription = "",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -113,7 +160,7 @@ fun HomeUserScreen(navController: NavController) {
                         ) {
 
                             Text(
-                                text = "Oi, Alvia!",
+                                text = "Oi, " + viewModel.nome + "!",
                                 fontSize = 30.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = Color(182, 182, 246)
@@ -140,43 +187,56 @@ fun HomeUserScreen(navController: NavController) {
 
                         Spacer(modifier = Modifier.height(31.dp))
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = 22.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
 
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "11 semanas, 2 dias",
-                                fontSize = 21.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = Color(182, 182, 246)
-                            )
 
-                        }
+                            if (viewModel.data_parto != ""){
+                                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                                val dateString = viewModel.data_parto
+                                val date = LocalDate.parse(dateString, formatter)
+                                println(date)
+                                val currentDate = LocalDate.now()
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                                val period = ChronoUnit.DAYS.between(currentDate, date)
 
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 24.dp)
-                                .background(Color.White)
-                        ) {
+                                val weeks = period / 7
+                                val days = period % 7
 
-                            Row(
-                                modifier = Modifier
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 22.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    Text(
+                                        textAlign = TextAlign.Center,
+                                        text = "${weeks} semanas e ${days} dias ",
+                                        fontSize = 21.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = Color(182, 182, 246)
+                                    )
+
+                                }
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 24.dp)
+                                        .background(Color.White)
+                                ) {
+
+                                    var siza = (320 / 40) * (40 - weeks)
+                                    Row(
+                                        modifier = Modifier
 //                            .fillMaxWidth()
-                                    .height(3.2.dp)
-                                    .width(120.dp)
-                                    .background(Color(182, 182, 246)),
-                            ) {
-
-
+                                            .height(3.2.dp)
+                                            .width(siza.toInt().dp)
+                                            .background(Color(182, 182, 246)),
+                                    ) {
+                                    }
+                                }
                             }
-                        }
 
                         Spacer(modifier = Modifier.height(8.dp))
 
@@ -185,18 +245,11 @@ fun HomeUserScreen(navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 24.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.End
                         ) {
 
                             Text(
-                                text = "11 semanas",
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color(182, 182, 246)
-                            )
-
-                            Text(
-                                text = "Out 11 Fev",
+                                text = "${viewModel.data_parto}",
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = Color(182, 182, 246)

@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 class ModelPregnant {
-    var id by mutableStateOf("")
+    var id by mutableStateOf(0)
     var nome by mutableStateOf("")
     var data_nascimento by mutableStateOf("")
     var email by mutableStateOf("")
@@ -17,4 +17,5 @@ class ModelPregnant {
     var foto by mutableStateOf("")
     var semana_gestacao by mutableStateOf(0)
     var telefone by mutableStateOf("")
+
 }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -39,9 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.Schedule
 
 @Composable
-fun Schedule() {
+fun Schedule(event: List<Schedule>) {
 
     Column(
         modifier = Modifier
@@ -121,7 +123,7 @@ fun Schedule() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+//                    .verticalScroll(rememberScrollState())
             ) {
 
                 Row(
@@ -166,182 +168,15 @@ fun Schedule() {
                             textAlign = TextAlign.End
                         )
                     }
+
                 }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 19.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-
-                        Checkbox(
-                            modifier = Modifier.height(30.dp),
-                            checked = false,
-                            onCheckedChange = { },
-                            colors = CheckboxDefaults.colors(
-                                checkmarkColor = Color(182, 182, 246),
-                                checkedColor = Color(182, 182, 246), // Cor quando marcado
-                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                            )
-                        )
-
-                        Text(
-                            text = "Lorem ipsum dolofdhfhfgfdfdr",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                    }
-
-                    Row(modifier = Modifier.fillMaxWidth()) {
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "30/09",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.End
-                        )
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 19.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-
-                        Checkbox(
-                            modifier = Modifier.height(30.dp),
-                            checked = false,
-                            onCheckedChange = { },
-                            colors = CheckboxDefaults.colors(
-                                checkmarkColor = Color(182, 182, 246),
-                                checkedColor = Color(182, 182, 246), // Cor quando marcado
-                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                            )
-                        )
-
-                        Text(
-                            text = "Lorem ipsum dolofdhfghgfdfdr",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                    }
-
-                    Row(modifier = Modifier.fillMaxWidth()) {
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "30/09",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.End
-                        )
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 19.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-
-                        Checkbox(
-                            modifier = Modifier.height(30.dp),
-                            checked = false,
-                            onCheckedChange = { },
-                            colors = CheckboxDefaults.colors(
-                                checkmarkColor = Color(182, 182, 246),
-                                checkedColor = Color(182, 182, 246), // Cor quando marcado
-                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                            )
-                        )
-
-                        Text(
-                            text = "Lorem ipsum dolofdhfghgfdfdr",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                    }
-
-                    Row(modifier = Modifier.fillMaxWidth()) {
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "30/09",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.End
-                        )
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 19.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-
-                        Checkbox(
-                            modifier = Modifier.height(30.dp),
-                            checked = false,
-                            onCheckedChange = { },
-                            colors = CheckboxDefaults.colors(
-                                checkmarkColor = Color(182, 182, 246),
-                                checkedColor = Color(182, 182, 246), // Cor quando marcado
-                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                            )
-                        )
-
-                        Text(
-                            text = "Lorem ipsum dolofdhfghgfdfdr",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-
-                    }
-
-                    Row(modifier = Modifier.fillMaxWidth()) {
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "30/09",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium,
-                            textAlign = TextAlign.End
-                        )
-                    }
-                }
-
             }
 
+       LazyColumn(){
+            items(event)
+       }
         }
 
     }
 
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ScredulePreview() {
-    Schedule()
 }
