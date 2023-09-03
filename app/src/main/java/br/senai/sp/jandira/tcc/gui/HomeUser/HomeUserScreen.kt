@@ -51,13 +51,13 @@ import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.PregnantResponse
 import br.senai.sp.jandira.tcc.model.PregnantResponseList
+import br.senai.sp.jandira.tcc.model.Schedule
+import br.senai.sp.jandira.tcc.model.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Response
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -77,26 +77,49 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
             response: Response<PregnantResponseList>
 
         ) {
-            //Duas exclamações seignificam que pode vir nulo
             gestante = response.body()!!.gestante
 
-                viewModel.id = gestante[0].id
-                viewModel.cpf = gestante[0].cpf
-                viewModel.altura = gestante[0].altura
-                viewModel.data_nascimento = gestante[0].data_nascimento
-                viewModel.data_parto = gestante[0].data_parto
-                viewModel.email = gestante[0].email
-                viewModel.foto = gestante[0].foto
-                viewModel.nome = gestante[0].nome
-                viewModel.peso = gestante[0].peso
-                viewModel.senha = gestante[0].senha
-                viewModel.telefone = gestante[0].telefone
-                viewModel.semana_gestacao = gestante[0].semana_gestacao
+            viewModel.id = gestante[0].id
+            viewModel.cpf = gestante[0].cpf
+            viewModel.altura = gestante[0].altura
+            viewModel.data_nascimento = gestante[0].data_nascimento
+            viewModel.data_parto = gestante[0].data_parto
+            viewModel.email = gestante[0].email
+            viewModel.foto = gestante[0].foto
+            viewModel.nome = gestante[0].nome
+            viewModel.peso = gestante[0].peso
+            viewModel.senha = gestante[0].senha
+            viewModel.telefone = gestante[0].telefone
+            viewModel.semana_gestacao = gestante[0].semana_gestacao
         }
 
         override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
             Log.i(
                 "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+
+    var agenda by remember {
+        mutableStateOf(listOf<Schedule>())
+    }
+    val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
+
+    callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
+        override fun onResponse(
+            call: Call<ScheduleList>,
+            response: Response<ScheduleList>
+
+        ) {
+            agenda = response.body()!!.evento
+
+        }
+
+        override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
+            Log.i(
+                "ds2",
                 "onFailure: ${t.message}"
             )
             println(t.message + t.cause)
@@ -137,12 +160,14 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             .border(4.dp, Color(182, 182, 246), CircleShape),
                     ) {
 
-                        AsyncImage(model = viewModel.foto,
+                        AsyncImage(
+                            model = viewModel.foto,
                             contentDescription = "",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(100.dp)
-                                .clip(CircleShape))
+                                .clip(CircleShape)
+                        )
                     }
 
                     Card(
@@ -189,54 +214,54 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
 
 
-                            if (viewModel.data_parto != ""){
-                                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                                val dateString = viewModel.data_parto
-                                val date = LocalDate.parse(dateString, formatter)
-                                println(date)
-                                val currentDate = LocalDate.now()
+                        if (viewModel.data_parto != "") {
+                            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                            val dateString = viewModel.data_parto
+                            val date = LocalDate.parse(dateString, formatter)
+                            println(date)
+                            val currentDate = LocalDate.now()
 
-                                val period = ChronoUnit.DAYS.between(currentDate, date)
+                            val period = ChronoUnit.DAYS.between(currentDate, date)
 
-                                val weeks = period / 7
-                                val days = period % 7
+                            val weeks = period / 7
+                            val days = period % 7
 
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 22.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                Text(
+                                    textAlign = TextAlign.Center,
+                                    text = "${weeks} semanas e ${days} dias ",
+                                    fontSize = 21.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color(182, 182, 246)
+                                )
+
+                            }
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 24.dp)
+                                    .background(Color.White)
+                            ) {
+
+                                var size = (320 / 40) * (40 - weeks)
                                 Row(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(start = 22.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-
-                                    Text(
-                                        textAlign = TextAlign.Center,
-                                        text = "${weeks} semanas e ${days} dias ",
-                                        fontSize = 21.sp,
-                                        fontWeight = FontWeight.ExtraBold,
-                                        color = Color(182, 182, 246)
-                                    )
-
-                                }
-                                Spacer(modifier = Modifier.height(10.dp))
-
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 24.dp)
-                                        .background(Color.White)
-                                ) {
-
-                                    var siza = (320 / 40) * (40 - weeks)
-                                    Row(
-                                        modifier = Modifier
 //                            .fillMaxWidth()
-                                            .height(3.2.dp)
-                                            .width(siza.toInt().dp)
-                                            .background(Color(182, 182, 246)),
-                                    ) {
-                                    }
+                                        .height(3.2.dp)
+                                        .width(size.toInt().dp)
+                                        .background(Color(182, 182, 246)),
+                                ) {
                                 }
                             }
+                        }
 
                         Spacer(modifier = Modifier.height(8.dp))
 
@@ -263,7 +288,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            Schedule()
+            Schedule(agenda)
 
             Spacer(modifier = Modifier.height(50.dp))
 
@@ -313,12 +338,8 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             text = "Fórum",
                             fontSize = 16.sp,
                             color = Color(182, 182, 246),
-
-
-                            )
-
+                        )
                     }
-
                 }
             }
 
