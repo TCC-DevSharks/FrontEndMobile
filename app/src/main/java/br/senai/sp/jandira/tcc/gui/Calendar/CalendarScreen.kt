@@ -179,7 +179,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         ButtonPurple(
             navController = navController,
             texto = R.string.button_finish,
-            rota = "home",
+            rota = "homeUser",
             onclick = {
 
                     call.enqueue(object : Callback<ResponseBody> {

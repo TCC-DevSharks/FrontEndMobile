@@ -164,6 +164,7 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
                 .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
             ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser") {
 
                 call.enqueue(object : retrofit2.Callback<LoginList> {
@@ -291,7 +292,7 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
         }
     }
 }
-//@Preview (showSystemUi = true, showBackground = true)
+//@Preview(showSystemUi = true, showBackground = true)
 //@Composable
 //fun LoginPreview() {
 //    LoginScreen()
