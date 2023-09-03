@@ -20,11 +20,11 @@ import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
-
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.ProfileDate.ProfileDate
 import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -59,6 +59,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
+    val viewModelPregnant = ModelPregnant()
 
     AnimatedNavHost(
         navController = navController,
@@ -68,18 +69,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
-            composable(route = "login") { LoginScreen (navController) }
+            composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
             composable(route = "register") { RegisterScreen (navController, viewModel)}
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController, viewModel) }
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController) }
+            composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant) }
             composable(route = "navigation") { Navigation (navController) }
-
             composable(route = "bag") { MaternityBagScreen (navController) }
             composable(route = "trousseau") { TrousseauScreen (navController) }
-
             composable(route = "Add") { ProfileDate () }
 
 

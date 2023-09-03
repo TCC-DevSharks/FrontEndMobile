@@ -96,6 +96,7 @@ dependencies {
     //Coil dependencies
     implementation ("io.coil-kt:coil-compose:2.3.0")
 
-    // Biblioteca Font Awasome
-    implementation ("br.com.devsrsouza.compose.icons.android:font-awesome:0.1.1")
+    // Room dependencies
+    implementation ("androidx.room:room-runtime:2.5.2")
+    annotationProcessor ("androidx.room:room-compiler:2.5.2")
 }

@@ -19,5 +19,13 @@ class RetrofitFactory {
         fun insertPregnant(): PregnantService{
             return  retrofitFactory.create(PregnantService:: class.java)
         }
+        fun getPregnant(): PregnantService{
+            return retrofitFactory.create(PregnantService:: class.java)
+        }
+
+        fun getSchedule(): ScheduleService{
+            return  retrofitFactory.create(ScheduleService:: class.java)
+        }
+
 
 }

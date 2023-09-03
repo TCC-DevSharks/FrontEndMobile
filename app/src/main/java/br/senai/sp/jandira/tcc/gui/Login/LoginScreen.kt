@@ -43,7 +43,11 @@ import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
 import br.senai.sp.jandira.tcc.model.LoginList
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.service.PregnantService
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Response
 //import retrofit2.Call
 //import retrofit2.Response
 import javax.security.auth.callback.Callback
@@ -51,7 +55,7 @@ import javax.security.auth.callback.Callback
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     val context = LocalContext.current
@@ -61,6 +65,8 @@ fun LoginScreen(navController: NavController) {
     var login by remember {
         mutableStateOf(listOf<Login>())
     }
+
+
     val lineColor = Color(182, 182, 246) // Cor linear
     var visible by remember { mutableStateOf(false) }
 
@@ -158,39 +164,40 @@ fun LoginScreen(navController: NavController) {
                 .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {
 
-//                call.enqueue(object : retrofit2.Callback<LoginList> {
-//                    override fun onResponse(
-//                        call: Call<LoginList>,
-//                        response: Response<LoginList>
-//
-//                    ) {
-//                        //Duas exclamações seignificam que pode vir nulo
-//                        login = response.body()!!.login
-//                        Log.d("asfdss", "${login}")
-//
-//
-//                        if (login[0].id !== 0) {
-//                            Log.d("asfdss", "entrou")
-//                            navController.navigate("home")
-//                        } else {
-//                            visible = true
-//                        }
-//
-//                    }
-//
-//                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
-//                        Log.i(
-//                            "ds2m",
-//                            "onFailure: ${t.message}"
-//                        )
-//                    }
-//                })
-//
-//
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser") {
 
-            })
+                call.enqueue(object : retrofit2.Callback<LoginList> {
+                    override fun onResponse(
+                        call: Call<LoginList>,
+                        response: Response<LoginList>
+
+                    ) {
+                        //Duas exclamações seignificam que pode vir nulo
+                        login = response.body()!!.login
+
+                        if (login[0].id !== 0) {
+                            viewModel.id = login[0].id
+                            println(login[0].id)
+                            navController.navigate("homeUser")
+
+                        } else {
+                            visible = true
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
+
+
+            }
 
             Spacer(modifier = Modifier.height(30.dp))
 

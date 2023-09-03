@@ -48,7 +48,7 @@ fun OutlinedTextFieldTodos(
             focusedIndicatorColor = Color(243, 243, 243),
             unfocusedIndicatorColor = Color(243, 243, 243)
         ),
-        maxLines = 1,
+       singleLine = true
 
 
     )
