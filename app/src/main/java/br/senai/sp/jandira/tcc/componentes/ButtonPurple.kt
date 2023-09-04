@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -29,7 +30,8 @@ fun ButtonPurple(
     cor: Color = Color(182, 182, 246),
     onclick: (NavController) -> Unit,
     width: Dp = (327.dp),
-    height: Dp = (48.dp)
+    height: Dp = (48.dp),
+    sizeText: TextUnit = 22.sp
 
 ) {
 
@@ -56,7 +58,7 @@ fun ButtonPurple(
                 text = stringResource(texto),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
-                fontSize = 22.sp
+                fontSize = sizeText
             )
         }
     }

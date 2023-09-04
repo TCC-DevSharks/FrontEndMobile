@@ -41,9 +41,8 @@
 <!--    <string name="header_add_maternity_bag">Falta pouco! Seu cadastro está sendo finalizado.</string>-->
     <string name="title_address">Vamos coletar mais informações para o  seu cadastro!</string>
 <!--    <string name="header_add_birth_plan">Seu cadastro foi realizado!</string>-->
-<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
-<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
-<!--    <string name="header_add_trousseau">Qual especialidade você procura?</string>-->
+    <string name="header_speciality">Encontre um médico</string>
+    <string name="which_specialty">Qual especialidade você procura?</string>
 <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
 <!--    <string name="header_add_birth_plan">Essa especialidade está disponível nessas clínicas:</string>-->
 <!--    <string name="header_add_birth_plan">Na clínica exemplo,  existem esses nutricionistas :</string>-->
@@ -78,6 +77,9 @@
     <string name="text_field_altura">Altura</string>
     <string name="text_field_peso">Peso</string>
     <string name="text_field_cpf">CPF</string>
+    <string name="text_field_medication">Informe a medicação</string>
+
+
     <string name="text_field_rua">Rua</string>
     <string name="text_field_bairro">Bairro</string>
     <string name="text_field_numero">Número</string>
@@ -122,6 +124,8 @@
     <string name="example_cpf">Cpf</string>
     <string name="date_of_birth">Data Nascimento</string>
     <string name="email">Email</string>
+    <string name="document">Documento</string>
+
     <string name="date_childbirth">Data parto</string>
     <string name="gestation_week">Semana G</string>
     <string name="address">Endereço:</string>
