@@ -386,7 +386,7 @@ fun ProfileDate() {
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.number),
+                                text = stringResource(id = R.string.numberrr),
                                 fontSize = 15.sp,
                                 color = Color.Black,
                                 modifier = Modifier.align(Alignment.CenterVertically)
