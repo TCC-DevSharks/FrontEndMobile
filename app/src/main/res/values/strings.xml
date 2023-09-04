@@ -24,11 +24,29 @@
     <string name="name_suggestion">Sugestão de Nomes</string>
 
 
+    <!-- Header Adicionar Item -->
+    <string name="header_add_maternity_bag">Adicionar - Mala de Maternidade</string>
+    <string name="header_add_trousseau">Adicionar - Enxoval</string>
+    <string name="header_add_birth_plan">Adicionar - Plano de Parto</string>
+
+
     <!-- Sub Header Preparations   -->
     <string name="my_list">Minha lista</string>
     <string name="suggested">Sugeridos</string>
     <string name="favorites">Favoritos</string>
     <string name="all">Todos</string>
+
+
+    <!-- Escolha de Medico -->
+<!--    <string name="header_add_maternity_bag">Falta pouco! Seu cadastro está sendo finalizado.</string>-->
+    <string name="title_address">Vamos coletar mais informações para o  seu cadastro!</string>
+<!--    <string name="header_add_birth_plan">Seu cadastro foi realizado!</string>-->
+<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+<!--    <string name="header_add_trousseau">Qual especialidade você procura?</string>-->
+<!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
+<!--    <string name="header_add_birth_plan">Essa especialidade está disponível nessas clínicas:</string>-->
+<!--    <string name="header_add_birth_plan">Na clínica exemplo,  existem esses nutricionistas :</string>-->
 
 
 
@@ -48,14 +66,22 @@
     <string name="title_calendar">Data do parto</string>
     <string name="description_calendar">Baseado em sua semana gestacional, essa é a data prevista para o parto. Você pode alterar mais tarde no seu perfil.</string>
 
-    <!--    -->
+    <!-- TextField   -->
     <string name="username">Username</string>
     <string name="name_password">Senha</string>
     <string name="types_of_users">Email</string>
-
     <string name="text_field_nome">Nome Completo</string>
     <string name="text_field_telefone">Telefone</string>
     <string name="text_field_nascimento">Data de Nascimento</string>
+
+    <!-- TextField Escolha do Medico   -->
+    <string name="text_field_altura">Altura</string>
+    <string name="text_field_peso">Peso</string>
+    <string name="text_field_cpf">CPF</string>
+    <string name="text_field_rua">Rua</string>
+    <string name="text_field_bairro">Bairro</string>
+    <string name="text_field_numero">Número</string>
+    <string name="text_field_cidade">Cidade</string>
 
     <string name="text_switch">Entrar como profissional</string>
 
@@ -87,6 +113,10 @@
 
 
     <string name="people_date">Pessoais:</string>
+
+    <string name="personal_information">Informações Pessoais:</string>
+
+
 
     <string name="example_name">Nome</string>
     <string name="example_cpf">Cpf</string>
