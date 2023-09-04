@@ -9,9 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
+import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
@@ -65,7 +69,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "add",
+        startDestination = "Completed_Registration",
     )
 
         {
@@ -83,17 +87,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Add") { Name_Suggestion () }
 
-            composable(route = "teste") { AddressScreen () }
+            composable(route = "Completed_Registration") { Completed_Registration(navController) }
 
 
 
         }
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun GreetingPreview() {
-//    TCCTheme {
-//        Greeting("Android")
-//    }
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun GreetingPreview() {
+    TCCTheme {
+        Greeting("Android")
+    }
+}

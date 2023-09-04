@@ -40,12 +40,9 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
-<<<<<<< HEAD
 import br.senai.sp.jandira.tcc.model.LoginList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.service.PregnantService
-=======
->>>>>>> 265a5f02cfa12dee5584544f3504dc227389f220
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
@@ -165,39 +162,39 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser") {
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {})
 
-                call.enqueue(object : retrofit2.Callback<LoginList> {
-                    override fun onResponse(
-                        call: Call<LoginList>,
-                        response: Response<LoginList>
+//                call.enqueue(object : retrofit2.Callback<LoginList> {
+//                    override fun onResponse(
+//                        call: Call<LoginList>,
+//                        response: Response<LoginList>
+//
+//                    ) {
+//                        //Duas exclamações seignificam que pode vir nulo
+//                        login = response.body()!!.login
+//
+//                        if (login[0].id !== 0) {
+//                            viewModel.id = login[0].id
+//                            println(login[0].id)
+//                            navController.navigate("homeUser")
+//
+//                        } else {
+//                            visible = true
+//                        }
+//
+//                    }
+//
+//                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
+//                        Log.i(
+//                            "ds2m",
+//                            "onFailure: ${t.message}"
+//                        )
+//                        println(t.message + t.cause)
+//                    }
+//                })
 
-                    ) {
-                        //Duas exclamações seignificam que pode vir nulo
-                        login = response.body()!!.login
-
-                        if (login[0].id !== 0) {
-                            viewModel.id = login[0].id
-                            println(login[0].id)
-                            navController.navigate("homeUser")
-
-                        } else {
-                            visible = true
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
-                        Log.i(
-                            "ds2m",
-                            "onFailure: ${t.message}"
-                        )
-                        println(t.message + t.cause)
-                    }
-                })
 
 
-            }
 
             Spacer(modifier = Modifier.height(30.dp))
 
