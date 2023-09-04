@@ -1,24 +1,19 @@
-package br.senai.sp.jandira.tcc.gui.ProfileDate
+package br.senai.sp.jandira.tcc.gui.ProfileData
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -27,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -36,18 +30,32 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileDate() {
+fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
+    var cpf by remember { mutableStateOf("") }
+    var nome by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var dataNascimento by remember { mutableStateOf("") }
+    var telefone by remember { mutableStateOf("") }
+    var dataParto by remember { mutableStateOf("") }
+    var semanaGestacao by remember { mutableStateOf("") }
+    var logradouro by remember { mutableStateOf("") }
+    var complemento by remember { mutableStateOf("") }
+    var cep by remember { mutableStateOf("") }
+    var numero by remember { mutableStateOf("") }
+    var bairro by remember { mutableStateOf("") }
+    var cidade by remember { mutableStateOf("") }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,18 +79,15 @@ fun ProfileDate() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(start = 20.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
 
-                Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = if (viewModel.nome == "")nome else viewModel.nome,
+                        onValueChange = {nome = it},
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
@@ -90,7 +95,6 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.example_name),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -109,19 +113,16 @@ fun ProfileDate() {
 
                         }
                     )
-                }
 
-                var cpf by remember {
-                    mutableStateOf("")
-                }
-                Row {
+            Spacer(modifier = Modifier.height(10.dp))
+
                     OutlinedTextField(
-                        value = cpf,
+                        value = if (viewModel.cpf == "")cpf else viewModel.cpf,
                         onValueChange = { newCpf ->
                             cpf = newCpf.filter { it.isDigit() }.take(11)
                         },
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
@@ -129,7 +130,6 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.example_cpf),
                                 fontSize = 15.sp,
                                 color = Color.Black,
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -153,19 +153,12 @@ fun ProfileDate() {
                         visualTransformation = VisualTransformation.None
                     )
 
-                }
-
-            }
             Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row {
+
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = if (viewModel.data_nascimento == "")dataNascimento else viewModel.data_nascimento,
+                        onValueChange = {dataNascimento = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -175,7 +168,6 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.date_of_birth),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -194,21 +186,48 @@ fun ProfileDate() {
 
                         }
                     )
-                }
-            }
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            var email by remember {
-                mutableStateOf("")
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row {
+            OutlinedTextField(
+                value = if (viewModel.telefone == "")telefone else viewModel.telefone,
+                onValueChange = {dataNascimento = it},
+                modifier = Modifier
+                    .width(370.dp)
+                    .height(60.dp),
+                shape = RoundedCornerShape(16.dp),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.telephone),
+                        fontSize = 15.sp,
+                        color = Color.Black, // Defina a cor do texto como preta
+                    )
+                },
+                colors = TextFieldDefaults
+                    .outlinedTextFieldColors(
+                        focusedBorderColor = Color(148, 112, 214),
+                        unfocusedBorderColor = Color(182, 182, 246)
+                    ),
+                singleLine = true,
+
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.editor_outlined),
+                        contentDescription = "",
+                        tint = Color(182, 182, 246)
+                    )
+
+                }
+            )
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+
                     OutlinedTextField(
-                        value = email,
+                        value = if (viewModel.email == "")email else viewModel.email,
                         onValueChange = { email = it },
                         modifier = Modifier
                             .width(370.dp)
@@ -219,7 +238,7 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.email),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
+
                             )
                         },
                         colors = TextFieldDefaults
@@ -238,22 +257,19 @@ fun ProfileDate() {
 
                         }
                     )
-                }
-            }
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
 
-                Row {
+
+
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = if (viewModel.data_parto == "")dataParto else viewModel.data_parto,
+                        onValueChange = {dataParto = it},
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
@@ -261,7 +277,7 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.date_childbirth),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
+
                             )
                         },
                         colors = TextFieldDefaults
@@ -280,15 +296,14 @@ fun ProfileDate() {
 
                         }
                     )
-                }
 
+            Spacer(modifier = Modifier.height(10.dp))
 
-                Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = if (viewModel.semana_gestacao == 0) semanaGestacao else "${viewModel.semana_gestacao}",
+                        onValueChange = {semanaGestacao = it},
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
@@ -296,7 +311,7 @@ fun ProfileDate() {
                                 text = stringResource(id = R.string.gestation_week),
                                 fontSize = 15.sp,
                                 color = Color.Black,
-                                modifier = Modifier.align(Alignment.CenterVertically)
+
                             )
                         },
                         colors = TextFieldDefaults
@@ -320,9 +335,9 @@ fun ProfileDate() {
                         visualTransformation = VisualTransformation.None
                     )
 
-                }
 
-            }
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
             Row() {
@@ -330,31 +345,26 @@ fun ProfileDate() {
                     text = stringResource(id = R.string.address),
                     fontSize = 15.sp,
                     fontFamily = FontFamily.SansSerif,
-                    modifier = Modifier.padding(start = 20.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
 
-                Row {
+
+
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = if (viewModel.cep == "")cep else viewModel.cep,
+                        onValueChange = {cep = it},
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.example_street),
+                                text = stringResource(id = R.string.example_cep),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -373,23 +383,22 @@ fun ProfileDate() {
 
                         }
                     )
-                }
+
+            Spacer(modifier = Modifier.height(10.dp))
 
 
-                Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = logradouro,
+                        onValueChange = {logradouro = it},
                         modifier = Modifier
-                            .width(180.dp)
+                            .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.number),
+                                text = stringResource(id = R.string.example_street),
                                 fontSize = 15.sp,
                                 color = Color.Black,
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -413,30 +422,27 @@ fun ProfileDate() {
                         visualTransformation = VisualTransformation.None
                     )
 
-                }
-            }
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row {
+
+
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value =if (viewModel.numero == "") numero else viewModel.numero,
+                        onValueChange = {numero = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.date_of_birth),
+                                text = stringResource(id = R.string.number),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
+
                             )
                         },
                         colors = TextFieldDefaults
@@ -455,30 +461,61 @@ fun ProfileDate() {
 
                         }
                     )
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            OutlinedTextField(
+                value =if (viewModel.complemento == "") complemento else viewModel.complemento,
+                onValueChange = {complemento = it},
+                modifier = Modifier
+                    .width(370.dp)
+                    .height(60.dp),
+                shape = RoundedCornerShape(16.dp),
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.example_complement),
+                        fontSize = 15.sp,
+                        color = Color.Black, // Defina a cor do texto como preta
+
+                    )
+                },
+                colors = TextFieldDefaults
+                    .outlinedTextFieldColors(
+                        focusedBorderColor = Color(148, 112, 214),
+                        unfocusedBorderColor = Color(182, 182, 246)
+                    ),
+                singleLine = true,
+
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.editor_outlined),
+                        contentDescription = "",
+                        tint = Color(182, 182, 246)
+                    )
+
                 }
-            }
+            )
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = bairro,
+                        onValueChange = {bairro = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.date_of_birth),
+                                text = stringResource(id = R.string.example_Neighborhood),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
+
                             )
                         },
                         colors = TextFieldDefaults
@@ -497,30 +534,24 @@ fun ProfileDate() {
 
                         }
                     )
-                }
-            }
+
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Row {
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = cidade,
+                        onValueChange = {cidade = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
-                                text = stringResource(id = R.string.date_of_birth),
+                                text = stringResource(id = R.string.example_city),
                                 fontSize = 15.sp,
                                 color = Color.Black, // Defina a cor do texto como preta
-                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         },
                         colors = TextFieldDefaults
@@ -539,18 +570,11 @@ fun ProfileDate() {
 
                         }
                     )
-                }
-            }
+
+
 
         }
 
 
     }
-}
-
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun ProfileDatePreview() {
-    ProfileDate()
 }

@@ -145,11 +145,7 @@ fun Schedule(agenda: List<Schedule>) {
                                 )
                             )
 
-                            Text(
-                                text = it.titulo,
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.Medium
-                            )
+                           LimitedText(text = it.titulo , maxLength =25 )
 
                         }
 
@@ -171,4 +167,12 @@ fun Schedule(agenda: List<Schedule>) {
 
     }
 
+}
+
+@Composable
+fun LimitedText(text: String, maxLength: Int) {
+    Text(text = if (text.length > maxLength) text.substring(0, maxLength) else text,
+        fontSize = 15.sp,
+        fontWeight = FontWeight.Medium,
+        )
 }

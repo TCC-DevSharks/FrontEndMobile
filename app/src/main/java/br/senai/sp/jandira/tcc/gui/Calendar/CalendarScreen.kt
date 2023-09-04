@@ -193,8 +193,9 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
                             Log.i("qweqwe","${response}")
                             Log.i("qweqwe","${pregnant}")
 
+                            if (response.code() == 201){
                                 navController.navigate("home")
-
+                            }
                         }
 
                         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

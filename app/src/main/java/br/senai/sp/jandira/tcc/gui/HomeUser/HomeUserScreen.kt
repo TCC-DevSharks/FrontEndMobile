@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -166,7 +167,9 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(100.dp)
-                                .clip(CircleShape)
+                                .clip(CircleShape).clickable {
+                                    navController.navigate("profileUser")
+                                }
                         )
                     }
 
@@ -223,8 +226,13 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
                             val period = ChronoUnit.DAYS.between(currentDate, date)
 
+                            val dateBirth = LocalDate.parse(viewModel.data_nascimento, formatter)
+                            val idade = ChronoUnit.YEARS.between(dateBirth, currentDate)
+
                             val weeks = period / 7
                             val days = period % 7
+
+                            viewModel.idade = idade.toInt()
 
                             Row(
                                 modifier = Modifier

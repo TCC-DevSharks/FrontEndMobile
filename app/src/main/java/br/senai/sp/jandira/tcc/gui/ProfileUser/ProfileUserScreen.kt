@@ -1,14 +1,18 @@
 package br.senai.sp.jandira.tcc.gui.ProfileUser
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -43,12 +47,37 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import br.senai.sp.jandira.profile_screen.comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 
 
 @Composable
-fun ProfileUserScreen() {
+fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
+
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    // variavel que vai pegar a URI
+    var launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        photoUri = uri
+        viewModel.foto = "${uri}"
+    }
+    var painter = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current)
+            .data(photoUri)
+            .build()
+    )
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
@@ -79,11 +108,14 @@ fun ProfileUserScreen() {
                     border = BorderStroke(3.5.dp, Color(182, 182, 246))
 
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.perfil_bebe),
-                        contentDescription = null,
+                    AsyncImage(
+                        model = viewModel.foto,
+                        contentDescription = "",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
+                            .clickable { launcher.launch("image/*") }
                     )
                 }
                 Image(
@@ -104,7 +136,9 @@ fun ProfileUserScreen() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(stringResource(id = R.string.profile_user))
+                Text(
+                    text = viewModel.nome
+                )
             }
         }
 
@@ -115,11 +149,11 @@ fun ProfileUserScreen() {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            comp(textoHeader = "180CM", textoMain = "Altura")
+            comp(textoHeader = "${viewModel.altura}", textoMain = "Altura")
 
-            comp(textoHeader = "180KG", textoMain = "Peso")
+            comp(textoHeader = "${viewModel.peso}", textoMain = "Peso")
 
-            comp(textoHeader = "18", textoMain = "Idade")
+            comp(textoHeader = "${viewModel.idade}", textoMain = "Idade")
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -142,34 +176,36 @@ fun ProfileUserScreen() {
                     )
 
                 }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(modifier = Modifier.clickable {
+                    navController.navigate("profileData")
+                }) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween) {
 
-                    Row () {
+                        Row () {
 
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_person_outline_24),
-                            contentDescription = null
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.data)
-                        )
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                contentDescription = null
+                            )
+                            Text(
+                                modifier = Modifier.padding(start = 15.dp),
+                                text = stringResource(id = R.string.data)
+                            )
 
+                        }
+
+                        Row {
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                                contentDescription = null,
+                            )
+
+                        }
                     }
-
-                    Row {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
-                        )
-
-                    }
-
-
                 }
                 Row(modifier = Modifier
                     .fillMaxWidth()
@@ -347,10 +383,4 @@ fun ProfileUserScreen() {
 
 
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ProfileUserPreview() {
-    ProfileUserScreen()
 }
