@@ -13,9 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
+<<<<<<< HEAD
 import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
+=======
+import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+>>>>>>> 1c26081b5cc825c246b63460c8d4fb7496f841fe
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
@@ -69,7 +73,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
+
         startDestination = "Completed_Registration",
+
     )
 
         {
@@ -86,8 +92,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "bag") { MaternityBagScreen (navController) }
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Add") { Name_Suggestion () }
-
             composable(route = "Completed_Registration") { Completed_Registration(navController) }
+            composable(route = "teste") { ConsultationSpecialityScreen (navController) }
+
 
 
 

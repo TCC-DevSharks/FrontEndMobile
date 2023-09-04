@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun TextTitle(
     texto: Int,
-    fontSize: TextUnit = 30.sp
+    fontSize: TextUnit = 30.sp,
+    fontWeight: FontWeight = FontWeight.Bold
 ) {
 
     Row(
@@ -29,7 +30,7 @@ fun TextTitle(
             stringResource(id = texto),
             modifier = Modifier.fillMaxWidth(),
             color = Color.Black,
-            fontWeight = FontWeight.Bold,
+            fontWeight = fontWeight,
             textAlign = TextAlign.Center,
             fontSize = fontSize,
         )
