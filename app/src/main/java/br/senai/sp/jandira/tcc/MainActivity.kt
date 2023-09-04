@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
@@ -62,7 +63,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "trousseau",
+        startDestination = "teste",
     )
 
         {
@@ -81,6 +82,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
 
             composable(route = "Add") { ProfileDate () }
+
+            composable(route = "teste") { AddressScreen () }
 
 
 
