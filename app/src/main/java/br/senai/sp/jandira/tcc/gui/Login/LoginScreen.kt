@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,16 +40,14 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
-import br.senai.sp.jandira.tcc.model.Login
-import br.senai.sp.jandira.tcc.model.LoginList
+import br.senai.sp.jandira.tcc.model.login.Login
+import br.senai.sp.jandira.tcc.model.login.LoginList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.service.PregnantService
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
 //import retrofit2.Call
 //import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 
 @OptIn(ExperimentalMaterial3Api::class)

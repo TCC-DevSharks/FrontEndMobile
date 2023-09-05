@@ -50,10 +50,10 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.PregnantResponse
-import br.senai.sp.jandira.tcc.model.PregnantResponseList
-import br.senai.sp.jandira.tcc.model.Schedule
-import br.senai.sp.jandira.tcc.model.ScheduleList
+import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
+import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
+import br.senai.sp.jandira.tcc.model.schedule.Schedule
+import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call

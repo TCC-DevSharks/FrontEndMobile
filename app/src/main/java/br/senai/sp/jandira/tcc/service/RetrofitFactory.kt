@@ -27,5 +27,22 @@ class RetrofitFactory {
             return  retrofitFactory.create(ScheduleService:: class.java)
         }
 
+        fun getEndress(): PregnantService{
+            return  retrofitFactory.create(PregnantService:: class.java)
+        }
 
+
+}
+
+class RetrofitFactoryCep {
+    private val URL_BASE = " https://viacep.com.br/ws/"
+    private val retrofitFactory = Retrofit
+        .Builder()
+        .baseUrl(URL_BASE)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    fun getCep(): ViaCepService{
+        return retrofitFactory.create(ViaCepService::class.java)
+    }
 }

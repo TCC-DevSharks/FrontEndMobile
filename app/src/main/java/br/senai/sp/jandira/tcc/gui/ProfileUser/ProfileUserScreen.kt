@@ -3,12 +3,9 @@ package br.senai.sp.jandira.tcc.gui.ProfileUser
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -25,8 +22,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -43,23 +38,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import br.senai.sp.jandira.profile_screen.comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import retrofit2.Call
+import retrofit2.Response
 
 
 @Composable
 fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
+
+    var endereco by remember {
+        mutableStateOf(listOf<EndressPregnant>())
+    }
+    val call = RetrofitFactory().getEndress().getEndressPregnant(viewModel.id)
 
     var photoUri by remember {
         mutableStateOf<Uri?>(null)
@@ -177,7 +179,36 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
                 }
                 Row(modifier = Modifier.clickable {
-                    navController.navigate("profileData")
+
+                    call.enqueue(object : retrofit2.Callback<EndressPregnantList> {
+                        override fun onResponse(
+                            call: Call<EndressPregnantList>,
+                            response: Response<EndressPregnantList>
+
+                        ) {
+                            endereco = response.body()!!.endereco
+                            Log.i("zxcv", "${response}")
+                            Log.i("zxcv", "${response.body()}")
+
+                          if (endereco.isNotEmpty()){
+
+                              viewModel.cep = endereco[0].cep
+                              viewModel.numero = endereco[0].numero
+                              viewModel.complemento = endereco[0].complemento
+
+                          }
+                            navController.navigate("profileData")
+
+                        }
+
+                        override fun onFailure(call: Call<EndressPregnantList>, t: Throwable) {
+                            Log.i(
+                                "ds2m",
+                                "onFailure: ${t.message}"
+                            )
+                            println(t.message + t.cause)
+                        }
+                    })
                 }) {
                     Row(modifier = Modifier
                         .fillMaxWidth()

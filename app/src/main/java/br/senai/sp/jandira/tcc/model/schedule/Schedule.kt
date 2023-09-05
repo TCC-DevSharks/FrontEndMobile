@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.model
+package br.senai.sp.jandira.tcc.model.schedule
 
 import java.util.Date
 

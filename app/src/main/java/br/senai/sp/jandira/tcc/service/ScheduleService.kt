@@ -1,6 +1,6 @@
 package br.senai.sp.jandira.tcc.service
 
-import br.senai.sp.jandira.tcc.model.ScheduleList
+import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

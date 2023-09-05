@@ -1,9 +1,9 @@
 package br.senai.sp.jandira.tcc.service
 
 
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.Pregnant
-import br.senai.sp.jandira.tcc.model.PregnantResponse
-import br.senai.sp.jandira.tcc.model.PregnantResponseList
+import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,4 +17,7 @@ interface PregnantService {
 
     @GET("gestante/{id}")
     fun getPregnant(@Path("id") id: Int): Call<PregnantResponseList>
+
+    @GET("gestante/endereco/{id}")
+    fun getEndressPregnant(@Path("id") id: Int): Call<EndressPregnantList>
 }

@@ -1,13 +1,11 @@
 package br.senai.sp.jandira.tcc.componentes
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,14 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.model.PregnantResponse
-import br.senai.sp.jandira.tcc.model.PregnantResponseList
-import br.senai.sp.jandira.tcc.model.Schedule
-import br.senai.sp.jandira.tcc.model.ScheduleList
-import br.senai.sp.jandira.tcc.service.RetrofitFactory
-import br.senai.sp.jandira.tcc.service.ScheduleService
-import retrofit2.Call
-import retrofit2.Response
+import br.senai.sp.jandira.tcc.model.schedule.Schedule
 
 @Composable
 fun Schedule(agenda: List<Schedule>) {

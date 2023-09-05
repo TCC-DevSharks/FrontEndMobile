@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.ProfileData
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,13 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
+import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
+import retrofit2.Call
+import retrofit2.Response
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,13 +55,49 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
     var dataNascimento by remember { mutableStateOf("") }
     var telefone by remember { mutableStateOf("") }
     var dataParto by remember { mutableStateOf("") }
-    var semanaGestacao by remember { mutableStateOf("") }
+    var semanaGestacao by remember { mutableStateOf(viewModel.semana_gestacao.toString()) }
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
     var cep by remember { mutableStateOf("") }
     var numero by remember { mutableStateOf("") }
     var bairro by remember { mutableStateOf("") }
     var cidade by remember { mutableStateOf("") }
+
+    var viaCep by remember {
+        mutableStateOf(listOf<ViaCep>())
+    }
+
+    val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
+
+    call.enqueue(object : retrofit2.Callback<ViaCep> {
+        override fun onResponse(
+            call: Call<ViaCep>,
+            response: Response<ViaCep>
+
+        ) {
+            Log.i("asdf", "${response.body()}")
+            Log.i("asdf", "${response}")
+
+            if (response.code() == 200){
+                bairro = response.body()!!.bairro
+                cidade = response.body()!!.localidade
+                logradouro = response.body()!!.logradouro
+                numero = viewModel.numero
+                complemento = viewModel.complemento
+            }
+
+
+        }
+
+        override fun onFailure(call: Call<ViaCep>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+
 
 
     Column(
@@ -85,7 +129,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value = if (viewModel.nome == "")nome else viewModel.nome,
-                        onValueChange = {nome = it},
+                        onValueChange = {if (viewModel.nome == "")nome = it else viewModel.nome = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -119,7 +163,13 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                     OutlinedTextField(
                         value = if (viewModel.cpf == "")cpf else viewModel.cpf,
                         onValueChange = { newCpf ->
+                            if (viewModel.cpf == ""){
                             cpf = newCpf.filter { it.isDigit() }.take(11)
+                            } else{
+                                viewModel.cpf = newCpf.filter { it.isDigit() }.take(11)
+                            }
+
+
                         },
                         modifier = Modifier
                             .width(370.dp)
@@ -158,7 +208,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value = if (viewModel.data_nascimento == "")dataNascimento else viewModel.data_nascimento,
-                        onValueChange = {dataNascimento = it},
+                        onValueChange = {if (viewModel.data_nascimento == "")dataNascimento = it else viewModel.data_nascimento = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -193,7 +243,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
             OutlinedTextField(
                 value = if (viewModel.telefone == "")telefone else viewModel.telefone,
-                onValueChange = {dataNascimento = it},
+                onValueChange = {if (viewModel.telefone == "")telefone = it else viewModel.telefone = it},
                 modifier = Modifier
                     .width(370.dp)
                     .height(60.dp),
@@ -228,7 +278,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value = if (viewModel.email == "")email else viewModel.email,
-                        onValueChange = { email = it },
+                        onValueChange = { if (viewModel.email == "")email = it else viewModel.email = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -267,7 +317,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value = if (viewModel.data_parto == "")dataParto else viewModel.data_parto,
-                        onValueChange = {dataParto = it},
+                        onValueChange = {if (viewModel.data_parto == "")dataParto = it else viewModel.data_parto = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -299,9 +349,10 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
+
                     OutlinedTextField(
-                        value = if (viewModel.semana_gestacao == 0) semanaGestacao else "${viewModel.semana_gestacao}",
-                        onValueChange = {semanaGestacao = it},
+                        value = semanaGestacao,
+                        onValueChange = { semanaGestacao = it },
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -355,7 +406,74 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value = if (viewModel.cep == "")cep else viewModel.cep,
-                        onValueChange = {cep = it},
+                        onValueChange = {if (viewModel.cep == "")cep = it
+                        else viewModel.cep = it
+
+                            if (cep.length == 8){
+                                val call = RetrofitFactoryCep().getCep().getCep(cep)
+
+                                call.enqueue(object : retrofit2.Callback<ViaCep> {
+                                    override fun onResponse(
+                                        call: Call<ViaCep>,
+                                        response: Response<ViaCep>
+
+                                    ) {
+                                        Log.i("asdf", "${response.body()}")
+                                        Log.i("asdf", "${response}")
+
+                                        if (response.code() == 200){
+                                            bairro = response.body()!!.bairro
+                                            cidade = response.body()!!.localidade
+                                            logradouro = response.body()!!.logradouro
+                                            numero = viewModel.numero
+                                            complemento = viewModel.complemento
+                                        }
+
+
+                                    }
+
+                                    override fun onFailure(call: Call<ViaCep>, t: Throwable) {
+                                        Log.i(
+                                            "ds2m",
+                                            "onFailure: ${t.message}"
+                                        )
+                                        println(t.message + t.cause)
+                                    }
+                                })
+                            }
+                            println(viewModel.cep.length)
+                            if (viewModel.cep.length == 8){
+                                val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
+
+                                call.enqueue(object : retrofit2.Callback<ViaCep> {
+                                    override fun onResponse(
+                                        call: Call<ViaCep>,
+                                        response: Response<ViaCep>
+
+                                    ) {
+                                        Log.i("asdf", "${response.body()}")
+                                        Log.i("asdf", "${response}")
+
+                                        if (response.code() == 200){
+                                            bairro = response.body()!!.bairro
+                                            cidade = response.body()!!.localidade
+                                            logradouro = response.body()!!.logradouro
+                                            numero = viewModel.numero
+                                            complemento = viewModel.complemento
+                                        }
+
+
+                                    }
+
+                                    override fun onFailure(call: Call<ViaCep>, t: Throwable) {
+                                        Log.i(
+                                            "ds2m",
+                                            "onFailure: ${t.message}"
+                                        )
+                                        println(t.message + t.cause)
+                                    }
+                                })
+                            }},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -393,6 +511,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
+                        enabled = false,
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
@@ -411,14 +530,6 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             keyboardType = KeyboardType.Number,
                         ),
                         singleLine = true,
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.editor_outlined),
-                                contentDescription = "",
-                                tint = Color(182, 182, 246)
-                            )
-
-                        },
                         visualTransformation = VisualTransformation.None
                     )
 
@@ -432,7 +543,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     OutlinedTextField(
                         value =if (viewModel.numero == "") numero else viewModel.numero,
-                        onValueChange = {numero = it},
+                        onValueChange = {if (viewModel.numero == "") numero = it else viewModel.numero = it},
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
@@ -468,7 +579,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
             OutlinedTextField(
                 value =if (viewModel.complemento == "") complemento else viewModel.complemento,
-                onValueChange = {complemento = it},
+                onValueChange = {if (viewModel.complemento == "") complemento =it else viewModel.complemento = it},
                 modifier = Modifier
                     .width(370.dp)
                     .height(60.dp),
@@ -509,6 +620,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
+                        enabled = false,
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
@@ -524,15 +636,6 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                                 unfocusedBorderColor = Color(182, 182, 246)
                             ),
                         singleLine = true,
-
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.editor_outlined),
-                                contentDescription = "",
-                                tint = Color(182, 182, 246)
-                            )
-
-                        }
                     )
 
 
@@ -546,6 +649,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         modifier = Modifier
                             .width(370.dp)
                             .height(60.dp),
+                        enabled = false,
                         shape = RoundedCornerShape(16.dp),
                         label = {
                             Text(
@@ -560,15 +664,6 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                                 unfocusedBorderColor = Color(182, 182, 246)
                             ),
                         singleLine = true,
-
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.editor_outlined),
-                                contentDescription = "",
-                                tint = Color(182, 182, 246)
-                            )
-
-                        }
                     )
 
 
