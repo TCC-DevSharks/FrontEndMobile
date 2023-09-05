@@ -40,13 +40,9 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
-<<<<<<< HEAD
 import br.senai.sp.jandira.tcc.model.LoginList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.service.PregnantService
-=======
-import br.senai.sp.jandira.tcc.model.ModelPregnant
->>>>>>> 1c26081b5cc825c246b63460c8d4fb7496f841fe
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 //import retrofit2.Call
