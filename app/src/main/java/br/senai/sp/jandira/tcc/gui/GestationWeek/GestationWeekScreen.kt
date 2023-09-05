@@ -54,8 +54,8 @@ fun LazyColumnWithSelection(viewModel: ModelRegister){
 
     val onItemClick = { index: Int -> selectedIndex = index}
 
-
     viewModel.semana_gestacao = selectedIndex
+
     LazyColumn(
         modifier = Modifier.height(308.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

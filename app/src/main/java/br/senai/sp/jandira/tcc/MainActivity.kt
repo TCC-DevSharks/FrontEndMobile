@@ -17,6 +17,9 @@ import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddres
 import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
 import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -92,6 +95,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Add") { Name_Suggestion () }
             composable(route = "Completed_Registration") { Completed_Registration(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
+
+            composable(route = "teste") { ConsultationDescriptionDoctorScreen (navController) }
 
 
 
