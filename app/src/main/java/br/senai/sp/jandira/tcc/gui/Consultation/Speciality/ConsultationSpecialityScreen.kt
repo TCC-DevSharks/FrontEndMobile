@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -43,14 +45,20 @@ fun ConsultationSpecialityScreen(navController: NavController) {
                 .background(Color.White)
         ) {
 
-            Column () {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(bottom = 70.dp)
+            ) {
 
                 Header(titulo = stringResource(id = R.string.header_speciality))
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(.3.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Gray)
+                        .height(.3.dp)
+                ) {
 
                 }
 
@@ -61,7 +69,7 @@ fun ConsultationSpecialityScreen(navController: NavController) {
                     TextTitle(
                         texto = R.string.which_specialty,
                         fontSize = 21.sp,
-                        fontWeight = FontWeight(500)
+                        fontWeight = FontWeight(400)
                     )
 
                 }
@@ -97,123 +105,14 @@ fun ConsultationSpecialityScreen(navController: NavController) {
                     }
                 }
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Button(
-                        onClick =
-                        {
-
-                        },
-                        modifier = Modifier
-                            .width(340.dp)
-                            .height(70.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-
-                        shape = RoundedCornerShape(16.dp),
-
-                        ) {
-                        Text(
-                            text = "Nutricionista",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
 
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Button(
-                        onClick =
-                        {
-
-                        },
-                        modifier = Modifier
-                            .width(340.dp)
-                            .height(70.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-
-                        shape = RoundedCornerShape(16.dp),
-
-                        ) {
-                        Text(
-                            text = "Nutricionista",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
 
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
 
-                    Button(
-                        onClick =
-                        {
 
-                        },
-                        modifier = Modifier
-                            .width(340.dp)
-                            .height(70.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
 
-                        shape = RoundedCornerShape(16.dp),
 
-                        ) {
-                        Text(
-                            text = "Nutricionista",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-
-                    Button(
-                        onClick =
-                        {
-
-                        },
-                        modifier = Modifier
-                            .width(340.dp)
-                            .height(70.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-
-                        shape = RoundedCornerShape(16.dp),
-
-                        ) {
-                        Text(
-                            text = "Nutricionista",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
-                    }
-                }
 
             }
 
@@ -237,8 +136,6 @@ fun ConsultationSpecialityScreen(navController: NavController) {
             }
 
         }
-
-
 
 
     }

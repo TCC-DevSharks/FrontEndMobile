@@ -12,6 +12,9 @@ import androidx.compose.ui.Modifier
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -84,7 +87,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Add") { Name_Suggestion () }
 
-            composable(route = "teste") { ConsultationSpecialityScreen (navController) }
+            composable(route = "teste") { ConsultationDescriptionDoctorScreen (navController) }
 
 
 

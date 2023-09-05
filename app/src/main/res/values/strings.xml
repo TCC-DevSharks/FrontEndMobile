@@ -42,10 +42,12 @@
     <string name="title_address">Vamos coletar mais informações para o  seu cadastro!</string>
 <!--    <string name="header_add_birth_plan">Seu cadastro foi realizado!</string>-->
     <string name="header_speciality">Encontre um médico</string>
+    <string name="header_clinic">Encontre um médico</string>
     <string name="which_specialty">Qual especialidade você procura?</string>
-<!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
-<!--    <string name="header_add_birth_plan">Essa especialidade está disponível nessas clínicas:</string>-->
-<!--    <string name="header_add_birth_plan">Na clínica exemplo,  existem esses nutricionistas :</string>-->
+    <string name="title_clinic">Essa especialidade está disponível nessas clínicas:</string>
+
+    <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
+    <string name="title_doctor">Na clínica exemplo,  existem esses nutricionistas :</string>
 
 
 
