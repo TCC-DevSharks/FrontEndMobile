@@ -40,15 +40,29 @@
     <!-- Escolha de Medico -->
 <!--    <string name="header_add_maternity_bag">Falta pouco! Seu cadastro está sendo finalizado.</string>-->
     <string name="title_address">Vamos coletar mais informações para o  seu cadastro!</string>
+
+    <string name="registration">Seu cadastro foi realizado!</string>
+<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+<!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+<!--    <string name="header_add_trousseau">Qual especialidade você procura?</string>-->
+
 <!--    <string name="header_add_birth_plan">Seu cadastro foi realizado!</string>-->
     <string name="header_speciality">Encontre um médico</string>
     <string name="header_clinic">Encontre um médico</string>
     <string name="which_specialty">Qual especialidade você procura?</string>
+
+
+<!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
+<!--    <string name="header_add_birth_plan">Essa especialidade está disponível nessas clínicas:</string>-->
+<!--    <string name="header_add_birth_plan">Na clínica exemplo,  existem esses nutricionistas :</string>-->
+
     <string name="title_clinic">Essa especialidade está disponível nessas clínicas:</string>
 
     <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
     <string name="title_doctor">Na clínica exemplo,  existem esses nutricionistas :</string>
 
+    <!-- Tela Alimentação -->
+    <string name="header_food">Alimentação</string>
 
 
 
@@ -135,6 +149,15 @@
     <string name="numberrr">Número</string>
     <string name="example_Neighborhood">Bairro</string>
     <string name="example_road">Rua</string>
+
+    <string name="title_address_finish">Falta pouco! Seu cadastro está sendo finalizado.</string>
+    <string name="finalize">Finalizar</string>
+    <string name="Continue">Continuar</string>
+    <string name="check_nutritionists">Verificar nutricionistas disponíveis</string>
+    <string name="schedule">Agenda</string>
+    <string name="tasks">Tarefas:</string>
+    <string name="description">Descrição:</string>
+    <string name="date">Data:</string>
 
 
 

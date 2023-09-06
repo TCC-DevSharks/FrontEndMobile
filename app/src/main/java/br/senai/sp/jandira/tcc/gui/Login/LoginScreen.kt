@@ -40,7 +40,9 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.Login
+import br.senai.sp.jandira.tcc.model.LoginList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.service.PregnantService
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 //import retrofit2.Call
@@ -159,7 +161,8 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {} )
+            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {})
+
 
 //                call.enqueue(object : retrofit2.Callback<LoginList> {
 //                    override fun onResponse(
