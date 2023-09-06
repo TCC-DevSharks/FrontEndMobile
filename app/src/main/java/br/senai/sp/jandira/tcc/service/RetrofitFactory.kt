@@ -31,6 +31,10 @@ class RetrofitFactory {
             return  retrofitFactory.create(PregnantService:: class.java)
         }
 
+        fun updatePregnant(): PregnantService{
+            return retrofitFactory.create(PregnantService:: class.java)
+        }
+
 
 }
 

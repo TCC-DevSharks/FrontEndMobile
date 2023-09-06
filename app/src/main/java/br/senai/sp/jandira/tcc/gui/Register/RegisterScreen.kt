@@ -163,7 +163,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
             ButtonPurple(
                 navController = navController,
-                texto = R.string.button_next,
+                texto = stringResource(id = R.string.button_next),
                 rota = "register_password",
                 onclick = {
 

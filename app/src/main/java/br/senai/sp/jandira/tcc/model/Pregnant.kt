@@ -11,6 +11,9 @@ data class Pregnant(
     val data_parto: String,
     val foto: String,
     val semana_gestacao: Int,
-    val telefone: String
+    val telefone: String,
+    val cep: String,
+    val numero: String,
+    val complemento: String
 
 )

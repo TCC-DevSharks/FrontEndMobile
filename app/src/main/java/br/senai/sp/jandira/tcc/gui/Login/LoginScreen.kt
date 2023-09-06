@@ -162,7 +162,7 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser") {
+            ButtonPurple(navController, texto = stringResource(id = R.string.button_enter), rota = "homeUser") {
 
                 call.enqueue(object : retrofit2.Callback<LoginList> {
                     override fun onResponse(

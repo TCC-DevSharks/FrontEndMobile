@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -91,7 +92,7 @@ fun ForgotPasswordScreen(navController: NavController) {
                 .padding(top = 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-           ButtonPurple(navController = navController, texto = R.string.button_confirm, rota = "home", onclick = {})
+           ButtonPurple(navController = navController, texto = stringResource(id = R.string.button_confirm), rota = "home", onclick = {})
         }
 
 

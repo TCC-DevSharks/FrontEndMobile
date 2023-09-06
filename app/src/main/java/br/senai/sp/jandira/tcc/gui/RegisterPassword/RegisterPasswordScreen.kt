@@ -135,7 +135,7 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
             horizontalArrangement = Arrangement.Center
         ) {
 
-            ButtonPurple(navController = navController, texto = R.string.button_next, rota = "week", onclick = {
+            ButtonPurple(navController = navController, texto = stringResource(id = R.string.button_next), rota = "week", onclick = {
 
                 if (password.isNotEmpty() and passwordConfirmation.isNotEmpty()){
                     if (password == passwordConfirmation){

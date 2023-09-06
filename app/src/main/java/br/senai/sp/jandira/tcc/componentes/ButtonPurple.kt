@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 @Composable
 fun ButtonPurple(
     navController: NavController,
-    texto: Int,
+    texto: String,
     rota: String,
     cor: Color = Color(182, 182, 246),
     onclick: (NavController) -> Unit
@@ -50,7 +50,7 @@ fun ButtonPurple(
 
             ) {
             Text(
-                text = stringResource(texto),
+                text = texto,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp

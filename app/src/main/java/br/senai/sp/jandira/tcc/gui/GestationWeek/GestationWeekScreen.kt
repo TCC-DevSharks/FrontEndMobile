@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -103,7 +104,7 @@ fun GestationWeekScreen(navController: NavController, viewModel: ModelRegister) 
 
 
 
-        ButtonPurple(navController = navController, texto = R.string.button_next, rota = "calendar", onclick = {
+        ButtonPurple(navController = navController, texto = stringResource(id = R.string.button_next), rota = "calendar", onclick = {
 
             if (viewModel.semana_gestacao != 0){
                 navController.navigate("calendar")
