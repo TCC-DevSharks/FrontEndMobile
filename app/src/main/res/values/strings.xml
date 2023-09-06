@@ -158,6 +158,9 @@
     <string name="tasks">Tarefas:</string>
     <string name="description">Descrição:</string>
     <string name="date">Data:</string>
+    <string name="reminder">Ativar lembrete</string>
+    <string name="birth_description">Digite algo em seu plano de parto:  </string>
+    <string name="to_add">Adicionar</string>
 
 
 
