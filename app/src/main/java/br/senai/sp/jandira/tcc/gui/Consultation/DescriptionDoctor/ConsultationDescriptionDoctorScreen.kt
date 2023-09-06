@@ -57,6 +57,7 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
     val dates = mutableListOf<LocalDate>()
 
     var dateToAdd = currentDate
+
     while (dateToAdd <= lastDayOfMonth) {
         dates.add(dateToAdd)
         dateToAdd = dateToAdd.plusDays(1)
@@ -74,7 +75,6 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                 .padding(bottom = 90.dp)
         ) {
 
-//            ArrowLeftPurple(navController = , rota = )
 
 
             Row(
@@ -84,16 +84,8 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.arrow_circle_purple_24),
-                    contentDescription = null,
-                    Modifier
-                        .clickable {
-//                    navController.navigate(rota)
+                ArrowLeftPurple(navController = navController, rota = "")
 
-                        }
-                        .size(40.dp),
-                )
             }
 
 
