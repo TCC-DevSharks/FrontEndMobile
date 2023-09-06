@@ -86,7 +86,8 @@ fun CheckFoodScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-                items(dates.size) { index ->
+                items(dates.size) {
+                        index ->
                     val formattedDate = dates[index].format(DateTimeFormatter.ofPattern("dd"))
 
                     val dayOfWeek = dates[index].dayOfWeek
