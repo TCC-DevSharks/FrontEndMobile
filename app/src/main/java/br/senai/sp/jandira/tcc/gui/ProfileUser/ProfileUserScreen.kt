@@ -25,6 +25,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,11 +43,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import br.senai.sp.jandira.profile_screen.comp
+import br.senai.sp.jandira.tcc.componentes.Comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -79,6 +83,59 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             .data(photoUri)
             .build()
     )
+
+    val openDialog = remember { mutableStateOf(false) }
+
+    var peso by remember { mutableStateOf("") }
+    var altura by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        peso = "${viewModel.peso}"
+        altura = "${viewModel.altura}"
+
+    }
+
+    ShowDialog(
+        openDialog = openDialog,
+        peso = peso,
+        altura = altura,
+        onValueChangeAltura = { altura = it },
+        onValueChangePeso = { peso = it },
+        onclick = {
+            println("Oiii")
+
+            var weight = WeightHeight(
+                peso = peso.toDouble(),
+                altura = altura.toDouble()
+            )
+            val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+
+            call.enqueue(object : retrofit2.Callback<WeightHeight> {
+                override fun onResponse(
+                    call: Call<WeightHeight>,
+                    response: Response<WeightHeight>
+
+                ) {
+                    if (response.isSuccessful){
+                        viewModel.altura = altura.toDouble()
+                        viewModel.peso = peso.toDouble()
+                        openDialog.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
+                    Log.i(
+                        "ds2m",
+                        "onFailure: ${t.message}"
+                    )
+                    println(t.message + t.cause)
+                }
+            })
+        }
+    )
+
+
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -131,8 +188,9 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
         }
 
         Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier
-            .fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -151,11 +209,13 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            comp(textoHeader = "${viewModel.altura}", textoMain = "Altura")
+            Comp(textoHeader = "${viewModel.altura}", textoMain = "Altura", onclick = {
+                openDialog.value = true
+            })
 
-            comp(textoHeader = "${viewModel.peso}", textoMain = "Peso")
+            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {})
 
-            comp(textoHeader = "${viewModel.idade}", textoMain = "Idade")
+            Comp(textoHeader = "${viewModel.idade}", textoMain = "Idade", onclick = {})
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -190,13 +250,13 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             Log.i("zxcv", "${response}")
                             Log.i("zxcv", "${response.body()}")
 
-                          if (endereco.isNotEmpty()){
+                            if (endereco.isNotEmpty()) {
 
-                              viewModel.cep = endereco[0].cep
-                              viewModel.numero = endereco[0].numero
-                              viewModel.complemento = endereco[0].complemento
+                                viewModel.cep = endereco[0].cep
+                                viewModel.numero = endereco[0].numero
+                                viewModel.complemento = endereco[0].complemento
 
-                          }
+                            }
                             navController.navigate("profileData")
 
                         }
@@ -210,12 +270,14 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         }
                     })
                 }) {
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 5.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 5.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
 
-                        Row () {
+                        Row() {
 
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_person_outline_24),
@@ -238,11 +300,13 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         }
                     }
                 }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween){
-                    Row () {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.graph),
@@ -265,7 +329,6 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 }
 
 
-
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
@@ -273,7 +336,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Card(
                 modifier = Modifier.size(width = 350.dp, height = 90.dp),
                 colors = CardDefaults.cardColors(Color.White)
@@ -292,7 +355,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.bell),
@@ -322,15 +385,15 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = if (switchCheckedState)
-                                Color(182,182,246) else Color(217,217,217),
-                            checkedTrackColor = Color(182,182,246,51),
-                            checkedBorderColor = Color(182,182,246),
+                                Color(182, 182, 246) else Color(217, 217, 217),
+                            checkedTrackColor = Color(182, 182, 246, 51),
+                            checkedBorderColor = Color(182, 182, 246),
                             uncheckedThumbColor = Color(217, 217, 217),
                             uncheckedTrackColor = Color.White,
-                            disabledCheckedBorderColor = Color(182,182,246))
+                            disabledCheckedBorderColor = Color(182, 182, 246)
+                        )
 
                     )
-
 
 
                 }
@@ -341,7 +404,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Card(
                 modifier = Modifier.size(width = 350.dp, height = 140.dp),
                 colors = CardDefaults.cardColors(Color.White)
@@ -360,7 +423,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.letter),
@@ -392,7 +455,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.verification),
@@ -406,7 +469,6 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                     }
 
                 }
-
 
 
             }

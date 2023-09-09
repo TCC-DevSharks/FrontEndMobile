@@ -28,6 +28,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -72,63 +73,62 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
     }
     val call = RetrofitFactory().getPregnant().getPregnant(viewModel.id)
 
-    call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
-        override fun onResponse(
-            call: Call<PregnantResponseList>,
-            response: Response<PregnantResponseList>
-
-        ) {
-            gestante = response.body()!!.gestante
-
-            viewModel.id = gestante[0].id
-            viewModel.cpf = gestante[0].cpf
-            viewModel.altura = gestante[0].altura
-            viewModel.data_nascimento = gestante[0].data_nascimento
-            viewModel.data_parto = gestante[0].data_parto
-            viewModel.email = gestante[0].email
-            viewModel.foto = gestante[0].foto
-            viewModel.nome = gestante[0].nome
-            viewModel.peso = gestante[0].peso
-            viewModel.senha = gestante[0].senha
-            viewModel.telefone = gestante[0].telefone
-            viewModel.semana_gestacao = gestante[0].semana_gestacao
-        }
-
-        override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
     val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
 
-    callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
-        override fun onResponse(
-            call: Call<ScheduleList>,
-            response: Response<ScheduleList>
+    LaunchedEffect(Unit) {
+        call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
+            override fun onResponse(
+                call: Call<PregnantResponseList>,
+                response: Response<PregnantResponseList>
 
-        ) {
-            agenda = response.body()!!.evento
+            ) {
+                gestante = response.body()!!.gestante
 
-        }
+                viewModel.id = gestante[0].id
+                viewModel.cpf = gestante[0].cpf
+                viewModel.altura = gestante[0].altura
+                viewModel.data_nascimento = gestante[0].data_nascimento
+                viewModel.data_parto = gestante[0].data_parto
+                viewModel.email = gestante[0].email
+                viewModel.foto = gestante[0].foto
+                viewModel.nome = gestante[0].nome
+                viewModel.peso = gestante[0].peso
+                viewModel.senha = gestante[0].senha
+                viewModel.telefone = gestante[0].telefone
+            }
 
-        override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
-            Log.i(
-                "ds2",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
+            override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
 
+        callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
+            override fun onResponse(
+                call: Call<ScheduleList>,
+                response: Response<ScheduleList>
 
+            ) {
+                agenda = response.body()!!.evento
 
+            }
+
+            override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
+                Log.i(
+                    "ds2",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -167,7 +167,8 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .size(100.dp)
-                                .clip(CircleShape).clickable {
+                                .clip(CircleShape)
+                                .clickable {
                                     navController.navigate("profileUser")
                                 }
                         )
@@ -232,6 +233,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             val weeks = period / 7
                             val days = period % 7
 
+                            viewModel.semana_gestacao = 40 - weeks.toInt()
                             viewModel.idade = idade.toInt()
 
                             Row(

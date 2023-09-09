@@ -1,6 +1,8 @@
-package br.senai.sp.jandira.profile_screen
+package br.senai.sp.jandira.tcc.componentes
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,16 +20,17 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun comp(
+fun Comp(
     textoHeader: String,
-    textoMain: String
+    textoMain: String,
+    onclick: () -> Unit
 
 ) {
-
     Card(
         modifier = Modifier
             .size(width = 120.dp, height = 80.dp)
-            .padding(vertical = 9.dp, horizontal = 4.dp),
+            .padding(vertical = 9.dp, horizontal = 4.dp)
+            .clickable( onClick = onclick),
         colors = CardDefaults.cardColors(Color.White),
 
 

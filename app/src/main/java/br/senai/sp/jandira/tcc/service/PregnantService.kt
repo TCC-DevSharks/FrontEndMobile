@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.service
 
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -23,5 +24,9 @@ interface PregnantService {
     fun getEndressPregnant(@Path("id") id: Int): Call<EndressPregnantList>
 
     @PUT("gestante/{id}")
-    fun updatePregnant(@Path("id") id: Int): Call<ResponseBody>
+    fun updatePregnant(@Path("id") id: Int, @Body pregnant: Pregnant): Call<Pregnant>
+
+    @PUT("gestante/peso/{id}")
+    fun updateWeightPregnant(@Path("id") id: Int, @Body weightHeight: WeightHeight): Call<WeightHeight>
+
 }
