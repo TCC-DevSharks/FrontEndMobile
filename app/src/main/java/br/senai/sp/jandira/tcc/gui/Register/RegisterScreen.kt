@@ -44,6 +44,8 @@ import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -59,6 +61,9 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
     var maxCharEmail = 255
     var maxCharPhone = 15
 
+    val storage = Firebase.storage
+    val storageRef = storage.reference
+
 
     var photoUri by remember {
         mutableStateOf<Uri?>(null)
@@ -69,7 +74,30 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         photoUri = uri
-        viewModel.foto = "${uri}"
+        photoUri = uri
+
+
+        var file = uri
+
+        val photo = storageRef.child("${file!!.lastPathSegment}")
+
+        var upload = photo.putFile(file!!)
+
+        val urlTask = upload.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            photo.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                viewModel.foto = "${ task.result }"
+            } else {
+                // Handle failures
+                // ...
+            }
+        }
     }
 
 
@@ -167,8 +195,6 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
                 rota = "register_password",
                 onclick = {
 
-                    println(viewModel.foto)
-                    Log.i("abc", "${viewModel.foto}")
                     if (nome.isNotEmpty() and email.isNotEmpty() and telefone.isNotEmpty() and dataNascimento.isNotEmpty()) {
                         var date = LocalDate.parse(
                             dataNascimento,

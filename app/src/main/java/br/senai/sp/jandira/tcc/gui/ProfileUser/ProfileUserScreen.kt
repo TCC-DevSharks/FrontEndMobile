@@ -55,12 +55,20 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.UploadTask
+import com.google.firebase.storage.ktx.storage
 import retrofit2.Call
 import retrofit2.Response
+import java.io.File
+import java.io.FileInputStream
 
 
 @Composable
 fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
+
+    val storage = Firebase.storage
+    val storageRef = storage.reference
 
     var endereco by remember {
         mutableStateOf(listOf<EndressPregnant>())
@@ -76,7 +84,54 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         photoUri = uri
-        viewModel.foto = "${uri}"
+
+
+        var file = uri
+
+        val photo = storageRef.child("${file!!.lastPathSegment}")
+
+        var upload = photo.putFile(file!!)
+
+        val urlTask = upload.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            photo.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                viewModel.foto = "${ task.result }"
+
+                var weight = WeightHeight(
+                    peso = viewModel.peso,
+                    altura = viewModel.altura,
+                    foto = viewModel.foto
+                )
+                val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+
+                call.enqueue(object : retrofit2.Callback<WeightHeight> {
+                    override fun onResponse(
+                        call: Call<WeightHeight>,
+                        response: Response<WeightHeight>
+
+                    ) {
+
+                    }
+
+                    override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
+            } else {
+                // Handle failures
+                // ...
+            }
+        }
     }
     var painter = rememberAsyncImagePainter(
         ImageRequest.Builder(LocalContext.current)
@@ -102,11 +157,11 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
         onValueChangeAltura = { altura = it },
         onValueChangePeso = { peso = it },
         onclick = {
-            println("Oiii")
 
             var weight = WeightHeight(
                 peso = peso.toDouble(),
-                altura = altura.toDouble()
+                altura = altura.toDouble(),
+                foto = viewModel.foto
             )
             val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,10 +45,12 @@ fun ShowDialog(
         Dialog(onDismissRequest = { openDialog.value = false },
             properties = DialogProperties(usePlatformDefaultWidth = false)
         ) {
-            Column(modifier = Modifier.padding(30.dp)
+            Column(modifier = Modifier
+                .padding(30.dp)
                 .background(Color.White)
-                .size(400.dp)
-                .border(border = BorderStroke(5.dp, Color.Black)),
+                .width(400.dp)
+                .height(250.dp)
+                .border(border = BorderStroke(3.dp, Color.Black)),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center) {
                 OutlinedTextField(
@@ -57,7 +60,8 @@ fun ShowDialog(
                     },
                     label = { Text("Altura") },
                     modifier = Modifier
-                        .width(300.dp),
+                        .width(300.dp)
+                        .padding(top= 20.dp),
                     shape = RoundedCornerShape(20.dp),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color(243, 243, 243),
@@ -83,12 +87,18 @@ fun ShowDialog(
                     ),
                     singleLine = true
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick =
-                    onclick
-                ) {
-                    Text("Botão")
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Row(modifier =Modifier.width(300.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    Button(onClick ={openDialog.value = true}) {
+                        Text(text = "Cancelar")
+                    }
+                    Button(onClick = onclick) {
+                        Text("Salvar")
+                    }
                 }
+
             }
         }
     }
