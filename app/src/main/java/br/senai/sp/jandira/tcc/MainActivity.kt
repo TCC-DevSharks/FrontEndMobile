@@ -9,8 +9,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.gui.BirthPlan.BirthPlanScreen
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
+import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
@@ -21,9 +33,12 @@ import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
-import br.senai.sp.jandira.tcc.gui.ProfileData.ProfileData
+import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.ProfileDate.ProfileDate
 import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
+import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
+import br.senai.sp.jandira.tcc.gui.scheduleAdd.ScheduleAdd
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -64,6 +79,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
         startDestination = "start",
+
     )
 
         {
@@ -79,18 +95,24 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "navigation") { Navigation (navController) }
             composable(route = "bag") { MaternityBagScreen (navController) }
             composable(route = "trousseau") { TrousseauScreen (navController) }
+            composable(route = "Add") { Name_Suggestion () }
+            composable(route = "Completed_Registration") { Completed_Registration(navController) }
+            composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
+            composable(route = "teste") { CheckFoodScreen (navController) }
+            composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
+
 
 
 
         }
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun GreetingPreview() {
-//    TCCTheme {
-//        Greeting("Android")
-//    }
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun GreetingPreview() {
+    TCCTheme {
+        Greeting("Android")
+    }
+}

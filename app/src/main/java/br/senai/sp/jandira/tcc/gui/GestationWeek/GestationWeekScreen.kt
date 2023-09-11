@@ -24,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
@@ -56,8 +55,8 @@ fun LazyColumnWithSelection(viewModel: ModelRegister){
 
     val onItemClick = { index: Int -> selectedIndex = index}
 
-
     viewModel.semana_gestacao = selectedIndex
+
     LazyColumn(
         modifier = Modifier.height(308.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
