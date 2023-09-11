@@ -102,7 +102,7 @@ fun CheckFoodScreen(navController: NavController) {
                             .padding(10.dp)
                             .size(70.dp, 90.dp)
                             .background(
-                                if (isCurrentDate) Color(182,182,246) else Color(227,228,228),
+                                if (isCurrentDate) Color(182, 182, 246) else Color(227, 228, 228),
                                 shape = RoundedCornerShape(10.dp)
                             ),
                         verticalArrangement = Arrangement.SpaceEvenly,
@@ -181,781 +181,135 @@ fun CheckFoodScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
+                    Column (modifier = Modifier.fillMaxSize(1f)) {
 
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
 
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(vertical = 9.dp)
                             ) {
 
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
+                                Card(
+                                    modifier = Modifier
+                                        .size(60.dp),
+                                    shape = RoundedCornerShape(12.dp),
+                                ) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.bg),
+                                        contentDescription = null,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier.fillMaxSize()
+                                    )
+
+                                }
+
+                                Spacer(modifier = Modifier.width(16.dp))
+
+                                Column(
+                                    verticalArrangement = Arrangement.SpaceBetween,
+                                ) {
+
+
+                                    Text(
+                                        text = "Honey Pancake",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight(800),
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+
+                                    Text(
+                                        text = "07:00am",
+                                        fontSize = 12.5.sp,
+                                        color = Color(173, 164, 165),
+                                        fontWeight = FontWeight(300),
+                                    )
+                                }
 
                             }
 
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
 
 
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.icon_arrow),
+                                contentDescription = null,
+                                modifier = Modifier.size(35.dp)
+                            )
 
                         }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
 
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
 
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(vertical = 9.dp)
                             ) {
 
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
+                                Card(
+                                    modifier = Modifier
+                                        .size(60.dp),
+                                    shape = RoundedCornerShape(12.dp),
+                                ) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.bg),
+                                        contentDescription = null,
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier.fillMaxSize()
+                                    )
+
+                                }
+
+                                Spacer(modifier = Modifier.width(16.dp))
+
+                                Column(
+                                    verticalArrangement = Arrangement.SpaceBetween,
+                                ) {
+
+
+                                    Text(
+                                        text = "Honey Pancake",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight(800),
+                                    )
+                                    Spacer(modifier = Modifier.height(4.dp))
+
+                                    Text(
+                                        text = "07:00am",
+                                        fontSize = 12.5.sp,
+                                        color = Color(173, 164, 165),
+                                        fontWeight = FontWeight(300),
+                                    )
+                                }
 
                             }
 
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
 
 
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.icon_arrow),
+                                contentDescription = null,
+                                modifier = Modifier.size(35.dp)
+                            )
 
                         }
 
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
                     }
+
+
 
                 }
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(1f)
-                        .padding(horizontal = 34.dp, vertical = 8.dp)
-                ) {
 
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Text(
-                            text = "Breakfast",
-                            fontSize = 18.5.sp,
-                            fontWeight = FontWeight(900),
-                        )
-
-                        Row {
-
-                            Text(
-                                text = "2 meals ",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                            Text(
-                                text = "| 230 calories",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(1f)
-                        .padding(horizontal = 34.dp, vertical = 8.dp)
-                ) {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Text(
-                            text = "Breakfast",
-                            fontSize = 18.5.sp,
-                            fontWeight = FontWeight(900),
-                        )
-
-                        Row {
-
-                            Text(
-                                text = "2 meals ",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                            Text(
-                                text = "| 230 calories",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(1f)
-                        .padding(horizontal = 34.dp, vertical = 8.dp)
-                ) {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Text(
-                            text = "Breakfast",
-                            fontSize = 18.5.sp,
-                            fontWeight = FontWeight(900),
-                        )
-
-                        Row {
-
-                            Text(
-                                text = "2 meals ",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                            Text(
-                                text = "| 230 calories",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(1f)
-                        .padding(horizontal = 34.dp, vertical = 8.dp)
-                ) {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Text(
-                            text = "Breakfast",
-                            fontSize = 18.5.sp,
-                            fontWeight = FontWeight(900),
-                        )
-
-                        Row {
-
-                            Text(
-                                text = "2 meals ",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                            Text(
-                                text = "| 230 calories",
-                                fontSize = 12.5.sp,
-                                color = Color(173, 164, 165),
-                                fontWeight = FontWeight(300),
-                            )
-
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(vertical = 9.dp)
-                        ) {
-
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
-                            ) {
-
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-
-                            }
-
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(
-                                modifier = Modifier.fillMaxHeight(),
-                                verticalArrangement = Arrangement.SpaceBetween,
-                            ) {
-
-
-                                Text(
-                                    text = "Honey Pancake",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-
-                                Text(
-                                    text = "07:00am",
-                                    fontSize = 12.5.sp,
-                                    color = Color(173, 164, 165),
-                                    fontWeight = FontWeight(300),
-                                )
-                            }
-
-                        }
-
-
-
-                        Image(
-                            painter = painterResource(id = R.drawable.icon_arrow),
-                            contentDescription = null,
-                            modifier = Modifier.size(35.dp)
-                        )
-
-                    }
-
-                }
 
 
             }

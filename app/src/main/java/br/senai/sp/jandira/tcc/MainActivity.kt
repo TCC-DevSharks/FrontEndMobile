@@ -22,8 +22,10 @@ import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.Food.ChangeFood.ChangeFoodScreen
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
+import br.senai.sp.jandira.tcc.gui.Forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
 import br.senai.sp.jandira.tcc.gui.Home.CadastroScren
@@ -99,7 +101,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Completed_Registration") { Completed_Registration(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
 
-            composable(route = "teste") { CheckFoodScreen (navController) }
+            composable(route = "teste") { ForumScreen () }
             composable(route = "AddTrousseau") { AddTrousseau() }
 
 
