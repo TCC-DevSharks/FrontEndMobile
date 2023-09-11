@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474360940540",
+    "project_id": "bebe-vindo",
+    "storage_bucket": "bebe-vindo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474360940540:android:6f49c80969149241061479",
+        "android_client_info": {
+          "package_name": "br.senai.sp.jandira.tcc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSANWPtQrc0Hmgs8LhkWrZZkxOjJX2OCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

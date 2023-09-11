@@ -17,5 +17,9 @@ class ModelPregnant {
     var foto by mutableStateOf("")
     var semana_gestacao by mutableStateOf(0)
     var telefone by mutableStateOf("")
+    var cep by mutableStateOf("")
+    var complemento by mutableStateOf("")
+    var numero by mutableStateOf("")
+    var idade by mutableStateOf(0)
 
 }

@@ -1,14 +1,15 @@
 package br.senai.sp.jandira.tcc.gui.ProfileUser
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,11 +22,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,16 +39,159 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import br.senai.sp.jandira.profile_screen.comp
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import br.senai.sp.jandira.tcc.componentes.Comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.ShowDialog
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.WeightHeight
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.UploadTask
+import com.google.firebase.storage.ktx.storage
+import retrofit2.Call
+import retrofit2.Response
+import java.io.File
+import java.io.FileInputStream
 
 
 @Composable
-fun ProfileUserScreen() {
+fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
+
+    val storage = Firebase.storage
+    val storageRef = storage.reference
+
+    var endereco by remember {
+        mutableStateOf(listOf<EndressPregnant>())
+    }
+    val call = RetrofitFactory().getEndress().getEndressPregnant(viewModel.id)
+
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    // variavel que vai pegar a URI
+    var launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        photoUri = uri
+
+
+        var file = uri
+
+        val photo = storageRef.child("${file!!.lastPathSegment}")
+
+        var upload = photo.putFile(file!!)
+
+        val urlTask = upload.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            photo.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                viewModel.foto = "${ task.result }"
+
+                var weight = WeightHeight(
+                    peso = viewModel.peso,
+                    altura = viewModel.altura,
+                    foto = viewModel.foto
+                )
+                val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+
+                call.enqueue(object : retrofit2.Callback<WeightHeight> {
+                    override fun onResponse(
+                        call: Call<WeightHeight>,
+                        response: Response<WeightHeight>
+
+                    ) {
+
+                    }
+
+                    override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
+            } else {
+                // Handle failures
+                // ...
+            }
+        }
+    }
+    var painter = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current)
+            .data(photoUri)
+            .build()
+    )
+
+    val openDialog = remember { mutableStateOf(false) }
+
+    var peso by remember { mutableStateOf("") }
+    var altura by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        peso = "${viewModel.peso}"
+        altura = "${viewModel.altura}"
+
+    }
+
+    ShowDialog(
+        openDialog = openDialog,
+        peso = peso,
+        altura = altura,
+        onValueChangeAltura = { altura = it },
+        onValueChangePeso = { peso = it },
+        onclick = {
+
+            var weight = WeightHeight(
+                peso = peso.toDouble(),
+                altura = altura.toDouble(),
+                foto = viewModel.foto
+            )
+            val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+
+            call.enqueue(object : retrofit2.Callback<WeightHeight> {
+                override fun onResponse(
+                    call: Call<WeightHeight>,
+                    response: Response<WeightHeight>
+
+                ) {
+                    if (response.isSuccessful){
+                        viewModel.altura = altura.toDouble()
+                        viewModel.peso = peso.toDouble()
+                        openDialog.value = false
+                    }
+                }
+
+                override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
+                    Log.i(
+                        "ds2m",
+                        "onFailure: ${t.message}"
+                    )
+                    println(t.message + t.cause)
+                }
+            })
+        }
+    )
+
+
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
@@ -79,11 +222,14 @@ fun ProfileUserScreen() {
                     border = BorderStroke(3.5.dp, Color(182, 182, 246))
 
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.perfil_bebe),
-                        contentDescription = null,
+                    AsyncImage(
+                        model = viewModel.foto,
+                        contentDescription = "",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
+                            .clickable { launcher.launch("image/*") }
                     )
                 }
                 Image(
@@ -97,14 +243,17 @@ fun ProfileUserScreen() {
         }
 
         Spacer(modifier = Modifier.height(10.dp))
-        Column(modifier = Modifier
-            .fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(stringResource(id = R.string.profile_user))
+                Text(
+                    text = viewModel.nome
+                )
             }
         }
 
@@ -115,11 +264,13 @@ fun ProfileUserScreen() {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            comp(textoHeader = "180CM", textoMain = "Altura")
+            Comp(textoHeader = "${viewModel.altura}", textoMain = "Altura", onclick = {
+                openDialog.value = true
+            })
 
-            comp(textoHeader = "180KG", textoMain = "Peso")
+            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {})
 
-            comp(textoHeader = "18", textoMain = "Idade")
+            Comp(textoHeader = "${viewModel.idade}", textoMain = "Idade", onclick = {})
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -142,40 +293,75 @@ fun ProfileUserScreen() {
                     )
 
                 }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(modifier = Modifier.clickable {
 
-                    Row () {
+                    call.enqueue(object : retrofit2.Callback<EndressPregnantList> {
+                        override fun onResponse(
+                            call: Call<EndressPregnantList>,
+                            response: Response<EndressPregnantList>
 
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_person_outline_24),
-                            contentDescription = null
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.data)
-                        )
+                        ) {
+                            endereco = response.body()!!.endereco
+                            Log.i("zxcv", "${response}")
+                            Log.i("zxcv", "${response.body()}")
 
+                            if (endereco.isNotEmpty()) {
+
+                                viewModel.cep = endereco[0].cep
+                                viewModel.numero = endereco[0].numero
+                                viewModel.complemento = endereco[0].complemento
+
+                            }
+                            navController.navigate("profileData")
+
+                        }
+
+                        override fun onFailure(call: Call<EndressPregnantList>, t: Throwable) {
+                            Log.i(
+                                "ds2m",
+                                "onFailure: ${t.message}"
+                            )
+                            println(t.message + t.cause)
+                        }
+                    })
+                }) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 5.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Row() {
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                contentDescription = null
+                            )
+                            Text(
+                                modifier = Modifier.padding(start = 15.dp),
+                                text = stringResource(id = R.string.data)
+                            )
+
+                        }
+
+                        Row {
+
+                            Image(
+                                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                                contentDescription = null,
+                            )
+
+                        }
                     }
-
-                    Row {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
-                        )
-
-                    }
-
-
                 }
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween){
-                    Row () {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.graph),
@@ -198,7 +384,6 @@ fun ProfileUserScreen() {
                 }
 
 
-
             }
         }
         Spacer(modifier = Modifier.height(30.dp))
@@ -206,7 +391,7 @@ fun ProfileUserScreen() {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Card(
                 modifier = Modifier.size(width = 350.dp, height = 90.dp),
                 colors = CardDefaults.cardColors(Color.White)
@@ -225,7 +410,7 @@ fun ProfileUserScreen() {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.bell),
@@ -255,15 +440,15 @@ fun ProfileUserScreen() {
 
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = if (switchCheckedState)
-                                Color(182,182,246) else Color(217,217,217),
-                            checkedTrackColor = Color(182,182,246,51),
-                            checkedBorderColor = Color(182,182,246),
+                                Color(182, 182, 246) else Color(217, 217, 217),
+                            checkedTrackColor = Color(182, 182, 246, 51),
+                            checkedBorderColor = Color(182, 182, 246),
                             uncheckedThumbColor = Color(217, 217, 217),
                             uncheckedTrackColor = Color.White,
-                            disabledCheckedBorderColor = Color(182,182,246))
+                            disabledCheckedBorderColor = Color(182, 182, 246)
+                        )
 
                     )
-
 
 
                 }
@@ -274,7 +459,7 @@ fun ProfileUserScreen() {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Card(
                 modifier = Modifier.size(width = 350.dp, height = 140.dp),
                 colors = CardDefaults.cardColors(Color.White)
@@ -293,7 +478,7 @@ fun ProfileUserScreen() {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.letter),
@@ -325,7 +510,7 @@ fun ProfileUserScreen() {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row () {
+                    Row() {
 
                         Image(
                             painter = painterResource(id = R.drawable.verification),
@@ -341,16 +526,9 @@ fun ProfileUserScreen() {
                 }
 
 
-
             }
         }
 
 
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ProfileUserPreview() {
-    ProfileUserScreen()
 }

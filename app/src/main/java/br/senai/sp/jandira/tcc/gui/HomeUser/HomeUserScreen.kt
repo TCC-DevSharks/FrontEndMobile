@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,10 +51,10 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.PregnantResponse
-import br.senai.sp.jandira.tcc.model.PregnantResponseList
-import br.senai.sp.jandira.tcc.model.Schedule
-import br.senai.sp.jandira.tcc.model.ScheduleList
+import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
+import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
+import br.senai.sp.jandira.tcc.model.schedule.Schedule
+import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call
@@ -71,65 +73,71 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
     }
     val call = RetrofitFactory().getPregnant().getPregnant(viewModel.id)
 
-    call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
-        override fun onResponse(
-            call: Call<PregnantResponseList>,
-            response: Response<PregnantResponseList>
-
-        ) {
-            gestante = response.body()!!.gestante
-
-            viewModel.id = gestante[0].id
-            viewModel.cpf = gestante[0].cpf
-            viewModel.altura = gestante[0].altura
-            viewModel.data_nascimento = gestante[0].data_nascimento
-            viewModel.data_parto = gestante[0].data_parto
-            viewModel.email = gestante[0].email
-            viewModel.foto = gestante[0].foto
-            viewModel.nome = gestante[0].nome
-            viewModel.peso = gestante[0].peso
-            viewModel.senha = gestante[0].senha
-            viewModel.telefone = gestante[0].telefone
-            viewModel.semana_gestacao = gestante[0].semana_gestacao
-        }
-
-        override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
     val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
 
-    callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
-        override fun onResponse(
-            call: Call<ScheduleList>,
-            response: Response<ScheduleList>
+    LaunchedEffect(Unit) {
+        call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
+            override fun onResponse(
+                call: Call<PregnantResponseList>,
+                response: Response<PregnantResponseList>
 
-        ) {
-            agenda = response.body()!!.evento
+            ) {
+                gestante = response.body()!!.gestante
 
-        }
+                viewModel.id = gestante[0].id
+                viewModel.cpf = gestante[0].cpf
+                viewModel.altura = gestante[0].altura
+                viewModel.data_nascimento = gestante[0].data_nascimento
+                viewModel.data_parto = gestante[0].data_parto
+                viewModel.email = gestante[0].email
+                viewModel.foto = gestante[0].foto
+                viewModel.nome = gestante[0].nome
+                viewModel.peso = gestante[0].peso
+                viewModel.senha = gestante[0].senha
+                viewModel.telefone = gestante[0].telefone
+            }
 
-        override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
-            Log.i(
-                "ds2",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
+            override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
 
-    Column(modifier = Modifier.fillMaxSize()) {
+        callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
+            override fun onResponse(
+                call: Call<ScheduleList>,
+                response: Response<ScheduleList>
+
+            ) {
+                agenda = response.body()!!.evento
 
 
-        Box(
+            }
+
+
+            override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
+                Log.i(
+                    "ds2",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White)
@@ -149,7 +157,34 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
                     Box(
                         modifier = Modifier
-                            .size(360.dp, 250.dp),
+
+                            .padding(top = 20.dp, end = 48.dp)
+                            .align(Alignment.TopEnd)
+                            .offset(y = (-68).dp)
+                            .zIndex(1f)
+                            .border(4.dp, Color(182, 182, 246), CircleShape),
+                    ) {
+
+                        AsyncImage(
+                            model = viewModel.foto,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clip(CircleShape)
+                                .clickable {
+                                    navController.navigate("profileUser")
+                                }
+                        )
+                    }
+
+                    Card(
+                        modifier = Modifier
+                            .width(360.dp)
+                            .height(250.dp),
+                        colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+                        border = BorderStroke(2.dp, Color(182, 182, 246, 38))
+
                     ) {
 
                         Box(
@@ -179,6 +214,37 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                             border = BorderStroke(2.dp, Color(182, 182, 246, 38))
                         ) {
 
+
+                            Text(
+                                text = "Como está se sentindo hoje?",
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight(600),
+                                color = Color(182, 182, 246)
+                            )
+
+                        }
+
+                        Spacer(modifier = Modifier.height(31.dp))
+
+
+
+                        if (viewModel.data_parto != "") {
+                            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                            val dateString = viewModel.data_parto
+                            val date = LocalDate.parse(dateString, formatter)
+                            println(date)
+                            val currentDate = LocalDate.now()
+
+                            val period = ChronoUnit.DAYS.between(currentDate, date)
+
+                            val dateBirth = LocalDate.parse(viewModel.data_nascimento, formatter)
+                            val idade = ChronoUnit.YEARS.between(dateBirth, currentDate)
+
+                            val weeks = period / 7
+                            val days = period % 7
+
+                            viewModel.semana_gestacao = 40 - weeks.toInt()
+                            viewModel.idade = idade.toInt()
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()

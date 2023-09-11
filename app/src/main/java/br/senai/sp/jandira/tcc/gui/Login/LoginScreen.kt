@@ -39,10 +39,9 @@ import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
 import br.senai.sp.jandira.tcc.componentes.TextTitle
-import br.senai.sp.jandira.tcc.model.Login
-import br.senai.sp.jandira.tcc.model.LoginList
+import br.senai.sp.jandira.tcc.model.login.Login
+import br.senai.sp.jandira.tcc.model.login.LoginList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.service.PregnantService
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 //import retrofit2.Call
@@ -161,7 +160,16 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = R.string.button_enter, rota = "homeUser", onclick = {})
+            ButtonPurple(navController, texto = stringResource(id = R.string.button_enter), rota = "homeUser") {
+
+                call.enqueue(object : retrofit2.Callback<LoginList> {
+                    override fun onResponse(
+                        call: Call<LoginList>,
+                        response: Response<LoginList>
+
+                    ) {
+                        //Duas exclamações seignificam que pode vir nulo
+                        login = response.body()!!.login
 
 
 //                call.enqueue(object : retrofit2.Callback<LoginList> {

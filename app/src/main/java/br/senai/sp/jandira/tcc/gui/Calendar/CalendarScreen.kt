@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -63,7 +64,10 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         data_parto = viewModel.data_parto,
         foto = viewModel.foto,
         semana_gestacao = viewModel.semana_gestacao,
-        telefone = viewModel.telefone
+        telefone = viewModel.telefone,
+        cep =  "",
+        numero = "",
+        complemento = ""
     )
 
     var call = RetrofitFactory().insertPregnant().insertPregnant(pregnant)
@@ -178,7 +182,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
         ButtonPurple(
             navController = navController,
-            texto = R.string.button_finish,
+            texto = stringResource(id =R.string.button_finish ) ,
             rota = "homeUser",
             onclick = {
 
@@ -193,8 +197,9 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
                             Log.i("qweqwe","${response}")
                             Log.i("qweqwe","${pregnant}")
 
+                            if (response.code() == 201){
                                 navController.navigate("home")
-
+                            }
                         }
 
                         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
