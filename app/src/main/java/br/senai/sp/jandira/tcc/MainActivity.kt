@@ -22,6 +22,7 @@ import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.Exercises.Exercises
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
@@ -78,7 +79,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "teste",
+        startDestination = "Exercises",
 
     )
 
@@ -100,7 +101,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
 
             composable(route = "teste") { CheckFoodScreen (navController) }
-            composable(route = "AddTrousseau") { AddTrousseau() }
+            composable(route = "Exercises") { Exercises() }
 
 
 
