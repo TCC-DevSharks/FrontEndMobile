@@ -102,6 +102,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
+//            composable(route = "insertEndress") { ConsultationAddressScreen (navController, viewModelPregnant) }
 
 
 

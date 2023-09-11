@@ -268,7 +268,9 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 openDialog.value = true
             })
 
-            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {})
+            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {
+                openDialog.value = true
+            })
 
             Comp(textoHeader = "${viewModel.idade}", textoMain = "Idade", onclick = {})
 
