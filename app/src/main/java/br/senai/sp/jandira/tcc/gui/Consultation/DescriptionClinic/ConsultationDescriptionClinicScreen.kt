@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,9 +47,9 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
                 Image(painter = painterResource(id = R.drawable.arrow_circle_purple_24),
                         contentDescription = null,
-                        Modifier
-                                .clickable {}
-                                .size(40.dp))
+                    Modifier
+                        .clickable {}
+                        .size(40.dp))
             }
 
         }
@@ -135,7 +136,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Column {
-            ButtonPurple(navController = navController, texto = R.string.check_nutritionists, rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
+            ButtonPurple(navController = navController, texto = stringResource(id = R.string.check_nutritionists), rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
 
         }
 

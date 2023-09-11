@@ -702,63 +702,64 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
             ButtonPurple(
                 navController = navController,
                 texto = "Salvar alterações",
-                rota = ""
-            ) {
-                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                rota = "",
+                onclick = {
+                    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-                var Pregnant = Pregnant(
-                    nome = nome,
-                    altura = viewModel.altura,
-                    peso = viewModel.peso,
-                    cpf = cpf,
-                    telefone = telefone,
-                    complemento = complemento,
-                    numero = numero,
-                    cep = cep,
-                    semana_gestacao = semanaGestacao.toInt(),
-                    foto = viewModel.foto,
-                    data_parto = "${LocalDate.parse(dataParto,formatter)}",
-                    data_nascimento = "${LocalDate.parse(dataNascimento,formatter)}",
-                    email = viewModel.email,
-                    senha = viewModel.senha
-                )
-                val call = RetrofitFactory().updatePregnant().updatePregnant(viewModel.id, Pregnant )
+                    var Pregnant = Pregnant(
+                        nome = nome,
+                        altura = viewModel.altura,
+                        peso = viewModel.peso,
+                        cpf = cpf,
+                        telefone = telefone,
+                        complemento = complemento,
+                        numero = numero,
+                        cep = cep,
+                        semana_gestacao = semanaGestacao.toInt(),
+                        foto = viewModel.foto,
+                        data_parto = "${LocalDate.parse(dataParto,formatter)}",
+                        data_nascimento = "${LocalDate.parse(dataNascimento,formatter)}",
+                        email = viewModel.email,
+                        senha = viewModel.senha
+                    )
+                    val call = RetrofitFactory().updatePregnant().updatePregnant(viewModel.id, Pregnant )
 
-                call.enqueue(object : retrofit2.Callback<Pregnant> {
-                    override fun onResponse(
-                        call: Call<Pregnant>,
-                        response: Response<Pregnant>
+                    call.enqueue(object : retrofit2.Callback<Pregnant> {
+                        override fun onResponse(
+                            call: Call<Pregnant>,
+                            response: Response<Pregnant>
 
-                    ) {
-                     if (response.code() == 200){
-                         viewModel.semana_gestacao = semanaGestacao.toInt()
-                         viewModel.nome = nome
-                         viewModel.numero = numero
-                         viewModel.complemento = complemento
-                         viewModel.cpf = cpf
-                         viewModel.cep = cep
-                         viewModel.telefone = telefone
-                         viewModel.data_parto = dataParto
-                         viewModel.data_nascimento = dataNascimento
-                         viewModel.email = email
+                        ) {
+                            if (response.code() == 200){
+                                viewModel.semana_gestacao = semanaGestacao.toInt()
+                                viewModel.nome = nome
+                                viewModel.numero = numero
+                                viewModel.complemento = complemento
+                                viewModel.cpf = cpf
+                                viewModel.cep = cep
+                                viewModel.telefone = telefone
+                                viewModel.data_parto = dataParto
+                                viewModel.data_nascimento = dataNascimento
+                                viewModel.email = email
 
-                         openDialogSucess.value = true
-                     }else{
-                         openDialogFail.value = true
-                     }
+                                openDialogSucess.value = true
+                            }else{
+                                openDialogFail.value = true
+                            }
 
-                    }
+                        }
 
-                    override fun onFailure(call: Call<Pregnant>, t: Throwable) {
-                        Log.i(
-                            "ds2m",
-                            "onFailure: ${t.message}"
-                        )
-                        println(t.message + t.cause)
-                    }
-                })
+                        override fun onFailure(call: Call<Pregnant>, t: Throwable) {
+                            Log.i(
+                                "ds2m",
+                                "onFailure: ${t.message}"
+                            )
+                            println(t.message + t.cause)
+                        }
+                    })
 
-            }
+                }
+            )
 
             AlertDialog(openDialog = openDialogSucess, title = "Sucesso", aviso = "Alterações efetuadas com sucesso")
             AlertDialog(openDialog = openDialogFail, title = "Erro", aviso = "Por favor, tente novamente mais tarde")

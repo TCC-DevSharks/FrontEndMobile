@@ -34,7 +34,7 @@ import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.ProfileDate.ProfileDate
+import br.senai.sp.jandira.tcc.gui.ProfileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
@@ -102,7 +102,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
-//            composable(route = "insertEndress") { ConsultationAddressScreen (navController, viewModelPregnant) }
+            composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
+            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant) }
 
 
 

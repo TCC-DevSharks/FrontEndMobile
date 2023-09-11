@@ -102,7 +102,7 @@ fun Navigation(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-                        navController.navigate("")
+                        navController.navigate("insertEndress")
 
                 }) {
 

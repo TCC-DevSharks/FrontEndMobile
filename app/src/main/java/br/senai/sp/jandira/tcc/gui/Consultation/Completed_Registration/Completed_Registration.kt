@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +63,7 @@ fun Completed_Registration(navController: NavController) {
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        ButtonPurple(navController = navController, texto = R.string.Continue, rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
+        ButtonPurple(navController = navController, texto = stringResource(id = R.string.Continue), rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
 
     }
 }
