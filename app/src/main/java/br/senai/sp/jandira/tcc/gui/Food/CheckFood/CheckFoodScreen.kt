@@ -86,36 +86,39 @@ fun CheckFoodScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-                items(dates.size) {
-                        index ->
+                items(dates.size) { index ->
                     val formattedDate = dates[index].format(DateTimeFormatter.ofPattern("dd"))
 
                     val dayOfWeek = dates[index].dayOfWeek
 
-                    val dayOfWeekName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
+                    val dayOfWeekName =
+                        dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
+
+                    val isCurrentDate = dates[index] == currentDate // Verifica se é a data atual
+
 
                     Column(
                         modifier = Modifier
                             .padding(10.dp)
-                            .size(70.dp, 90.dp),
-//                            .background(
-//                                if (LocalDate.now() == someDateValue) Color.Green else Color.Red,
-//                                shape = RoundedCornerShape(10.dp)
-//                            ),
+                            .size(70.dp, 90.dp)
+                            .background(
+                                if (isCurrentDate) Color(182,182,246) else Color(227,228,228),
+                                shape = RoundedCornerShape(10.dp)
+                            ),
                         verticalArrangement = Arrangement.SpaceEvenly,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
                         Text(
                             text = dayOfWeekName,
-                            color = Color.White,
+                            color = if (isCurrentDate) Color.White else Color.Black,
                             fontWeight = FontWeight(500),
                             fontSize = 15.sp
                         )
 
                         Text(
                             text = formattedDate,
-                            color = Color.White,
+                            color = if (isCurrentDate) Color.White else Color.Black,
                             fontWeight = FontWeight(500),
                             fontSize = 15.sp
                         )
