@@ -22,7 +22,11 @@ import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+<<<<<<< HEAD
 import br.senai.sp.jandira.tcc.gui.Food.ChangeFood.ChangeFoodScreen
+=======
+import br.senai.sp.jandira.tcc.gui.Exercises.Exercises
+>>>>>>> b2d9d163412f05e2a8d22d6829ed1437f3560bd8
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.Forum.ForumScreen
@@ -80,7 +84,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "teste",
+        startDestination = "Exercises",
 
     )
 
@@ -101,8 +105,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Completed_Registration") { Completed_Registration(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
 
+<<<<<<< HEAD
             composable(route = "teste") { ForumScreen () }
             composable(route = "AddTrousseau") { AddTrousseau() }
+=======
+            composable(route = "teste") { CheckFoodScreen (navController) }
+            composable(route = "Exercises") { Exercises() }
+>>>>>>> b2d9d163412f05e2a8d22d6829ed1437f3560bd8
 
 
 
