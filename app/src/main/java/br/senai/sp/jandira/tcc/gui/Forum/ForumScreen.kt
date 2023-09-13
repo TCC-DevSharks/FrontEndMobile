@@ -45,14 +45,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.componentes.Navigation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForumScreen() {
+fun ForumScreen(navController: NavController) {
 
     val expanded = remember { mutableStateOf(false) }
+
+    val expanded2 = remember { mutableStateOf(false) }
+
+    val expanded3 = remember { mutableStateOf(false) }
+
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -166,7 +173,7 @@ fun ForumScreen() {
                                 modifier = Modifier
                                     .width(115.dp)
                                     .height(35.dp),
-                                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                                colors = ButtonDefaults.buttonColors(Color(211, 211, 250)),
 
                                 shape = RoundedCornerShape(16.dp),
 
@@ -199,12 +206,14 @@ fun ForumScreen() {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
-                    .padding(20.dp)
+                    .padding(20.dp),
             ) {
 
                 Card(
-                    modifier = Modifier.fillMaxSize(1f),
+                    modifier = Modifier.fillMaxSize(1f)
+                        .padding(vertical = 8.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+
                 ) {
 
                     Row(
@@ -213,13 +222,13 @@ fun ForumScreen() {
 
                         Card(
                             modifier = Modifier
-                                .size(65.dp),
+                                .size(55.dp),
                             shape = CircleShape,
                             border = BorderStroke(1.5.dp, Color.Black),
 
                             ) {
                             Image(
-                                painter = painterResource(id = R.drawable.avia),
+                                painter = painterResource(id = R.drawable.doctor),
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier.fillMaxSize()
@@ -227,7 +236,7 @@ fun ForumScreen() {
 
                         }
 
-                        Column(modifier = Modifier.padding(horizontal = 11.dp)) {
+                        Column(modifier = Modifier.padding(horizontal = 14.dp)) {
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -253,19 +262,21 @@ fun ForumScreen() {
                             Row(modifier = Modifier.padding(top = 5.5.dp)) {
                                 Text(
                                     text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
-                                    fontSize = 15.sp,
+                                    fontSize = 13.5.sp,
                                     fontWeight = FontWeight(300),
-                                    lineHeight = 18.sp
+                                    lineHeight = 19.sp
 
 
                                 )
 
                             }
 
+
+
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = 5.5.dp),
+                                    .padding(top = 9.5.dp),
                                 horizontalArrangement = Arrangement.End,
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
@@ -296,25 +307,43 @@ fun ForumScreen() {
 
                             }
 
+
+
+
                         }
+
 
                     }
 
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.Gray)
+                            .height(.2.dp)
+                    ) {}
+                    
+
                     if (expanded.value) {
 
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
                         Row(
-                            modifier = Modifier.padding(horizontal = 29.dp)
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
                                 .padding(bottom = 19.dp)
                         ) {
 
                             Card(
                                 modifier = Modifier
-                                    .size(65.dp),
+                                    .size(45.dp),
                                 shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
 
                                 ) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.avia),
+                                    painter = painterResource(id = R.drawable.doctor),
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxSize()
@@ -322,7 +351,7 @@ fun ForumScreen() {
 
                             }
 
-                            Column(modifier = Modifier.padding(horizontal = 11.dp)) {
+                            Column(modifier = Modifier.padding(horizontal = 22.dp)) {
 
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -348,9 +377,9 @@ fun ForumScreen() {
                                 Row(modifier = Modifier.padding(top = 5.5.dp)) {
                                     Text(
                                         text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
-                                        fontSize = 15.sp,
+                                        fontSize = 14.sp,
                                         fontWeight = FontWeight(300),
-                                        lineHeight = 18.sp
+                                        lineHeight = 19.sp
 
                                     )
 
@@ -361,13 +390,637 @@ fun ForumScreen() {
                         }
 
 
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Gray)
+                                .height(.2.dp)
+                        ) {}
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
+                                .padding(bottom = 19.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+
+                            Card(
+                                modifier = Modifier
+                                    .size(45.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
+                                ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.avia),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                            }
+
+                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    OutlinedTextField(
+                                        value = "",
+                                        onValueChange = {
+                                        },
+                                        modifier = Modifier
+                                            .size(262.dp, 65.dp),
+                                        shape = RoundedCornerShape(20.dp),
+                                        label = {
+                                            Text(
+                                                "Comente sua resposta!",
+                                                fontSize = 12.8.sp,
+                                                color = Color(209, 209, 214)
+                                            )
+                                        },
+                                        keyboardOptions = KeyboardOptions(
+                                            keyboardType = KeyboardType.Text,
+                                            imeAction = ImeAction.Next
+                                        ),
+                                        colors = TextFieldDefaults.textFieldColors(
+                                            containerColor = Color.Transparent,
+                                            focusedIndicatorColor = Color.Transparent,
+                                            unfocusedIndicatorColor = Color.Transparent
+                                        ),
+                                        singleLine = true
+                                    )
+
+
+
+                                }
+
+
+                            }
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+                Card(
+                    modifier = Modifier.fillMaxSize(1f)
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+
+                    ) {
+
+                    Row(
+                        modifier = Modifier.padding(14.dp)
+                    ) {
+
+                        Card(
+                            modifier = Modifier
+                                .size(55.dp),
+                            shape = CircleShape,
+                            border = BorderStroke(1.5.dp, Color.Black),
+
+                            ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.doctor),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+
+                        }
+
+                        Column(modifier = Modifier.padding(horizontal = 14.dp)) {
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                Text(
+                                    text = "Clara Souza",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight(800)
+                                )
+                                Text(
+                                    text = "2h",
+                                    modifier = Modifier.padding(start = 14.dp),
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight(400),
+                                    color = Color(209, 209, 214)
+
+                                )
+
+                            }
+
+                            Row(modifier = Modifier.padding(top = 5.5.dp)) {
+                                Text(
+                                    text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+                                    fontSize = 13.5.sp,
+                                    fontWeight = FontWeight(300),
+                                    lineHeight = 19.sp
+
+
+                                )
+
+                            }
+
+
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 9.5.dp),
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                Column(modifier = Modifier.padding(horizontal = 5.dp)) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.home_cinza),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(23.dp)
+                                            .clickable {
+
+                                                expanded2.value = !expanded2.value
+                                            }
+                                    )
+                                }
+
+                                Column(modifier = Modifier.padding(horizontal = 5.dp)) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.home_cinza),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(23.dp)
+                                    )
+                                }
+
+
+                            }
+
+
+
+
+                        }
+
+
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.Gray)
+                            .height(.2.dp)
+                    ) {}
+
+
+                    if (expanded2.value) {
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
+                                .padding(bottom = 19.dp)
+                        ) {
+
+                            Card(
+                                modifier = Modifier
+                                    .size(45.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
+
+                                ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.doctor),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                            }
+
+                            Column(modifier = Modifier.padding(horizontal = 22.dp)) {
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    Text(
+                                        text = "Clara Souza",
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(800)
+                                    )
+                                    Text(
+                                        text = "2h",
+                                        modifier = Modifier.padding(start = 14.dp),
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color(209, 209, 214)
+
+                                    )
+
+                                }
+
+                                Row(modifier = Modifier.padding(top = 5.5.dp)) {
+                                    Text(
+                                        text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight(300),
+                                        lineHeight = 19.sp
+
+                                    )
+
+                                }
+
+                            }
+
+                        }
+
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Gray)
+                                .height(.2.dp)
+                        ) {}
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
+                                .padding(bottom = 19.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+
+                            Card(
+                                modifier = Modifier
+                                    .size(45.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
+                                ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.avia),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                            }
+
+                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    OutlinedTextField(
+                                        value = "",
+                                        onValueChange = {
+                                        },
+                                        modifier = Modifier
+                                            .size(262.dp, 65.dp),
+                                        shape = RoundedCornerShape(20.dp),
+                                        label = {
+                                            Text(
+                                                "Comente sua resposta!",
+                                                fontSize = 12.8.sp,
+                                                color = Color(209, 209, 214)
+                                            )
+                                        },
+                                        keyboardOptions = KeyboardOptions(
+                                            keyboardType = KeyboardType.Text,
+                                            imeAction = ImeAction.Next
+                                        ),
+                                        colors = TextFieldDefaults.textFieldColors(
+                                            containerColor = Color.Transparent,
+                                            focusedIndicatorColor = Color.Transparent,
+                                            unfocusedIndicatorColor = Color.Transparent
+                                        ),
+                                        singleLine = true
+                                    )
+
+
+
+                                }
+
+
+                            }
+
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+                Card(
+                    modifier = Modifier.fillMaxSize(1f)
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+
+                    ) {
+
+                    Row(
+                        modifier = Modifier.padding(14.dp)
+                    ) {
+
+                        Card(
+                            modifier = Modifier
+                                .size(55.dp),
+                            shape = CircleShape,
+                            border = BorderStroke(1.5.dp, Color.Black),
+
+                            ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.doctor),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
+                            )
+
+                        }
+
+                        Column(modifier = Modifier.padding(horizontal = 14.dp)) {
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                Text(
+                                    text = "Clara Souza",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight(800)
+                                )
+                                Text(
+                                    text = "2h",
+                                    modifier = Modifier.padding(start = 14.dp),
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight(400),
+                                    color = Color(209, 209, 214)
+
+                                )
+
+                            }
+
+                            Row(modifier = Modifier.padding(top = 5.5.dp)) {
+                                Text(
+                                    text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+                                    fontSize = 13.5.sp,
+                                    fontWeight = FontWeight(300),
+                                    lineHeight = 19.sp
+
+
+                                )
+
+                            }
+
+
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 9.5.dp),
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+
+                                Column(modifier = Modifier.padding(horizontal = 5.dp)) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.home_cinza),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(23.dp)
+                                            .clickable {
+
+                                                expanded3.value = !expanded3.value
+                                            }
+                                    )
+                                }
+
+                                Column(modifier = Modifier.padding(horizontal = 5.dp)) {
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.home_cinza),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(23.dp)
+                                    )
+                                }
+
+
+                            }
+
+
+
+
+                        }
+
+
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.Gray)
+                            .height(.2.dp)
+                    ) {}
+
+
+                    if (expanded3.value) {
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
+                                .padding(bottom = 19.dp)
+                        ) {
+
+                            Card(
+                                modifier = Modifier
+                                    .size(45.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
+
+                                ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.doctor),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                            }
+
+                            Column(modifier = Modifier.padding(horizontal = 22.dp)) {
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    Text(
+                                        text = "Clara Souza",
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(800)
+                                    )
+                                    Text(
+                                        text = "2h",
+                                        modifier = Modifier.padding(start = 14.dp),
+                                        fontSize = 15.sp,
+                                        fontWeight = FontWeight(400),
+                                        color = Color(209, 209, 214)
+
+                                    )
+
+                                }
+
+                                Row(modifier = Modifier.padding(top = 5.5.dp)) {
+                                    Text(
+                                        text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight(300),
+                                        lineHeight = 19.sp
+
+                                    )
+
+                                }
+
+                            }
+
+                        }
+
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Gray)
+                                .height(.2.dp)
+                        ) {}
+
+                        Spacer(modifier = Modifier.height(14.dp))
+
+
+                        Row(
+                            modifier = Modifier
+                                .padding(horizontal = 29.dp)
+                                .padding(bottom = 19.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+
+                            Card(
+                                modifier = Modifier
+                                    .size(45.dp),
+                                shape = CircleShape,
+                                border = BorderStroke(1.5.dp, Color.Black),
+
+                                ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.avia),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+
+                            }
+
+                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+
+                                    OutlinedTextField(
+                                        value = "",
+                                        onValueChange = {
+                                        },
+                                        modifier = Modifier
+                                            .size(262.dp, 65.dp),
+                                        shape = RoundedCornerShape(20.dp),
+                                        label = {
+                                            Text(
+                                                "Comente sua resposta!",
+                                                fontSize = 12.8.sp,
+                                                color = Color(209, 209, 214)
+                                            )
+                                        },
+                                        keyboardOptions = KeyboardOptions(
+                                            keyboardType = KeyboardType.Text,
+                                            imeAction = ImeAction.Next
+                                        ),
+                                        colors = TextFieldDefaults.textFieldColors(
+                                            containerColor = Color.Transparent,
+                                            focusedIndicatorColor = Color.Transparent,
+                                            unfocusedIndicatorColor = Color.Transparent
+                                        ),
+                                        singleLine = true
+                                    )
+
+
+
+                                }
+
+
+                            }
+
+                        }
+
+
+
+
                     }
 
 
                 }
 
 
+
+
             }
+
+
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .border(
+                    .9.dp,
+                    Color(182, 182, 246),
+                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
+                )
+        ) {
+
+            Navigation(navController = navController)
 
 
         }
@@ -378,8 +1031,8 @@ fun ForumScreen() {
 
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun ForumPreview() {
-    ForumScreen()
-}
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+//fun ForumPreview() {
+//    ForumScreen()
+//}

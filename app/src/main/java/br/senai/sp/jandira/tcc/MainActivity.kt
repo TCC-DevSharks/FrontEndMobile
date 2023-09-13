@@ -17,6 +17,18 @@ import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDe
 import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
 import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
+import br.senai.sp.jandira.tcc.gui.Chat.Contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
+import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
+import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.Food.ChangeFood.ChangeFoodScreen
+
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.Forum.ForumScreen
@@ -71,8 +83,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "DescriptionExercises",
 
+        startDestination = "DescriptionExercises",
     )
 
         {
@@ -93,11 +105,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
 
 
-            composable(route = "teste") { ForumScreen () }
+
             composable(route = "AddTrousseau") { AddTrousseau() }
 
             composable(route = "teste") { CheckFoodScreen (navController) }
             composable(route = "DescriptionExercises") { DescriptionExercises() }
+
+
+            composable(route = "teste") { ContatosScreen (navController) }
+            composable(route = "AddTrousseau") { AddTrousseau() }
+
+            composable(route = "Exercises") { Exercises() }
 
 
 
