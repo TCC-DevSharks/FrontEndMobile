@@ -11,22 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.gui.BirthPlan.BirthPlanScreen
 import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
-import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
-<<<<<<< HEAD
-import br.senai.sp.jandira.tcc.gui.Food.ChangeFood.ChangeFoodScreen
-=======
-import br.senai.sp.jandira.tcc.gui.Exercises.Exercises
->>>>>>> b2d9d163412f05e2a8d22d6829ed1437f3560bd8
+import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
+import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
+import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
 import br.senai.sp.jandira.tcc.gui.Forum.ForumScreen
@@ -40,11 +30,8 @@ import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.ProfileDate.ProfileDate
-import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
-import br.senai.sp.jandira.tcc.gui.scheduleAdd.ScheduleAdd
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -84,7 +71,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "Exercises",
+        startDestination = "DescriptionExercises",
 
     )
 
@@ -105,13 +92,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Completed_Registration") { Completed_Registration(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
 
-<<<<<<< HEAD
+
             composable(route = "teste") { ForumScreen () }
             composable(route = "AddTrousseau") { AddTrousseau() }
-=======
+
             composable(route = "teste") { CheckFoodScreen (navController) }
-            composable(route = "Exercises") { Exercises() }
->>>>>>> b2d9d163412f05e2a8d22d6829ed1437f3560bd8
+            composable(route = "DescriptionExercises") { DescriptionExercises() }
+
 
 
 

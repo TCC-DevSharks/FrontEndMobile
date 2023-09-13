@@ -38,7 +38,7 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import java.time.LocalDate
 
 @Composable
-fun ChangeFoodScreen(navController: NavController) {
+fun ChangeFoodScreen() {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -145,13 +145,13 @@ fun ChangeFoodScreen(navController: NavController) {
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+//            Navigation(navController = navController)
         }
     }
 }
 
-//@Preview(showSystemUi = true, showBackground = true)
-//@Composable
-//fun ChangeFoodScreenPreview() {
-//    ChangeFoodScreen()
-//}
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun ChangeFoodScreenPreview() {
+    ChangeFoodScreen()
+}
