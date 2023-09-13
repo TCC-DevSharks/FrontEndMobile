@@ -18,6 +18,7 @@ import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
 import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.Chat.Contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
@@ -84,44 +85,44 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
 
-        startDestination = "DescriptionExercises",
+        startDestination = "chat",
     )
 
-        {
-            composable(route = "home") { CadastroScren (navController) }
-            composable(route = "start") { LoadingScreen (navController) }
-            composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
-            composable(route = "register") { RegisterScreen (navController, viewModel)}
-            composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
-            composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
-            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant) }
-            composable(route = "navigation") { Navigation (navController) }
-            composable(route = "bag") { MaternityBagScreen (navController) }
-            composable(route = "trousseau") { TrousseauScreen (navController) }
-            composable(route = "Add") { Name_Suggestion () }
-            composable(route = "Completed_Registration") { Completed_Registration(navController) }
-            composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
-
-
-
-            composable(route = "AddTrousseau") { AddTrousseau() }
-
-            composable(route = "teste") { CheckFoodScreen (navController) }
-            composable(route = "DescriptionExercises") { DescriptionExercises() }
-
-
-            composable(route = "teste") { ContatosScreen (navController) }
-            composable(route = "AddTrousseau") { AddTrousseau() }
-
-            composable(route = "Exercises") { Exercises() }
-
-
-
-
-
+    {
+        composable(route = "home") { CadastroScren(navController) }
+        composable(route = "start") { LoadingScreen(navController) }
+        composable(route = "login") { LoginScreen(navController, viewModelPregnant) }
+        composable(route = "register") { RegisterScreen(navController, viewModel) }
+        composable(route = "register_password") { RegisterPasswordScreen(navController, viewModel) }
+        composable(route = "forgot_password") { ForgotPasswordScreen(navController) }
+        composable(route = "week") { GestationWeekScreen(navController, viewModel) }
+        composable(route = "calendar") { CalendarScreen(navController, viewModel) }
+        composable(route = "homeUser") { HomeUserScreen(navController, viewModelPregnant) }
+        composable(route = "navigation") { Navigation(navController) }
+        composable(route = "bag") { MaternityBagScreen(navController) }
+        composable(route = "trousseau") { TrousseauScreen(navController) }
+        composable(route = "Add") { Name_Suggestion() }
+        composable(route = "Completed_Registration") { Completed_Registration(navController) }
+        composable(route = "ConsultationDescriptionClinicScreen") {
+            ConsultationDescriptionClinicScreen(
+                navController
+            )
         }
+
+        composable(route = "AddTrousseau") { AddTrousseau() }
+
+        composable(route = "chat") { MessagesScreen() }
+
+        composable(route = "teste") { CheckFoodScreen(navController) }
+        composable(route = "DescriptionExercises") { DescriptionExercises() }
+
+
+        composable(route = "teste") { ContatosScreen(navController) }
+        composable(route = "AddTrousseau") { AddTrousseau() }
+
+        composable(route = "Exercises") { Exercises() }
+
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
