@@ -42,6 +42,7 @@ import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
@@ -112,6 +113,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         composable(route = "AddTrousseau") { AddTrousseau() }
 
         composable(route = "chat") { MessagesScreen() }
+            composable(route = "DoctorHome") { DoctorHome() }
 
         composable(route = "teste") { CheckFoodScreen(navController) }
         composable(route = "DescriptionExercises") { DescriptionExercises() }
