@@ -63,7 +63,9 @@ fun Completed_Registration(navController: NavController) {
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        ButtonPurple(navController = navController, texto = stringResource(id = R.string.Continue), rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
+        ButtonPurple(navController = navController, texto = stringResource(id = R.string.Continue), rota = "", width = 300.dp, height = 48.dp, sizeText = 15.sp, onclick = {
+            navController.navigate("speciality")
+        })
 
     }
 }

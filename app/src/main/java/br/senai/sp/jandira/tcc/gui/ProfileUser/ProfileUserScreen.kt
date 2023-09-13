@@ -49,19 +49,15 @@ import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import retrofit2.Call
 import retrofit2.Response
-import java.io.File
-import java.io.FileInputStream
 
 
 @Composable
@@ -73,7 +69,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
     var endereco by remember {
         mutableStateOf(listOf<EndressPregnant>())
     }
-    val call = RetrofitFactory().getEndress().getEndressPregnant(viewModel.id)
+    val call = RetrofitFactory().getEndress().getAndressPregnant(viewModel.id)
 
     var photoUri by remember {
         mutableStateOf<Uri?>(null)

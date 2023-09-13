@@ -21,7 +21,7 @@ interface PregnantService {
     fun getPregnant(@Path("id") id: Int): Call<PregnantResponseList>
 
     @GET("gestante/endereco/{id}")
-    fun getEndressPregnant(@Path("id") id: Int): Call<EndressPregnantList>
+    fun getAndressPregnant(@Path("id") id: Int): Call<EndressPregnantList>
 
     @PUT("gestante/{id}")
     fun updatePregnant(@Path("id") id: Int, @Body pregnant: Pregnant): Call<Pregnant>

@@ -51,6 +51,8 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
+import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
@@ -77,6 +79,11 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
         mutableStateOf(listOf<Schedule>())
     }
     val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
+
+    var endereco by remember {
+        mutableStateOf(listOf<EndressPregnant>())
+    }
+    val callEndereco = RetrofitFactory().getEndress().getAndressPregnant(viewModel.id)
 
     LaunchedEffect(Unit) {
         call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
@@ -130,6 +137,34 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
             }
         })
 
+        callEndereco.enqueue(object : retrofit2.Callback<EndressPregnantList> {
+            override fun onResponse(
+                call: Call<EndressPregnantList>,
+                response: Response<EndressPregnantList>
+
+            ) {
+                endereco = response.body()!!.endereco
+                Log.i("zxcv", "${response}")
+                Log.i("zxcv", "${response.body()}")
+
+                if (endereco.isNotEmpty()) {
+
+                    viewModel.cep = endereco[0].cep
+                    viewModel.numero = endereco[0].numero
+                    viewModel.complemento = endereco[0].complemento
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<EndressPregnantList>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
     }
     Box(
         modifier = Modifier
