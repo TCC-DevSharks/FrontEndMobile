@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,7 +33,7 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextTitle
 
 @Composable
-fun ConsultationSpecialityScreen(navController: NavController) {
+fun ConsultationSpecialityScreen() {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -127,7 +128,7 @@ fun ConsultationSpecialityScreen(navController: NavController) {
                     )
             ) {
 
-                Navigation(navController = navController)
+//                Navigation(navController = navController)
 
 
             }
@@ -139,8 +140,8 @@ fun ConsultationSpecialityScreen(navController: NavController) {
 
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun ConsultationSpecialityScreenPreview() {
-//    ConsultationSpecialityScreen()
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ConsultationSpecialityScreenPreview() {
+    ConsultationSpecialityScreen()
+}

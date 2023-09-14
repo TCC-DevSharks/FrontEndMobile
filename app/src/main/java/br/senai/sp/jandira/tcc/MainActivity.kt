@@ -43,6 +43,7 @@ import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorHome.DoctorHome
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
@@ -86,7 +87,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
 
-        startDestination = "chat",
+        startDestination = "DoctorProfile",
     )
 
     {
@@ -122,7 +123,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         composable(route = "teste") { ContatosScreen(navController) }
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "Exercises") { Exercises() }
+        composable(route = "DoctorProfile") { DoctorProfile() }
 
     }
 }

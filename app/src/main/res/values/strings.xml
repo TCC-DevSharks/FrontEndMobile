@@ -167,6 +167,13 @@
     <string name="find_class2">Workout Class</string>
     <string name="Warm_up">Warm up</string>
     <string name="description_warm_up">Warm up properly before exercising to prevent  injury and make your workouts more effective.</string>
+    <string name="Achievement">Conquista</string>
+    <string name="Activity_History">Histórico de atividades</string>
+    <string name="Workout_Progress">Progresso do treino</string>
+    <string name="Settings">configurações</string>
+    <string name="Specialty">Especialidade:</string>
+    <string name="medical_record">Prontuário</string>
+    <string name="medical_description">Descrição:</string>
 
 
 
