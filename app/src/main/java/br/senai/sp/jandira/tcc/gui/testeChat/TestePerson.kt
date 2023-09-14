@@ -3,14 +3,12 @@ package br.senai.sp.jandira.tcc.gui.testeChat
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import br.senai.sp.jandira.tcc.R
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class Person(
     val id: Int = 0,
     val name: String = "",
     @DrawableRes val icon: Int = R.drawable.avia
-) : Parcelable
+)
 
 val personList = listOf(
     Person(

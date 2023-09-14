@@ -18,6 +18,7 @@ import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
 import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.Chat.Contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesGui
 import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
@@ -112,7 +113,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "chat") { MessagesScreen() }
+        composable(route = "chat") { MessagesGui() }
+
             composable(route = "DoctorHome") { DoctorHome() }
 
         composable(route = "teste") { CheckFoodScreen(navController) }
