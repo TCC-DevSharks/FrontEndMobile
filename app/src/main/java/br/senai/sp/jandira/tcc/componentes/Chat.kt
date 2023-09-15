@@ -30,7 +30,12 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun Chat() {
+fun Chat(
+
+//    messageText: String,
+//    timeText: String,
+
+) {
 
 
     Column (modifier = Modifier.fillMaxSize(),

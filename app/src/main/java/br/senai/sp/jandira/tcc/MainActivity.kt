@@ -11,42 +11,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
-import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
-import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
-import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
-import br.senai.sp.jandira.tcc.gui.Chat.Contacts.ContatosScreen
-import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesGui
-import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
-import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
-import br.senai.sp.jandira.tcc.gui.Food.ChangeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.RegistrationFlow.Calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.ConsultationFlow.Completed_Registration.Completed_Registration
+import br.senai.sp.jandira.tcc.gui.MobileGestation.ConsultationFlow.DescriptionClinic.ConsultationDescriptionClinicScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.ExercisesFlow.DescriptionExercices.DescriptionExercises
+import br.senai.sp.jandira.tcc.gui.MobileGestation.ChatFlow.Contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.ChatFlow.Messages.MessagesGui
 
-import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
-import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
-import br.senai.sp.jandira.tcc.gui.Forum.ForumScreen
-import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.FoodFlow.CheckFood.CheckFoodScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.LoginFlow.ForgotPassword.ForgotPasswordScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.RegistrationFlow.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
-import br.senai.sp.jandira.tcc.gui.Home.CadastroScren
-import br.senai.sp.jandira.tcc.gui.Login.LoginScreen
-import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
-import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
-import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
-import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
-import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.Home.CadastroScren
+import br.senai.sp.jandira.tcc.gui.MobileGestation.LoginFlow.Login.LoginScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.RegistrationFlow.Register.RegisterScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.RegistrationFlow.RegisterPassword.RegisterPasswordScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.StartScreen.LoadingScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.HomeUser.HomeUserScreen
+import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorHome.DoctorHome
-import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
-import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorProfile.DoctorProfile
+import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.NameSuggestion.Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.AddTrousseau.AddTrousseau
+import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.Trousseau.TrousseauScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -87,7 +74,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
 
-        startDestination = "chat",
+        startDestination = "DoctorProfile",
     )
 
     {
@@ -124,7 +111,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         composable(route = "teste") { ContatosScreen(navController) }
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "Exercises") { Exercises() }
+        composable(route = "DoctorProfile") { DoctorProfile() }
 
     }
 }

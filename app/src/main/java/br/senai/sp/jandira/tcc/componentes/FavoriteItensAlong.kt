@@ -31,7 +31,10 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun FavoriteItensAlong() {
+fun FavoriteItensAlong(
+    //textTitle: String
+    //textDescription: String
+) {
 
     var isChecked by remember { mutableStateOf(false) }
 

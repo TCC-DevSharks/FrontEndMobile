@@ -14,11 +14,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,12 +44,17 @@ import br.senai.sp.jandira.tcc.componentes.Header
 fun DoctorProfile() {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.profile), img = R.drawable.arrow_circle_orange_24)
+            Header(
+                titulo = stringResource(id = R.string.profile),
+                tintIcon = Color(255, 218, 185)
+            )
+
         }
         Spacer(modifier = Modifier.height(5.dp))
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Red).padding(horizontal = 10.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -77,27 +89,364 @@ fun DoctorProfile() {
             Card(
                 modifier = Modifier.size(width = 100.dp, height = 30.dp),
                 colors = CardDefaults.cardColors(Color(255, 218, 185)),
-                shape = RectangleShape,
+                shape = RoundedCornerShape(20.dp),
                 border = BorderStroke(0.dp, Color.Transparent)
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        modifier = Modifier.padding(top = 3.dp),
-                        painter = painterResource(id = R.drawable.ryu_the_runner),
-                        contentDescription = null,
-                        tint = Color.White
-                    )
                     Text(
-                        text = "Running",
+                        text = "Edit",
                         color = Color.White
                     )
                 }
             }
+
         }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                modifier = Modifier.size(width = 350.dp, height = 190.dp),
+                colors = CardDefaults.cardColors(Color.White)
+            ) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        modifier = Modifier.padding(top = 10.dp, start = 15.dp),
+                        text = stringResource(id = R.string.accont_user),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.data)
+                        )
+
+                    }
+
+                    Row {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null
+                        )
+
+                    }
+
+
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.baseline_library_books_24
+                            ),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.Achievement)
+                        )
+
+                    }
+                    Row {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null,
+                            tint = Color.Gray
+
+                        )
+
+                    }
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.graph
+                            ),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.Activity_History)
+                        )
+
+                    }
+                    Row {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null,
+                            tint = Color.Gray
+
+                        )
+
+                    }
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.baseline_insert_chart_24
+                            ),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.Workout_Progress)
+                        )
+
+                    }
+                    Row {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null,
+                            tint = Color.Gray
+
+                        )
+
+                    }
+                }
+
+
+            }
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                modifier = Modifier.size(width = 350.dp, height = 90.dp),
+                colors = CardDefaults.cardColors(Color.White)
+            ) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        modifier = Modifier.padding(top = 10.dp, start = 15.dp),
+                        text = stringResource(id = R.string.notification),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.bell),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.notification_pop)
+                        )
+
+                    }
+
+                    var switchCheckedState by remember { mutableStateOf(false) }
+
+                    Switch(
+                        modifier = Modifier.padding(bottom = 20.dp),
+                        checked = switchCheckedState,
+                        onCheckedChange = {
+                            switchCheckedState = it
+
+                            if (it) {
+                                // Código para quando o Switch estiver ligado
+                            } else {
+                                // Código para quando o Switch estiver desligado
+                            }
+                        },
+
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = if (switchCheckedState)
+                                Color.White else Color(242, 187, 137),
+                            checkedTrackColor = Color(242, 187, 137),
+                            checkedBorderColor = Color(242, 187, 137),
+                            uncheckedThumbColor = Color(217, 217, 217),
+                            uncheckedTrackColor = Color.White,
+                            disabledCheckedBorderColor = Color(255, 255, 255)
+                        )
+
+                    )
+
+
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                modifier = Modifier.size(width = 350.dp, height = 140.dp),
+                colors = CardDefaults.cardColors(Color.White)
+            ) {
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        modifier = Modifier.padding(top = 10.dp, start = 15.dp),
+                        text = stringResource(id = R.string.others),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.letter),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.contact)
+                        )
+
+                    }
+
+
+                    Row {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null
+                        )
+
+                    }
+
+
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.verification),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.politic)
+                        )
+
+                    }
+
+                    Row {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null
+                        )
+
+                    }
+
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, start = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row() {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_settings_24),
+                            contentDescription = null,
+                            tint = Color(242, 187, 137)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.Settings)
+                        )
+
+                    }
+
+                    Row {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                            contentDescription = null
+                        )
+
+                    }
+
+                }
+
+
+            }
+        }
+
     }
 }
 
