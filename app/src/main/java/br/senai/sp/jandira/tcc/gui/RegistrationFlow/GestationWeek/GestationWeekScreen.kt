@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.GestationWeek
+package br.senai.sp.jandira.tcc.gui.RegistrationFlow.GestationWeek
 
 import android.util.Log
 import androidx.compose.foundation.clickable

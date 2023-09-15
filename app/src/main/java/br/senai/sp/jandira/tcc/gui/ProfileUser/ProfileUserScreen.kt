@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.componentes.Comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.PutWeight
 import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
@@ -69,7 +70,6 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
     var endereco by remember {
         mutableStateOf(listOf<EndressPregnant>())
     }
-    val call = RetrofitFactory().getEndress().getAndressPregnant(viewModel.id)
 
     var photoUri by remember {
         mutableStateOf<Uri?>(null)
@@ -97,32 +97,15 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             photo.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                viewModel.foto = "${ task.result }"
+                viewModel.foto = "${task.result}"
 
                 var weight = WeightHeight(
                     peso = viewModel.peso,
                     altura = viewModel.altura,
                     foto = viewModel.foto
                 )
-                val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
 
-                call.enqueue(object : retrofit2.Callback<WeightHeight> {
-                    override fun onResponse(
-                        call: Call<WeightHeight>,
-                        response: Response<WeightHeight>
-
-                    ) {
-
-                    }
-
-                    override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
-                        Log.i(
-                            "ds2m",
-                            "onFailure: ${t.message}"
-                        )
-                        println(t.message + t.cause)
-                    }
-                })
+                PutWeight(viewModel, weight)
             } else {
                 // Handle failures
                 // ...
@@ -159,29 +142,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 altura = altura.toDouble(),
                 foto = viewModel.foto
             )
-            val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
-
-            call.enqueue(object : retrofit2.Callback<WeightHeight> {
-                override fun onResponse(
-                    call: Call<WeightHeight>,
-                    response: Response<WeightHeight>
-
-                ) {
-                    if (response.isSuccessful){
-                        viewModel.altura = altura.toDouble()
-                        viewModel.peso = peso.toDouble()
-                        openDialog.value = false
-                    }
-                }
-
-                override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
-                    Log.i(
-                        "ds2m",
-                        "onFailure: ${t.message}"
-                    )
-                    println(t.message + t.cause)
-                }
-            })
+            PutWeight(viewModel, weight)
         }
     )
 
@@ -293,36 +254,9 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 }
                 Row(modifier = Modifier.clickable {
 
-                    call.enqueue(object : retrofit2.Callback<EndressPregnantList> {
-                        override fun onResponse(
-                            call: Call<EndressPregnantList>,
-                            response: Response<EndressPregnantList>
-
-                        ) {
-                            endereco = response.body()!!.endereco
-                            Log.i("zxcv", "${response}")
-                            Log.i("zxcv", "${response.body()}")
-
-                            if (endereco.isNotEmpty()) {
-
-                                viewModel.cep = endereco[0].cep
-                                viewModel.numero = endereco[0].numero
-                                viewModel.complemento = endereco[0].complemento
-
-                            }
                             navController.navigate("profileData")
 
-                        }
-
-                        override fun onFailure(call: Call<EndressPregnantList>, t: Throwable) {
-                            Log.i(
-                                "ds2m",
-                                "onFailure: ${t.message}"
-                            )
-                            println(t.message + t.cause)
-                        }
-                    })
-                }) {
+            }) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

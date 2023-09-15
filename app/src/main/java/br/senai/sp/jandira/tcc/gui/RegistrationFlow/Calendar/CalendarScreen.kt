@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.Calendar
+package br.senai.sp.jandira.tcc.gui.RegistrationFlow.Calendar
 
 import android.util.Log
 import android.widget.Toast
@@ -52,26 +52,6 @@ import retrofit2.Callback
 
 @Composable
 fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
-
-    var pregnant = Pregnant(
-        nome = viewModel.nome,
-        data_nascimento = viewModel.data_nascimento,
-        email = viewModel.email,
-        senha = viewModel.senha,
-        cpf = viewModel.cpf,
-        peso = 1.1,
-        altura = 0.0,
-        data_parto = viewModel.data_parto,
-        foto = viewModel.foto,
-        semana_gestacao = viewModel.semana_gestacao,
-        telefone = viewModel.telefone,
-        cep =  "",
-        numero = "",
-        complemento = ""
-    )
-
-    var call = RetrofitFactory().insertPregnant().insertPregnant(pregnant)
-
     val context = LocalContext.current // Obtenha o contexto local
 
     var pickedDate by remember {
@@ -186,32 +166,52 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
             rota = "homeUser",
             onclick = {
 
-                    call.enqueue(object : Callback<ResponseBody> {
-                        override fun onResponse(
-                            call: Call<ResponseBody>,
-                            response: Response<ResponseBody>
-                        ) {
-                            // handle the response
-                            Log.i("qwdfe","${response.errorBody()}")
-                            Log.i("qweqwe","${response.body()}")
-                            Log.i("qweqwe","${response}")
-                            Log.i("qweqwe","${pregnant}")
-
-                            if (response.code() == 201){
-                                navController.navigate("home")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                            // handle the failure
-                        }
-
-                    }
-
-                    )
+                PostPregnant(navController,viewModel)
             })
 
     }
+}
+
+fun PostPregnant(navController: NavController,viewModel: ModelRegister){
+    var pregnant = Pregnant(
+        nome = viewModel.nome,
+        data_nascimento = viewModel.data_nascimento,
+        email = viewModel.email,
+        senha = viewModel.senha,
+        cpf = viewModel.cpf,
+        peso = 0.0,
+        altura = 0.0,
+        data_parto = viewModel.data_parto,
+        foto = viewModel.foto,
+        semana_gestacao = viewModel.semana_gestacao,
+        telefone = viewModel.telefone,
+        cep =  "",
+        numero = "",
+        complemento = ""
+    )
+
+    var call = RetrofitFactory().insertPregnant().insertPregnant(pregnant)
+
+    call.enqueue(object : Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+        ) {
+            // handle the response
+            println(response)
+
+            if (response.code() == 201){
+                navController.navigate("home")
+            }
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            // handle the failure
+        }
+
+    }
+
+    )
 }
 
 //@Preview (showSystemUi = true, showBackground = true)

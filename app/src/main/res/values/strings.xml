@@ -100,6 +100,7 @@
     <string name="text_field_bairro">Bairro</string>
     <string name="text_field_numero">Número</string>
     <string name="text_field_cidade">Cidade</string>
+    <string name="text_field_state">Estado</string>
 
     <string name="text_switch">Entrar como profissional</string>
 

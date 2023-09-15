@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.Register
+package br.senai.sp.jandira.tcc.gui.RegistrationFlow.Register
 
 import DateField
 import android.net.Uri

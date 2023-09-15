@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetEndereco
+import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.componentes.CardPreparations
 import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
@@ -69,12 +71,6 @@ import java.time.temporal.ChronoUnit
 @Composable
 fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
-
-    var gestante by remember {
-        mutableStateOf(listOf<PregnantResponse>())
-    }
-    val call = RetrofitFactory().getPregnant().getPregnant(viewModel.id)
-
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
@@ -83,39 +79,11 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
     var endereco by remember {
         mutableStateOf(listOf<EndressPregnant>())
     }
-    val callEndereco = RetrofitFactory().getEndress().getAndressPregnant(viewModel.id)
+
 
     LaunchedEffect(Unit) {
-        call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
-            override fun onResponse(
-                call: Call<PregnantResponseList>,
-                response: Response<PregnantResponseList>
-
-            ) {
-                gestante = response.body()!!.gestante
-
-                viewModel.id = gestante[0].id
-                viewModel.cpf = gestante[0].cpf
-                viewModel.altura = gestante[0].altura
-                viewModel.data_nascimento = gestante[0].data_nascimento
-                viewModel.data_parto = gestante[0].data_parto
-                viewModel.email = gestante[0].email
-                viewModel.foto = gestante[0].foto
-                viewModel.nome = gestante[0].nome
-                viewModel.peso = gestante[0].peso
-                viewModel.senha = gestante[0].senha
-                viewModel.telefone = gestante[0].telefone
-            }
-
-            override fun onFailure(call: Call<PregnantResponseList>, t: Throwable) {
-                Log.i(
-                    "ds2m",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
-
+        GetPregnant(viewModel)
+        GetEndereco(viewModel)
         callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
             override fun onResponse(
                 call: Call<ScheduleList>,
@@ -131,35 +99,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
             override fun onFailure(call: Call<ScheduleList>, t: Throwable) {
                 Log.i(
                     "ds2",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
-
-        callEndereco.enqueue(object : retrofit2.Callback<EndressPregnantList> {
-            override fun onResponse(
-                call: Call<EndressPregnantList>,
-                response: Response<EndressPregnantList>
-
-            ) {
-                endereco = response.body()!!.endereco
-                Log.i("zxcv", "${response}")
-                Log.i("zxcv", "${response.body()}")
-
-                if (endereco.isNotEmpty()) {
-
-                    viewModel.cep = endereco[0].cep
-                    viewModel.numero = endereco[0].numero
-                    viewModel.complemento = endereco[0].complemento
-
-                }
-
-            }
-
-            override fun onFailure(call: Call<EndressPregnantList>, t: Throwable) {
-                Log.i(
-                    "ds2m",
                     "onFailure: ${t.message}"
                 )
                 println(t.message + t.cause)
@@ -486,8 +425,4 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
     }
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun HomeUserPreview() {
-//    HomeUserScreen()
-//}
+

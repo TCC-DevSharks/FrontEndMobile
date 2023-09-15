@@ -24,5 +24,9 @@ class ModelPregnant {
     var alergia by mutableStateOf("")
     var comorbidades by mutableStateOf("")
     var medicacao by mutableStateOf("")
+    var logradouro by mutableStateOf("")
+    var bairro by mutableStateOf("")
+    var cidade by mutableStateOf("")
+    var estado by mutableStateOf("")
 
 }

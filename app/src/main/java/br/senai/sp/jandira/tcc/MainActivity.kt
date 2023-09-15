@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.BirthPlan.BirthPlanScreen
-import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.RegistrationFlow.Calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
@@ -24,12 +24,12 @@ import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
 import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
-import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
+import br.senai.sp.jandira.tcc.gui.RegistrationFlow.GestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
 import br.senai.sp.jandira.tcc.gui.Home.CadastroScren
 import br.senai.sp.jandira.tcc.gui.Login.LoginScreen
-import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
-import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
+import br.senai.sp.jandira.tcc.gui.RegistrationFlow.Register.RegisterScreen
+import br.senai.sp.jandira.tcc.gui.RegistrationFlow.RegisterPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
@@ -86,7 +86,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
             composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
-            composable(route = "register") { RegisterScreen (navController, viewModel)}
+            composable(route = "register") { RegisterScreen (navController, viewModel) }
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController, viewModel) }

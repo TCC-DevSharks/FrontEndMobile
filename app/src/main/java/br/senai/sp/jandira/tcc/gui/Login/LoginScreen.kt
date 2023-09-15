@@ -88,6 +88,8 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             TextDescription(texto = R.string.description_login)
 
 
+
+
             AnimatedVisibility(
                 visible = visible,
                 modifier = Modifier
@@ -173,8 +175,10 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
                                 login = response.body()!!.login
 
                                 if (login[0].id !== 0) {
-                                    viewModel.id = login[0].id
-                                    println(login[0].id)
+
+                                    login.forEach {
+                                        viewModel.id = it.id
+                                    }
                                     navController.navigate("homeUser")
 
                                 } else {
@@ -288,8 +292,3 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
         }
     }
 }
-//@Preview(showSystemUi = true, showBackground = true)
-//@Composable
-//fun LoginPreview() {
-//    LoginScreen()
-//}

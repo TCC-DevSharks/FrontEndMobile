@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.RegisterPassword
+package br.senai.sp.jandira.tcc.gui.RegistrationFlow.RegisterPassword
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
