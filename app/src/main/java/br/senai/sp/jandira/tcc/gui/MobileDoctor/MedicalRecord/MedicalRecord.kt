@@ -34,8 +34,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.componentes.IconAddItem
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -140,7 +142,9 @@ fun MedicalRecord() {
 
         Spacer(modifier = Modifier.height(5.dp))
 
+
         Row(Modifier.fillMaxWidth()) {
+
             Row(
                 modifier = Modifier
                     .padding(start = 15.dp)
@@ -215,7 +219,7 @@ fun MedicalRecord() {
 
             Row(
                 modifier = Modifier
-                    .size(75.dp, 35.dp)
+                    .size(105.dp, 35.dp)
                     .background(
                         Color(229, 226, 224, 50),
                         shape = RoundedCornerShape(10.dp)
@@ -251,18 +255,22 @@ fun MedicalRecord() {
         Spacer(modifier = Modifier.height(10.dp))
         var descricao by remember { mutableStateOf("") }
 
-        Column(modifier = Modifier.padding(start = 15.dp)) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             OutlinedTextField(
                 value = descricao,
                 onValueChange = { descricao = it },
                 singleLine = false, // Permitir várias linhas
                 modifier = Modifier
                     .width(355.dp)
-                    .height(250.dp)
+                    .height(300.dp)
                     .border(
                         width = 1.dp,
-                        color = Color(182, 182, 246),
-                        shape = RoundedCornerShape(20.dp)
+                        color = Color(255, 218, 185),
+                        shape = RoundedCornerShape(0.dp) // Altere para 0.dp para obter um contorno quadrado
                     ),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -274,11 +282,13 @@ fun MedicalRecord() {
                     unfocusedIndicatorColor = Color(243, 243, 243)
                 )
             )
+
         }
-
-
-
-        Spacer(modifier = Modifier.height(10.dp))
+//        Spacer(modifier = Modifier.height(10.dp))
+//        Row(Modifier.fillMaxWidth().padding(horizontal = 26.dp, vertical = 15.dp), horizontalArrangement = Arrangement.End) {
+//            IconAddItem(navController = navController, rota = "", size = 60.dp,
+//                cor = Color(255, 218, 185))
+//        }
 
 
     }

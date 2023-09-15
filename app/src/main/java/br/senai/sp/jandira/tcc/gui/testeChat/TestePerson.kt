@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import br.senai.sp.jandira.tcc.R
 
-
 data class Person(
     val id: Int = 0,
     val name: String = "",

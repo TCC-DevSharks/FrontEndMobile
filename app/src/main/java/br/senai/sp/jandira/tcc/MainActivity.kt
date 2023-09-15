@@ -18,6 +18,7 @@ import br.senai.sp.jandira.tcc.gui.Exercises.AllExercises.Exercises
 import br.senai.sp.jandira.tcc.gui.Exercises.DescriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.Exercises.StageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.Chat.Contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesGui
 import br.senai.sp.jandira.tcc.gui.Chat.Messages.MessagesScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
@@ -44,6 +45,9 @@ import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
 import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorProfile.DoctorProfile
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.MedicalRecord.MedicalRecord
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.MedicalRecordAdd.MedicalRecordAdd
 import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
@@ -87,7 +91,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
 
-        startDestination = "DoctorProfile",
+        startDestination = "DoctorSchedule",
     )
 
     {
@@ -113,7 +117,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "chat") { MessagesScreen() }
+        composable(route = "chat") { MessagesGui() }
+
             composable(route = "DoctorHome") { DoctorHome() }
 
         composable(route = "teste") { CheckFoodScreen(navController) }
@@ -123,7 +128,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         composable(route = "teste") { ContatosScreen(navController) }
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "DoctorProfile") { DoctorProfile() }
+        composable(route = "DoctorSchedule") { DoctorSchedule() }
 
     }
 }
