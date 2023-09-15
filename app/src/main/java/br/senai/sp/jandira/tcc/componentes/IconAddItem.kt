@@ -18,7 +18,8 @@ fun IconAddItem(
     navController: NavController,
     rota: String,
     size: Dp,
-    tint: Color = Color(182,182,246)
+    tint: Color = Color(182,182,246),
+
     ) {
 
     Row() {

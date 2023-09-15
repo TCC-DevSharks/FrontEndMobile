@@ -34,6 +34,9 @@ import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.NameSuggestion.Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.AddTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.MobileGestation.PreparationsFlow.Trousseau.TrousseauScreen
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.DoctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.MedicalRecord.MedicalRecord
+import br.senai.sp.jandira.tcc.gui.MobileDoctor.MedicalRecordAdd.MedicalRecordAdd
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -74,7 +77,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
 
-        startDestination = "DoctorProfile",
+        startDestination = "DoctorSchedule",
     )
 
     {
@@ -111,7 +114,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         composable(route = "teste") { ContatosScreen(navController) }
         composable(route = "AddTrousseau") { AddTrousseau() }
 
-        composable(route = "DoctorProfile") { DoctorProfile() }
+        composable(route = "DoctorSchedule") { DoctorSchedule() }
 
     }
 }
