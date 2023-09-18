@@ -2,12 +2,15 @@ package br.senai.sp.jandira.tcc.calls
 
 import android.util.Log
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
+import br.senai.sp.jandira.tcc.model.historicPregnant.Alergy
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
@@ -106,5 +109,28 @@ fun PutWeight(viewModel: ModelPregnant, weight: WeightHeight){
 }
 
 fun insertALergy(viewModel: ModelPregnant){
+    var alergy = Alergy(
+        viewModel.id,
+        viewModel.alergia
+    )
+    val  call = RetrofitFactory().insertAlergy().postAlergy(alergy)
 
+    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
 }
