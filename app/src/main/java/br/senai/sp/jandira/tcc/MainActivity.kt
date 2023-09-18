@@ -11,34 +11,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.gui.BirthPlan.BirthPlanScreen
-import br.senai.sp.jandira.tcc.gui.Calendar.CalendarScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Address.AddressScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.AddressFinish.ConsultationAddressFinishScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Completed_Registration.Completed_Registration
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionClinic.ConsultationDescriptionClinicScreen
-import br.senai.sp.jandira.tcc.gui.Favorite_Name_Suggestion.Favorite_Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.Consultation.Clinic.ConsultationClinicScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.DescriptionDoctor.ConsultationDescriptionDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Doctor.ConsultationDoctorScreen
-import br.senai.sp.jandira.tcc.gui.Consultation.Speciality.ConsultationSpecialityScreen
-import br.senai.sp.jandira.tcc.gui.Food.CheckFood.CheckFoodScreen
-import br.senai.sp.jandira.tcc.gui.ForgotPassword.ForgotPasswordScreen
-import br.senai.sp.jandira.tcc.gui.GestationWeek.GestationWeekScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
+
+import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.checkFood.CheckFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
-import br.senai.sp.jandira.tcc.gui.Home.CadastroScren
-import br.senai.sp.jandira.tcc.gui.Login.LoginScreen
-import br.senai.sp.jandira.tcc.gui.Register.RegisterScreen
-import br.senai.sp.jandira.tcc.gui.RegisterPassword.RegisterPasswordScreen
-import br.senai.sp.jandira.tcc.gui.StartScreen.LoadingScreen
-import br.senai.sp.jandira.tcc.gui.HomeUser.HomeUserScreen
-import br.senai.sp.jandira.tcc.gui.MaternityBag.MaternityBagScreen
-import br.senai.sp.jandira.tcc.gui.Name_Suggestion.Name_Suggestion
-import br.senai.sp.jandira.tcc.gui.ProfileDate.ProfileDate
-import br.senai.sp.jandira.tcc.gui.ProfileUser.ProfileUserScreen
-import br.senai.sp.jandira.tcc.gui.Trousseau.AddTrousseau.AddTrousseau
-import br.senai.sp.jandira.tcc.gui.Trousseau.TrousseauScreen
-import br.senai.sp.jandira.tcc.gui.scheduleAdd.ScheduleAdd
+import br.senai.sp.jandira.tcc.gui.mobileGestation.home.CadastroScren
+import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.login.LoginScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.startScreen.LoadingScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.homeUser.HomeUserScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.maternityBag.MaternityBagScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.nameSuggestion.Name_Suggestion
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.addTrousseau.AddTrousseau
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -80,33 +75,46 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         navController = navController,
         startDestination = "start",
 
+        startDestination = "chat",
     )
 
-        {
-            composable(route = "home") { CadastroScren (navController) }
-            composable(route = "start") { LoadingScreen (navController) }
-            composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
-            composable(route = "register") { RegisterScreen (navController, viewModel)}
-            composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
-            composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
-            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
-            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant) }
-            composable(route = "navigation") { Navigation (navController) }
-            composable(route = "bag") { MaternityBagScreen (navController) }
-            composable(route = "trousseau") { TrousseauScreen (navController) }
-            composable(route = "Add") { Name_Suggestion () }
-            composable(route = "Completed_Registration") { Completed_Registration(navController) }
-            composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
-            composable(route = "teste") { CheckFoodScreen (navController) }
-            composable(route = "AddTrousseau") { AddTrousseau() }
-            composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
-            composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
-
-
-
-
+    {
+        composable(route = "home") { CadastroScren(navController) }
+        composable(route = "start") { LoadingScreen(navController) }
+        composable(route = "login") { LoginScreen(navController, viewModelPregnant) }
+        composable(route = "register") { RegisterScreen(navController, viewModel) }
+        composable(route = "register_password") { RegisterPasswordScreen(navController, viewModel) }
+        composable(route = "forgot_password") { ForgotPasswordScreen(navController) }
+        composable(route = "week") { GestationWeekScreen(navController, viewModel) }
+        composable(route = "calendar") { CalendarScreen(navController, viewModel) }
+        composable(route = "homeUser") { HomeUserScreen(navController, viewModelPregnant) }
+        composable(route = "navigation") { Navigation(navController) }
+        composable(route = "bag") { MaternityBagScreen(navController) }
+        composable(route = "trousseau") { TrousseauScreen(navController) }
+        composable(route = "Add") { Name_Suggestion() }
+        composable(route = "Completed_Registration") { Completed_Registration(navController) }
+        composable(route = "ConsultationDescriptionClinicScreen") {
+            ConsultationDescriptionClinicScreen(
+                navController
+            )
         }
+
+        composable(route = "AddTrousseau") { AddTrousseau() }
+
+        composable(route = "chat") { MessagesScreen() }
+
+            composable(route = "DoctorHome") { DoctorHome() }
+
+        composable(route = "teste") { CheckFoodScreen(navController) }
+        composable(route = "DescriptionExercises") { DescriptionExercises() }
+
+
+        composable(route = "teste") { ContatosScreen(navController) }
+        composable(route = "AddTrousseau") { AddTrousseau() }
+
+        composable(route = "DoctorSchedule") { DoctorSchedule() }
+
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)

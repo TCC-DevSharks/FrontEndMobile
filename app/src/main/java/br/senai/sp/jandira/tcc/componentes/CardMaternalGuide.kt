@@ -25,7 +25,11 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun MarternalGuide() {
+fun MarternalGuide(
+    //textTitle: String
+    //textDescription: String
+
+) {
 
     Column (modifier = Modifier.padding(start = 16.dp)) {
 

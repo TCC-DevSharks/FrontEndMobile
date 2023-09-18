@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun CardPreparations() {
+fun CardPreparations(
+//    textTitle: String
+) {
 
 
     Column(

@@ -25,7 +25,11 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun CardAlong() {
+fun CardAlong(
+//    textTitle: String
+//    textDescription: String
+
+) {
 
     val expanded = remember { mutableStateOf(false) }
 
