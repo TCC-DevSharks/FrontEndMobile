@@ -1,4 +1,6 @@
-package br.senai.sp.jandira.tcc.gui.RegistrationFlow.Calendar
+app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/calendar/CalendarScreen.kt
+package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar
+
 
 import android.util.Log
 import android.widget.Toast
@@ -33,10 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.componentes.ArrowLeftPurple
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextDescription
-import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -102,11 +104,11 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
         Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
 
-            ArrowLeftPurple(navController = navController, rota = "week")
+            ArrowLeft(navController = navController, rota = "week")
 
         }
 
-        TextTitle(texto = R.string.title_calendar)
+        TextComp(texto = R.string.title_calendar)
 
         TextDescription(texto = R.string.description_calendar)
 

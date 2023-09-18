@@ -28,7 +28,9 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun FavoriteBirthPlan() {
+fun FavoriteBirthPlan(
+//    text: String
+) {
 
 
     Column(

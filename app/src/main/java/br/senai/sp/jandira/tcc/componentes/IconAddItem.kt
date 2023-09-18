@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
@@ -15,12 +17,15 @@ import br.senai.sp.jandira.tcc.R
 fun IconAddItem(
     navController: NavController,
     rota: String,
-    size: Dp
+    size: Dp,
+    tint: Color = Color(182,182,246),
+
     ) {
 
     Row() {
 
-        Image(painter = painterResource(id = R.drawable.baseline_add_circle_65),
+        Icon(painter = painterResource(id = R.drawable.baseline_add_circle_65),
+            tint = tint,
             contentDescription = null,
             modifier = Modifier.clickable {
                 navController.navigate(rota)

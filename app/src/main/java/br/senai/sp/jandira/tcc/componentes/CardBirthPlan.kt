@@ -22,7 +22,10 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 
 @Composable
-fun CardBirthPlan() {
+fun CardBirthPlan(
+    //    textTitle: String
+
+) {
 
 
     Column(

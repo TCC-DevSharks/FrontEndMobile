@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/ProfileData/ProfileData.kt
 package br.senai.sp.jandira.tcc.gui.ProfileData
 
 import android.util.Log
@@ -7,6 +8,12 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+========
+package br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+>>>>>>>> cc1801e213020cd32d5498ce098ffc91b5ade5a6:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/profileFlow/profileData/ProfileData.kt
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +46,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/ProfileData/ProfileData.kt
+========
+import androidx.compose.ui.tooling.preview.Preview
+>>>>>>>> cc1801e213020cd32d5498ce098ffc91b5ade5a6:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/profileFlow/profileData/ProfileData.kt
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -46,6 +57,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
+<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/ProfileData/ProfileData.kt
 import br.senai.sp.jandira.tcc.componentes.AlertDialog
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.Pregnant
@@ -56,10 +68,13 @@ import retrofit2.Call
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+========
+>>>>>>>> cc1801e213020cd32d5498ce098ffc91b5ade5a6:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/profileFlow/profileData/ProfileData.kt
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/ProfileData/ProfileData.kt
 fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
     var cpf by remember { mutableStateOf("") }
     var nome by remember { mutableStateOf("") }
@@ -74,6 +89,15 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
     var numero by remember { mutableStateOf("") }
     var bairro by remember { mutableStateOf("") }
     var cidade by remember { mutableStateOf("") }
+========
+fun ProfileData() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Header(titulo = stringResource(id = R.string.header_date))
+>>>>>>>> cc1801e213020cd32d5498ce098ffc91b5ade5a6:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/profileFlow/profileData/ProfileData.kt
 
     val openDialogSucess = remember { mutableStateOf(false) }
     val openDialogFail = remember { mutableStateOf(false) }
@@ -733,3 +757,13 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
     }
 }
+<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/ProfileData/ProfileData.kt
+========
+
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun ProfileDatePreview() {
+    ProfileData()
+}
+>>>>>>>> cc1801e213020cd32d5498ce098ffc91b5ade5a6:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/profileFlow/profileData/ProfileData.kt
