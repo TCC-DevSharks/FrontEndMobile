@@ -33,6 +33,16 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant) {

@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/gestationWeek/GestationWeekScreen.kt
+
 package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWeek
-========
-package br.senai.sp.jandira.tcc.gui.RegistrationFlow.GestationWeek
->>>>>>>> main:app/src/main/java/br/senai/sp/jandira/tcc/gui/RegistrationFlow/GestationWeek/GestationWeekScreen.kt
 
 import android.util.Log
 import androidx.compose.foundation.clickable

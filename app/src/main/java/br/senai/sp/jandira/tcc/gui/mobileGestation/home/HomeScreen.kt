@@ -120,12 +120,16 @@ fun CadastroScren(navController: NavController) {
 
             ButtonHome(
                 shape = RoundedCornerShape(bottomStart = 10.dp, topStart = 10.dp),
-                text = stringResource(id = R.string.button_register)
+                text = stringResource(id = R.string.button_register),
+                navController,
+                rota = "register"
             )
 
             ButtonHome(
                 shape = RoundedCornerShape(bottomEnd = 10.dp, topEnd = 10.dp),
-                text = stringResource(id = R.string.button_enter)
+                text = stringResource(id = R.string.button_enter),
+                navController,
+                rota = "login"
             )
 
 
