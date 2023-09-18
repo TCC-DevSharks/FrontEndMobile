@@ -26,12 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.TextComp
 
 @Composable
-fun ConsultationSpecialityScreen() {
+fun ConsultationSpecialityScreen(navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -138,10 +139,4 @@ fun ConsultationSpecialityScreen() {
 
     }
 
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ConsultationSpecialityScreenPreview() {
-    ConsultationSpecialityScreen()
 }

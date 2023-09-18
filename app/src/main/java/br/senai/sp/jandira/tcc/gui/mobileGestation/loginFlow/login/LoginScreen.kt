@@ -39,11 +39,9 @@ import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldSenha
 import br.senai.sp.jandira.tcc.componentes.TextDescription
-import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.login.Login
 import br.senai.sp.jandira.tcc.model.login.LoginList
 import br.senai.sp.jandira.tcc.componentes.TextComp
-import br.senai.sp.jandira.tcc.model.Login
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 

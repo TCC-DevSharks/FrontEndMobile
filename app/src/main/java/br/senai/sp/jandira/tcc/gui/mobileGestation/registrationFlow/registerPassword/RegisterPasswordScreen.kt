@@ -1,8 +1,6 @@
-<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/registerPassword/RegisterPasswordScreen.kt
+
 package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword
-========
-package br.senai.sp.jandira.tcc.gui.RegistrationFlow.RegisterPassword
->>>>>>>> main:app/src/main/java/br/senai/sp/jandira/tcc/gui/RegistrationFlow/RegisterPassword/RegisterPasswordScreen.kt
+
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

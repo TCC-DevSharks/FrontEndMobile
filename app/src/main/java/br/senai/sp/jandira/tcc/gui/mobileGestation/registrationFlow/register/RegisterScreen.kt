@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/register/RegisterScreen.kt
 package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register
-========
-package br.senai.sp.jandira.tcc.gui.RegistrationFlow.Register
->>>>>>>> main:app/src/main/java/br/senai/sp/jandira/tcc/gui/RegistrationFlow/Register/RegisterScreen.kt
+
 
 import DateField
 import android.net.Uri

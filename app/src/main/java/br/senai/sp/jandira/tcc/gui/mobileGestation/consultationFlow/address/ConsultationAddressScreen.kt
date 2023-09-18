@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -42,7 +44,6 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
-import br.senai.sp.jandira.tcc.componentes.TextTitle
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
@@ -90,165 +91,16 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
             }
 
             Row(modifier = Modifier.padding(horizontal = 50.dp, vertical = 2.dp)) {
-
                 TextComp(
                     texto = R.string.title_address,
-                    fontSize = 19.sp,
+                    fontSize = 19.sp
                 )
             }
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 32.dp)
-            ) {
-
-                Text(
-                    text = stringResource(id = R.string.personal_information),
-                    fontSize = 16.sp,
-                    color = Color(182, 182, 246),
-                    fontWeight = FontWeight(900)
-                )
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-//                .padding(horizontal = 20.dp)
-            ) {
-
-                OutlinedTextFieldTodos(
-                    texto = R.string.text_field_altura,
-                    meuType = KeyboardType.Number,
-                    email = "",
-                    onValueChange = { })
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-//                .padding(horizontal = 20.dp)
-            ) {
-
-                OutlinedTextFieldTodos(
-                    texto = R.string.text_field_peso,
-                    meuType = KeyboardType.Number,
-                    email = "",
-                    onValueChange = { })
-            }
-
-            Spacer(modifier = Modifier.height(35.dp))
-
-            Column() {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 2.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Text(
-                        text = "Possui alguma alergia?",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight(600),
-                        modifier = Modifier.padding(start = 13.dp)
-                    )
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(182, 182, 246),
-                            checkedColor = Color(182, 182, 246), // Cor quando marcado
-                            uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                        )
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 2.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Text(
-                        text = "Possui alguma comorbidade?",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight(600),
-                        modifier = Modifier.padding(start = 13.dp)
-                    )
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(182, 182, 246),
-                            checkedColor = Color(182, 182, 246), // Cor quando marcado
-                            uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                        )
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 2.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Text(
-                        text = "Medicação em uso regular?",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight(600),
-                        modifier = Modifier.padding(start = 13.dp)
-                    )
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(182, 182, 246),
-                            checkedColor = Color(182, 182, 246), // Cor quando marcado
-                            uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                        )
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-//                .padding(horizontal = 20.dp)
-                ) {
-
-                    OutlinedTextFieldTodos(
-                        texto = R.string.text_field_medication,
-                        meuType = KeyboardType.Number,
-                        email = "",
-                        onValueChange = { })
-                }
-            }
-
-
-
-            Spacer(modifier = Modifier.height(35.dp))
-
-
-            Column() {
-
-
+            Column (modifier = Modifier
+                .verticalScroll(rememberScrollState())) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -506,16 +358,16 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                             {
 
 
-                               if (cpf.isNotEmpty() && peso.isNotEmpty() && altura.isNotEmpty()){
-                                   viewModel.altura = altura.toDouble()
-                                   viewModel.peso = peso.toDouble()
-                                   viewModel.cpf = cpf
-                                   viewModel.alergia = alergia
-                                   viewModel.comorbidades = comorbidade
-                                   viewModel.medicacao = medicacao
+                                if (cpf.isNotEmpty() && peso.isNotEmpty() && altura.isNotEmpty()){
+                                    viewModel.altura = altura.toDouble()
+                                    viewModel.peso = peso.toDouble()
+                                    viewModel.cpf = cpf
+                                    viewModel.alergia = alergia
+                                    viewModel.comorbidades = comorbidade
+                                    viewModel.medicacao = medicacao
 
-                                   navController.navigate("consultationEndress")
-                               }
+                                    navController.navigate("consultationEndress")
+                                }
                             },
                             modifier = Modifier
                                 .width(200.dp)
@@ -536,6 +388,9 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
 
                 }
             }
+
+
+
 
 
         }

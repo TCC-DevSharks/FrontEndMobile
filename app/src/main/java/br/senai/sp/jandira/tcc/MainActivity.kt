@@ -1,5 +1,4 @@
 package br.senai.sp.jandira.tcc
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
@@ -20,12 +18,9 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScr
 
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.checkFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.ui.theme.TCCTheme
 import br.senai.sp.jandira.tcc.gui.mobileGestation.home.CadastroScren
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.login.LoginScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.startScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.homeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.maternityBag.MaternityBagScreen
@@ -34,6 +29,15 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.nameSuggesti
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.addTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.AddressScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
+import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWeek.GestationWeekScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -74,8 +78,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     AnimatedNavHost(
         navController = navController,
         startDestination = "start",
-
-        startDestination = "chat",
     )
 
         {
@@ -101,27 +103,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
             composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
             composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant) }
-
-
-
-
-        }
-
-        composable(route = "AddTrousseau") { AddTrousseau() }
-
-        composable(route = "chat") { MessagesScreen() }
-
-            composable(route = "DoctorHome") { DoctorHome() }
-
-        composable(route = "teste") { CheckFoodScreen(navController) }
-        composable(route = "DescriptionExercises") { DescriptionExercises() }
-
-
-        composable(route = "teste") { ContatosScreen(navController) }
-        composable(route = "AddTrousseau") { AddTrousseau() }
-
-        composable(route = "DoctorSchedule") { DoctorSchedule() }
-
     }
 }
 
