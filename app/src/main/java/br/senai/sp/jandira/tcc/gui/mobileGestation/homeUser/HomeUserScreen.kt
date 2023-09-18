@@ -368,6 +368,8 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                     horizontalArrangement = Arrangement.Center
                 ) {
 
+
+
                     MarternalGuide()
 
                     MarternalGuide()
@@ -396,6 +398,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .fillMaxWidth()
                         .padding(start = 26.dp),
                 ) {
+
 
                     CardPreparations()
 

@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -35,44 +37,59 @@ import br.senai.sp.jandira.tcc.componentes.SubHeader
 fun Name_Suggestion() {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Header(titulo = stringResource(id = R.string.name_suggestion))
 
             SubHeader(
                 leftText = stringResource(id = R.string.suggested),
-                rightText = stringResource(id = R.string.favorites))
+                rightText = stringResource(id = R.string.favorites)
+            )
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
-        ){
-            Card(
+        ) {
+            Button(
                 modifier = Modifier
                     .size(width = 120.dp, height = 60.dp)
-                    .padding(vertical = 9.dp, horizontal = 4.dp).align(alignment = Alignment.CenterVertically),
-                colors = CardDefaults.cardColors(Color.White),
+                    .padding(vertical = 9.dp, horizontal = 4.dp)
+                    .align(alignment = Alignment.CenterVertically),
+                colors = ButtonDefaults.buttonColors(Color(182, 182, 246, 23)),
                 shape = RoundedCornerShape(50.dp),
-                border = BorderStroke(width = 2.dp , Color(182,182,246))
-            ){
-                Image(
-                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.gender_baixo),
-                    contentDescription = null
-                )
+                border = BorderStroke(width = 2.dp, Color(182, 182, 246)),
+                onClick = { /*TODO*/ },
+            ) {
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    Image(
+                        modifier = Modifier
+                            .size(29.dp),
+                        painter = painterResource(id = R.drawable.gender_baixo),
+                        contentDescription = null,
+                    )
+
+                }
+
             }
 
-            Card(
+
+            Button(
                 modifier = Modifier
                     .size(width = 120.dp, height = 60.dp)
-                    .padding(vertical = 9.dp, horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color(182,182,246)),
-                shape = RoundedCornerShape(50.dp)
-            ){
+                    .padding(vertical = 9.dp, horizontal = 4.dp)
+                    .align(alignment = Alignment.CenterVertically),
+                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                shape = RoundedCornerShape(50.dp),
+                border = BorderStroke(width = 2.dp, Color(182, 182, 246)),
+                onClick = { /*TODO*/ },
+            ) {
                 Image(
-                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally,),
                     painter = painterResource(id = R.drawable.gender_cima),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(29.dp),
                 )
             }
         }
@@ -84,7 +101,7 @@ fun Name_Suggestion() {
                 .padding(start = 15.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Card(
                 modifier = Modifier
                     .size(width = 60.dp, height = 50.dp)
@@ -121,7 +138,7 @@ fun Name_Suggestion() {
                     ),
                 colors = CardDefaults.cardColors(Color.White),
                 shape = RoundedCornerShape(20.dp)
-            ){
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -229,7 +246,7 @@ fun Name_Suggestion() {
                 .padding(start = 15.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Card(
                 modifier = Modifier
                     .size(width = 60.dp, height = 50.dp)
@@ -259,12 +276,14 @@ fun Name_Suggestion() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Card(
-                modifier = Modifier.size(width = 350.dp, height = 130.dp).verticalScroll(
-                    rememberScrollState()
-                ),
+                modifier = Modifier
+                    .size(width = 350.dp, height = 130.dp)
+                    .verticalScroll(
+                        rememberScrollState()
+                    ),
                 colors = CardDefaults.cardColors(Color.White),
                 shape = RoundedCornerShape(20.dp)
-            ){
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -371,7 +390,7 @@ fun Name_Suggestion() {
                 .padding(start = 15.dp),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Card(
                 modifier = Modifier
                     .size(width = 60.dp, height = 50.dp)
@@ -403,7 +422,7 @@ fun Name_Suggestion() {
                 modifier = Modifier.size(width = 350.dp, height = 60.dp),
                 colors = CardDefaults.cardColors(Color.White),
                 shape = RoundedCornerShape(20.dp)
-            ){
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -435,9 +454,6 @@ fun Name_Suggestion() {
                 }
             }
         }
-
-
-
 
 
     }
