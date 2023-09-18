@@ -1,5 +1,9 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +23,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,10 +42,31 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
+import br.senai.sp.jandira.tcc.componentes.TextTitle
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
-fun AddressScreen(navController: NavController) {
+fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
 
+    var isCheckedAlergy by remember { mutableStateOf(false) }
+    var isCheckedComorbid by remember { mutableStateOf(false) }
+    var isCheckedMedic by remember { mutableStateOf(false) }
+
+    var altura by remember { mutableStateOf("") }
+    var peso by remember { mutableStateOf("") }
+    var cpf by remember { mutableStateOf("") }
+    var alergia by remember { mutableStateOf("") }
+    var comorbidade by remember { mutableStateOf("") }
+    var medicacao by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit){
+        altura = viewModel.altura.toString()
+        peso = viewModel.peso.toString()
+        cpf = viewModel.cpf
+        comorbidade = viewModel.comorbidades
+        alergia = viewModel.alergia
+        medicacao = viewModel.medicacao
+    }
 
     Box(
         modifier = Modifier
@@ -51,12 +77,7 @@ fun AddressScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-//
         ) {
-
-            var isChecked by remember { mutableStateOf(false) }
-
-            //    ArrowLeftPurple(navController = navController, rota = "")
 
             Row(
                 modifier = Modifier
@@ -235,7 +256,7 @@ fun AddressScreen(navController: NavController) {
                 ) {
 
                     Text(
-                        text = stringResource(id = R.string.document),
+                        text = stringResource(id = R.string.personal_information),
                         fontSize = 16.sp,
                         color = Color(182, 182, 246),
                         fontWeight = FontWeight(900)
@@ -250,43 +271,270 @@ fun AddressScreen(navController: NavController) {
                 ) {
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_cpf,
+                        texto = R.string.text_field_altura,
                         meuType = KeyboardType.Number,
-                        email = "",
-                        onValueChange = { })
+                        value = altura,
+                        onValueChange = {altura = it })
                 }
 
-
-                Spacer(modifier = Modifier.height(25.dp))
-
-
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalArrangement = Arrangement.Center,
+//                .padding(horizontal = 20.dp)
                 ) {
-                    Button(
-                        onClick =
-                        {
 
-                        },
+                    OutlinedTextFieldTodos(
+                        texto = R.string.text_field_peso,
+                        meuType = KeyboardType.Number,
+                        value = peso,
+                        onValueChange = {peso = it })
+                }
+
+                Spacer(modifier = Modifier.height(35.dp))
+
+                Column() {
+
+                    Row(
                         modifier = Modifier
-                            .width(200.dp)
-                            .height(48.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
 
-                        shape = RoundedCornerShape(16.dp),
-
-                        ) {
                         Text(
-                            text = stringResource(R.string.button_next),
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp
+                            text = "Possui alguma alergia?",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight(600),
+                            modifier = Modifier.padding(start = 13.dp)
                         )
+
+                        Checkbox(
+                            modifier = Modifier.height(30.dp),
+                            checked = isCheckedAlergy,
+                            onCheckedChange = { isCheckedAlergy = it },
+                            colors = CheckboxDefaults.colors(
+                                checkmarkColor = Color(182, 182, 246),
+                                checkedColor = Color(182, 182, 246), // Cor quando marcado
+                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
+                            )
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = isCheckedAlergy,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, bottom = 10.dp),
+                        enter = fadeIn(
+                            initialAlpha = 0.4f
+                        ),
+                        exit = fadeOut(
+                            animationSpec = tween(durationMillis = 250)
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                        ) {
+
+                            OutlinedTextFieldTodos(
+                                texto = R.string.text_field_medication,
+                                meuType = KeyboardType.Text,
+                                value = alergia,
+                                onValueChange = { alergia = it})
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Text(
+                            text = "Possui alguma comorbidade?",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight(600),
+                            modifier = Modifier.padding(start = 13.dp)
+                        )
+
+                        Checkbox(
+                            modifier = Modifier.height(30.dp),
+                            checked = isCheckedComorbid,
+                            onCheckedChange = { isCheckedComorbid = it },
+                            colors = CheckboxDefaults.colors(
+                                checkmarkColor = Color(182, 182, 246),
+                                checkedColor = Color(182, 182, 246), // Cor quando marcado
+                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
+                            )
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = isCheckedComorbid,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, bottom = 10.dp),
+                        enter = fadeIn(
+                            initialAlpha = 0.4f
+                        ),
+                        exit = fadeOut(
+                            animationSpec = tween(durationMillis = 250)
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                        ) {
+
+                            OutlinedTextFieldTodos(
+                                texto = R.string.text_field_medication,
+                                meuType = KeyboardType.Text,
+                                value = comorbidade,
+                                onValueChange = {comorbidade = it })
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        Text(
+                            text = "Medicação em uso regular?",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight(600),
+                            modifier = Modifier.padding(start = 13.dp)
+                        )
+
+                        Checkbox(
+                            modifier = Modifier.height(30.dp),
+                            checked = isCheckedMedic,
+                            onCheckedChange = { isCheckedMedic = it },
+                            colors = CheckboxDefaults.colors(
+                                checkmarkColor = Color(182, 182, 246),
+                                checkedColor = Color(182, 182, 246), // Cor quando marcado
+                                uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
+                            )
+                        )
+                    }
+
+                    AnimatedVisibility(
+                        visible = isCheckedMedic,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp),
+                        enter = fadeIn(
+                            initialAlpha = 0.4f
+                        ),
+                        exit = fadeOut(
+                            animationSpec = tween(durationMillis = 250)
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                        ) {
+
+                            OutlinedTextFieldTodos(
+                                texto = R.string.text_field_medication,
+                                meuType = KeyboardType.Text,
+                                value = medicacao,
+                                onValueChange = { medicacao = it})
+                        }
                     }
                 }
 
+
+
+                Spacer(modifier = Modifier.height(35.dp))
+
+
+                Column () {
+
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 32.dp)
+                    ) {
+
+                        Text(
+                            text = stringResource(id = R.string.document),
+                            fontSize = 16.sp,
+                            color = Color(182, 182, 246),
+                            fontWeight = FontWeight(900)
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+//                .padding(horizontal = 20.dp)
+                    ) {
+
+                        OutlinedTextFieldTodos(
+                            texto = R.string.text_field_cpf,
+                            meuType = KeyboardType.Number,
+                            value = cpf,
+                            onValueChange = {cpf = it })
+                    }
+
+
+                    Spacer(modifier = Modifier.height(25.dp))
+
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 80.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Button(
+                            onClick =
+                            {
+
+
+                               if (cpf.isNotEmpty() && peso.isNotEmpty() && altura.isNotEmpty()){
+                                   viewModel.altura = altura.toDouble()
+                                   viewModel.peso = peso.toDouble()
+                                   viewModel.cpf = cpf
+                                   viewModel.alergia = alergia
+                                   viewModel.comorbidades = comorbidade
+                                   viewModel.medicacao = medicacao
+
+                                   navController.navigate("consultationEndress")
+                               }
+                            },
+                            modifier = Modifier
+                                .width(200.dp)
+                                .height(48.dp),
+                            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+
+                            shape = RoundedCornerShape(16.dp),
+
+                            ) {
+                            Text(
+                                text = stringResource(R.string.button_next),
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp
+                            )
+                        }
+                    }
+
+                }
             }
 
 

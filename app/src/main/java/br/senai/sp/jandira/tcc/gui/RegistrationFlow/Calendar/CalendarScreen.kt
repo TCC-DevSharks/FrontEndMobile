@@ -1,8 +1,6 @@
-<<<<<<<< HEAD:app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/calendar/CalendarScreen.kt
+app/src/main/java/br/senai/sp/jandira/tcc/gui/mobileGestation/registrationFlow/calendar/CalendarScreen.kt
 package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar
-========
-package br.senai.sp.jandira.tcc.gui.RegistrationFlow.Calendar
->>>>>>>> main:app/src/main/java/br/senai/sp/jandira/tcc/gui/RegistrationFlow/Calendar/CalendarScreen.kt
+
 
 import android.util.Log
 import android.widget.Toast

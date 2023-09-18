@@ -78,25 +78,33 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         startDestination = "chat",
     )
 
-    {
-        composable(route = "home") { CadastroScren(navController) }
-        composable(route = "start") { LoadingScreen(navController) }
-        composable(route = "login") { LoginScreen(navController, viewModelPregnant) }
-        composable(route = "register") { RegisterScreen(navController, viewModel) }
-        composable(route = "register_password") { RegisterPasswordScreen(navController, viewModel) }
-        composable(route = "forgot_password") { ForgotPasswordScreen(navController) }
-        composable(route = "week") { GestationWeekScreen(navController, viewModel) }
-        composable(route = "calendar") { CalendarScreen(navController, viewModel) }
-        composable(route = "homeUser") { HomeUserScreen(navController, viewModelPregnant) }
-        composable(route = "navigation") { Navigation(navController) }
-        composable(route = "bag") { MaternityBagScreen(navController) }
-        composable(route = "trousseau") { TrousseauScreen(navController) }
-        composable(route = "Add") { Name_Suggestion() }
-        composable(route = "Completed_Registration") { Completed_Registration(navController) }
-        composable(route = "ConsultationDescriptionClinicScreen") {
-            ConsultationDescriptionClinicScreen(
-                navController
-            )
+        {
+            composable(route = "home") { CadastroScren (navController) }
+            composable(route = "start") { LoadingScreen (navController) }
+            composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
+            composable(route = "register") { RegisterScreen (navController, viewModel) }
+            composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
+            composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
+            composable(route = "week") { GestationWeekScreen (navController, viewModel) }
+            composable(route = "calendar") { CalendarScreen (navController, viewModel) }
+            composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant) }
+            composable(route = "navigation") { Navigation (navController) }
+            composable(route = "bag") { MaternityBagScreen (navController) }
+            composable(route = "trousseau") { TrousseauScreen (navController) }
+            composable(route = "Add") { Name_Suggestion () }
+            composable(route = "Completed") { Completed_Registration(navController) }
+            composable(route = "speciality") { ConsultationSpecialityScreen(navController) }
+            composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
+            composable(route = "teste") { CheckFoodScreen (navController) }
+            composable(route = "AddTrousseau") { AddTrousseau() }
+            composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
+            composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
+            composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
+            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant) }
+
+
+
+
         }
 
         composable(route = "AddTrousseau") { AddTrousseau() }

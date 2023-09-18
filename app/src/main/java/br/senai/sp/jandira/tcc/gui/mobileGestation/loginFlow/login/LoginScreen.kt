@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.login
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -46,8 +47,8 @@ import br.senai.sp.jandira.tcc.model.Login
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
-//import retrofit2.Call
-//import retrofit2.Response
+import retrofit2.Call
+import retrofit2.Response
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,6 +88,8 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             TextComp(texto = R.string.title_login)
 
             TextDescription(texto = R.string.description_login)
+
+
 
 
             AnimatedVisibility(
@@ -162,47 +165,39 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = stringResource(id = R.string.button_enter), rota = "homeUser") {
+            ButtonPurple(navController, texto = stringResource(id = R.string.button_enter), rota = "homeUser", onclick = {
 
-                call.enqueue(object : retrofit2.Callback<LoginList> {
-                    override fun onResponse(
-                        call: Call<LoginList>,
-                        response: Response<LoginList>
+                        call.enqueue(object : retrofit2.Callback<LoginList> {
+                            override fun onResponse(
+                                call: Call<LoginList>,
+                                response: Response<LoginList>
 
-                    ) {
-                        //Duas exclamações seignificam que pode vir nulo
-                        login = response.body()!!.login
+                            ) {
+                                //Duas exclamações seignificam que pode vir nulo
+                                login = response.body()!!.login
 
+                                if (login[0].id !== 0) {
 
-//                call.enqueue(object : retrofit2.Callback<LoginList> {
-//                    override fun onResponse(
-//                        call: Call<LoginList>,
-//                        response: Response<LoginList>
-//
-//                    ) {
-//                        //Duas exclamações seignificam que pode vir nulo
-//                        login = response.body()!!.login
-//
-//                        if (login[0].id !== 0) {
-//                            viewModel.id = login[0].id
-//                            println(login[0].id)
-//                            navController.navigate("homeUser")
-//
-//                        } else {
-//                            visible = true
-//                        }
-//
-//                    }
-//
-//                    override fun onFailure(call: Call<LoginList>, t: Throwable) {
-//                        Log.i(
-//                            "ds2m",
-//                            "onFailure: ${t.message}"
-//                        )
-//                        println(t.message + t.cause)
-//                    }
-//                })
+                                    login.forEach {
+                                        viewModel.id = it.id
+                                    }
+                                    navController.navigate("homeUser")
 
+                                } else {
+                                    visible = true
+                                }
+
+                            }
+
+                            override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                                Log.i(
+                                    "ds2m",
+                                    "onFailure: ${t.message}"
+                                )
+                                println(t.message + t.cause)
+                            }
+                        })
+            })
 
 
 
@@ -299,8 +294,3 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
         }
     }
 }
-//@Preview(showSystemUi = true, showBackground = true)
-//@Composable
-//fun LoginPreview() {
-//    LoginScreen()
-//}
