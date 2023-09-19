@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -28,11 +31,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetEspeciality
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.TextComp
+import br.senai.sp.jandira.tcc.model.ModelSpeciality
+import br.senai.sp.jandira.tcc.model.especiality.EspecialityResponseList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Response
 
 @Composable
-fun ConsultationSpecialityScreen(navController: NavController) {
+fun ConsultationSpecialityScreen(navController: NavController, speciality: ModelSpeciality) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -44,7 +53,6 @@ fun ConsultationSpecialityScreen(navController: NavController) {
 
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
                     .padding(bottom = 70.dp)
             ) {
 
@@ -75,68 +83,33 @@ fun ConsultationSpecialityScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                    items(speciality.especialidade){
+                        Button(
+                            onClick =
+                            {
+                                navController.navigate("ConsultClinic")
+                            },
+                            modifier = Modifier
+                                .width(340.dp)
+                                .height(70.dp)
+                                .padding(bottom = 15.dp),
+                            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
 
-                    Button(
-                        onClick =
-                        {
+                            shape = RoundedCornerShape(16.dp),
 
-                        },
-                        modifier = Modifier
-                            .width(340.dp)
-                            .height(70.dp),
-                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-
-                        shape = RoundedCornerShape(16.dp),
-
-                        ) {
-                        Text(
-                            text = "Nutricionista",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 16.sp
-                        )
+                            ) {
+                            Text(
+                                text = it.nome,
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            )
+                        }
                     }
                 }
-
-
-
-
-
-
-
-
-
-
             }
-
-
-
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .border(
-                        .9.dp,
-                        Color(182, 182, 246),
-                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                    )
-            ) {
-
-//                Navigation(navController = navController)
-
-
-            }
-
         }
-
-
     }
 
 }

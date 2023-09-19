@@ -57,6 +57,27 @@ class RetrofitFactory {
         return retrofitFactory.create(PregnantService::class.java)
     }
 
+    fun getAlergy(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getComorbidity(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getDeficiency(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getMedication(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getEspeciality(): EspecialityService {
+        return retrofitFactory.create(EspecialityService::class.java)
+    }
+
+
 
 }
 

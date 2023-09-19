@@ -30,10 +30,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetEspeciality
+import br.senai.sp.jandira.tcc.calls.insertALergy
+import br.senai.sp.jandira.tcc.calls.insertComorbidity
+import br.senai.sp.jandira.tcc.calls.insertMedication
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -45,7 +50,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant) {
+fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant, speciality: ModelSpeciality) {
 
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
@@ -270,6 +275,11 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                             println(t.message + t.cause)
                         }
                     })
+
+//                    insertALergy(viewModel)
+//                    insertComorbidity(viewModel)
+//                    insertMedication(viewModel)
+                    GetEspeciality(speciality)
                 }
             }
         )

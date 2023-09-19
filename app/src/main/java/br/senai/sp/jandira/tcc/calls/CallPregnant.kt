@@ -9,6 +9,13 @@ import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Alergy
+import br.senai.sp.jandira.tcc.model.historicPregnant.AlergyResponse
+import br.senai.sp.jandira.tcc.model.historicPregnant.AlergyResponseList
+import br.senai.sp.jandira.tcc.model.historicPregnant.Comorbidity
+import br.senai.sp.jandira.tcc.model.historicPregnant.ComorbidityResponseList
+import br.senai.sp.jandira.tcc.model.historicPregnant.Deficiency
+import br.senai.sp.jandira.tcc.model.historicPregnant.Medication
+import br.senai.sp.jandira.tcc.model.historicPregnant.MedicationResponseList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -111,7 +118,7 @@ fun PutWeight(viewModel: ModelPregnant, weight: WeightHeight){
 fun insertALergy(viewModel: ModelPregnant){
     var alergy = Alergy(
         viewModel.id,
-        viewModel.alergia
+        if (viewModel.alergia.length == 0)" " else viewModel.alergia
     )
     val  call = RetrofitFactory().insertAlergy().postAlergy(alergy)
 
@@ -134,3 +141,155 @@ fun insertALergy(viewModel: ModelPregnant){
         }
     })
 }
+
+fun insertComorbidity(viewModel: ModelPregnant){
+    var comorbidity = Comorbidity(
+        viewModel.id,
+        if (viewModel.comorbidades.length == 0)" " else viewModel.comorbidades
+    )
+    val  call = RetrofitFactory().insertComorbidity().postComorbidity(comorbidity)
+
+    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun insertDeficiency(viewModel: ModelPregnant){
+    var deficiency = Deficiency(
+        viewModel.id,
+        if (viewModel.deficiencia.length == 0)" " else viewModel.deficiencia
+    )
+    val  call = RetrofitFactory().insertDeficiency().postDeficiency(deficiency)
+
+    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun insertMedication(viewModel: ModelPregnant){
+    var medication = Medication(
+        viewModel.id,
+        if (viewModel.medicacao.length == 0)" " else viewModel.medicacao
+    )
+    val  call = RetrofitFactory().insertMedication().postMedication(medication)
+
+    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun getAlergy(viewModel: ModelPregnant){
+    val  call = RetrofitFactory().getAlergy().getAlergy(viewModel.id)
+
+    call.enqueue(object : retrofit2.Callback<AlergyResponseList> {
+        override fun onResponse(
+            call: Call<AlergyResponseList>,
+            response: Response<AlergyResponseList>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<AlergyResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun getComorbidity(viewModel: ModelPregnant){
+    val  call = RetrofitFactory().getComorbidity().getComorbidity(viewModel.id)
+
+    call.enqueue(object : retrofit2.Callback<ComorbidityResponseList> {
+        override fun onResponse(
+            call: Call<ComorbidityResponseList>,
+            response: Response<ComorbidityResponseList>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ComorbidityResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun getMedication(viewModel: ModelPregnant){
+    val  call = RetrofitFactory().getMedication().getMedication(viewModel.id)
+
+    call.enqueue(object : retrofit2.Callback<MedicationResponseList> {
+        override fun onResponse(
+            call: Call<MedicationResponseList>,
+            response: Response<MedicationResponseList>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<MedicationResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+

@@ -31,6 +31,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.Tr
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ConsultationClinicScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
@@ -40,6 +41,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.Reg
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
+import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -74,6 +76,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
     val viewModelPregnant = ModelPregnant()
+    val speciality = ModelSpeciality()
 
     AnimatedNavHost(
         navController = navController,
@@ -95,14 +98,15 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Add") { Name_Suggestion () }
             composable(route = "Completed") { Completed_Registration(navController) }
-            composable(route = "speciality") { ConsultationSpecialityScreen(navController) }
+            composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
             composable(route = "teste") { CheckFoodScreen (navController) }
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
             composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
-            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant) }
+            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant, speciality) }
+            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController) }
     }
 }
 
