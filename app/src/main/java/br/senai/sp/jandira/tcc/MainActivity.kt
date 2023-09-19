@@ -38,6 +38,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.Cal
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWeek.GestationWeekScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
+import br.senai.sp.jandira.tcc.gui.teste
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -77,7 +78,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "start",
+        startDestination = "testeCard",
     )
 
         {
@@ -98,6 +99,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "speciality") { ConsultationSpecialityScreen(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
             composable(route = "teste") { CheckFoodScreen (navController) }
+            composable(route = "testeCard") { teste () }
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }

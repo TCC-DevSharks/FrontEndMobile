@@ -28,7 +28,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardPreparations(
-//    textTitle: String
+    category: String
 ) {
 
 
@@ -40,13 +40,15 @@ fun CardPreparations(
             modifier = Modifier
                 .size(170.dp, 130.dp),
             colors = CardDefaults.cardColors(Color(236, 236, 255)),
-            border = BorderStroke( .3.dp, Color(182, 182, 246))
+            border = BorderStroke( .3.dp, Color(182, 182, 246)),
         ) {
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = 12.dp)
+                    .padding(vertical = 12.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 Row(
@@ -54,8 +56,17 @@ fun CardPreparations(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
+
+                    val imageResource = when (category) {
+                        "Plano de Parto" -> R.drawable.baby
+                        "Enxoval" -> R.drawable.tags
+                        "Mala de Maternidade" -> R.drawable.suitcase
+                        "Sugestão de Nomes" -> R.drawable.clipboard_list
+                        else -> R.drawable.ic_launcher_foreground // Default image
+                    }
+
                     Image(
-                        painter = painterResource(id = R.drawable.clipboard_list),
+                        painter = painterResource(imageResource),
                         contentDescription = null,
                         modifier = Modifier.size(40.dp, 40.dp)
                     )
@@ -71,7 +82,7 @@ fun CardPreparations(
 
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "Sugestão de nomes",
+                        text = category,
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         fontWeight = FontWeight(800),
@@ -89,8 +100,8 @@ fun CardPreparations(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CardPreparationsPreview() {
-    CardPreparations()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CardPreparationsPreview() {
+//    CardPreparations()
+//}
