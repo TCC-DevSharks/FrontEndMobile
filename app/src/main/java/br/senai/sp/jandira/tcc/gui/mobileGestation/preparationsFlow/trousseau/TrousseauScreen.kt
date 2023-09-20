@@ -10,6 +10,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,21 +26,31 @@ import br.senai.sp.jandira.tcc.componentes.FavoriteBirthPlan
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.SubHeader
+import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauResponse
+import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauService
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 
 @Composable
 fun TrousseauScreen(navController: NavController) {
+
+    var enxoval by rememberSaveable {
+        mutableStateOf(listOf<TrousseauResponse>())
+    }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            Header(titulo = stringResource(id = R.string.header_birth_plan))
+            Header(titulo = stringResource(id = R.string.header_trousseau))
 
             SubHeader(
                 leftText = stringResource(id = R.string.suggested),
                 rightText = stringResource(id = R.string.my_list)
             )
+
+
 
             Column(
                 modifier = Modifier
@@ -46,13 +60,7 @@ fun TrousseauScreen(navController: NavController) {
             ) {
 
 
-          FavoriteBirthPlan()
-          FavoriteBirthPlan()
-          CardBirthPlan()
-          CardBirthPlan()
-          CardBirthPlan()
-          FavoriteBirthPlan()
-          CardBirthPlan()
+
           CardBirthPlan()
           CardBirthPlan()
 
