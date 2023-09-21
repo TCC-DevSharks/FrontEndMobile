@@ -23,7 +23,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardBirthPlan(
-    //    textTitle: String
+        enxoval: String
 
 ) {
 
@@ -55,7 +55,7 @@ fun CardBirthPlan(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Gostaria de ter um acompanhante durante o trabalho de parto, parto e puerpério.",
+                text = enxoval,
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400),
             )
@@ -63,10 +63,4 @@ fun CardBirthPlan(
 
     }
 
-}
-
-@Preview (showSystemUi = true, showBackground = true)
-@Composable
-fun BirthPlanPreview() {
-    CardBirthPlan()
 }

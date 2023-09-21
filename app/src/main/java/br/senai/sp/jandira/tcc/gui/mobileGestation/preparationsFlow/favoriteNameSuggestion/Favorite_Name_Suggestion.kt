@@ -63,7 +63,7 @@ fun Favorite_Name_Suggestion() {
             ) {
                 Image(
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.gender_baixo),
+                    painter = painterResource(id = R.drawable.baseline_female_24),
                     contentDescription = null
                 )
             }
@@ -77,7 +77,7 @@ fun Favorite_Name_Suggestion() {
             ) {
                 Image(
                     modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.gender_cima),
+                    painter = painterResource(id = R.drawable.baseline_male_24),
                     contentDescription = null
                 )
             }

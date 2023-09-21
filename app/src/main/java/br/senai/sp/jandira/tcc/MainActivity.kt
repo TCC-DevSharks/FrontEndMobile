@@ -78,7 +78,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "trousseau",
+        startDestination = "testeCard",
     )
 
         {
@@ -94,12 +94,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "navigation") { Navigation (navController) }
             composable(route = "bag") { MaternityBagScreen (navController) }
             composable(route = "trousseau") { TrousseauScreen (navController) }
-            composable(route = "name") { Name_Suggestion () }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
             composable(route = "teste") { CheckFoodScreen (navController) }
-            composable(route = "testeCard") { Name_Suggestion () }
+            composable(route = "testeCard") { Name_Suggestion (navController) }
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }

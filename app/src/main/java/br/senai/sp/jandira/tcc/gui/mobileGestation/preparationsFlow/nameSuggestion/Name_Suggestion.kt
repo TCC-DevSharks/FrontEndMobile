@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,8 +43,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.CardNameSuggestion
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.SubHeader
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
@@ -52,171 +58,189 @@ import retrofit2.Response
 import javax.security.auth.callback.Callback
 
 @Composable
-fun Name_Suggestion() {
-    Column(modifier = Modifier.fillMaxSize().background(Color(250, 250, 254))) {
+fun Name_Suggestion(navController: NavController) {
 
-        var nomes by rememberSaveable {
-            mutableStateOf(listOf<NameSuggestionResponse>())
-        }
+    var nomes by rememberSaveable {
+        mutableStateOf(listOf<NameSuggestionResponse>())
+    }
 
-//        var selectedSex by remember { mutableStateOf(1) }
-
+    var selectedColumn by remember { mutableStateOf(1) }
 
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+    var selectedSex by remember { mutableStateOf("") }
 
+    var buttonColor by remember {
+        mutableStateOf(0)
+    }
 
-            Header(titulo = stringResource(id = R.string.name_suggestion))
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(250, 250, 254))
+    ) {
 
-            SubHeader(
-                leftText = stringResource(id = R.string.suggested),
-                rightText = stringResource(id = R.string.favorites)
-            )
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(
-                modifier = Modifier
-                    .size(width = 120.dp, height = 60.dp)
-                    .padding(vertical = 9.dp, horizontal = 4.dp)
-                    .align(alignment = Alignment.CenterVertically),
-                colors = ButtonDefaults.buttonColors(Color(182, 182, 246, 23)),
-                shape = RoundedCornerShape(50.dp),
-                border = BorderStroke(width = 2.dp, Color(182, 182, 246)),
-                onClick = { },
-            ) {
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-
-                    Image(
-                        modifier = Modifier
-                            .size(29.dp),
-                        painter = painterResource(id = R.drawable.gender_baixo),
-                        contentDescription = null,
-                    )
-
-                }
-
-            }
-
-
-            Button(
-                modifier = Modifier
-                    .size(width = 120.dp, height = 60.dp)
-                    .padding(vertical = 9.dp, horizontal = 4.dp)
-                    .align(alignment = Alignment.CenterVertically),
-                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                shape = RoundedCornerShape(50.dp),
-                border = BorderStroke(width = 2.dp, Color(182, 182, 246)),
-                onClick = { /*TODO*/ },
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.gender_cima),
-                    contentDescription = null,
-                    modifier = Modifier.size(29.dp),
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        val call = RetrofitFactory().getNamesService().getNameSex("Masculino")
-
-        call.enqueue(object : retrofit2.Callback<NameSuggestionList> {
-            override fun onResponse(
-                call: retrofit2.Call<NameSuggestionList>,
-                response: Response<NameSuggestionList>
-
-            ) {
-                nomes = response.body()!!.nomes
-
-                Log.e("Gui", "onResponse: ${nomes}")
-
-            }
-
-            override fun onFailure(call: retrofit2.Call<NameSuggestionList>, t: Throwable) {
-                Log.i(
-                    "ds2m",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
-
-        LazyColumn(
+        Column (
             modifier = Modifier
-                .padding(vertical = 9.dp, horizontal = 4.dp)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .background(Color(250, 250, 254))
+                .padding(bottom = 90.dp)
         ) {
-            items(nomes) {
 
-                Card(
+            Column(modifier = Modifier.fillMaxWidth()) {
+
+
+                Header(titulo = stringResource(id = R.string.name_suggestion))
+
+                SubHeader(
+                    leftText = stringResource(id = R.string.suggested),
+                    rightText = stringResource(id = R.string.favorites),
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Button(
                     modifier = Modifier
-                        .fillMaxWidth(1f)
-                        .padding(horizontal = 24.dp, vertical = 10.dp)
-                        .shadow(
-                            2.dp,
-                            shape = RoundedCornerShape(20.dp),
-                            ambientColor = Color(182, 182, 246)
-                        ),
-                    colors = CardDefaults.cardColors(Color.White),
-                    shape = RoundedCornerShape(20.dp),
+                        .size(width = 120.dp, height = 60.dp)
+                        .padding(vertical = 9.dp, horizontal = 4.dp)
+                        .align(alignment = Alignment.CenterVertically),
+                    colors = if (buttonColor == 1) ButtonDefaults.buttonColors(
+                        Color(
+                            182,
+                            182,
+                            246
+                        )
+                    ) else ButtonDefaults.buttonColors(Color.White),
+                    shape = RoundedCornerShape(50.dp),
+                    border = if (buttonColor == 1) BorderStroke(
+                        width = 2.dp,
+                        Color(182, 182, 246)
+                    ) else BorderStroke(width = 2.dp, Color(182, 182, 246)),
+                    onClick = {
+                        selectedSex = "Masculino"
+                        buttonColor = 1
+                    },
                 ) {
 
-                    Card(
-                        modifier = Modifier
-                            .size(width = 350.dp, height = 60.dp)
-                            .padding(horizontal = 15.dp),
-                        colors = CardDefaults.cardColors(Color.White),
-                        shape = RoundedCornerShape(20.dp),
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row() {
-                                Text(
-                                    text = it.nome,
-                                    fontSize = 20.sp
-                                )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
 
-                            }
-                            var isRed by remember { mutableStateOf(false) }
-                            Row(modifier = Modifier.clickable {
-                                isRed = !isRed
-                            }) {
-                                val imageResource = if (isRed) {
-                                    R.drawable.coracao_roxo
-                                } else {
-                                    R.drawable.coracao_cinza
-                                }
-                                Image(
-                                    painter = painterResource(id = imageResource),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(27.dp)
-                                )
-                            }
-                        }
+                        Icon(
+                            modifier = Modifier
+                                .size(38.dp),
+                            painter = painterResource(id = R.drawable.baseline_male_24),
+                            contentDescription = null,
+                            tint = if (buttonColor == 1) Color.White else Color(182,182,246)
+
+                        )
+
                     }
+
+                }
+
+
+                Button(
+                    modifier = Modifier
+                        .size(width = 120.dp, height = 60.dp)
+                        .padding(vertical = 9.dp, horizontal = 4.dp)
+                        .align(alignment = Alignment.CenterVertically),
+                    border = if (buttonColor == 2) BorderStroke(width = 2.dp, Color(182, 182, 246)) else BorderStroke(width = 2.dp, Color(182,182,246)),
+                    colors = if (buttonColor == 2) ButtonDefaults.buttonColors(Color(182,182,246)) else ButtonDefaults.buttonColors(Color.White),                shape = RoundedCornerShape(50.dp),
+                    onClick = {
+
+                        selectedSex = "Feminino"
+                        buttonColor = 2
+
+
+                    },
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_female_24),
+                        contentDescription = null,
+                        modifier = Modifier.size(38.dp),
+                        tint = if (buttonColor == 2) Color.White else Color(182,182,246)
+                    )
                 }
             }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            val call = RetrofitFactory().getNamesService().getNameSex(selectedSex)
+
+            call.enqueue(object : retrofit2.Callback<NameSuggestionList> {
+                override fun onResponse(
+                    call: retrofit2.Call<NameSuggestionList>,
+                    response: Response<NameSuggestionList>
+
+                ) {
+                    nomes = response.body()!!.nomes
+
+                    Log.e("Gui", "onResponse: ${nomes}")
+
+                }
+
+                override fun onFailure(call: retrofit2.Call<NameSuggestionList>, t: Throwable) {
+                    Log.i(
+                        "ds2m",
+                        "onFailure: ${t.message}"
+                    )
+                }
+            })
+
+            if (selectedColumn == 1) {
+
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(vertical = 9.dp, horizontal = 4.dp)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    items(nomes) {
+
+                        CardNameSuggestion(it.nome)
+
+                    }
+                }
+            } else {
+
+                Column (modifier = Modifier.background(Color.Red)) {
+
+                    Text(text = "fjhsdfuhsdjfhdsjfhsdjkfhsdf",
+                        color = Color.White)
+
+                }
+
+            }
+
+
+
         }
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .border(
+                    .9.dp,
+                    Color(182, 182, 246),
+                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
+                )
+        ) {
+
+            Navigation(navController = navController)
+
+
+        }
+
+
+
+
+
     }
-}
-
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun Name_SuggestionPreview() {
-    Name_Suggestion()
 }
