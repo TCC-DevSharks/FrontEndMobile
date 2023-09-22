@@ -42,6 +42,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPass
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
+import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -77,6 +78,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val viewModel = ModelRegister()
     val viewModelPregnant = ModelPregnant()
     val speciality = ModelSpeciality()
+    val clinic = Clinic()
 
     AnimatedNavHost(
         navController = navController,
@@ -98,7 +100,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Add") { Name_Suggestion () }
             composable(route = "Completed") { Completed_Registration(navController) }
-            composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality) }
+            composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
             composable(route = "ConsultationDescriptionClinicScreen") { ConsultationDescriptionClinicScreen(navController) }
             composable(route = "teste") { CheckFoodScreen (navController) }
             composable(route = "AddTrousseau") { AddTrousseau() }
@@ -106,7 +108,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
             composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
             composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant, speciality) }
-            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController) }
+            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, viewModelPregnant) }
     }
 }
 

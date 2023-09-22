@@ -8,4 +8,5 @@ import br.senai.sp.jandira.tcc.model.especiality.EspecialityResponse
 class ModelSpeciality {
 
     var especialidade by mutableStateOf(listOf<EspecialityResponse>())
+    var idEspecialidade by mutableStateOf(0)
 }

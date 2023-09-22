@@ -29,5 +29,7 @@ class ModelPregnant {
     var bairro by mutableStateOf("")
     var cidade by mutableStateOf("")
     var estado by mutableStateOf("")
+    var distancia by mutableStateOf("Distância")
+    var duracao by mutableStateOf("Duração")
 
 }

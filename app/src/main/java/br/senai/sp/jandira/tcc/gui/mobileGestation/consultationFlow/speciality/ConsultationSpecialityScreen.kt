@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,17 +32,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetClinic
 import br.senai.sp.jandira.tcc.calls.GetEspeciality
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
+import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.especiality.EspecialityResponseList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun ConsultationSpecialityScreen(navController: NavController, speciality: ModelSpeciality) {
+fun ConsultationSpecialityScreen(navController: NavController, speciality: ModelSpeciality, clinic: Clinic) {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -88,20 +91,24 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
                         Button(
                             onClick =
                             {
+                                GetClinic(it.id, clinic)
                                 navController.navigate("ConsultClinic")
+
                             },
                             modifier = Modifier
                                 .width(340.dp)
                                 .height(70.dp)
                                 .padding(bottom = 15.dp),
-                            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                            colors = ButtonDefaults.buttonColors(Color(236, 238, 255)),
+                            border = BorderStroke(width = 1.dp, color = Color(182,182,246)),
+
 
                             shape = RoundedCornerShape(16.dp),
 
                             ) {
                             Text(
                                 text = it.nome,
-                                color = Color.White,
+                                color = Color.Black,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp
                             )

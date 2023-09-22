@@ -77,6 +77,10 @@ class RetrofitFactory {
         return retrofitFactory.create(EspecialityService::class.java)
     }
 
+    fun getClinic(): ClinicService {
+        return retrofitFactory.create(ClinicService::class.java)
+    }
+
 
 
 }
@@ -91,5 +95,18 @@ class RetrofitFactoryCep {
 
     fun getCep(): ViaCepService {
         return retrofitFactory.create(ViaCepService::class.java)
+    }
+}
+
+class RetrofitFactoryMaps {
+    private val URL_BASE = "https://maps.googleapis.com/maps/api/distancematrix/"
+    private val retrofitFactory = Retrofit
+        .Builder()
+        .baseUrl(URL_BASE)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    fun getDistance(): MapsService {
+        return retrofitFactory.create(MapsService::class.java)
     }
 }
