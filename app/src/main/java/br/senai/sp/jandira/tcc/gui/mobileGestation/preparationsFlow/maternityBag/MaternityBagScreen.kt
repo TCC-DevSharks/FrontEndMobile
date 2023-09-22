@@ -35,6 +35,9 @@ import br.senai.sp.jandira.tcc.componentes.SubHeader
 @Composable
 fun MaternityBagScreen(navController: NavController) {
 
+    var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -56,6 +59,11 @@ fun MaternityBagScreen(navController: NavController) {
             SubHeader(
                 leftText = stringResource(id = R.string.suggested),
                 rightText = stringResource(id = R.string.my_list),
+                onColumnSelected = { selectedColumn ->
+                    selectedColumnInOtherScreen = selectedColumn
+
+
+                }
             )
 
             Spacer(modifier = Modifier.height(20.dp))

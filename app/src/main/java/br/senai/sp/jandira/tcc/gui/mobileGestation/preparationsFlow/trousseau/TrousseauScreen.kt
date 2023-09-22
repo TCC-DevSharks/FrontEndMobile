@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,6 +46,9 @@ fun TrousseauScreen(navController: NavController) {
         mutableStateOf(listOf<TrousseauResponse>())
     }
 
+    var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -55,7 +59,10 @@ fun TrousseauScreen(navController: NavController) {
 
             SubHeader(
                 leftText = stringResource(id = R.string.suggested),
-                rightText = stringResource(id = R.string.my_list)
+                rightText = stringResource(id = R.string.my_list),
+                onColumnSelected = { selectedColumn ->
+                    selectedColumnInOtherScreen = selectedColumn
+                }
             )
 
             val call = RetrofitFactory().getTrousseauService().getTrousseau()

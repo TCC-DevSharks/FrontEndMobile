@@ -404,7 +404,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         items(listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")) { category ->
 
 
-                            CardPreparations(category)
+                            CardPreparations(category, navController)
 
 
 

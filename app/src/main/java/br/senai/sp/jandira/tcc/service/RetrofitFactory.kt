@@ -1,11 +1,9 @@
 package br.senai.sp.jandira.tcc.service
 
 import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauService
-import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 
 class RetrofitFactory {

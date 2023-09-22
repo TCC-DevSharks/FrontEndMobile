@@ -38,13 +38,20 @@ import br.senai.sp.jandira.tcc.componentes.SubHeader
 
 @Composable
 fun Favorite_Name_Suggestion() {
+
+    var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(titulo = stringResource(id = R.string.name_suggestion))
 
             SubHeader(
                 leftText = stringResource(id = R.string.suggested),
-                rightText = stringResource(id = R.string.favorites)
+                rightText = stringResource(id = R.string.favorites),
+                onColumnSelected = { selectedColumn ->
+                    selectedColumnInOtherScreen = selectedColumn
+                }
             )
         }
         Row(

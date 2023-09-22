@@ -25,11 +25,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeFavoriteResponse
 
 @Composable
 fun CardNameSuggestion(
-    name: String
+    nome: String,
+    id: Int
 ) {
+
+    var isRed by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth(1f)
@@ -57,12 +62,13 @@ fun CardNameSuggestion(
             ) {
                 Row() {
                     Text(
-                        text = name, fontSize = 20.sp
+                        text = nome, fontSize = 20.sp
                     )
 
                 }
-                var isRed by remember { mutableStateOf(false) }
                 Row(modifier = Modifier.clickable {
+
+
                     isRed = !isRed
                 }) {
                     val imageResource = if (isRed) {
