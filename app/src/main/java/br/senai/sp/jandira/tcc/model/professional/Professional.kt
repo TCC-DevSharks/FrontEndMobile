@@ -1,21 +1,18 @@
-package br.senai.sp.jandira.tcc.model.clinic
+package br.senai.sp.jandira.tcc.model.professional
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-class Clinic {
+class Professional {
     var id by mutableStateOf(0)
-    var clinica by mutableStateOf(listOf<ClinicSpecialityResponse>())
-    var cnpj by mutableStateOf("")
-    var razao_social by mutableStateOf("")
-    var descricao by mutableStateOf("")
+    var profissional by mutableStateOf(listOf<ProfessionalSpecialityResponse>())
     var email by mutableStateOf("")
     var foto by mutableStateOf("")
     var telefone by mutableStateOf("")
     var tipo_telefone by mutableStateOf("")
     var cep by mutableStateOf("")
     var numero by mutableStateOf("")
-    var especialidade by mutableStateOf(0)
+
 
 }

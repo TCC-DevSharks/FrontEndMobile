@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,10 +29,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetProfessionalSpeciality
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
+import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import coil.compose.AsyncImage
 
 @Composable
-fun ConsultationDescriptionClinicScreen(navController: NavController) {
+fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Clinic, professional: Professional) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
@@ -56,15 +61,17 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
                     border = BorderStroke(1.dp, Color.Gray)
 
             ) {
-                Image(
-                        painter = painterResource(id = R.drawable.avia),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+
+                AsyncImage(
+                    model = clinic.foto,
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
                 )
             }
         }
         Spacer(modifier = Modifier.height(15.dp))
+
         Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
@@ -72,7 +79,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
         ) {
             Row() {
                 Text(
-                        text = "Clinica Amil",
+                        text = clinic.razao_social,
                         fontSize = 25.sp,
                         fontWeight = FontWeight.Bold
                 )
@@ -82,7 +89,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
 
             Row() {
                 Text(
-                        text = "Reproductive Psychiatry & Psychiatry",
+                        text = clinic.cnpj,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56)
                 )
@@ -110,11 +117,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
 
             Row() {
                 Text(
-                        text = "RDr. Rebbeka is a Clinical Professor of Psychiatry," +
-                                " Obstetrics, Gynecology," +
-                                " and Reproductive Science at the Icahn School of Medicine at Mount Sinai which she first joined in 2007." +
-                                " She is an Attending in Psychiatry at Mount Sinai Medical Center. " +
-                                "She also maintains a private practice in New York City.",
+                        text = clinic.descricao,
                         fontSize = 13.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -126,7 +129,12 @@ fun ConsultationDescriptionClinicScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(50.dp))
 
         Column {
-            ButtonPurple(navController = navController, texto = stringResource(id = R.string.check_nutritionists), rota = "", onclick = {}, width = 300.dp, height = 48.dp, sizeText = 15.sp)
+            ButtonPurple(navController = navController,
+                texto = stringResource(id = R.string.check_nutritionists),
+                rota = "",
+                onclick = {
+                          GetProfessionalSpeciality(clinic.especialidade, professional, navController)
+            }, width = 300.dp, height = 48.dp, sizeText = 15.sp)
 
         }
 

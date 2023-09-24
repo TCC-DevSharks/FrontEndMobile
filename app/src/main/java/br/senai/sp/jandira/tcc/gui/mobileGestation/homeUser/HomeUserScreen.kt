@@ -75,12 +75,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
         mutableStateOf(listOf<Schedule>())
     }
     val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
-
-    var endereco by remember {
-        mutableStateOf(listOf<EndressPregnant>())
-    }
-
-
     LaunchedEffect(Unit) {
         GetPregnant(viewModel)
         GetEndereco(viewModel)

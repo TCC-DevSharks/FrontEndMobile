@@ -2,7 +2,6 @@ package br.senai.sp.jandira.tcc.service
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 
 class RetrofitFactory {
@@ -77,10 +76,17 @@ class RetrofitFactory {
         return retrofitFactory.create(EspecialityService::class.java)
     }
 
+    fun getClinicSpeciality(): ClinicService {
+        return retrofitFactory.create(ClinicService::class.java)
+    }
+
     fun getClinic(): ClinicService {
         return retrofitFactory.create(ClinicService::class.java)
     }
 
+    fun getProfessional(): ProfessionalService {
+        return retrofitFactory.create(ProfessionalService::class.java)
+    }
 
 
 }

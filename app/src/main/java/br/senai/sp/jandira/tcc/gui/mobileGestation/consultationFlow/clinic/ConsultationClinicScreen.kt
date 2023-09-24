@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetCep
+import br.senai.sp.jandira.tcc.calls.GetClinic
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
@@ -184,7 +185,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
                                 .height(150.dp)
                                 .padding(bottom = 14.dp)
                                 .clickable {
-                                           navController.navigate("")
+                                    GetClinic(it.id, clinic, navController)
                                 },
                             colors = CardDefaults.cardColors(Color(236, 238, 255)),
                             border = BorderStroke(width = 1.dp, color = Color(182,182,246)),
@@ -204,9 +205,6 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
                                     modifier = Modifier
                                         .size(70.dp)
                                         .clip(CircleShape)
-                                        .clickable {
-                                            navController.navigate("profileUser")
-                                        }
                                 )
 
                                 Spacer(modifier = Modifier.width(10.dp))
