@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -36,11 +37,13 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import coil.compose.AsyncImage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ConsultationDescriptionDoctorScreen(navController: NavController) {
+fun DescriptionDoctorScreen(navController: NavController, professional: Professional) {
 
     val currentDate = LocalDate.now()
     val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
@@ -98,12 +101,14 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                         shape = CircleShape,
 
                         ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.avia),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
+                        AsyncImage(
+                        model = professional.foto,
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(105.dp)
+                            .clip(CircleShape)
+                    )
 
 
                     }
@@ -118,7 +123,7 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                         Row() {
 
                             Text(
-                                text = "Dr Rebbeka",
+                                text = professional.nome,
                                 fontSize = 23.sp,
                                 fontWeight = FontWeight(900),
 
@@ -131,8 +136,7 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                         Row() {
 
                             Text(
-                                text = "Reproductive Psychiatry &\n" +
-                                        "Psychiatryfgdfgdfgdfgdfgdfgfdgdfgdfgdfgfdgdfgdfgdfgdfgdfgdfgfgdf",
+                                text = professional.especialidade,
                                 fontSize = 12.5.sp,
                                 fontWeight = FontWeight(200),
                                 lineHeight = 18.sp
@@ -164,7 +168,7 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                 Row(modifier = Modifier.padding(top = 5.dp, bottom = 12.dp)) {
 
                     Text(
-                        text = "Dr. Rebbeka is a Clinical Professor of Psychiatry, Obstetrics, Gynecology, and Reproductive Science at the Icahn School of Medicine at Mount Sinai which she first joined in 2007. She is an Attending in Psychiatry at Mount Sinai Medical Center. She also maintains a private practice in New York City.",
+                        text = professional.descricao,
                         fontSize = 12.5.sp,
                         fontWeight = FontWeight(300),
                         lineHeight = 18.sp
@@ -243,7 +247,7 @@ fun ConsultationDescriptionDoctorScreen(navController: NavController) {
                 Button(
                     onClick =
                     {
-//                        onclick(navController)
+                        navController.navigate("ConsultFinish")
                     },
                     modifier = Modifier
                         .width(320.dp)

@@ -5,6 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 class Professional {
+    var crm by mutableStateOf("")
+    var descricao by mutableStateOf("")
+    var especialidade by mutableStateOf("")
+    var nome by mutableStateOf("")
     var id by mutableStateOf(0)
     var profissional by mutableStateOf(listOf<ProfessionalSpecialityResponse>())
     var email by mutableStateOf("")

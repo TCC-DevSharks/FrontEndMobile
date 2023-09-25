@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,10 +32,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import coil.compose.AsyncImage
 
 @Composable
-fun ConsultationRegisterScreen() {
+fun ConsultationRegisterScreen(navController: NavController, professional: Professional) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -90,11 +94,13 @@ fun ConsultationRegisterScreen() {
                 border = BorderStroke(7.dp, Color(182, 182, 246))
 
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.avia),
-                    contentDescription = null,
+                AsyncImage(
+                    model = professional.foto,
+                    contentDescription = "",
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .size(130.dp)
+                        .clip(CircleShape)
                 )
             }
         }
@@ -145,10 +151,4 @@ fun ConsultationRegisterScreen() {
         }
 
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ConsultationRegisterScreenPreview() {
-    ConsultationRegisterScreen()
 }

@@ -12,9 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
-import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
 
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.checkFood.CheckFoodScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordScreen
@@ -24,15 +21,15 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.login.LoginScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.startScreen.LoadingScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.homeUser.HomeUserScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.maternityBag.MaternityBagScreen
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.nameSuggestion.Name_Suggestion
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.addTrousseau.AddTrousseau
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauScreen
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ConsultationClinicScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.ConsultationDoctorScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionDoctor.DescriptionDoctorScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DoctorScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.register.ConsultationRegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
@@ -112,7 +109,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant, speciality) }
             composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, viewModelPregnant) }
             composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional) }
-            composable(route = "ConsultDoctor") { ConsultationDoctorScreen (navController,professional) }
+            composable(route = "ConsultDoctor") { DoctorScreen (navController,professional) }
+            composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
+            composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
     }
 }
 

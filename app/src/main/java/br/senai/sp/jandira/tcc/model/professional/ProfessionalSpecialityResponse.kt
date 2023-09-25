@@ -8,6 +8,7 @@ data class ProfessionalSpecialityResponse(
     val crm: String,
     val data_nascimento: String,
     val foto: String,
+    val descricao: String,
     val inicio_atendimento: String,
     val fim_atendimento: String,
     val email: String,
