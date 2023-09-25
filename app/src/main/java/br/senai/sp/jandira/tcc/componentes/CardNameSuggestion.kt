@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.componentes
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,15 +26,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NamePost.NamePost
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeFavoriteResponse
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
 fun CardNameSuggestion(
     nome: String,
-    id: Int
+    idNome: Int,
+    idGestante: Int,
+    check: Boolean,
+    onclick: () -> Unit,
 ) {
 
-    var isRed by remember { mutableStateOf(false) }
+    var isRed by remember { mutableStateOf(check) }
 
     Card(
         modifier = Modifier
@@ -66,16 +77,48 @@ fun CardNameSuggestion(
                     )
 
                 }
-                Row(modifier = Modifier.clickable {
 
+                fun PostName (viewModel: ModelPregnant){
 
-                    isRed = !isRed
-                }) {
-                    val imageResource = if (isRed) {
-                        R.drawable.coracao_roxo
+                    var favorite = NamePost(
+                        id_nome = idNome,
+                        id_gestante = idGestante,
+                    )
+
+                    Log.e("qwert","${favorite}")
+                    val callAddFavorite = RetrofitFactory().getNamesService().insertName(favorite)
+
+                    callAddFavorite.enqueue(object : Callback<ResponseBody> {
+
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: Response<ResponseBody>
+                        ) {
+
+                            Log.i("Post", "onResponse: ${response}")
+                            Log.i("Post", "onResponse: ${response.body()}")
+                        }
+
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            Log.i("ErroPost", "onFailure: ${t.message}")
+                        }
+
+                    })
+
+                }
+
+                Row(modifier = Modifier.clickable( onClick = {
+                    PostName(viewModel = ModelPregnant())
+
+                })) {
+
+                    val imageResource = if (check) {
+                        R.drawable.heart
                     } else {
                         R.drawable.coracao_cinza
                     }
+
+
                     Image(
                         painter = painterResource(id = imageResource),
                         contentDescription = null,
@@ -86,3 +129,4 @@ fun CardNameSuggestion(
         }
     }
 }
+

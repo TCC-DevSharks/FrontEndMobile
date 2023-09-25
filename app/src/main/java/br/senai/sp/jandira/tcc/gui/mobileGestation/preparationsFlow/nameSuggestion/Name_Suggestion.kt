@@ -45,6 +45,9 @@ import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeF
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
@@ -202,7 +205,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 }
             })
 
-            val callFavorrite = RetrofitFactory().getNamesService().getNameFavorite(viewModel.id)
+            val callFavorrite = RetrofitFactory().getNamesService().getNameFavorite(id = viewModel.id, sexo = selectedSex)
 
             callFavorrite.enqueue(object : retrofit2.Callback<NameFavoriteList> {
                 override fun onResponse(
@@ -221,14 +224,6 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
 
             })
 
-            fun PostName (viewModel: ModelPregnant){
-
-                var favorite = NamePost(
-                    id_gestante = viewModel.id,
-                    id_nome = it.id,
-                )
-
-            }
 
 
             if (selectedColumnInOtherScreen == 1) {
@@ -242,7 +237,13 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     items(nomes) {
 
-                        CardNameSuggestion(it.nome, it.id)
+                        var check by remember { mutableStateOf(false) }
+
+
+
+                        CardNameSuggestion(nome = it.nome, idNome = it.id, idGestante = viewModel.id, check,){
+                            check = !check
+                        }
 
                     }
                 }
@@ -258,7 +259,11 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     items(nomesFavoritos) {
 
-                        CardNameSuggestion(it.nome, it.id)
+                        var check by remember { mutableStateOf(false) }
+
+
+                        CardNameSuggestion( nome = it.nome, idNome = it.id, idGestante = viewModel.id, check){
+                        }
 
                     }
                 }

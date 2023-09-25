@@ -20,7 +20,7 @@ interface NameSuggestionService {
     fun getNameSex(@Query("sexo") sexo: String): Call<NameSuggestionList>
 
     @GET("sugestao-nome/favorito/{id}")
-    fun getNameFavorite(@Path("id") id: Int): Call<NameFavoriteList>
+    fun getNameFavorite(@Path("id") id: Int, @Query("sexo") sexo: String): Call<NameFavoriteList>
 
     @POST("sugestao-nome/favorito")
     fun insertName(@Body namePost: NamePost): Call<ResponseBody>
