@@ -66,8 +66,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
 
     var selectedSex by remember { mutableStateOf("Masculino") }
 
-    var selectedSexMasculino by remember { mutableStateOf(true) }
-    var selectedSexFeminino by remember { mutableStateOf(false) }
+
 
     Box(
         modifier = Modifier
@@ -92,7 +91,6 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                     rightText = stringResource(id = R.string.favorites),
                     onColumnSelected = { selectedColumn ->
                         selectedColumnInOtherScreen = selectedColumn
-
                     }
                 )
             }
@@ -220,11 +218,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 override fun onFailure(call: retrofit2.Call<NameFavoriteList>, t: Throwable) {
                     Log.i("ds3m", "onFailure: ${t.message}")
                 }
-
-
             })
-
-
 
             if (selectedColumnInOtherScreen == 1) {
 
@@ -237,12 +231,8 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     items(nomes) {
 
-                        var check by remember { mutableStateOf(false) }
+                        CardNameSuggestion(nome = it.nome, idNome = it.id, idGestante = viewModel.id){
 
-
-
-                        CardNameSuggestion(nome = it.nome, idNome = it.id, idGestante = viewModel.id, check,){
-                            check = !check
                         }
 
                     }
@@ -259,10 +249,10 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     items(nomesFavoritos) {
 
-                        var check by remember { mutableStateOf(false) }
+                        CardNameSuggestion( nome = it.nome, idNome = it.id, idGestante = viewModel.id){
 
 
-                        CardNameSuggestion( nome = it.nome, idNome = it.id, idGestante = viewModel.id, check){
+
                         }
 
                     }
