@@ -10,5 +10,6 @@ data class ClinicResponse(
     val telefone: String,
     val tipo_telefone: String,
     val numero: String,
+    val complemento: String,
     val cep: String
 )
