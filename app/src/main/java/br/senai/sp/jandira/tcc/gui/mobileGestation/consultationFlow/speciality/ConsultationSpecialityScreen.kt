@@ -49,9 +49,13 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
                     .padding(bottom = 70.dp)
             ) {
 
-                Header(titulo = stringResource(id = R.string.header_speciality),
-                    tintIcon = Color(255, 218, 185)
-                )
+
+                    Header(
+                        titulo = stringResource(id = R.string.header_speciality),
+                    )
+
+                Spacer(modifier = Modifier.height(13.dp))
+
 
                 Row(
                     modifier = Modifier

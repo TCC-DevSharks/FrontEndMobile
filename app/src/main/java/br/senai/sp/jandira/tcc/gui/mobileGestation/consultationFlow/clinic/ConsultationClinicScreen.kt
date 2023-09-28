@@ -84,9 +84,13 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
             ) {
 
 
-                Header(titulo = stringResource(id = R.string.header_clinic),
-                    tintIcon = Color(255, 218, 185)
-                )
+
+                    Header(
+                        titulo = stringResource(id = R.string.header_speciality),
+                    )
+
+                Spacer(modifier = Modifier.height(13.dp))
+
 
                 Row(
                     modifier = Modifier

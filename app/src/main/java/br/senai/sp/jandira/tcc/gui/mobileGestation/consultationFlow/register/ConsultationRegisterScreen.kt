@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,13 +34,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
 
 @Composable
 fun ConsultationRegisterScreen(navController: NavController, professional: Professional) {
     Column(modifier = Modifier.fillMaxSize()) {
+
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val arguments = navBackStackEntry?.arguments
+
+        val selectedDate = arguments?.getString("selectedDate")
+        val selectedTime = arguments?.getString("selectedTime")
 
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
@@ -71,7 +80,7 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
                                 fontWeight = FontWeight.Bold
                             )
                         ) {
-                            append("Nutricionista Rebekka")
+                            append("${professional.especialidade} ${professional.nome}")
                         }
                         append(" foi agendada!")
                     },
@@ -122,11 +131,12 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 Row {
-                    Text(
-                        text = "14/02/2023",
-                        fontSize = 20.sp,
-                        color = Color(57, 57, 56)
-                    )
+
+                        Text(
+                            text = DataHora.selectedDate,
+                            fontSize = 20.sp,
+                            color = Color(57, 57, 56)
+                        )
                 }
             }
             Row {
@@ -140,11 +150,13 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 Row {
-                    Text(
-                        text = "14:00h",
-                        fontSize = 20.sp,
-                        color = Color(57, 57, 56)
-                    )
+
+                        Text(
+                            text = DataHora.selectedTime,
+                            fontSize = 20.sp,
+                            color = Color(57, 57, 56)
+                        )
+
                 }
             }
 

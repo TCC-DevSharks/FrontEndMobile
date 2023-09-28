@@ -51,10 +51,13 @@ fun DoctorScreen(navController: NavController, professional: Professional) {
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            Header(
-                titulo = stringResource(id = R.string.header_speciality),
-                tintIcon = Color(255, 218, 185)
-            )
+         
+                Header(
+                    titulo = stringResource(id = R.string.header_speciality),
+                )
+
+
+            Spacer(modifier = Modifier.height(13.dp))
 
             Row(
                 modifier = Modifier
@@ -112,7 +115,8 @@ fun DoctorScreen(navController: NavController, professional: Professional) {
                                         professional.foto = it.foto
                                         professional.telefone = it.telefone
                                         professional.tipo_telefone = it.tipo_telefone
-                                               navController.navigate("DescriptionDoctor")
+
+                                        navController.navigate("DescriptionDoctor")
                                     },
                                 colors = CardDefaults.cardColors(Color(255,255,255)),
                                 border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
