@@ -41,6 +41,7 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.login.ModelLogin
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -65,6 +66,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalAnimationApi::class)
 
 @Composable
@@ -88,7 +90,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
-            composable(route = "login") { LoginScreen (navController, viewModelPregnant) }
+            composable(route = "login") { LoginScreen (navController, viewModelPregnant)}
             composable(route = "register") { RegisterScreen (navController, viewModel) }
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }

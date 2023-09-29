@@ -43,6 +43,7 @@ import br.senai.sp.jandira.tcc.model.login.Login
 import br.senai.sp.jandira.tcc.model.login.LoginList
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.login.ModelLogin
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 import retrofit2.Call
@@ -51,13 +52,16 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
+fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
     @OptIn(ExperimentalMaterial3Api::class)
     val context = LocalContext.current
+
     var password by rememberSaveable { mutableStateOf("") }
+
     var email by rememberSaveable { mutableStateOf("") }
-    val call = RetrofitFactory().getLoginService().getLogin(email = email, senha = password)
+
+
     var login by remember {
         mutableStateOf(listOf<Login>())
     }
@@ -106,7 +110,8 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = stringResource(id = R.string.error_password),
+                    Text(
+                        text = stringResource(id = R.string.error_password),
                         color = Color.Red
 
                     )
@@ -163,39 +168,50 @@ fun LoginScreen(navController: NavController,viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ButtonPurple(navController, texto = stringResource(id = R.string.button_enter), rota = "homeUser", onclick = {
+            ButtonPurple(
+                navController,
+                texto = stringResource(id = R.string.button_enter),
+                rota = "homeUser",
+                onclick = {
 
-                        call.enqueue(object : retrofit2.Callback<LoginList> {
-                            override fun onResponse(
-                                call: Call<LoginList>,
-                                response: Response<LoginList>
+                    var loginGestante = ModelLogin(
+                        email = email,
+                        senha = password,
+                    )
 
-                            ) {
-                                //Duas exclamações seignificam que pode vir nulo
-                                login = response.body()!!.login
+                    val call = RetrofitFactory().getLoginService().insertLogin(loginGestante)
 
-                                if (login[0].id !== 0) {
+                    call.enqueue(object : retrofit2.Callback<LoginList> {
+                        override fun onResponse(
+                            call: Call<LoginList>,
+                            response: Response<LoginList>
 
-                                    login.forEach {
-                                        viewModel.id = it.id
-                                    }
-                                    navController.navigate("homeUser")
+                        ) {
+                            //Duas exclamações significam que pode vir nulo
+                            login = response.body()!!.login
 
-                                } else {
-                                    visible = true
+                            if (login[0].id !== 0) {
+
+                                login.forEach {
+                                    viewModel.id = it.id
                                 }
+                                navController.navigate("homeUser")
 
+                            } else {
+                                visible = true
                             }
 
-                            override fun onFailure(call: Call<LoginList>, t: Throwable) {
-                                Log.i(
-                                    "ds2m",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
-            })
+                        }
+
+                        override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                            Log.i(
+                                "ds2m",
+                                "onFailure: ${t.message}"
+                            )
+                            println(t.message + t.cause)
+                        }
+                    })
+                })
 
 
 
