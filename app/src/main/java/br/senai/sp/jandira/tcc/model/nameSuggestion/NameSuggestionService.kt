@@ -1,11 +1,11 @@
 package br.senai.sp.jandira.tcc.model.nameSuggestion
 
-import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameDelete.NameDelete
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NamePost.NamePost
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NameFavoriteList
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -24,4 +24,7 @@ interface NameSuggestionService {
 
     @POST("sugestao-nome/favorito")
     fun insertName(@Body namePost: NamePost): Call<NameFavoriteList>
+
+    @DELETE("sugestao-nome/favorito")
+    fun deleteName(@Query("idNome") nome: Int, @Query("idGestante") gestante: Int ): Call<NameFavoriteList>
 }
