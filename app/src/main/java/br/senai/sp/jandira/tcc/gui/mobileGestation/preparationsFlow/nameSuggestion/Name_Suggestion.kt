@@ -113,6 +113,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
         }
     }
 
+
     LaunchedEffect(counterEffect) {
         lista = emptyList()
         val callFavorrite = RetrofitFactory().getNamesService()
