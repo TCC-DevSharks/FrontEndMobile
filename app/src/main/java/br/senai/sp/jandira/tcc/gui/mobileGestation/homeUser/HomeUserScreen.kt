@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -368,6 +370,10 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                     horizontalArrangement = Arrangement.Center
                 ) {
 
+
+
+
+
                     MarternalGuide()
 
                     MarternalGuide()
@@ -391,18 +397,25 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
                 Spacer(modifier = Modifier.height(13.dp))
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 26.dp),
-                ) {
-
-                    CardPreparations()
-
-                    CardPreparations()
 
 
-                }
+                    LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
+
+                        items(listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")) { category ->
+
+
+                            CardPreparations(category, navController)
+
+
+
+
+                        }
+                    }
+
+
+
+
+
 
             }
 

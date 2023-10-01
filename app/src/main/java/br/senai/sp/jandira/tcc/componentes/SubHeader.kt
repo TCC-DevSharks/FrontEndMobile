@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.RememberObserver
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,9 @@ import br.senai.sp.jandira.tcc.R
 fun SubHeader(
     leftText: String,
     rightText: String,
+    onColumnSelected: (Int) -> Unit
+
+
 ) {
 
     var selectedColumn by remember { mutableStateOf(1) }
@@ -42,6 +46,8 @@ fun SubHeader(
             fontWeight = FontWeight(500),
             modifier = Modifier.clickable {
                 selectedColumn = 1
+                onColumnSelected(selectedColumn)
+
             },
             color = if (selectedColumn == 1) Color(182, 182, 246) else Color.Black
 
@@ -51,7 +57,11 @@ fun SubHeader(
             text = rightText,
             fontSize = 17.sp,
             fontWeight = FontWeight(500),
-            modifier = Modifier.clickable { selectedColumn = 2 },
+            modifier = Modifier.clickable {
+                selectedColumn = 2
+                onColumnSelected(selectedColumn)
+
+            },
             color = if (selectedColumn == 2) Color(182, 182, 246) else Color.Black
 
         )

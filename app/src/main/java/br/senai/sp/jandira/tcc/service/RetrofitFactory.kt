@@ -1,8 +1,9 @@
 package br.senai.sp.jandira.tcc.service
 
+import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauService
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 
 class RetrofitFactory {
@@ -57,6 +58,15 @@ class RetrofitFactory {
         return retrofitFactory.create(PregnantService::class.java)
     }
 
+
+    fun getNamesService(): NameSuggestionService {
+        return retrofitFactory.create(NameSuggestionService::class.java)
+    }
+
+    fun getTrousseauService(): TrousseauService {
+        return retrofitFactory.create(TrousseauService::class.java)
+    }
+
     fun getAlergy(): PregnantService {
         return retrofitFactory.create(PregnantService::class.java)
     }
@@ -68,6 +78,7 @@ class RetrofitFactory {
     fun getDeficiency(): PregnantService {
         return retrofitFactory.create(PregnantService::class.java)
     }
+
 
     fun getMedication(): PregnantService {
         return retrofitFactory.create(PregnantService::class.java)

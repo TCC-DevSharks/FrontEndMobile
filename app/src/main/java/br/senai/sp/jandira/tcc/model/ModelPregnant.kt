@@ -3,6 +3,8 @@ package br.senai.sp.jandira.tcc.model
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeFavoriteResponse
+import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 
 class ModelPregnant {
 
@@ -30,5 +32,7 @@ class ModelPregnant {
     var bairro by mutableStateOf("")
     var cidade by mutableStateOf("")
     var estado by mutableStateOf("")
+    var FavoritoSugestao by mutableStateOf(listOf<NomeFavoriteResponse>())
+    var sugestao by mutableStateOf(listOf<NameSuggestionResponse>())
 
 }

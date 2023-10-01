@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.componentes
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,11 +25,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardPreparations(
-//    textTitle: String
+    category: String,
+    navController: NavController
 ) {
 
 
@@ -38,15 +41,26 @@ fun CardPreparations(
 
         Card(
             modifier = Modifier
+                .clickable {
+                    navController.navigate(when (category) {
+                        "Plano de Parto" -> ("nameSuggestion")
+                        "Enxoval" -> ("nameSuggestion")
+                        "Mala de Maternidade" -> ("nameSuggestion")
+                        "Sugestão de Nomes" -> ("nameSuggestion")
+                        else -> ("nameSuggestion") // Default image
+                    })
+                }
                 .size(170.dp, 130.dp),
             colors = CardDefaults.cardColors(Color(236, 236, 255)),
-            border = BorderStroke( .3.dp, Color(182, 182, 246))
+            border = BorderStroke( .3.dp, Color(182, 182, 246)),
         ) {
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = 12.dp)
+                    .padding(vertical = 12.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 Row(
@@ -54,8 +68,17 @@ fun CardPreparations(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
+
+                    val imageResource = when (category) {
+                        "Plano de Parto" -> R.drawable.baby
+                        "Enxoval" -> R.drawable.tags
+                        "Mala de Maternidade" -> R.drawable.suitcase
+                        "Sugestão de Nomes" -> R.drawable.clipboard_list
+                        else -> R.drawable.ic_launcher_foreground // Default image
+                    }
+
                     Image(
-                        painter = painterResource(id = R.drawable.clipboard_list),
+                        painter = painterResource(imageResource),
                         contentDescription = null,
                         modifier = Modifier.size(40.dp, 40.dp)
                     )
@@ -71,7 +94,7 @@ fun CardPreparations(
 
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "Sugestão de nomes",
+                        text = category,
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         fontWeight = FontWeight(800),
@@ -89,8 +112,8 @@ fun CardPreparations(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun CardPreparationsPreview() {
-    CardPreparations()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun CardPreparationsPreview() {
+//    CardPreparations()
+//}

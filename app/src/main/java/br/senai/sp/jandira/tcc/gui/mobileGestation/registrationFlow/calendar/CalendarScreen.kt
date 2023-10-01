@@ -175,6 +175,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 }
 
 fun PostPregnant(navController: NavController,viewModel: ModelRegister){
+
     var pregnant = Pregnant(
         nome = viewModel.nome,
         data_nascimento = viewModel.data_nascimento,
