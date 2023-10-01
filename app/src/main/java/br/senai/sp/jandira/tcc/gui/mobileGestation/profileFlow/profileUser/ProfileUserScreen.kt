@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.componentes.Comp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.calls.PutWeight
 import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
@@ -118,7 +119,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             .build()
     )
 
-    val openDialog = remember { mutableStateOf(false) }
+    var openDialog = remember { mutableStateOf(false) }
 
     var peso by remember { mutableStateOf("") }
     var altura by remember { mutableStateOf("") }
@@ -142,7 +143,27 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 altura = altura.toDouble(),
                 foto = viewModel.foto
             )
-            PutWeight(viewModel, weight)
+            val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+
+            call.enqueue(object : retrofit2.Callback<WeightHeight> {
+                override fun onResponse(
+                    call: Call<WeightHeight>,
+                    response: Response<WeightHeight>
+
+                ) {
+                    openDialog.value = false
+
+                    GetPregnant(viewModel)
+                }
+
+                override fun onFailure(call: Call<WeightHeight>, t: Throwable) {
+                    Log.i(
+                        "ds2m",
+                        "onFailure: ${t.message}"
+                    )
+                    println(t.message + t.cause)
+                }
+            })
         }
     )
 

@@ -7,6 +7,7 @@ import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeF
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 
 class ModelPregnant {
+
     var id by mutableStateOf(0)
     var nome by mutableStateOf("")
     var data_nascimento by mutableStateOf("")
@@ -26,6 +27,7 @@ class ModelPregnant {
     var alergia by mutableStateOf("")
     var comorbidades by mutableStateOf("")
     var medicacao by mutableStateOf("")
+    var deficiencia by mutableStateOf("")
     var logradouro by mutableStateOf("")
     var bairro by mutableStateOf("")
     var cidade by mutableStateOf("")

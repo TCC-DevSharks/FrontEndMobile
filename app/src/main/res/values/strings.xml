@@ -37,6 +37,9 @@
     <string name="all">Todos</string>
 
 
+    <string name="pagseguro">Pagamento</string>
+
+
     <!-- Escolha de Medico -->
 <!--    <string name="header_add_maternity_bag">Falta pouco! Seu cadastro está sendo finalizado.</string>-->
     <string name="title_address">Vamos coletar mais informações para o seu </string>
@@ -105,6 +108,8 @@
     <string name="text_field_numero">Número</string>
     <string name="text_field_cidade">Cidade</string>
     <string name="text_field_state">Estado</string>
+    <string name="text_field_dd">dd</string>
+    <string name="text_field_ddPais">ddPaís</string>
 
     <string name="text_switch">Entrar como profissional</string>
 

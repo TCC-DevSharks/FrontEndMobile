@@ -91,7 +91,7 @@ fun ShowDialog(
 
                 Row(modifier =Modifier.width(300.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
-                    Button(onClick ={openDialog.value = true}) {
+                    Button(onClick ={openDialog.value = false}) {
                         Text(text = "Cancelar")
                     }
                     Button(onClick = onclick) {

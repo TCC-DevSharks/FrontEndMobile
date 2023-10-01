@@ -74,7 +74,7 @@ fun Navigation(navController: NavController) {
                     .background(Color(182, 182, 246), CircleShape)
                     .size(60.dp)
                     .clickable {
-//                            navController.navigate("week")
+                            navController.navigate("homeUser")
                     }, contentAlignment = Alignment.Center
             ) {
 
@@ -107,7 +107,7 @@ fun Navigation(navController: NavController) {
                 }) {
 
                 Image(
-                    painter = painterResource(id = R.drawable.search_cinza),
+                    painter = painterResource(id = R.drawable.doctor),
                     contentDescription = null,
                     modifier = Modifier.size(27.dp)
                 )

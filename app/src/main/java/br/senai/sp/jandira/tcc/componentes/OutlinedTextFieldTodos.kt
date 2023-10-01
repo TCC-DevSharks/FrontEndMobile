@@ -22,6 +22,7 @@ fun OutlinedTextFieldTodos(
     meuType: KeyboardType,
     value: String,
     onValueChange: (String) -> Unit,
+    shape: RoundedCornerShape = RoundedCornerShape(20.dp)
 
     )
 {
@@ -33,7 +34,7 @@ fun OutlinedTextFieldTodos(
         },
         modifier = Modifier
             .width(355.dp),
-        shape = RoundedCornerShape(20.dp),
+        shape = shape,
         label = {
             Text(text = stringResource(id = texto))
         },

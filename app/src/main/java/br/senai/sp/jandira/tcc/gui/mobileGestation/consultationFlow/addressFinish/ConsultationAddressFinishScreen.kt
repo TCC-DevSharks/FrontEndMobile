@@ -30,11 +30,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetEspeciality
+import br.senai.sp.jandira.tcc.calls.PutWeight
+import br.senai.sp.jandira.tcc.calls.insertALergy
+import br.senai.sp.jandira.tcc.calls.insertComorbidity
+import br.senai.sp.jandira.tcc.calls.insertMedication
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
@@ -45,7 +52,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant) {
+fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant, speciality: ModelSpeciality) {
 
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
@@ -244,6 +251,14 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                         email = viewModel.email,
                         senha = viewModel.senha
                     )
+
+                    var weightHeight = WeightHeight(
+                        altura = viewModel.altura,
+                        peso = viewModel.peso,
+                        foto = viewModel.foto
+                    )
+
+                    println(Pregnant)
                     val call = RetrofitFactory().updatePregnant().updatePregnant(viewModel.id, Pregnant )
 
                     call.enqueue(object : retrofit2.Callback<Pregnant> {
@@ -270,6 +285,12 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                             println(t.message + t.cause)
                         }
                     })
+
+                    PutWeight(viewModel, weightHeight)
+//                    insertALergy(viewModel)
+//                    insertComorbidity(viewModel)
+//                    insertMedication(viewModel)
+                    GetEspeciality(speciality)
                 }
             }
         )

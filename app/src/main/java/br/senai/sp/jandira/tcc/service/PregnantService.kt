@@ -6,9 +6,13 @@ import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Alergy
+import br.senai.sp.jandira.tcc.model.historicPregnant.AlergyResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Comorbidity
+import br.senai.sp.jandira.tcc.model.historicPregnant.ComorbidityResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Deficiency
+import br.senai.sp.jandira.tcc.model.historicPregnant.DeficiencyResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Medication
+import br.senai.sp.jandira.tcc.model.historicPregnant.MedicationResponseList
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -44,5 +48,17 @@ interface PregnantService {
 
     @POST("medicacao")
     fun postMedication(@Body medication: Medication): Call<ResponseBody>
+
+    @GET("alergia/gestante/{id}")
+    fun getAlergy(@Path("id") id: Int): Call<AlergyResponseList>
+
+    @GET("comorbidade/gestante/{id}")
+    fun getComorbidity(@Path("id") id: Int): Call<ComorbidityResponseList>
+
+    @GET("deficiencia/gestante/{id}")
+    fun getDeficiency(@Path("id") id: Int): Call<DeficiencyResponseList>
+
+    @GET("medicacao/gestante/{id}")
+    fun getMedication(@Path("id") id: Int): Call<MedicationResponseList>
 
 }

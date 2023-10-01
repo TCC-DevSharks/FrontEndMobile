@@ -161,19 +161,21 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             OutlinedTextFieldTodos(
                 texto = R.string.text_field_nome,
                 meuType = KeyboardType.Text,
-                nome
-            ) {
-                if (it.length <= maxCharNome) nome = it
-            }
+                value = nome,
+                onValueChange = {
+                    if (it.length <= maxCharNome) nome = it
+                }
+            )
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextFieldTodos(
                 texto = R.string.types_of_users,
                 meuType = KeyboardType.Email,
-                email
-            ) {
-                if (it.length <= maxCharEmail) email = it
-            }
+                email,
+                onValueChange = {
+                    if (it.length <= maxCharEmail) email = it
+                }
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 

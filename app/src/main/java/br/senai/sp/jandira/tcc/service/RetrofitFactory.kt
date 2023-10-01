@@ -58,6 +58,7 @@ class RetrofitFactory {
         return retrofitFactory.create(PregnantService::class.java)
     }
 
+
     fun getNamesService(): NameSuggestionService {
         return retrofitFactory.create(NameSuggestionService::class.java)
     }
@@ -66,8 +67,46 @@ class RetrofitFactory {
         return retrofitFactory.create(TrousseauService::class.java)
     }
 
+    fun getAlergy(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getComorbidity(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getDeficiency(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
 
 
+    fun getMedication(): PregnantService {
+        return retrofitFactory.create(PregnantService::class.java)
+    }
+
+    fun getEspeciality(): EspecialityService {
+        return retrofitFactory.create(EspecialityService::class.java)
+    }
+
+    fun getClinicSpeciality(): ClinicService {
+        return retrofitFactory.create(ClinicService::class.java)
+    }
+
+    fun getClinic(): ClinicService {
+        return retrofitFactory.create(ClinicService::class.java)
+    }
+
+    fun getProfessional(): ProfessionalService {
+        return retrofitFactory.create(ProfessionalService::class.java)
+    }
+
+    fun insertPayment(): PaymentService{
+        return  retrofitFactory.create(PaymentService::class.java)
+    }
+
+    fun insertConsult(): ConsultService{
+        return  retrofitFactory.create(ConsultService::class.java)
+    }
 }
 
 class RetrofitFactoryCep {
@@ -80,5 +119,18 @@ class RetrofitFactoryCep {
 
     fun getCep(): ViaCepService {
         return retrofitFactory.create(ViaCepService::class.java)
+    }
+}
+
+class RetrofitFactoryMaps {
+    private val URL_BASE = "https://maps.googleapis.com/maps/api/distancematrix/"
+    private val retrofitFactory = Retrofit
+        .Builder()
+        .baseUrl(URL_BASE)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    fun getDistance(): MapsService {
+        return retrofitFactory.create(MapsService::class.java)
     }
 }
