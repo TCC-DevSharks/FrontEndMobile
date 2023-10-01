@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -45,19 +46,17 @@ fun Completed_Registration(navController: NavController) {
         Row(modifier = Modifier.padding(horizontal = 50.dp)) {
             TextComp(texto = R.string.registration, fontSize = 20.sp)
         }
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(
-                modifier = Modifier.size(width = 250.dp, height = 250.dp),
-                colors = CardDefaults.cardColors(Color.LightGray)
-            ) {
-            }
-
+            Image(painter = painterResource(id = R.drawable.atualizargravida),
+                contentDescription ="",
+                modifier = Modifier.width(345.dp)
+                                    .height(230.dp))
         }
 
         Spacer(modifier = Modifier.height(50.dp))

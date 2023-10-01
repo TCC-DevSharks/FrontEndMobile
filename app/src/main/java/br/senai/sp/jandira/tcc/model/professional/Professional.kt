@@ -17,4 +17,6 @@ class Professional {
     var tipo_telefone by mutableStateOf("")
     var cep by mutableStateOf("")
     var numero by mutableStateOf("")
+    var clinica by mutableStateOf("")
+    var valor by mutableStateOf("")
 }

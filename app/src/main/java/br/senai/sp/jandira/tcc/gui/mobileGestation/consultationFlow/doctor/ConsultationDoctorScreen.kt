@@ -115,6 +115,8 @@ fun DoctorScreen(navController: NavController, professional: Professional) {
                                         professional.foto = it.foto
                                         professional.telefone = it.telefone
                                         professional.tipo_telefone = it.tipo_telefone
+                                        professional.clinica = it.clinica
+                                        professional.valor = "200,00"
 
                                         navController.navigate("DescriptionDoctor")
                                     },

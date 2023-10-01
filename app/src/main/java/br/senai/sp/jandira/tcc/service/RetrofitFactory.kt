@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.service
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 class RetrofitFactory {
@@ -88,7 +89,13 @@ class RetrofitFactory {
         return retrofitFactory.create(ProfessionalService::class.java)
     }
 
+    fun insertPayment(): PaymentService{
+        return  retrofitFactory.create(PaymentService::class.java)
+    }
 
+    fun insertConsult(): ConsultService{
+        return  retrofitFactory.create(ConsultService::class.java)
+    }
 }
 
 class RetrofitFactoryCep {

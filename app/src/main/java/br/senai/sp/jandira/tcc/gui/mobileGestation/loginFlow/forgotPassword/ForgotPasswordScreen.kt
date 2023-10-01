@@ -68,10 +68,11 @@ fun ForgotPasswordScreen(navController: NavController) {
             OutlinedTextFieldTodos(
                 texto = R.string.types_of_users,
                 meuType = KeyboardType.Email,
-                email
-            ){
-                email = it
-            }
+                value =  email,
+                onValueChange ={
+                    email = it
+                }
+            )
 
             OutlinedTextFieldSenha(texto = R.string.new_password,password){
                 password = it

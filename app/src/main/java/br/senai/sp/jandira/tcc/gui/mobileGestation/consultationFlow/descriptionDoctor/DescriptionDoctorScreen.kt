@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +24,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -55,6 +59,7 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
+import java.lang.Math.ceil
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -91,7 +96,7 @@ fun DescriptionDoctorScreen(
                 ArrowLeft(navController = navController, rota = "")
 
             }
-            
+
             Spacer(modifier = Modifier.height(18.dp))
 
 
@@ -244,9 +249,9 @@ fun DescriptionDoctorScreen(
                 dateToAdd = dateToAdd.plusDays(1)
             }
 
-            LazyColumn {
+            LazyColumn(modifier = Modifier.padding(start = 28.dp, end = 28.dp, bottom = 30.dp)) {
                 item {
-                    LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
+                    LazyRow() {
                         items(dates.size) { index ->
                             val date = dates[index]
 
@@ -255,7 +260,6 @@ fun DescriptionDoctorScreen(
 
                             Button(
                                 onClick = {
-
 
 
                                     var newData =
@@ -276,7 +280,7 @@ fun DescriptionDoctorScreen(
                                     .padding(start = 4.5.dp),
                                 colors = if (isSelectedDate) ButtonDefaults.buttonColors(
                                     Color(243, 243, 243)
-                                ) else ButtonDefaults.buttonColors(Color(182,182,246)),
+                                ) else ButtonDefaults.buttonColors(Color(182, 182, 246)),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Text(
@@ -311,51 +315,76 @@ fun DescriptionDoctorScreen(
                             currentTime = currentTime.plus(interval)
                         }
 
-                        LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
-                            items(times.size) { index ->
-                                val time = times[index]
+                        val columnCount = 3
+                        val wordsPerColumn = ceil(times.size / columnCount.toDouble()).toInt()
 
-                                val isSelected = time == selectedTime
-
-
-                                Button(
-                                    onClick = {
-                                        selectedTime = time
-                                        DataHora.selectedTime = time.toString()
-
-                                    },
-                                    modifier = Modifier
-                                        .size(92.dp, 43.dp)
-                                        .padding(start = 4.5.dp),
-                                    colors = if (isSelected) ButtonDefaults.buttonColors(
-                                        Color(243, 243, 243)
-                                    ) else ButtonDefaults.buttonColors(Color(182,182,246)),
-                                    shape = RoundedCornerShape(10.dp)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            for (i in 0 until columnCount) {
+                                Column(
+                                    modifier = Modifier.height(140.dp)
+                                        .verticalScroll(rememberScrollState()),
+                                    verticalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    Text(
-                                        text = time.format(DateTimeFormatter.ofPattern("HH:mm")),
-                                        color = if (isSelected)
-                                            Color.Black
-                                        else Color.White,
-                                        fontSize = 13.5.sp,
-                                        textAlign = TextAlign.Center,
-                                        fontWeight = FontWeight(900)
-                                    )
+                                    for (j in 0 until wordsPerColumn) {
+                                        val index = i * wordsPerColumn + j
+                                        if (index < times.size) {
 
+                                            val time = times[index]
+                                            val isSelected = time == selectedTime
+                                            Text(
+                                                text = "${times[index]}",
+                                                modifier = Modifier.clickable {
+                                                    selectedTime = time
+                                                    DataHora.selectedTime = time.toString()
+                                                },
+                                                color = if (isSelected) Color(182, 182, 246)
+                                                else Color(0, 0, 0)
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }
+//                        LazyColumn() {
+//                            items(times.size) { index ->
+//                                val time = times[index]
+//
+//                                val isSelected = time == selectedTime
+//
+//
+//                                Button(
+//                                    onClick = {
+//                                        selectedTime = time
+//                                        DataHora.selectedTime = time.toString()
+//
+//                                    },
+//                                    modifier = Modifier
+//                                        .size(92.dp, 43.dp)
+//                                        .padding(start = 4.5.dp),
+//                                    colors = if (isSelected) ButtonDefaults.buttonColors(
+//                                        Color(243, 243, 243)
+//                                    ) else ButtonDefaults.buttonColors(Color(182,182,246)),
+//                                    shape = RoundedCornerShape(10.dp)
+//                                ) {
+//                                    Text(
+//                                        text = time.format(DateTimeFormatter.ofPattern("HH:mm")),
+//                                        color = if (isSelected)
+//                                            Color.Black
+//                                        else Color.White,
+//                                        fontSize = 13.5.sp,
+//                                        textAlign = TextAlign.Center,
+//                                        fontWeight = FontWeight(900)
+//                                    )
+//
+//                                }
+//                            }
+//                        }
                     }
                 }
             }
-
-
-
-
-
-
-            Spacer(modifier = Modifier.height(100.dp))
-
 
             Column(
                 modifier = Modifier
@@ -368,26 +397,31 @@ fun DescriptionDoctorScreen(
 
 
                         if (selectedDate != null && selectedTime != null) {
-                            navController.navigate("ConsultFinish")
+                            navController.navigate("Payment")
 
-                            // Criar um Toast personalizado com um layout personalizado
-                            val backgroundColor = Color.Gray
-                            val contentColor = Color.White
-
-                            val toast = Toast(context)
-                            toast.setGravity(Gravity.CENTER, 0, 20)
-                            toast.duration = Toast.LENGTH_SHORT
-
-                            val textView = TextView(context).apply {
-                                text = "Consulta marcada com sucesso"
-                                textSize = 18f // Tamanho da fonte aumentado
-                                setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
-                                setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
-                                setPadding(36, 36, 36, 36) // Valores inteiros em pixels para padding
-                            }
-
-                            toast.view = textView
-                            toast.show()
+//                            // Criar um Toast personalizado com um layout personalizado
+//                            val backgroundColor = Color.Gray
+//                            val contentColor = Color.White
+//
+//                            val toast = Toast(context)
+//                            toast.setGravity(Gravity.CENTER, 0, 20)
+//                            toast.duration = Toast.LENGTH_SHORT
+//
+//                            val textView = TextView(context).apply {
+//                                text = "Consulta marcada com sucesso"
+//                                textSize = 18f // Tamanho da fonte aumentado
+//                                setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
+//                                setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
+//                                setPadding(
+//                                    36,
+//                                    36,
+//                                    36,
+//                                    36
+//                                ) // Valores inteiros em pixels para padding
+//                            }
+//
+//                            toast.view = textView
+//                            toast.show()
 
                         } else {
 
@@ -404,7 +438,12 @@ fun DescriptionDoctorScreen(
                                 textSize = 18f // Tamanho da fonte aumentado
                                 setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
                                 setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
-                                setPadding(36, 36, 36, 36) // Valores inteiros em pixels para padding
+                                setPadding(
+                                    36,
+                                    36,
+                                    36,
+                                    36
+                                ) // Valores inteiros em pixels para padding
                             }
 
                             toast.view = textView
@@ -420,7 +459,7 @@ fun DescriptionDoctorScreen(
 
                     ) {
                     Text(
-                        text = stringResource(R.string.button_finish),
+                        text = "Ir para pagamento ->",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp

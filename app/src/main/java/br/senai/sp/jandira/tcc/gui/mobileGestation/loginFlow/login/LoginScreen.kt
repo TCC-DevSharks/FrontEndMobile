@@ -128,10 +128,11 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
             OutlinedTextFieldTodos(
                 texto = R.string.types_of_users,
                 meuType = KeyboardType.Email,
-                email
-            ) {
-                email = it
-            }
+                value = email,
+                onValueChange ={
+                    email = it
+                }
+            )
 
             OutlinedTextFieldSenha(
                 texto = R.string.name_password, password

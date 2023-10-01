@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.homeUser
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -26,6 +27,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -68,6 +71,8 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
@@ -99,12 +104,13 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
             }
         })
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        
+    Scaffold(bottomBar = {Navigation(navController = navController)}) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+        ) {
+
 
             Column(
                 modifier = Modifier
@@ -400,23 +406,25 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .border(
-                        .9.dp,
-                        Color(182, 182, 246),
-                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                    )
-            ) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .align(Alignment.BottomCenter)
+//                    .border(
+//                        .9.dp,
+//                        Color(182, 182, 246),
+//                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
+//                    )
+//            ) {
+//
+//
+//
+//
+//            }
 
-                Navigation(navController = navController)
-
-
-            }
-
+        }
     }
+
 }
 
 
