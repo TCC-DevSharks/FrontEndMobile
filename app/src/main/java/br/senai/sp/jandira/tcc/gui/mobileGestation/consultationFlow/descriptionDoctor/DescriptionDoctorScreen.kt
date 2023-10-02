@@ -175,7 +175,7 @@ fun DescriptionDoctorScreen(
                 Row() {
 
                     Text(
-                        text = "About",
+                        text = "Sobre",
                         fontSize = 17.sp,
                         fontWeight = FontWeight(900),
                     )
@@ -201,13 +201,13 @@ fun DescriptionDoctorScreen(
 
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
-                    text = "Service charge:",
+                    text = "Valor:",
                     fontSize = 16.sp,
                     fontWeight = FontWeight(900),
                 )
 
                 Text(
-                    text = "\$49.00/hours ",
+                    text = "R$: 200,00",
                     fontSize = 15.sp,
                     fontWeight = FontWeight(400),
                 )

@@ -120,7 +120,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
         ) {
             Row() {
                 Text(
-                        text = "About",
+                        text = "Sobre",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                 )

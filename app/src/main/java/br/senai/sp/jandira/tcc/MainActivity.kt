@@ -32,6 +32,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.Docto
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.payment.PaymentScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.register.ConsultationRegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
@@ -116,6 +117,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
+            composable(route = "Food") { CheckFoodScreen(navController) }
+            composable(route = "FoodChange") { ChangeFoodScreen(navController) }
     }
 }
 
