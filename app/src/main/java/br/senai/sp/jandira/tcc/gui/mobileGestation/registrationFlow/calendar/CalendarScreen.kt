@@ -69,7 +69,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
         dialogState = dateDialogState,
         buttons = {
             positiveButton(
-                text = "Ok",
+                text = stringResource(id = R.string.ok),
                 textStyle = TextStyle(Color(182, 182, 246))
             ) {
                 Toast.makeText(
@@ -79,7 +79,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
                 ).show()
             }
             negativeButton(
-                text = "Cancelar",
+                text = stringResource(id = R.string.cancel),
                 textStyle = TextStyle(Color(182, 182, 246))
             )
         }
@@ -87,7 +87,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
     ) {
         datepicker(
             initialDate = initialDate,
-            title = "Selecione a data de parto",
+            title = stringResource(id = R.string.select_the_due_date),
             colors = DatePickerDefaults.colors(
                 headerBackgroundColor = Color(182, 182, 246), // Cor do Header
                 dateActiveBackgroundColor = Color(182, 182, 246), // Cor da data atual
@@ -132,7 +132,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
             ) {
                 Text(
-                    text = "Selecione uma data",
+                    text = stringResource(id = R.string.select_a_date),
                     color = Color(182, 182, 246),
                     fontSize = 18.sp
                 )

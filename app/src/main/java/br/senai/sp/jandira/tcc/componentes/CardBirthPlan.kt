@@ -45,7 +45,7 @@ fun CardBirthPlan(
                 contentDescription = null,
                 modifier = Modifier
                     .clickable {
-//                                navController.navigate(rota)
+
                     }
                     .size(30.dp)
             )

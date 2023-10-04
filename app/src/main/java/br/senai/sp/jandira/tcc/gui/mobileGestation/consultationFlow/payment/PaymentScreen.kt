@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -201,8 +202,8 @@ fun PaymentScreen(
                             .width(250.dp)
                     ) {
 
-                        Text(
-                            text = "Revisar ->",
+                        Text (
+                            text = stringResource(id = R.string.finish),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
@@ -372,7 +373,7 @@ fun PaymentScreen(
                     ) {
 
                         Text(
-                            text = "Continuar ->",
+                            text = stringResource(id = R.string.Continueee),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
@@ -391,7 +392,7 @@ fun PaymentScreen(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Text(text = "Número do cartão:")
+                        Text(text = stringResource(id = R.string.card_number))
 
                         OutlinedTextField(
                             value = numeroCartao,
@@ -403,7 +404,7 @@ fun PaymentScreen(
                             )
                         )
 
-                        Text(text = "Data de validade:")
+                        Text(text = stringResource(id = R.string.expiration_date))
 
                         Row(
                             modifier = Modifier
@@ -474,7 +475,7 @@ fun PaymentScreen(
                         }
                     }
 
-                    Text(text = "CVV")
+                    Text(text = stringResource(id = R.string.cvv))
 
                     OutlinedTextField(
                         value = cvv,
@@ -636,7 +637,7 @@ fun PaymentScreen(
                 ) {
 
                     Text(
-                        text = "Cliente: ",
+                        text = stringResource(id = R.string.client),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -647,7 +648,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Nome: ",
+                                text = stringResource(id = R.string.name),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -670,7 +671,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Email: ",
+                                text = stringResource(id = R.string.Email),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -693,7 +694,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Cpf: ",
+                                text = stringResource(id = R.string.cpf),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -715,7 +716,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Telefone: ",
+                                text = stringResource(id = R.string.Number),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -757,7 +758,7 @@ fun PaymentScreen(
                     }
 
                     Text(
-                        text = "Cartão: ",
+                        text = stringResource(id = R.string.card),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -770,7 +771,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Número do cartão: ",
+                                text = stringResource(id = R.string.card_number),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -792,7 +793,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Vencimento: ",
+                                text = stringResource(id = R.string.expiration),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -811,7 +812,7 @@ fun PaymentScreen(
                     }
 
                     Text(
-                        text = "Consulta: ",
+                        text = stringResource(id = R.string.consultation),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )

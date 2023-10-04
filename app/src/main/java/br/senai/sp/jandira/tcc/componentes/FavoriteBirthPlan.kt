@@ -29,7 +29,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun FavoriteBirthPlan(
-//    text: String
+    enxoval: String
 ) {
 
 
@@ -50,20 +50,10 @@ fun FavoriteBirthPlan(
                     .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_65),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clickable {
-                            // navController.navigate(rota)
-                        }
-                        .size(30.dp)
-                )
-
                 Spacer(modifier = Modifier.width(15.dp))
 
                 Text(
-                    text = "Gostaria de ter um acompanhante durante o trabalho de parto, parto e puerpério.",
+                    text = enxoval,
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
                     modifier = Modifier.fillMaxWidth()
@@ -79,7 +69,7 @@ fun FavoriteBirthPlan(
                     painter = painterResource(id = R.drawable.trash),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(17.dp)
                         .clickable {
                             Log.i("DS3m", "fdhgdfhgfhsdgfjhsdgfjhsdgfdhf")
                         }
@@ -90,11 +80,4 @@ fun FavoriteBirthPlan(
 
     }
 
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun FavoriteBirthPlanPreview() {
-    FavoriteBirthPlan()
 }
