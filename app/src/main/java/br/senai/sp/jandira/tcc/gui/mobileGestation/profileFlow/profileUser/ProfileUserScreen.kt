@@ -242,15 +242,15 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            Comp(textoHeader = "${viewModel.altura}", textoMain = "Altura", onclick = {
+            Comp(textoHeader = "${viewModel.altura}", textoMain = stringResource(id = R.string.height), onclick = {
                 openDialog.value = true
             })
 
-            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {
+            Comp(textoHeader = "${viewModel.peso}", textoMain = stringResource(id = R.string.weight), onclick = {
                 openDialog.value = true
             })
 
-            Comp(textoHeader = "${viewModel.idade}", textoMain = "Idade", onclick = {})
+            Comp(textoHeader = "${viewModel.idade}", textoMain = stringResource(id = R.string.age), onclick = {})
 
         }
         Spacer(modifier = Modifier.height(10.dp))

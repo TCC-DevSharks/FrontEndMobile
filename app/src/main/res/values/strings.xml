@@ -187,6 +187,45 @@
     <string name="medical_description">Descrição:</string>
     <string name="medical_month">Mês</string>
 
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="select_the_due_date">Selecione a data de parto</string>
+    <string name="select_a_date">Selecione uma data</string>
+    <string name="save_changes">Salvar alterações</string>
+    <string name="success">Sucesso</string>
+    <string name="error">Erro</string>
+    <string name="changes_successfully_made">Alterações efetuadas com sucesso</string>
+    <string name="please_try_again_later">Por favor, tente novamente mais tarde</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="age">Idade</string>
+    <string name="feeling_today">Como está se sentindo hoje?</string>
+    <string name="space_pregnancy_and_conversation">Espaço Gravidez e Conversa</string>
+    <string name="maternal_guide">Guia Materno</string>
+    <string name="preparations">Preparativos</string>
+    <string name="finish">Finalizar -></string>
+    <string name="Continueee">Continuar -></string>
+    <string name="card_number">Número do cartão:</string>
+    <string name="expiration_date">Data de validade:</string>
+    <string name="cvv">CVV</string>
+    <string name="client">Cliente: </string>
+    <string name="name">Nome: </string>
+    <string name="Email">Email: </string>
+    <string name="cpf">Cpf: </string>
+    <string name="Number">Telefone: </string>
+    <string name="card">Cartão:  </string>
+    <string name="expiration">Vencimento:  </string>
+    <string name="consultation">Consulta:  </string>
+
+
+<!--    <string name="birth_plan">Plano de Parto</string>-->
+<!--    <string name="Layette">Enxoval</string>-->
+<!--    <string name="maternity_bag">Mala de Maternidade</string>-->
+<!--    <string name="name_suggestions">Sugestão de Nomes</string>-->
+
+
+
+
 
 
 

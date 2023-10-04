@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -203,7 +204,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                                 ) {
 
                                     Text(
-                                        text = "Como está se sentindo hoje?",
+                                        text = stringResource(id = R.string.feeling_today),
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight(600),
                                         color = Color(182, 182, 246)
@@ -301,7 +302,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
 
                     Text(
-                        text = "Espaço Gravidez e Conversa",
+                        text = stringResource(id = R.string.space_pregnancy_and_conversation),
                         fontSize = 15.7.sp,
                         fontWeight = FontWeight(300),
                     )
@@ -354,7 +355,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
 
                     Text(
-                        text = "Guia Materno",
+                        text = stringResource(id = R.string.maternal_guide),
                         fontSize = 15.7.sp,
                         fontWeight = FontWeight(300),
                     )
@@ -389,7 +390,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
 
                     Text(
-                        text = "Preparativos",
+                        text = stringResource(id = R.string.preparations),
                         fontSize = 15.7.sp,
                         fontWeight = FontWeight(300),
                     )
