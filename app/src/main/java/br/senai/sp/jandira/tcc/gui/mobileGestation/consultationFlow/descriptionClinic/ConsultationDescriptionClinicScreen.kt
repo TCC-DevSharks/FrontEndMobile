@@ -120,7 +120,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
         ) {
             Row() {
                 Text(
-                        text = "About",
+                        text = stringResource(id = R.string.description),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                 )
@@ -131,7 +131,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
             Column() {
                 Row (verticalAlignment = Alignment.CenterVertically){
                     Text(
-                        text = "Email: ",
+                        text = stringResource(id = R.string.emailL),
                         fontSize = 17.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -168,7 +168,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                 }
                 Row (verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Complemento: ",
+                        text = stringResource(id = R.string.complement),
                         fontSize = 17.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Start,
@@ -187,7 +187,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
 
                 Row (verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Cep: ",
+                        text = stringResource(id = R.string.Cep),
                         fontSize = 17.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Start,
@@ -206,7 +206,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
 
                 Row (verticalAlignment = Alignment.CenterVertically){
                     Text(
-                        text = "Telefone: ",
+                        text = stringResource(id = R.string.phone),
                         fontSize = 17.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -215,7 +215,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                     )
 
                     Text(
-                        text = clinic.telefone,
+                        text = "" + clinic.telefone,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,

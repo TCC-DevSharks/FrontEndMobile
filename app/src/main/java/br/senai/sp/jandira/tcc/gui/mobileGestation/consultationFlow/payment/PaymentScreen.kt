@@ -391,7 +391,9 @@ fun PaymentScreen(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Text(text = stringResource(id = R.string.card_number))
+                        Text(
+                            text = stringResource(id = R.string.card_number)
+                        )
 
                         OutlinedTextField(
                             value = numeroCartao,
@@ -797,7 +799,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Clínica: ",
+                                text = stringResource(id = R.string.clinic),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -837,7 +839,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Profissional: ",
+                                text = stringResource(id = R.string.professional),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -859,7 +861,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Especialidade: ",
+                                text = stringResource(id = R.string.specialization),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -880,7 +882,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Telefone: ",
+                                text = stringResource(id = R.string.phone),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -902,7 +904,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Cobrança: ",
+                                text = stringResource(id = R.string.billing),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -924,7 +926,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Dia: ",
+                                text = stringResource(id = R.string.day),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -946,7 +948,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Hora: ",
+                                text = stringResource(id = R.string.hour),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,
@@ -967,7 +969,7 @@ fun PaymentScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Valor: ",
+                                text = stringResource(id = R.string.value),
                                 fontSize = 17.sp,
                                 color = Color(57, 57, 56),
                                 textAlign = TextAlign.Center,

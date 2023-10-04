@@ -128,7 +128,7 @@ fun StageExercises() {
                 .padding(horizontal = 26.dp)
         ) {
             Text(
-                text = "Exercises",
+                text = stringResource(id = R.string.exercises),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Gray

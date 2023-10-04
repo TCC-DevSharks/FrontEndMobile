@@ -174,10 +174,10 @@
     <string name="reminder">Ativar lembrete</string>
     <string name="birth_description">Digite algo em seu plano de parto:  </string>
     <string name="to_add">Adicionar</string>
-    <string name="find_class">Find Your</string>
-    <string name="find_class2">Workout Class</string>
-    <string name="Warm_up">Warm up</string>
-    <string name="description_warm_up">Warm up properly before exercising to prevent  injury and make your workouts more effective.</string>
+    <string name="find_class">Encontre sua</string>
+    <string name="find_class2">Aula de exercícios</string>
+    <string name="Warm_up">Aquecimento</string>
+    <string name="description_warm_up">Faça um aquecimento adequado antes do exercício para evitar lesões e tornar os treinos mais eficazes.</string>
     <string name="Achievement">Conquista</string>
     <string name="Activity_History">Histórico de atividades</string>
     <string name="Workout_Progress">Progresso do treino</string>
@@ -216,6 +216,26 @@
     <string name="card">Cartão:  </string>
     <string name="expiration">Vencimento:  </string>
     <string name="consultation">Consulta:  </string>
+    <string name="publish">Publicar</string>
+    <string name="exercises">Exercícios</string>
+    <string name="today_activity">Atividade de hoje</string>
+    <string name="recommendation_class">Classe de recomendação</string>
+    <string name="see_all">Ver tudo</string>
+    <string name="categories">Categorias</string>
+    <string name="value">Valor:</string>
+    <string name="hour">Hora: </string>
+    <string name="day">Dia: </string>
+    <string name="billing">Cobrança: </string>
+    <string name="phone">Telefone: </string>
+    <string name="specialization">Especialidade: </string>
+    <string name="professional">Profissional: </string>
+    <string name="clinic">Clínica: </string>
+    <string name="pag">Ir para pagamento -> </string>
+    <string name="Select_a_date">Selecione uma data:</string>
+    <string name="Service_charge">Taxa de serviço:</string>
+    <string name="emailL">Email:</string>
+    <string name="complement">Complemento:</string>
+    <string name="Cep">Cep:</string>
 
 
 <!--    <string name="birth_plan">Plano de Parto</string>-->

@@ -41,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -177,7 +178,7 @@ fun ForumScreen(navController: NavController) {
 
                                 ) {
                                 Text(
-                                    text = "Publicar",
+                                    text = stringResource(id = R.string.publish),
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 15.sp
@@ -208,7 +209,8 @@ fun ForumScreen(navController: NavController) {
             ) {
 
                 Card(
-                    modifier = Modifier.fillMaxSize(1f)
+                    modifier = Modifier
+                        .fillMaxSize(1f)
                         .padding(vertical = 8.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
 
@@ -472,7 +474,8 @@ fun ForumScreen(navController: NavController) {
                 }
 
                 Card(
-                    modifier = Modifier.fillMaxSize(1f)
+                    modifier = Modifier
+                        .fillMaxSize(1f)
                         .padding(vertical = 8.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
 
@@ -736,7 +739,8 @@ fun ForumScreen(navController: NavController) {
                 }
 
                 Card(
-                    modifier = Modifier.fillMaxSize(1f)
+                    modifier = Modifier
+                        .fillMaxSize(1f)
                         .padding(vertical = 8.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
 

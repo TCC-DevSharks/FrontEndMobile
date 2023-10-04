@@ -175,7 +175,7 @@ fun DescriptionDoctorScreen(
                 Row() {
 
                     Text(
-                        text = "About",
+                        text = stringResource(id = R.string.description),
                         fontSize = 17.sp,
                         fontWeight = FontWeight(900),
                     )
@@ -201,7 +201,7 @@ fun DescriptionDoctorScreen(
 
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
-                    text = "Service charge:",
+                    text = stringResource(id = R.string.Service_charge),
                     fontSize = 16.sp,
                     fontWeight = FontWeight(900),
                 )
@@ -223,7 +223,7 @@ fun DescriptionDoctorScreen(
 
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
-                    text = "Selecione uma data:",
+                    text = stringResource(id = R.string.Select_a_date),
                     fontSize = 16.sp,
                     fontWeight = FontWeight(900),
                 )
@@ -324,7 +324,8 @@ fun DescriptionDoctorScreen(
                         ) {
                             for (i in 0 until columnCount) {
                                 Column(
-                                    modifier = Modifier.height(140.dp)
+                                    modifier = Modifier
+                                        .height(140.dp)
                                         .verticalScroll(rememberScrollState()),
                                     verticalArrangement = Arrangement.SpaceBetween
                                 ) {
@@ -459,7 +460,7 @@ fun DescriptionDoctorScreen(
 
                     ) {
                     Text(
-                        text = "Ir para pagamento ->",
+                        text = stringResource(id = R.string.pag),
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
