@@ -37,7 +37,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -46,8 +45,9 @@ import br.senai.sp.jandira.tcc.componentes.CardCategoryPreparativos
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauList
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauResponse
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
@@ -59,7 +59,11 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
 
 
     var enxoval by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponse>())
+        mutableStateOf(listOf<TrousseauResponse2>())
+    }
+
+    var enxovalFavorite by rememberSaveable {
+        mutableStateOf(listOf<TrousseauResponseFavorite2>())
     }
 
     Box(
@@ -152,7 +156,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
 
                             ) {
                             Text(
-                                text = "2 Itens",
+                                text = "${viewModel.FavoritoSugestao.size} itens",
                                 color = Color(182, 182, 246),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 15.sp
@@ -169,11 +173,11 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
 
             val call = RetrofitFactory().getTrousseauService().getTrousseau()
 
-            call.enqueue(object : retrofit2.Callback<TrousseauList> {
+            call.enqueue(object : retrofit2.Callback<TrousseauList2> {
 
                 override fun onResponse(
-                    call: Call<TrousseauList>,
-                    response: Response<TrousseauList>
+                    call: Call<TrousseauList2>,
+                    response: Response<TrousseauList2>
                 ) {
 
                     enxoval = response.body()!!.enxoval
@@ -181,7 +185,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
                     Log.e("Gui", "onResponse: ${enxoval}", )
                 }
 
-                override fun onFailure(call: Call<TrousseauList>, t: Throwable) {
+                override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
                     Log.i("Erro", "onFailure: ${t.message}")
                 }
 

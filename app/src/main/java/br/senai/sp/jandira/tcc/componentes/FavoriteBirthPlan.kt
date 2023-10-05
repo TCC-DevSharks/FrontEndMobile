@@ -26,11 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 @Composable
 fun FavoriteBirthPlan(
-    enxoval: String
-) {
+    enxoval: String,
+    onclick: () -> Unit,
+
+    ) {
+
 
 
     Column(
@@ -70,9 +74,9 @@ fun FavoriteBirthPlan(
                     contentDescription = null,
                     modifier = Modifier
                         .size(17.dp)
-                        .clickable {
-                            Log.i("DS3m", "fdhgdfhgfhsdgfjhsdgfjhsdgfdhf")
-                        }
+                        .clickable (
+                            onClick = onclick
+                            )
                 )
             }
         }
