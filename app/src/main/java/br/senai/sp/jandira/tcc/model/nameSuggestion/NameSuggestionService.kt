@@ -1,6 +1,5 @@
 package br.senai.sp.jandira.tcc.model.nameSuggestion
 
-import br.senai.sp.jandira.tcc.model.nameSuggestion.NameDelete.NameDelete
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NamePost.NamePost
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NameFavoriteList
 import retrofit2.Call
