@@ -115,12 +115,12 @@ fun Exercises() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Recommendation Class",
+                text = stringResource(id = R.string.recommendation_class),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "See all ",
+                text = stringResource(id = R.string.see_all),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Light,
                 color = Color(27, 26, 26)
@@ -213,12 +213,12 @@ fun Exercises() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Categories",
+                text = stringResource(id = R.string.categories),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "See all ",
+                text = stringResource(id = R.string.see_all),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Light,
                 color = Color(27, 26, 26)

@@ -37,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -60,7 +61,6 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
     var enxoval by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponse>())
     }
-
 
     Box(
         modifier = Modifier
@@ -225,7 +225,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
 
 }
 
-//@Preview (showSystemUi = true, showBackground = true)
+//@Preview(showSystemUi = true, showBackground = true)
 //@Composable
 //fun BirthPlanScreenPreview() {
 //    BirthPlanScreen()
