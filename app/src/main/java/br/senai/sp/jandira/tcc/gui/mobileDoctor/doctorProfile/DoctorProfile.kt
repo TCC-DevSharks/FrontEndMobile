@@ -95,7 +95,7 @@ fun DoctorProfile() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Edit",
+                        text = stringResource(id = R.string.edit),
                         color = Color.White
                     )
                 }

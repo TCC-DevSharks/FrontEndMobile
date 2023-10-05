@@ -236,18 +236,12 @@
     <string name="emailL">Email:</string>
     <string name="complement">Complemento:</string>
     <string name="Cep">Cep:</string>
-
-
-<!--    <string name="birth_plan">Plano de Parto</string>-->
-<!--    <string name="Layette">Enxoval</string>-->
-<!--    <string name="maternity_bag">Mala de Maternidade</string>-->
-<!--    <string name="name_suggestions">Sugestão de Nomes</string>-->
-
-
-
-
-
-
-
+    <string name="comorbidity">Possui alguma comorbidade?</string>
+    <string name="regular_medication">Medicação em uso regular?</string>
+    <string name="messages">Mensagens</string>
+    <string name="All_Messages">Todas as mensagens</string>
+    <string name="edit">Editar</string>
+    <string name="your_consultations">Suas consultas da semana:</string>
+    <string name="Welcome">Bem-Vinda,</string>
 
 </resources>

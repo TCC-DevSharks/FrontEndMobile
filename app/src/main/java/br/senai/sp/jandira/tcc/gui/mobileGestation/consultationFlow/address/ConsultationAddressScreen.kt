@@ -209,7 +209,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                     ) {
 
                         Text(
-                            text = "Possui alguma comorbidade?",
+                            text = stringResource(id = R.string.comorbidity),
                             fontSize = 15.sp,
                             fontWeight = FontWeight(600),
                             modifier = Modifier.padding(start = 13.dp)
@@ -262,7 +262,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                     ) {
 
                         Text(
-                            text = "Medicação em uso regular?",
+                            text = stringResource(id = R.string.regular_medication),
                             fontSize = 15.sp,
                             fontWeight = FontWeight(600),
                             modifier = Modifier.padding(start = 13.dp)
