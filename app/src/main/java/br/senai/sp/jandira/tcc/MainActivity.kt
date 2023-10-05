@@ -32,6 +32,8 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.Docto
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.payment.PaymentScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.register.ConsultationRegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategory
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
@@ -42,7 +44,6 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
-import br.senai.sp.jandira.tcc.model.login.ModelLogin
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -100,7 +101,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant) }
             composable(route = "navigation") { Navigation (navController) }
             composable(route = "bag") { MaternityBagScreen (navController) }
-            composable(route = "trousseau") { TrousseauScreen (navController) }
+            composable("trousseau/{category}") { backStackEntry ->
+                val category = backStackEntry.arguments?.getString("category")
+                TrousseauScreen(navController, category, viewModelPregnant)
+            }
+            composable(route = "trousseauCategory") { trousseauCategory (navController, viewModelPregnant) }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
             composable(route = "teste") { CheckFoodScreen (navController) }
@@ -116,6 +121,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
+            composable(route = "Food") { CheckFoodScreen(navController) }
+            composable(route = "FoodChange") { ChangeFoodScreen(navController) }
     }
 }
 

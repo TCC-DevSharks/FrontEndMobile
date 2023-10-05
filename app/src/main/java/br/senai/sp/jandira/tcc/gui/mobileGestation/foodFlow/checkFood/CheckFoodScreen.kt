@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.checkFood
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -231,7 +232,9 @@ fun CheckFoodScreen(navController: NavController) {
                             Image(
                                 painter = painterResource(id = R.drawable.icon_arrow),
                                 contentDescription = null,
-                                modifier = Modifier.size(35.dp)
+                                modifier = Modifier.size(35.dp).clickable {
+                                    navController.navigate("FoodChange")
+                                }
                             )
 
                         }

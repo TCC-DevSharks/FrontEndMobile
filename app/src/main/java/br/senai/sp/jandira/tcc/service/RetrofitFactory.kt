@@ -4,6 +4,7 @@ import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauService
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 class RetrofitFactory {
@@ -106,6 +107,10 @@ class RetrofitFactory {
 
     fun insertConsult(): ConsultService{
         return  retrofitFactory.create(ConsultService::class.java)
+    }
+
+    fun insertSchedule(): ScheduleService{
+        return retrofitFactory.create(ScheduleService::class.java)
     }
 }
 

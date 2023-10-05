@@ -59,10 +59,6 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
-import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
-import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
-import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
 import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -82,6 +78,9 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
+
+    val preparations = listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")
+
     val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
     LaunchedEffect(Unit) {
         GetPregnant(viewModel)
@@ -399,13 +398,14 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 Spacer(modifier = Modifier.height(13.dp))
 
 
-
-                    LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
-
-                        items(listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")) { category ->
+                LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
 
 
-                            CardPreparations(category, navController)
+
+                        items(preparations) { preparation ->
+
+
+                            CardPreparations(preparations = preparation, navController)
 
 
 

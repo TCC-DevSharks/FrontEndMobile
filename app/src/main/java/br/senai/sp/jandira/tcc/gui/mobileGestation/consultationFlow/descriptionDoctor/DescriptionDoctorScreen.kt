@@ -175,7 +175,11 @@ fun DescriptionDoctorScreen(
                 Row() {
 
                     Text(
+<<<<<<< HEAD
                         text = stringResource(id = R.string.description),
+=======
+                        text = "Sobre",
+>>>>>>> b8f2cb924fc89590cbdda1d42bd89a809f9124ae
                         fontSize = 17.sp,
                         fontWeight = FontWeight(900),
                     )
@@ -201,13 +205,17 @@ fun DescriptionDoctorScreen(
 
                 Text(
                     modifier = Modifier.padding(end = 10.dp),
+<<<<<<< HEAD
                     text = stringResource(id = R.string.Service_charge),
+=======
+                    text = "Valor:",
+>>>>>>> b8f2cb924fc89590cbdda1d42bd89a809f9124ae
                     fontSize = 16.sp,
                     fontWeight = FontWeight(900),
                 )
 
                 Text(
-                    text = "\$49.00/hours ",
+                    text = "R$: 200,00",
                     fontSize = 15.sp,
                     fontWeight = FontWeight(400),
                 )

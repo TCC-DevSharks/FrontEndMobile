@@ -63,6 +63,7 @@ import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponse
 import br.senai.sp.jandira.tcc.model.payment.PaymentResponse
 import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.schedule.ScheduleResponse
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
@@ -201,7 +202,7 @@ fun PaymentScreen(
                             .width(250.dp)
                     ) {
 
-                        Text(
+                        Text (
                             text = stringResource(id = R.string.finish),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
@@ -520,7 +521,6 @@ fun PaymentScreen(
 
                         var valor = professional.valor
                         valor = valor.replace(",", "")
-                        println(estado)
 
                         var payment = PaymentResponse(
                             nome = viewModel.nome,
@@ -559,6 +559,14 @@ fun PaymentScreen(
                             id_profissional = professional.id
                         )
 
+                        var schedule = ScheduleResponse(
+                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter) }",
+                            titulo = "Consulta com ${professional.especialidade}",
+                            lembrete = 0,
+                            descricao = "Consulta na ${clinic.razao_social}",
+                            id_gestante = viewModel.id
+                        )
+
                         var call = RetrofitFactory().insertPayment().insertPayment(payment)
 
                         call.enqueue(object : retrofit2.Callback<ResponseBody> {
@@ -577,10 +585,28 @@ fun PaymentScreen(
                                            response: Response<ResponseBody>
 
                                        ) {
-                                         println(response)
-                                           println(consult)
                                            if (response.isSuccessful){
-                                               navController.navigate("ConsultFinish")
+                                               var call = RetrofitFactory().insertSchedule().postSchedule(schedule)
+
+                                               call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                                                   override fun onResponse(
+                                                       call: Call<ResponseBody>,
+                                                       response: Response<ResponseBody>
+
+                                                   ) {
+                                                       if (response.isSuccessful){
+                                                           navController.navigate("ConsultFinish")
+                                                       }
+                                                   }
+
+                                                   override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                                       Log.i(
+                                                           "ds2m",
+                                                           "onFailure: ${t.message}"
+                                                       )
+                                                       println(t.message + t.cause)
+                                                   }
+                                               })
                                            }
                                        }
 
