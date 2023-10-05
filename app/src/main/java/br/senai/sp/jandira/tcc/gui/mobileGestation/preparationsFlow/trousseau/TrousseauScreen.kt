@@ -1,7 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.senai.sp.jandira.tcc.R
@@ -35,13 +32,14 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.SubHeader
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauList
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauListFavorite
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauResponse
-import br.senai.sp.jandira.tcc.model.Trousseau.TrousseauResponseFavorite
-import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NameFavoriteList
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
+import br.senai.sp.jandira.tcc.model.troussea.trousseauPos.TrousseauBody
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
@@ -50,11 +48,11 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
     var viewModel = viewModelPregnant
 
     var enxoval by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponse>())
+        mutableStateOf(listOf<TrousseauResponse2>())
     }
 
     var enxovalFavorite by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponseFavorite>())
+        mutableStateOf(listOf<TrousseauResponseFavorite2>())
     }
 
     fun String.capitalizeFirstLetter(): String {
@@ -91,6 +89,21 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
 
             Spacer(modifier = Modifier.height(10.dp))
 
+            val callFavorrite = RetrofitFactory().getTrousseauService()
+                .getTrousseauFavorite(viewModel.id)
+
+            callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
+                override fun onResponse(
+                    call: retrofit2.Call<TrousseauListFavorite2>,
+                    response: Response<TrousseauListFavorite2>
+                ) {
+                    enxovalFavorite = response.body()!!.favoritos
+                }
+
+                override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
+                    Log.i("ds3m", "onFailure: ${t.message}")
+                }
+            })
 
             val call = category?.let {
                 RetrofitFactory().getTrousseauService().getTrousseauCategory(
@@ -99,11 +112,11 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
             }
 
             if (call != null) {
-                call.enqueue(object : retrofit2.Callback<TrousseauList> {
+                call.enqueue(object : retrofit2.Callback<TrousseauList2> {
 
                     override fun onResponse(
-                        call: Call<TrousseauList>,
-                        response: Response<TrousseauList>
+                        call: Call<TrousseauList2>,
+                        response: Response<TrousseauList2>
                     ) {
 
                         enxoval = response.body()!!.enxoval
@@ -111,29 +124,12 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
                         Log.e("Gui", "onResponse: ${enxoval}", )
                     }
 
-                    override fun onFailure(call: Call<TrousseauList>, t: Throwable) {
+                    override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
                         Log.i("Erro", "onFailure: ${t.message}")
                     }
 
                 })
             }
-
-            val callFavorrite = RetrofitFactory().getTrousseauService()
-                .getTrousseauFavorite(viewModel.id)
-
-            callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite> {
-                override fun onResponse(
-                    call: retrofit2.Call<TrousseauListFavorite>,
-                    response: Response<TrousseauListFavorite>
-                ) {
-                    enxovalFavorite = response.body()!!.favoritos
-                }
-
-                override fun onFailure(call: retrofit2.Call<TrousseauListFavorite>, t: Throwable) {
-                    Log.i("ds3m", "onFailure: ${t.message}")
-                }
-            })
-
 
 
             if (selectedColumnInOtherScreen == 1) {
@@ -143,8 +139,12 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
                     .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
+
+
+
                     items(enxoval) {
-                        CardBirthPlan( enxoval = it.item)
+
+                        CardBirthPlan( enxoval = it.item, onclick = { TrousseauPost(idGestante = viewModel.id, idEnxoval = it.id) })
                     }
 
 
@@ -157,8 +157,10 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
                     .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
+
+
                     items(enxovalFavorite.filter { it.categoria == category }) {
-                        FavoriteBirthPlan(enxoval = it.item)
+                        FavoriteBirthPlan(enxoval = it.item, onclick = { TrousseauDelte(idEnxoval = it.id, idGestante = viewModel.id) })
                     }
 
                 }
@@ -170,11 +172,6 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
 
 
         }
-
-
-
-
-
 
         Column(
             modifier = Modifier
@@ -192,6 +189,60 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
     }
 
 }
+fun TrousseauPost (idEnxoval: Int, idGestante: Int) {
+
+    var favoriteTrousseau = TrousseauBody(
+        id_enxoval = idEnxoval,
+        id_gestante = idGestante,
+    )
+
+    val callAddTrousseau = RetrofitFactory().getTrousseauService().insertTrousseau(favoriteTrousseau)
+
+    callAddTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
+        override fun onResponse(
+            call: Call<TrousseauListFavorite2>,
+            response: Response<TrousseauListFavorite2>
+        ) {
+
+            Log.i("TrousseauPost", "onResponse: ${response.body()}")
+
+        }
+
+        override fun onFailure(call: Call<TrousseauListFavorite2>, t: Throwable) {
+            Log.i("TrousseauFavoriteErro", "onFailure: ${t.message}")
+        }
+    })
+}
+
+fun TrousseauDelte (idEnxoval: Int, idGestante: Int) {
+
+    var favoriteTrousseau = TrousseauBody(
+        id_enxoval = idEnxoval,
+        id_gestante = idGestante,
+    )
+
+    var callDeleteTrousseau = RetrofitFactory().getTrousseauService().deleteTrousseau(favoriteTrousseau)
+
+    callDeleteTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
+        override fun onResponse(
+            call: Call<TrousseauListFavorite2>,
+            response: Response<TrousseauListFavorite2>
+        ) {
+            Log.i("DeleteSucesso", "onResponse: ${response.body()}")
+        }
+
+        override fun onFailure(call: Call<TrousseauListFavorite2>, t: Throwable) {
+            Log.i("ErroDelete", "onFailure: ${t.message}")
+        }
+    })
+
+
+}
+
+
+
+
+
 
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable

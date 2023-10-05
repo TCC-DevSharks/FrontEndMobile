@@ -203,15 +203,8 @@ fun DescriptionDoctorScreen(
                     modifier = Modifier.padding(end = 10.dp),
                     text = stringResource(id = R.string.Service_charge),
                     fontSize = 16.sp,
-                    fontWeight = FontWeight(900),
+                    fontWeight = FontWeight(900)
                 )
-
-                Text(
-                    text = "R$: 200,00",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight(400),
-                )
-
             }
 
             Spacer(modifier = Modifier.height(35.dp))

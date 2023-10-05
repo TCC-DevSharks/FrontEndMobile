@@ -66,10 +66,13 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
     var selectedSex by remember { mutableStateOf("Masculino") }
     var counterEffect by remember { mutableStateOf(false) }
 
+
+
     LaunchedEffect(Unit) {
         GetName(viewModel, selectedSex)
     }
     GetFavoriteName(viewModel, selectedSex)
+
 
     var lista by remember { mutableStateOf(listOf<NameSuggestionResponse>()) }
     var listaFavoritos by remember { mutableStateOf(listOf<NameSuggestionResponse>()) }
@@ -283,6 +286,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                             initialCheck = check,
                             onclick = {
                                 if (!check) {
+
                                     var favoriteName = NamePost(
                                         id_nome = nome.id,
                                         id_gestante = viewModel.id,

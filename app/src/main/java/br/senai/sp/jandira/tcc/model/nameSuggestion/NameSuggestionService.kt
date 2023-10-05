@@ -26,4 +26,5 @@ interface NameSuggestionService {
 
     @DELETE("sugestao-nome/favorito")
     fun deleteName(@Query("idNome") nome: Int, @Query("idGestante") gestante: Int ): Call<NameFavoriteList>
+
 }

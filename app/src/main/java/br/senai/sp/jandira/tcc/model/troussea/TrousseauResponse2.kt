@@ -1,6 +1,6 @@
-package br.senai.sp.jandira.tcc.model.Trousseau
+package br.senai.sp.jandira.tcc.model.troussea
 
-data class TrousseauResponse(
+data class TrousseauResponse2(
 
     val id: Int,
     val item: String,
