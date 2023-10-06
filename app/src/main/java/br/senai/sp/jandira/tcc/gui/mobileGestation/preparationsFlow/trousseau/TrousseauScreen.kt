@@ -216,12 +216,7 @@ fun TrousseauPost (idEnxoval: Int, idGestante: Int) {
 
 fun TrousseauDelte (idEnxoval: Int, idGestante: Int) {
 
-    var favoriteTrousseau = TrousseauBody(
-        id_enxoval = idEnxoval,
-        id_gestante = idGestante,
-    )
-
-    var callDeleteTrousseau = RetrofitFactory().getTrousseauService().deleteTrousseau(favoriteTrousseau)
+    var callDeleteTrousseau = RetrofitFactory().getTrousseauService().deleteTrousseau(idEnxoval, idGestante)
 
     callDeleteTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
         override fun onResponse(
