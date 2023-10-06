@@ -26,6 +26,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -199,10 +201,11 @@ fun PaymentScreen(
                             visiblePayment = true
                         },
                         modifier = Modifier
-                            .width(250.dp)
+                            .width(250.dp),
+                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246))
                     ) {
 
-                        Text (
+                        Text(
                             text = stringResource(id = R.string.finish),
                             color = Color.White,
                             fontWeight = FontWeight.Bold,
@@ -385,16 +388,21 @@ fun PaymentScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(15.dp)
+                        .background(Color.White)
                 ) {
 
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
+                            modifier = Modifier.padding(start = 15.dp),
                             text = stringResource(id = R.string.card_number)
                         )
+
+                        Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
                             value = numeroCartao,
@@ -403,10 +411,19 @@ fun PaymentScreen(
                             modifier = Modifier.padding(start = 15.dp, top = 5.dp, bottom = 5.dp),
                             colors = TextFieldDefaults.textFieldColors(
                                 containerColor = Color.White,
-                            )
+                            ),
+                            shape = RoundedCornerShape(10.dp)
                         )
 
-                        Text(text = stringResource(id = R.string.expiration_date))
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Text(
+                            modifier = Modifier.padding(start = 15.dp),
+                            text = stringResource(id = R.string.expiration_date)
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
 
                         Row(
                             modifier = Modifier
@@ -414,14 +431,17 @@ fun PaymentScreen(
                                 .padding(vertical = 5.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Box(modifier = Modifier.padding(start = 15.dp)) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(start = 15.dp)
+                                    .border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp)) // Defina o raio desejado (8.dp) para a borda
+                            ) {
                                 Text(
                                     text = mesVencimento,
                                     modifier = Modifier
                                         .width(100.dp)
                                         .clickable(onClick = { expanded = true })
                                         .background(Color.White)
-                                        .border(BorderStroke(1.dp, Color.Black))
                                         .padding(16.dp)
                                 )
                                 DropdownMenu(
@@ -436,10 +456,12 @@ fun PaymentScreen(
                                             onClick = {
                                                 mesVencimento = option
                                                 expanded = false
-                                            })
+                                            }
+                                        )
                                     }
                                 }
                             }
+
 
                             Text(
                                 text = "/",
@@ -447,14 +469,13 @@ fun PaymentScreen(
                                 fontSize = 20.sp
                             )
 
-                            Box() {
+                            Box(modifier = Modifier.border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp))) {
                                 Text(
                                     text = anoVencimento,
                                     modifier = Modifier
                                         .width(100.dp)
                                         .clickable(onClick = { expandedYears = true })
                                         .background(Color.White)
-                                        .border(BorderStroke(1.dp, Color.Black))
                                         .padding(16.dp)
                                 )
                                 DropdownMenu(
@@ -477,7 +498,14 @@ fun PaymentScreen(
                         }
                     }
 
-                    Text(text = stringResource(id = R.string.cvv))
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Text(
+                        modifier = Modifier.padding(start = 15.dp),
+                        text = stringResource(id = R.string.cvv)
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
                         value = cvv,
@@ -488,7 +516,8 @@ fun PaymentScreen(
                             .width(100.dp),
                         colors = TextFieldDefaults.textFieldColors(
                             containerColor = Color.White,
-                        )
+                        ),
+                        shape = RoundedCornerShape(10.dp)
                     )
 
                 }
@@ -510,6 +539,7 @@ fun PaymentScreen(
         ) {
             Scaffold(bottomBar = {
                 ButtonPurple(
+                    cor = Color(182, 182, 246),
                     navController = navController,
                     texto = "Finalizar",
                     rota = "",
@@ -553,14 +583,14 @@ fun PaymentScreen(
 
                         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                         var consult = ConsultResponse(
-                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter) }",
+                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
                             hora = DataHora.selectedTime + ":00",
                             id_gestante = viewModel.id,
                             id_profissional = professional.id
                         )
 
                         var schedule = ScheduleResponse(
-                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter) }",
+                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
                             titulo = "Consulta com ${professional.especialidade}",
                             lembrete = 0,
                             descricao = "Consulta na ${clinic.razao_social}",
@@ -575,50 +605,59 @@ fun PaymentScreen(
                                 response: Response<ResponseBody>
 
                             ) {
-                               if (response.isSuccessful){
+                                if (response.isSuccessful) {
 
-                                   var call = RetrofitFactory().insertConsult().insertConsult(consult)
+                                    var call =
+                                        RetrofitFactory().insertConsult().insertConsult(consult)
 
-                                   call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                                       override fun onResponse(
-                                           call: Call<ResponseBody>,
-                                           response: Response<ResponseBody>
+                                    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                                        override fun onResponse(
+                                            call: Call<ResponseBody>,
+                                            response: Response<ResponseBody>
 
-                                       ) {
-                                           if (response.isSuccessful){
-                                               var call = RetrofitFactory().insertSchedule().postSchedule(schedule)
+                                        ) {
+                                            if (response.isSuccessful) {
+                                                var call = RetrofitFactory().insertSchedule()
+                                                    .postSchedule(schedule)
 
-                                               call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                                                   override fun onResponse(
-                                                       call: Call<ResponseBody>,
-                                                       response: Response<ResponseBody>
+                                                call.enqueue(object :
+                                                    retrofit2.Callback<ResponseBody> {
+                                                    override fun onResponse(
+                                                        call: Call<ResponseBody>,
+                                                        response: Response<ResponseBody>
 
-                                                   ) {
-                                                       if (response.isSuccessful){
-                                                           navController.navigate("ConsultFinish")
-                                                       }
-                                                   }
+                                                    ) {
+                                                        if (response.isSuccessful) {
+                                                            navController.navigate("ConsultFinish")
+                                                        }
+                                                    }
 
-                                                   override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                                                       Log.i(
-                                                           "ds2m",
-                                                           "onFailure: ${t.message}"
-                                                       )
-                                                       println(t.message + t.cause)
-                                                   }
-                                               })
-                                           }
-                                       }
+                                                    override fun onFailure(
+                                                        call: Call<ResponseBody>,
+                                                        t: Throwable
+                                                    ) {
+                                                        Log.i(
+                                                            "ds2m",
+                                                            "onFailure: ${t.message}"
+                                                        )
+                                                        println(t.message + t.cause)
+                                                    }
+                                                })
+                                            }
+                                        }
 
-                                       override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                                           Log.i(
-                                               "ds2m",
-                                               "onFailure: ${t.message}"
-                                           )
-                                           println(t.message + t.cause)
-                                       }
-                                   })
-                               }
+                                        override fun onFailure(
+                                            call: Call<ResponseBody>,
+                                            t: Throwable
+                                        ) {
+                                            Log.i(
+                                                "ds2m",
+                                                "onFailure: ${t.message}"
+                                            )
+                                            println(t.message + t.cause)
+                                        }
+                                    })
+                                }
                             }
 
                             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -636,6 +675,7 @@ fun PaymentScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(start = 15.dp)
+                        .background(Color.White)
                 ) {
 
                     Text(
@@ -644,7 +684,7 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp)) {
+                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
                         Row(
                             Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
@@ -765,7 +805,7 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp)) {
+                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
 
 
                         Row(
@@ -819,7 +859,7 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp)) {
+                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
                         Row(
                             Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
