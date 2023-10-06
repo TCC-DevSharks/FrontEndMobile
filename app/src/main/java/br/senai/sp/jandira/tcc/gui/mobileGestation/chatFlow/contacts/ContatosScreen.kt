@@ -25,7 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -34,7 +36,6 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 
 @Composable
 fun ContatosScreen(navController: NavController) {
-
     Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
@@ -102,7 +103,7 @@ fun ContatosScreen(navController: NavController) {
                 modifier = Modifier.padding(horizontal = 25.dp, vertical = 20.dp)
             ) {
                 Text(
-                    text = "Messages",
+                    text = stringResource(id = R.string.messages),
                     fontSize = 23.sp,
                     fontWeight = FontWeight(900)
 
@@ -204,7 +205,7 @@ fun ContatosScreen(navController: NavController) {
                 modifier = Modifier.padding(horizontal = 25.dp, vertical = 20.dp)
             ) {
                 Text(
-                    text = "All Messages",
+                    text = stringResource(id = R.string.All_Messages),
                     fontSize = 20.sp,
                     fontWeight = FontWeight(900)
                 )
