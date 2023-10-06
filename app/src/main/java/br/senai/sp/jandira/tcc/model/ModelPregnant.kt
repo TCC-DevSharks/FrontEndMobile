@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeFavoriteResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
 
 class ModelPregnant {
 

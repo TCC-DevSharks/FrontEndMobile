@@ -24,6 +24,6 @@ interface TrousseauService {
 
     // Verdadeiro EndPoint
     @DELETE("enxoval/favorito")
-    fun deleteTrousseau(@Query("idNome") nome: Int, @Query("idGestante") gestante: Int): retrofit2.Call<TrousseauListFavorite2>
+    fun deleteTrousseau(@Query("idEnxoval") enxoval: Int, @Query("idGestante") gestante: Int): retrofit2.Call<TrousseauListFavorite2>
 
 }
