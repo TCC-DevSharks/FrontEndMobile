@@ -66,8 +66,6 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
     var selectedSex by remember { mutableStateOf("Masculino") }
     var counterEffect by remember { mutableStateOf(false) }
 
-
-
     LaunchedEffect(Unit) {
         GetName(viewModel, selectedSex)
     }
@@ -115,7 +113,6 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
             }
         }
     }
-
 
     LaunchedEffect(counterEffect) {
         lista = emptyList()

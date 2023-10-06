@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,13 +48,22 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
 
     var viewModel = viewModelPregnant
 
+    var counterEffect by remember { mutableStateOf(false) }
+
     var enxoval by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponse2>())
     }
 
-    var enxovalFavorite by rememberSaveable {
+
+    var enxovalFavorito by rememberSaveable {
+        mutableStateOf(listOf<TrousseauResponse2>())
+    }
+
+    var favorite by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponseFavorite2>())
     }
+
+    var favoritoIds = favorite.map { it.item }
 
     fun String.capitalizeFirstLetter(): String {
         return if (isNotEmpty()) {
@@ -64,11 +74,81 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
         }
     }
 
+    LaunchedEffect(favorite, counterEffect) {
+        enxovalFavorito = emptyList()
+
+        val callFavorrite = RetrofitFactory().getTrousseauService()
+            .getTrousseauFavorite(viewModel.id)
+
+        callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
+            override fun onResponse(
+                call: retrofit2.Call<TrousseauListFavorite2>,
+                response: Response<TrousseauListFavorite2>
+            ) {
+                favorite = response.body()!!.favoritos
+
+                if (response.isSuccessful){
+                    enxoval.map {
+                        if (favoritoIds.contains(it.item)) {
+                            enxovalFavorito = enxovalFavorito + it
+                            println(it.item)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
+                Log.i("ds3m", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    LaunchedEffect(Unit){
+        val callFavorrite = RetrofitFactory().getTrousseauService()
+            .getTrousseauFavorite(viewModel.id)
+
+        callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
+            override fun onResponse(
+                call: retrofit2.Call<TrousseauListFavorite2>,
+                response: Response<TrousseauListFavorite2>
+            ) {
+                favorite = response.body()!!.favoritos
+            }
+
+            override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
+                Log.i("ds3m", "onFailure: ${t.message}")
+            }
+        })
+
+        val call = RetrofitFactory().getTrousseauService().getTrousseauCategory(category!!)
+
+        call.enqueue(object : retrofit2.Callback<TrousseauList2> {
+
+            override fun onResponse(
+                call: Call<TrousseauList2>,
+                response: Response<TrousseauList2>
+            ) {
+
+                enxoval = response.body()!!.enxoval
+
+                Log.e("Gui", "onResponse: ${enxoval}",)
+            }
+
+            override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
+                Log.i("Erro", "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     val category = navBackStackEntry?.arguments?.getString("category")
 
     var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
+
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -89,62 +169,50 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            val callFavorrite = RetrofitFactory().getTrousseauService()
-                .getTrousseauFavorite(viewModel.id)
 
-            callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
-                override fun onResponse(
-                    call: retrofit2.Call<TrousseauListFavorite2>,
-                    response: Response<TrousseauListFavorite2>
-                ) {
-                    enxovalFavorite = response.body()!!.favoritos
-                }
 
-                override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
-                    Log.i("ds3m", "onFailure: ${t.message}")
-                }
-            })
-
-            val call = category?.let {
-                RetrofitFactory().getTrousseauService().getTrousseauCategory(
-                    it
-                )
-            }
-
-            if (call != null) {
-                call.enqueue(object : retrofit2.Callback<TrousseauList2> {
-
-                    override fun onResponse(
-                        call: Call<TrousseauList2>,
-                        response: Response<TrousseauList2>
-                    ) {
-
-                        enxoval = response.body()!!.enxoval
-
-                        Log.e("Gui", "onResponse: ${enxoval}", )
-                    }
-
-                    override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
-                        Log.i("Erro", "onFailure: ${t.message}")
-                    }
-
-                })
-            }
 
 
             if (selectedColumnInOtherScreen == 1) {
 
-                LazyColumn(  modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 85.dp, top = 9.dp)
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
-
-
-
                     items(enxoval) {
+                        CardBirthPlan(enxoval = it.item, onclick = {
+                            var favoriteTrousseau = TrousseauBody(
+                                id_enxoval = it.id,
+                                id_gestante = viewModelPregnant.id,
+                            )
 
-                        CardBirthPlan( enxoval = it.item, onclick = { TrousseauPost(idGestante = viewModel.id, idEnxoval = it.id) })
+                            val callAddTrousseau = RetrofitFactory().getTrousseauService()
+                                .insertTrousseau(favoriteTrousseau)
+
+                            callAddTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
+                                override fun onResponse(
+                                    call: Call<TrousseauListFavorite2>,
+                                    response: Response<TrousseauListFavorite2>
+                                ) {
+
+                                    if (response.isSuccessful) {
+                                        counterEffect = !counterEffect
+                                    }
+
+                                }
+
+                                override fun onFailure(
+                                    call: Call<TrousseauListFavorite2>,
+                                    t: Throwable
+                                ) {
+                                    Log.i("TrousseauFavoriteErro", "onFailure: ${t.message}")
+                                }
+                            })
+
+                        })
                     }
 
 
@@ -152,23 +220,24 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
 
             } else {
 
-                LazyColumn(  modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 85.dp, top = 9.dp)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
+                    items(enxovalFavorito.filter { it.categoria == category }) {
 
 
-                    items(enxovalFavorite.filter { it.categoria == category }) {
-                        FavoriteBirthPlan(enxoval = it.item, onclick = { TrousseauDelte(idEnxoval = it.id, idGestante = viewModel.id) })
+                        FavoriteBirthPlan(enxoval = it.item, onclick = {
+                            TrousseauDelte(idEnxoval = it.id, idGestante = viewModel.id)
+                            enxovalFavorito = enxovalFavorito - it
+                        })
                     }
 
                 }
 
             }
-
-
-
 
 
         }
@@ -189,45 +258,17 @@ fun TrousseauScreen(navController: NavController, category: String?, viewModelPr
     }
 
 }
-fun TrousseauPost (idEnxoval: Int, idGestante: Int) {
-
-    var favoriteTrousseau = TrousseauBody(
-        id_enxoval = idEnxoval,
-        id_gestante = idGestante,
-    )
-
-    val callAddTrousseau = RetrofitFactory().getTrousseauService().insertTrousseau(favoriteTrousseau)
-
-    callAddTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
-        override fun onResponse(
-            call: Call<TrousseauListFavorite2>,
-            response: Response<TrousseauListFavorite2>
-        ) {
-
-            Log.i("TrousseauPost", "onResponse: ${response.body()}")
-
-        }
-
-        override fun onFailure(call: Call<TrousseauListFavorite2>, t: Throwable) {
-            Log.i("TrousseauFavoriteErro", "onFailure: ${t.message}")
-        }
-    })
-}
 
 fun TrousseauDelte (idEnxoval: Int, idGestante: Int) {
 
-    var favoriteTrousseau = TrousseauBody(
-        id_enxoval = idEnxoval,
-        id_gestante = idGestante,
-    )
-
-    var callDeleteTrousseau = RetrofitFactory().getTrousseauService().deleteTrousseau(favoriteTrousseau)
+    var callDeleteTrousseau = RetrofitFactory().getTrousseauService().deleteTrousseau(idEnxoval, idGestante)
 
     callDeleteTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
         override fun onResponse(
             call: Call<TrousseauListFavorite2>,
             response: Response<TrousseauListFavorite2>
         ) {
+            Log.i("teste", "onResponse: ${idEnxoval}, ${idGestante}")
             Log.i("DeleteSucesso", "onResponse: ${response.body()}")
         }
 

@@ -46,6 +46,7 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -65,6 +66,22 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
     var enxovalFavorite by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponseFavorite2>())
     }
+
+    val callFavorrite = RetrofitFactory().getTrousseauService()
+        .getTrousseauFavorite(viewModel.id)
+
+    callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
+        override fun onResponse(
+            call: retrofit2.Call<TrousseauListFavorite2>,
+            response: Response<TrousseauListFavorite2>
+        ) {
+            enxovalFavorite = response.body()!!.favoritos
+        }
+
+        override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
+            Log.i("ds3m", "onFailure: ${t.message}")
+        }
+    })
 
     Box(
         modifier = Modifier
