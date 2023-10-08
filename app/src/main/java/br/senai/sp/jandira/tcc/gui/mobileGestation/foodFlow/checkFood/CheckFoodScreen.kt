@@ -294,6 +294,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                          modifier = Modifier
                                              .size(35.dp)
                                              .clickable {
+                                                 food.id = it.idCategoria
                                                  navController.navigate("FoodChange")
                                              }
                                      )

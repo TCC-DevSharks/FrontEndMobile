@@ -43,6 +43,7 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.login.ModelLogin
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -83,6 +84,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val speciality = ModelSpeciality()
     val clinic = Clinic()
     val professional = Professional()
+    val food = ModelFood()
 
     AnimatedNavHost(
         navController = navController,
@@ -116,8 +118,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
-            composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant) }
-            composable(route = "FoodChange") { ChangeFoodScreen(navController) }
+            composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant, food) }
+            composable(route = "FoodChange") { ChangeFoodScreen(navController, food) }
     }
 }
 

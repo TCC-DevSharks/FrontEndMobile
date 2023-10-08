@@ -8,4 +8,5 @@ data class MealResponse(
     var categoria: String,
     var refeicao: String,
     var id: Int,
+    var idCategoria: Int
 )
