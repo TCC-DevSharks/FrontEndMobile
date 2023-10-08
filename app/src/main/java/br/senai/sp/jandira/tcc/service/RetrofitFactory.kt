@@ -15,7 +15,7 @@ class RetrofitFactory {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getLoginService(): LoginService {
+    fun findLogin(): LoginService {
         return retrofitFactory.create(LoginService::class.java)
     }
 
@@ -111,6 +111,18 @@ class RetrofitFactory {
 
     fun insertSchedule(): ScheduleService{
         return retrofitFactory.create(ScheduleService::class.java)
+    }
+
+    fun findDiet(): DietService{
+        return retrofitFactory.create(DietService::class.java)
+    }
+
+    fun findMeal(): MealService{
+        return retrofitFactory.create(MealService::class.java)
+    }
+
+    fun findFood(): FoodService{
+        return retrofitFactory.create(FoodService::class.java)
     }
 }
 

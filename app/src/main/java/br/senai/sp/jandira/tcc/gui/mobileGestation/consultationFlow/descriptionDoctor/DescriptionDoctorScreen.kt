@@ -348,40 +348,6 @@ fun DescriptionDoctorScreen(
                                 }
                             }
                         }
-//                        LazyColumn() {
-//                            items(times.size) { index ->
-//                                val time = times[index]
-//
-//                                val isSelected = time == selectedTime
-//
-//
-//                                Button(
-//                                    onClick = {
-//                                        selectedTime = time
-//                                        DataHora.selectedTime = time.toString()
-//
-//                                    },
-//                                    modifier = Modifier
-//                                        .size(92.dp, 43.dp)
-//                                        .padding(start = 4.5.dp),
-//                                    colors = if (isSelected) ButtonDefaults.buttonColors(
-//                                        Color(243, 243, 243)
-//                                    ) else ButtonDefaults.buttonColors(Color(182,182,246)),
-//                                    shape = RoundedCornerShape(10.dp)
-//                                ) {
-//                                    Text(
-//                                        text = time.format(DateTimeFormatter.ofPattern("HH:mm")),
-//                                        color = if (isSelected)
-//                                            Color.Black
-//                                        else Color.White,
-//                                        fontSize = 13.5.sp,
-//                                        textAlign = TextAlign.Center,
-//                                        fontWeight = FontWeight(900)
-//                                    )
-//
-//                                }
-//                            }
-//                        }
                     }
                 }
             }
@@ -398,30 +364,6 @@ fun DescriptionDoctorScreen(
 
                         if (selectedDate != null && selectedTime != null) {
                             navController.navigate("Payment")
-
-//                            // Criar um Toast personalizado com um layout personalizado
-//                            val backgroundColor = Color.Gray
-//                            val contentColor = Color.White
-//
-//                            val toast = Toast(context)
-//                            toast.setGravity(Gravity.CENTER, 0, 20)
-//                            toast.duration = Toast.LENGTH_SHORT
-//
-//                            val textView = TextView(context).apply {
-//                                text = "Consulta marcada com sucesso"
-//                                textSize = 18f // Tamanho da fonte aumentado
-//                                setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
-//                                setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
-//                                setPadding(
-//                                    36,
-//                                    36,
-//                                    36,
-//                                    36
-//                                ) // Valores inteiros em pixels para padding
-//                            }
-//
-//                            toast.view = textView
-//                            toast.show()
 
                         } else {
 
@@ -443,7 +385,7 @@ fun DescriptionDoctorScreen(
                                     36,
                                     36,
                                     36
-                                ) // Valores inteiros em pixels para padding
+                                )
                             }
 
                             toast.view = textView

@@ -104,7 +104,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseau") { TrousseauScreen (navController) }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
-            composable(route = "teste") { CheckFoodScreen (navController) }
             composable(route = "nameSuggestion") { Name_Suggestion (navController, viewModelPregnant) }
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
@@ -117,7 +116,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
-            composable(route = "Food") { CheckFoodScreen(navController) }
+            composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant) }
             composable(route = "FoodChange") { ChangeFoodScreen(navController) }
     }
 }

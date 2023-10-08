@@ -33,9 +33,10 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.food.ModelFood
 
 @Composable
-fun ChangeFoodScreen(navController: NavController) {
+fun ChangeFoodScreen(navController: NavController, food: ModelFood) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
