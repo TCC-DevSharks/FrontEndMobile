@@ -26,11 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 @Composable
 fun FavoriteBirthPlan(
-//    text: String
-) {
+    enxoval: String,
+    onclick: () -> Unit,
+
+    ) {
+
 
 
     Column(
@@ -50,20 +54,10 @@ fun FavoriteBirthPlan(
                     .weight(1f),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_65),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clickable {
-                            // navController.navigate(rota)
-                        }
-                        .size(30.dp)
-                )
-
                 Spacer(modifier = Modifier.width(15.dp))
 
                 Text(
-                    text = "Gostaria de ter um acompanhante durante o trabalho de parto, parto e puerpério.",
+                    text = enxoval,
                     fontSize = 16.sp,
                     fontWeight = FontWeight(400),
                     modifier = Modifier.fillMaxWidth()
@@ -79,10 +73,10 @@ fun FavoriteBirthPlan(
                     painter = painterResource(id = R.drawable.trash),
                     contentDescription = null,
                     modifier = Modifier
-                        .size(24.dp)
-                        .clickable {
-                            Log.i("DS3m", "fdhgdfhgfhsdgfjhsdgfjhsdgfdhf")
-                        }
+                        .size(17.dp)
+                        .clickable (
+                            onClick = onclick
+                            )
                 )
             }
         }
@@ -90,11 +84,4 @@ fun FavoriteBirthPlan(
 
     }
 
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun FavoriteBirthPlanPreview() {
-    FavoriteBirthPlan()
 }

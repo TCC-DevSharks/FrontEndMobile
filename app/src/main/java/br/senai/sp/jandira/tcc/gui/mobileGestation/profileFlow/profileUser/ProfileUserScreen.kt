@@ -49,7 +49,6 @@ import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.calls.PutWeight
 import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
-import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -242,15 +241,15 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             horizontalArrangement = Arrangement.Center
         ) {
 
-            Comp(textoHeader = "${viewModel.altura}", textoMain = "Altura", onclick = {
+            Comp(textoHeader = "${viewModel.altura}", textoMain = stringResource(id = R.string.height), onclick = {
                 openDialog.value = true
             })
 
-            Comp(textoHeader = "${viewModel.peso}", textoMain = "Peso", onclick = {
+            Comp(textoHeader = "${viewModel.peso}", textoMain = stringResource(id = R.string.weight), onclick = {
                 openDialog.value = true
             })
 
-            Comp(textoHeader = "${viewModel.idade}", textoMain = "Idade", onclick = {})
+            Comp(textoHeader = "${viewModel.idade}", textoMain = stringResource(id = R.string.age), onclick = {})
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -267,7 +266,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         modifier = Modifier.padding(top = 10.dp, start = 15.dp),
-                        text = stringResource(id = R.string.accont_user),
+                        text = stringResource(id = R.string.Account_user),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )

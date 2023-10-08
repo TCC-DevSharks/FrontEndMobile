@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BebeVindo</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="title_login">Bem-Vinda de Volta!</string>
+    <string name="description_login">Estamos animados para seguir te auxiliando na jornada da maternidade.</string>
+    <string name="screen_description_forgot_password">Sem Problemas! Vamos Recuperar o Acesso para Continuar na Sua Jornada.</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="title_register">Bem-Vinda!</string>
+    <string name="description_register">Preparada para Começar a Jornada?Bebê-Vindo, Seu Apoio na Maternidade.</string>
+    <string name="error_password">Your e-mail address or password is incorrect!</string>
+    <string name="empty_fields">All fields must be filled in.</string>
+    <string name="fields_not_match">Fields do not match.</string>
+
+    <!-- Register Password   -->
+    <string name="title_register_password">Escolha uma senha</string>
+    <string name="description_register_password">Sua senha deve ser segura. Não compartilhe com ninguém!</string>
+
+    <!-- Header Preparations   -->
+    <string name="header_maternity_bag">Mala de Maternidade</string>
+    <string name="header_trousseau">Enxoval</string>
+    <string name="header_date">Dados</string>
+    <string name="header_birth_plan">Plano de Parto</string>
+    <string name="name_suggestion">Sugestão de Nomes</string>
+
+
+    <!-- Header Adicionar Item -->
+    <string name="header_add_maternity_bag">Adicionar - Mala de Maternidade</string>
+    <string name="header_add_trousseau">Adicionar - Enxoval</string>
+    <string name="header_add_birth_plan">Adicionar - Plano de Parto</string>
+
+
+    <!-- Sub Header Preparations   -->
+    <string name="my_list">Minha lista</string>
+    <string name="suggested">Sugeridos</string>
+    <string name="favorites">Favoritos</string>
+    <string name="all">Todos</string>
+
+
+    <string name="pagseguro">Pagamento</string>
+
+
+    <!-- Escolha de Medico -->
+    <!--    <string name="header_add_maternity_bag">Falta pouco! Seu cadastro está sendo finalizado.</string>-->
+    <string name="title_address">Vamos coletar mais informações para o seu </string>
+
+    <string name="title_address_negrito"> cadastro</string>
+
+    <string name="registration">Seu cadastro foi realizado!</string>
+    <!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+    <!--    <string name="header_add_trousseau">Encontre um médico</string>-->
+    <!--    <string name="header_add_trousseau">Qual especialidade você procura?</string>-->
+
+    <!--    <string name="header_add_birth_plan">Seu cadastro foi realizado!</string>-->
+    <string name="header_speciality">Encontre um médico</string>
+    <string name="header_clinic">Encontre um médico</string>
+    <string name="which_specialty">Qual especialidade você procura?</string>
+
+
+    <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
+    <!--    <string name="header_add_birth_plan">Essa especialidade está disponível nessas clínicas:</string>-->
+    <!--    <string name="header_add_birth_plan">Na clínica exemplo,  existem esses nutricionistas :</string>-->
+
+    <string name="title_clinic">Essa especialidade está disponível nessas clínicas:</string>
+
+    <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
+    <string name="title_doctor">Na clínica exemplo,  existem esses nutricionistas :</string>
+
+    <!-- Tela Alimentação -->
+    <string name="header_food">Alimentação</string>
+
+    <string name="header_forum">Fórum</string>
+
+
+
+
+    <!-- Home   -->
+    <string name="title_home">Maternidade Apoiada</string>
+    <string name="segundo_title_home">a Cada Passo.</string>
+    <string name="description_home">Guiando cada passo, nutrindo cada momento. Maternidade com Suporte Total. Bebê-Vindo - Sua Companhia na Jornada da Maternidade</string>
+
+    <!---->
+    <string name="title_week">Selecione sua semana gestacional</string>
+    <string name="description_week">Escolha a sua semana e vamos acompanhar juntos o crescimento do seu bebê!</string>
+
+
+    <!---->
+    <string name="title_calendar">Data do parto</string>
+    <string name="description_calendar">Baseado em sua semana gestacional, essa é a data prevista para o parto. Você pode alterar mais tarde no seu perfil.</string>
+
+    <!-- TextField   -->
+    <string name="username">Username</string>
+    <string name="name_password">Senha</string>
+    <string name="types_of_users">Email</string>
+    <string name="text_field_nome">Nome Completo</string>
+    <string name="text_field_telefone">Telefone</string>
+    <string name="text_field_nascimento">Data de Nascimento</string>
+
+    <!-- TextField Escolha do Medico   -->
+    <string name="text_field_altura">Altura</string>
+    <string name="text_field_peso">Peso</string>
+    <string name="text_field_cpf">CPF</string>
+    <string name="text_field_medication">Informe a medicação</string>
+
+
+    <string name="text_field_rua">Rua</string>
+    <string name="text_field_bairro">Bairro</string>
+    <string name="text_field_numero">Número</string>
+    <string name="text_field_cidade">Cidade</string>
+    <string name="text_field_state">Estado</string>
+    <string name="text_field_dd">dd</string>
+    <string name="text_field_ddPais">ddPaís</string>
+
+    <string name="text_switch">Entrar como profissional</string>
+
+
+    <string name="button_enter">Entrar</string>
+    <string name="button_register">Cadastrar</string>
+    <string name="enter_the_app">Ou entre usando</string>
+    <string name="new_password">Nova senha</string>
+    <string name="confirm_new_password">Confirmar nova senha</string>
+    <string name="confirm_password">Confirmar senha</string>
+    <string name="button_confirm">Confirmar</string>
+    <string name="button_finish">Finalizar</string>
+    <string name="button_next">Próximo</string>
+
+
+
+    <!--    Perfil importes-->
+
+    <string name="profile">Perfil</string>
+    <string name="profile_user">Masi Ramezanzade</string>
+    <string name="Account_user">Conta</string>
+    <string name="notification">Notificação</string>
+    <string name="others">Outros</string>
+    <string name="contact">Contate-nos</string>
+    <string name="politic">Política de privacidade</string>
+    <string name="notification_pop">Notificações Pop-up</string>
+    <string name="data">Dados Pessoais</string>
+    <string name="historic_query">Histórico de Consultas</string>
+
+
+    <string name="people_date">Pessoais:</string>
+
+    <string name="personal_information">Informações Pessoais:</string>
+
+
+
+    <string name="example_name">Nome</string>
+    <string name="example_cpf">CPF</string>
+    <string name="date_of_birth">Data Nascimento</string>
+    <string name="telephone">Telefone</string>
+    <string name="email">Email</string>
+    <string name="document">Documento</string>
+    <string name="date_childbirth">Data parto</string>
+    <string name="gestation_week">Semana Gestação</string>
+    <string name="address">Endereço:</string>
+    <string name="example_street">Logradouro</string>
+    <string name="number">Número</string>
+    <string name="example_Neighborhood">Bairro</string>
+    <string name="example_cep">CEP</string>
+    <string name="example_complement">Complemento</string>
+    <string name="example_city">Cidade</string>
+    <string name="example_state">Estado</string>
+
+    <string name="title_address_finish">Falta pouco! Seu cadastro está sendo finalizado.</string>
+    <string name="finalize">Finalizar</string>
+    <string name="Continue">Continuar</string>
+    <string name="check_nutritionists">Verificar nutricionistas disponíveis</string>
+    <string name="schedule">Agenda</string>
+    <string name="tasks">Tarefas:</string>
+    <string name="description">Descrição:</string>
+    <string name="date">Data:</string>
+    <string name="reminder">Ativar lembrete</string>
+    <string name="birth_description">Digite algo em seu plano de parto:  </string>
+    <string name="to_add">Adicionar</string>
+    <string name="find_class">Encontre sua</string>
+    <string name="find_class2">Aula de exercícios</string>
+    <string name="Warm_up">Aquecimento</string>
+    <string name="description_warm_up">Faça um aquecimento adequado antes do exercício para evitar lesões e tornar os treinos mais eficazes.</string>
+    <string name="Achievement">Conquista</string>
+    <string name="Activity_History">Histórico de atividades</string>
+    <string name="Workout_Progress">Progresso do treino</string>
+    <string name="Settings">configurações</string>
+    <string name="Specialty">Especialidade:</string>
+    <string name="medical_record">Prontuário</string>
+    <string name="medical_description">Descrição:</string>
+    <string name="medical_month">Mês</string>
+
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="select_the_due_date">Selecione a data de parto</string>
+    <string name="select_a_date">Selecione uma data</string>
+    <string name="save_changes">Salvar alterações</string>
+    <string name="success">Sucesso</string>
+    <string name="error">Erro</string>
+    <string name="changes_successfully_made">Alterações efetuadas com sucesso</string>
+    <string name="please_try_again_later">Por favor, tente novamente mais tarde</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="age">Idade</string>
+    <string name="feeling_today">Como está se sentindo hoje?</string>
+    <string name="space_pregnancy_and_conversation">Espaço Gravidez e Conversa</string>
+    <string name="maternal_guide">Guia Materno</string>
+    <string name="preparations">Preparativos</string>
+    <string name="finish">Finalizar</string>
+    <string name="Continueee">Continuar -></string>
+    <string name="card_number">Número do cartão:</string>
+    <string name="expiration_date">Data de validade:</string>
+    <string name="cvv">CVV</string>
+    <string name="client">Cliente: </string>
+    <string name="name">Nome: </string>
+    <string name="Email">Email: </string>
+    <string name="cpf">Cpf: </string>
+    <string name="Number">Telefone: </string>
+    <string name="card">Cartão:  </string>
+    <string name="expiration">Vencimento:  </string>
+    <string name="consultation">Consulta:  </string>
+    <string name="publish">Publicar</string>
+    <string name="exercises">Exercícios</string>
+    <string name="today_activity">Atividade de hoje</string>
+    <string name="recommendation_class">Classe de recomendação</string>
+    <string name="see_all">Ver tudo</string>
+    <string name="categories">Categorias</string>
+    <string name="value">Valor:</string>
+    <string name="hour">Hora: </string>
+    <string name="day">Dia: </string>
+    <string name="billing">Cobrança: </string>
+    <string name="phone">Telefone: </string>
+    <string name="specialization">Especialidade: </string>
+    <string name="professional">Profissional: </string>
+    <string name="clinic">Clínica: </string>
+    <string name="pag">Ir para pagamento -> </string>
+    <string name="Select_a_date">Selecione uma data:</string>
+    <string name="Service_charge">Taxa de serviço:</string>
+    <string name="emailL">Email:</string>
+    <string name="complement">Complemento:</string>
+    <string name="Cep">Cep:</string>
+    <string name="comorbidity">Possui alguma comorbidade?</string>
+    <string name="regular_medication">Medicação em uso regular?</string>
+    <string name="messages">Mensagens</string>
+    <string name="All_Messages">Todas as mensagens</string>
+    <string name="edit">Editar</string>
+    <string name="your_consultations">Suas consultas da semana:</string>
+    <string name="Welcome">Bem-Vinda,</string>
+
+</resources>

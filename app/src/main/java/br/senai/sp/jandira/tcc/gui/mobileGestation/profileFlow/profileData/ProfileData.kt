@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -709,7 +710,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
         ) {
             ButtonPurple(
                 navController = navController,
-                texto = "Salvar alterações",
+                texto = stringResource(id = R.string.save_changes),
                 rota = "",
                 onclick = {
                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -772,13 +773,13 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
             AlertDialog(
                 openDialog = openDialogSucess,
-                title = "Sucesso",
-                aviso = "Alterações efetuadas com sucesso"
+                title = stringResource(id = R.string.success),
+                aviso = stringResource(id = R.string.changes_successfully_made)
             )
             AlertDialog(
                 openDialog = openDialogFail,
-                title = "Erro",
-                aviso = "Por favor, tente novamente mais tarde"
+                title = stringResource(id = R.string.error),
+                aviso = stringResource(id = R.string.please_try_again_later)
             )
 
         }

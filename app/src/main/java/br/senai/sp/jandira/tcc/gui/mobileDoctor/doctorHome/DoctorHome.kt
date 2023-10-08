@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,7 +66,7 @@ fun DoctorHome() {
                 ) {
                     Row(modifier = Modifier.padding(top = 30.dp)) {
                         Text(
-                            text = "Bem-Vinda,",
+                            text = stringResource(id = R.string.Welcome),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
 
@@ -195,7 +196,7 @@ fun DoctorHome() {
                         ) {
 
                             Text(
-                                text = "Suas consultas da semana:",
+                                text = stringResource(id = R.string.your_consultations),
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Center

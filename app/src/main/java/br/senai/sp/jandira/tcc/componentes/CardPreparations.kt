@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -30,7 +29,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardPreparations(
-    category: String,
+    preparations: String,
     navController: NavController
 ) {
 
@@ -42,10 +41,10 @@ fun CardPreparations(
         Card(
             modifier = Modifier
                 .clickable {
-                    navController.navigate(when (category) {
-                        "Plano de Parto" -> ("nameSuggestion")
-                        "Enxoval" -> ("nameSuggestion")
-                        "Mala de Maternidade" -> ("nameSuggestion")
+                    navController.navigate(when (preparations) {
+                        "Plano de Parto" -> ("trousseauCategory")
+                        "Enxoval" -> ("trousseauCategory")
+                        "Mala de Maternidade" -> ("bag")
                         "Sugestão de Nomes" -> ("nameSuggestion")
                         else -> ("nameSuggestion") // Default image
                     })
@@ -69,7 +68,7 @@ fun CardPreparations(
                     horizontalArrangement = Arrangement.Center
                 ) {
 
-                    val imageResource = when (category) {
+                    val imageResource = when (preparations) {
                         "Plano de Parto" -> R.drawable.baby
                         "Enxoval" -> R.drawable.tags
                         "Mala de Maternidade" -> R.drawable.suitcase
@@ -94,7 +93,7 @@ fun CardPreparations(
 
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = category,
+                        text = preparations,
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         fontWeight = FontWeight(800),

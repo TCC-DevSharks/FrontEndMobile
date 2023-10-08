@@ -95,7 +95,7 @@ fun DoctorProfile() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Edit",
+                        text = stringResource(id = R.string.edit),
                         color = Color.White
                     )
                 }
@@ -117,7 +117,7 @@ fun DoctorProfile() {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         modifier = Modifier.padding(top = 10.dp, start = 15.dp),
-                        text = stringResource(id = R.string.accont_user),
+                        text = stringResource(id = R.string.Account_user),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
