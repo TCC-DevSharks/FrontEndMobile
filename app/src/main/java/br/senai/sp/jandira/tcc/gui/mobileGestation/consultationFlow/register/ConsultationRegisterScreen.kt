@@ -57,9 +57,6 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val arguments = navBackStackEntry?.arguments
 
-            val selectedDate = arguments?.getString("selectedDate")
-            val selectedTime = arguments?.getString("selectedTime")
-
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
                     Image(painter = painterResource(id = R.drawable.arrow_circle),

@@ -590,8 +590,9 @@ fun PaymentScreen(
                         )
 
                         var schedule = ScheduleResponse(
-                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
-                            titulo = "Consulta com ${professional.especialidade}",
+
+                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter) }",
+                            titulo = "${professional.especialidade}",
                             lembrete = 0,
                             descricao = "Consulta na ${clinic.razao_social}",
                             id_gestante = viewModel.id

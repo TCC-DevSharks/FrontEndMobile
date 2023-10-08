@@ -44,6 +44,8 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.food.ModelFood
+import br.senai.sp.jandira.tcc.model.login.ModelLogin
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -83,6 +85,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val speciality = ModelSpeciality()
     val clinic = Clinic()
     val professional = Professional()
+    val food = ModelFood()
 
     AnimatedNavHost(
         navController = navController,
@@ -108,7 +111,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "trousseauCategory") { trousseauCategory (navController, viewModelPregnant) }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
-            composable(route = "teste") { CheckFoodScreen (navController) }
             composable(route = "nameSuggestion") { Name_Suggestion (navController, viewModelPregnant) }
             composable(route = "AddTrousseau") { AddTrousseau() }
             composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
@@ -121,8 +123,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
-            composable(route = "Food") { CheckFoodScreen(navController) }
-            composable(route = "FoodChange") { ChangeFoodScreen(navController) }
+            composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant, food) }
+            composable(route = "FoodChange") { ChangeFoodScreen(navController, food) }
     }
 }
 

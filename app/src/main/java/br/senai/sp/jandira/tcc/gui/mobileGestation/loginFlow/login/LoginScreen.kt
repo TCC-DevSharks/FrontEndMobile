@@ -49,13 +49,8 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    val context = LocalContext.current
 
     var password by rememberSaveable { mutableStateOf("") }
 
@@ -65,9 +60,6 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
     var login by remember {
         mutableStateOf(listOf<Login>())
     }
-
-
-    val lineColor = Color(182, 182, 246) // Cor linear
     var visible by remember { mutableStateOf(false) }
 
 
@@ -90,9 +82,6 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
             TextComp(texto = R.string.title_login)
 
             TextDescription(texto = R.string.description_login)
-
-
-
 
             AnimatedVisibility(
                 visible = visible,
@@ -180,132 +169,42 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
                         senha = password,
                     )
 
-                    val call = RetrofitFactory().getLoginService().insertLogin(loginGestante)
+                    val call = RetrofitFactory().findLogin().insertLogin(loginGestante)
 
-                    call.enqueue(object : retrofit2.Callback<LoginList> {
-                        override fun onResponse(
-                            call: Call<LoginList>,
-                            response: Response<LoginList>
+                    if (email !== "" && password !== ""){
+                        call.enqueue(object : retrofit2.Callback<LoginList> {
+                            override fun onResponse(
+                                call: Call<LoginList>,
+                                response: Response<LoginList>
 
-                        ) {
-                            //Duas exclamações significam que pode vir nulo
-                            login = response.body()!!.login
+                            ) {
+                                //Duas exclamações significam que pode vir nulo
+                                login = response.body()!!.login
 
-                            if (login[0].id !== 0) {
+                                if (login[0].id !== 0) {
 
-                                login.forEach {
-                                    viewModel.id = it.id
+                                    login.forEach {
+                                        viewModel.id = it.id
+                                    }
+                                    navController.navigate("homeUser")
+
+                                } else {
+                                    visible = true
                                 }
-                                navController.navigate("homeUser")
 
-                            } else {
-                                visible = true
                             }
 
-                        }
+                            override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                                Log.i(
+                                    "ds2m",
+                                    "onFailure: ${t.message}"
+                                )
+                                println(t.message + t.cause)
+                            }
+                        })
+                    }
 
-                        override fun onFailure(call: Call<LoginList>, t: Throwable) {
-                            Log.i(
-                                "ds2m",
-                                "onFailure: ${t.message}"
-                            )
-                            println(t.message + t.cause)
-                        }
-                    })
                 })
-
-
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
-                Box(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(2.dp)
-                        .background(lineColor)
-                )
-
-                Text(
-                    modifier = Modifier.padding(horizontal = 10.dp),
-                    text = stringResource(id = br.senai.sp.jandira.tcc.R.string.enter_the_app),
-                    color = Color(66, 61, 61)
-                )
-
-                Box(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(2.dp)
-                        .background(lineColor)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(35.dp))
-
-//            Row(
-//                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
-//            ) {
-//                Card(
-//                    modifier = Modifier
-//                        .padding(horizontal = 10.dp)
-//                        .size(40.dp) // Aumentando o tamanho do Card para a imagem ficar mais visível
-//                        .align(alignment = Alignment.CenterVertically), // Centralizando verticalmente na Row
-//                    shape = CircleShape
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .background(Color.White),
-//                        painter = painterResource(id = br.senai.sp.jandira.tcc.R.drawable.facebook),
-//                        contentDescription = null,
-//                        contentScale = ContentScale.Crop
-//                    )
-//                }
-//
-//
-//                Card(
-//                    modifier = Modifier
-//                        .padding(horizontal = 10.dp)
-//                        .size(40.dp) // Aumentando o tamanho do Card para a imagem ficar mais visível
-//                        .align(alignment = Alignment.CenterVertically), // Centralizando verticalmente na Row
-//                    shape = CircleShape
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .background(Color.White),
-//                        painter = painterResource(id = br.senai.sp.jandira.tcc.R.drawable.facebook),
-//                        contentDescription = null,
-//                        contentScale = ContentScale.Crop
-//                    )
-//                }
-//
-//                Card(
-//                    modifier = Modifier
-//                        .padding(horizontal = 10.dp)
-//                        .size(40.dp) // Aumentando o tamanho do Card para a imagem ficar mais visível
-//                        .align(alignment = Alignment.CenterVertically), // Centralizando verticalmente na Row
-//                    shape = CircleShape
-//                ) {
-//                    Image(
-//                        modifier = Modifier
-//                            .fillMaxSize()
-//                            .background(Color.White),
-//                        painter = painterResource(id = br.senai.sp.jandira.tcc.R.drawable.facebook),
-//                        contentDescription = null,
-//                        contentScale = ContentScale.Crop
-//                    )
-//                }
-//
-//
-//            }
-
-
         }
     }
 }
