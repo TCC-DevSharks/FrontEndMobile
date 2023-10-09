@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.componentes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,11 +33,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
 
 @Composable
-fun Schedule(agenda: List<Schedule>) {
+fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule: ModelSchedule) {
 
 
 
@@ -86,7 +89,14 @@ fun Schedule(agenda: List<Schedule>) {
                             text = "Sua agenda",
                             fontSize = 17.sp,
                             fontWeight = FontWeight.SemiBold,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.clickable {
+                                modelSchedule.id = 0
+                                modelSchedule.dia = ""
+                                modelSchedule.titulo = ""
+                                modelSchedule.descricao = ""
+                                navController.navigate("Schedule")
+                            }
                         )
 
                         Column(
@@ -102,14 +112,9 @@ fun Schedule(agenda: List<Schedule>) {
                                         bottomEnd = 2.dp
                                     )
                                 )
-
                         ) {}
-
                     }
-
                 }
-
-//               AddItem(navController = navController, rota = "", size = 30.dp)
             }
             LazyColumn() {
                 items(agenda) {
@@ -136,7 +141,14 @@ fun Schedule(agenda: List<Schedule>) {
                                 )
                             )
 
-                           LimitedText(text = it.titulo , maxLength =25 )
+                           LimitedText(text = it.titulo , maxLength =25 ){
+                               modelSchedule.id = it.id
+                               modelSchedule.dia = it.dia
+                               modelSchedule.titulo = it.titulo
+                               modelSchedule.descricao = it.descricao
+                               modelSchedule.IdGestante = it.id_gestante
+                               navController.navigate("Schedule")
+                           }
 
                         }
 
@@ -161,9 +173,10 @@ fun Schedule(agenda: List<Schedule>) {
 }
 
 @Composable
-fun LimitedText(text: String, maxLength: Int) {
+fun LimitedText(text: String, maxLength: Int, onclick: () -> Unit) {
     Text(text = if (text.length > maxLength) text.substring(0, maxLength) else text,
         fontSize = 15.sp,
         fontWeight = FontWeight.Medium,
+        modifier = Modifier.clickable(onClick = onclick)
         )
 }

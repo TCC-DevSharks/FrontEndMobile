@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,16 +35,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.SwitchComp
+import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScheduleAdd() {
+fun ScheduleAdd(navController: NavController, modelSchedule: ModelSchedule) {
+    var tarefas by remember { mutableStateOf("") }
+    var descricao by remember { mutableStateOf("") }
+    var data by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit){
+        tarefas = modelSchedule.titulo
+        descricao = modelSchedule.descricao
+        data = modelSchedule.dia
+    }
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(titulo = stringResource(id = R.string.schedule))
@@ -67,7 +78,7 @@ fun ScheduleAdd() {
             }
             Spacer(modifier = Modifier.height(5.dp))
 
-            var tarefas by remember { mutableStateOf("") }
+
 
             OutlinedTextField(
                 value = tarefas,
@@ -104,7 +115,6 @@ fun ScheduleAdd() {
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
-            var descricao by remember { mutableStateOf("") }
 
             OutlinedTextField(
                 value = descricao,
@@ -144,7 +154,7 @@ fun ScheduleAdd() {
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
-            var data by remember { mutableStateOf("") }
+
 
             OutlinedTextField(
                 value = data,
@@ -233,10 +243,4 @@ fun ScheduleAdd() {
 
 
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ScheduleAddPreview() {
-    ScheduleAdd()
 }
