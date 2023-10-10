@@ -166,7 +166,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                                 val dateString = viewModel.data_parto
                                 val date = LocalDate.parse(dateString, formatter)
-                                println(date)
                                 val currentDate = LocalDate.now()
 
                                 val period = ChronoUnit.DAYS.between(currentDate, date)
@@ -220,7 +219,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                                     val dateString = viewModel.data_parto
                                     val date = LocalDate.parse(dateString, formatter)
-                                    println(date)
                                     val currentDate = LocalDate.now()
 
                                     val period = ChronoUnit.DAYS.between(currentDate, date)

@@ -127,7 +127,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
             composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant, food) }
             composable(route = "FoodChange") { ChangeFoodScreen(navController, food) }
-            composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule) }
+            composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, viewModelPregnant) }
     }
 }
 

@@ -37,6 +37,8 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule: ModelSchedule) {
@@ -118,6 +120,14 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
             }
             LazyColumn() {
                 items(agenda) {
+                    var isChecked by remember { mutableStateOf(false) }
+                    var dataAtual = LocalDate.now()
+                    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    val date = LocalDate.parse(it.dia, formatter)
+
+                    if (dataAtual.isAfter(date))
+                        isChecked = true
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -128,7 +138,6 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
 
-                            var isChecked by remember { mutableStateOf(false) }
 
                             Checkbox(
                                 modifier = Modifier.height(30.dp),
