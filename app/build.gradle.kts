@@ -106,4 +106,6 @@ dependencies {
     implementation("com.google.firebase:firebase-common-ktx:20.3.3")
     implementation("com.google.firebase:firebase-storage-ktx")
 
+    //Youtube
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 }
