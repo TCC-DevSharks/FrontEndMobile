@@ -1,6 +1,5 @@
 package br.senai.sp.jandira.tcc.service
 
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauService
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -122,6 +121,14 @@ class RetrofitFactory {
 
     fun findFood(): FoodService{
         return retrofitFactory.create(FoodService::class.java)
+    }
+
+    fun updateSchedule(): ScheduleService{
+        return retrofitFactory.create(ScheduleService::class.java)
+    }
+
+    fun removeSchedule(): ScheduleService{
+        return retrofitFactory.create(ScheduleService::class.java)
     }
 }
 

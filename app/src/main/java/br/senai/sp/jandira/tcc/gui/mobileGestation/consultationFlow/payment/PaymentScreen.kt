@@ -394,7 +394,9 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Column(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
@@ -434,7 +436,11 @@ fun PaymentScreen(
                             Box(
                                 modifier = Modifier
                                     .padding(start = 15.dp)
-                                    .border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp)) // Defina o raio desejado (8.dp) para a borda
+                                    .border(
+                                        1.dp,
+                                        Color.Black,
+                                        shape = RoundedCornerShape(10.dp)
+                                    ) // Defina o raio desejado (8.dp) para a borda
                             ) {
                                 Text(
                                     text = mesVencimento,
@@ -469,7 +475,13 @@ fun PaymentScreen(
                                 fontSize = 20.sp
                             )
 
-                            Box(modifier = Modifier.border(1.dp, Color.Black, shape = RoundedCornerShape(10.dp))) {
+                            Box(
+                                modifier = Modifier.border(
+                                    1.dp,
+                                    Color.Black,
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                            ) {
                                 Text(
                                     text = anoVencimento,
                                     modifier = Modifier
@@ -591,7 +603,7 @@ fun PaymentScreen(
 
                         var schedule = ScheduleResponse(
 
-                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter) }",
+                            dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
                             titulo = "${professional.especialidade}",
                             lembrete = 0,
                             descricao = "Consulta na ${clinic.razao_social}",
@@ -685,7 +697,11 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(start = 15.dp, top = 10.dp)
+                            .background(Color.White)
+                    ) {
                         Row(
                             Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
@@ -806,7 +822,11 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(start = 15.dp, top = 10.dp)
+                            .background(Color.White)
+                    ) {
 
 
                         Row(
@@ -860,7 +880,11 @@ fun PaymentScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    Column(modifier = Modifier.padding(start = 15.dp, top = 10.dp).background(Color.White)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(start = 15.dp, top = 10.dp)
+                            .background(Color.White)
+                    ) {
                         Row(
                             Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically

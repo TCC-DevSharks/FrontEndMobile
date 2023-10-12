@@ -59,6 +59,7 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
 import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -73,7 +74,7 @@ import java.time.temporal.ChronoUnit
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
+fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, modelSchedule: ModelSchedule) {
 
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
@@ -165,7 +166,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                                 val dateString = viewModel.data_parto
                                 val date = LocalDate.parse(dateString, formatter)
-                                println(date)
                                 val currentDate = LocalDate.now()
 
                                 val period = ChronoUnit.DAYS.between(currentDate, date)
@@ -219,7 +219,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                                     val dateString = viewModel.data_parto
                                     val date = LocalDate.parse(dateString, formatter)
-                                    println(date)
                                     val currentDate = LocalDate.now()
 
                                     val period = ChronoUnit.DAYS.between(currentDate, date)
@@ -289,7 +288,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 }
                 Spacer(modifier = Modifier.height(50.dp))
 
-                Schedule(agenda)
+                Schedule(agenda, navController, modelSchedule)
 
                 Spacer(modifier = Modifier.height(50.dp))
 

@@ -1,5 +1,7 @@
-package br.senai.sp.jandira.tcc.model.troussea
+package br.senai.sp.jandira.tcc.service
 
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
+import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
 import br.senai.sp.jandira.tcc.model.troussea.trousseauPos.TrousseauBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE

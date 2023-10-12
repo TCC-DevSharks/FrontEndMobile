@@ -146,7 +146,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                     Column(
                         modifier = Modifier
                             .padding(10.dp)
-                            .size(70.dp, 90.dp)
+                            .size(50.dp, 70.dp)
                             .background(
                                 if (isCurrentDate) Color(182, 182, 246) else Color(227, 228, 228),
                                 shape = RoundedCornerShape(10.dp)
