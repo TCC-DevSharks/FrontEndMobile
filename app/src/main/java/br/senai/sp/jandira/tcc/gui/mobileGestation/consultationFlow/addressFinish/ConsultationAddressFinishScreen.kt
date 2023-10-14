@@ -138,7 +138,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             verticalArrangement = Arrangement.Center
         ) {
             OutlinedTextFieldTodos(
-                texto = R.string.example_cep,
+                texto = stringResource(id = R.string.example_cep),
                 meuType = KeyboardType.Text,
                 value = cep,
                 onValueChange = {
@@ -176,7 +176,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_rua,
+                texto = stringResource(id = R.string.text_field_rua),
                 meuType = KeyboardType.Text,
                 value = logradouro,
                 onValueChange = { logradouro = it })
@@ -184,7 +184,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_numero,
+                texto = stringResource(id = R.string.text_field_numero),
                 meuType = KeyboardType.Text,
                 value = numero,
                 onValueChange = { numero = it })
@@ -192,7 +192,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.example_complement,
+                texto = stringResource(id = R.string.example_complement),
                 meuType = KeyboardType.Text,
                 value = complemento,
                 onValueChange = { complemento = it })
@@ -200,7 +200,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_bairro,
+                texto = stringResource(id = R.string.text_field_bairro),
                 meuType = KeyboardType.Text,
                 value = bairro,
                 onValueChange = { bairro = it })
@@ -208,7 +208,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_cidade,
+                texto = stringResource(id = R.string.text_field_cidade),
                 meuType = KeyboardType.Text,
                 value = cidade,
                 onValueChange = { cidade == it })
@@ -216,7 +216,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
             Spacer(modifier = Modifier.height(5.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_cidade,
+                texto = stringResource(id = R.string.text_field_cidade),
                 meuType = KeyboardType.Text,
                 value = estado,
                 onValueChange = { estado == it })

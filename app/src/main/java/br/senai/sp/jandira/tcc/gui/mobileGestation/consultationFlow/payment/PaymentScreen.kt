@@ -225,7 +225,7 @@ fun PaymentScreen(
                 ) {
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.example_name,
+                        texto = stringResource(id = R.string.example_name),
                         meuType = KeyboardType.Text,
                         value = nome,
                         onValueChange = { nome = it },
@@ -235,7 +235,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.email,
+                        texto = stringResource(id = R.string.email),
                         meuType = KeyboardType.Text,
                         value = email,
                         onValueChange = { email = it },
@@ -245,7 +245,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_cpf,
+                        texto = stringResource(id = R.string.text_field_cpf),
                         meuType = KeyboardType.Text,
                         value = cpf,
                         shape = RoundedCornerShape(5.dp),
@@ -254,7 +254,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_telefone,
+                        texto = stringResource(id = R.string.text_field_telefone),
                         meuType = KeyboardType.Text,
                         value = telefone,
                         shape = RoundedCornerShape(5.dp),
@@ -263,7 +263,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.example_cep,
+                        texto = stringResource(id = R.string.example_cep),
                         meuType = KeyboardType.Text,
                         value = cep,
                         shape = RoundedCornerShape(5.dp),
@@ -272,7 +272,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_rua,
+                        texto = stringResource(id = R.string.text_field_rua),
                         meuType = KeyboardType.Text,
                         value = logradouro,
                         shape = RoundedCornerShape(5.dp),
@@ -281,7 +281,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_numero,
+                        texto = stringResource(id = R.string.text_field_numero),
                         meuType = KeyboardType.Text,
                         value = numero,
                         shape = RoundedCornerShape(5.dp),
@@ -290,7 +290,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.example_complement,
+                        texto = stringResource(id = R.string.example_complement),
                         meuType = KeyboardType.Text,
                         value = complemento,
                         shape = RoundedCornerShape(5.dp),
@@ -299,7 +299,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_bairro,
+                        texto = stringResource(id = R.string.text_field_bairro),
                         meuType = KeyboardType.Text,
                         value = bairro,
                         shape = RoundedCornerShape(5.dp),
@@ -309,7 +309,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_cidade,
+                        texto = stringResource(id = R.string.text_field_cidade),
                         meuType = KeyboardType.Text,
                         value = cidade,
                         shape = RoundedCornerShape(5.dp),
@@ -319,7 +319,7 @@ fun PaymentScreen(
                     Spacer(modifier = Modifier.height(5.dp))
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_state,
+                        texto = stringResource(id = R.string.text_field_state),
                         meuType = KeyboardType.Text,
                         value = estado,
                         shape = RoundedCornerShape(5.dp),

@@ -56,7 +56,7 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
 
             TextComp(texto = R.string.title_register_password)
 
-            TextDescription(texto = R.string.description_register_password)
+            TextDescription(texto = stringResource(id = R.string.description_register_password))
 
             Spacer(modifier = Modifier.height(20.dp))
 

@@ -92,7 +92,7 @@ fun GestationWeekScreen(navController: NavController, viewModel: ModelRegister) 
 
             TextComp(texto = R.string.title_week)
             
-            TextDescription(texto = R.string.description_week)
+            TextDescription(texto = stringResource(id = R.string.description_week))
 
             Spacer(modifier = Modifier.height(55.dp))
 

@@ -110,7 +110,7 @@ fun CalendarScreen(navController: NavController, viewModel: ModelRegister) {
 
         TextComp(texto = R.string.title_calendar)
 
-        TextDescription(texto = R.string.description_calendar)
+        TextDescription(texto = stringResource(id = R.string.description_calendar))
 
         Spacer(modifier = Modifier.height(50.dp))
 

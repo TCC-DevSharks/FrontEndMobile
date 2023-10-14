@@ -32,8 +32,8 @@ class RetrofitFactory {
     fun getTrousseauService(): TrousseauService {
         return retrofitFactory.create(TrousseauService::class.java)
     }
-    fun getEspeciality(): EspecialityService {
-        return retrofitFactory.create(EspecialityService::class.java)
+    fun getEspeciality(): SpecialityService {
+        return retrofitFactory.create(SpecialityService::class.java)
     }
 
     fun clinic(): ClinicService {
@@ -70,6 +70,10 @@ class RetrofitFactory {
 
     fun Exercises(): ExercisesService{
         return retrofitFactory.create(ExercisesService::class.java)
+    }
+
+    fun Reset(): ResetPasswordService{
+        return retrofitFactory.create(ResetPasswordService::class.java)
     }
 }
 

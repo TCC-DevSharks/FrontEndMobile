@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OutlinedTextFieldTodos(
-    texto: Int,
+    texto: String,
     meuType: KeyboardType,
     value: String,
     onValueChange: (String) -> Unit,
@@ -36,7 +36,7 @@ fun OutlinedTextFieldTodos(
             .width(355.dp),
         shape = shape,
         label = {
-            Text(text = stringResource(id = texto))
+            Text(text =texto)
         },
         keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Next),
         colors = TextFieldDefaults.textFieldColors(

@@ -123,7 +123,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_altura,
+                        texto = stringResource(id = R.string.text_field_altura),
                         meuType = KeyboardType.Number,
                         value = altura,
                         onValueChange = {altura = it })
@@ -137,7 +137,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
 
                     OutlinedTextFieldTodos(
-                        texto = R.string.text_field_peso,
+                        texto = stringResource(id = R.string.text_field_peso),
                         meuType = KeyboardType.Number,
                         value = peso,
                         onValueChange = {peso = it })
@@ -193,7 +193,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                         ) {
 
                             OutlinedTextFieldTodos(
-                                texto = R.string.text_field_medication,
+                                texto = stringResource(id = R.string.text_field_medication),
                                 meuType = KeyboardType.Text,
                                 value = alergia,
                                 onValueChange = { alergia = it})
@@ -246,7 +246,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                         ) {
 
                             OutlinedTextFieldTodos(
-                                texto = R.string.text_field_medication,
+                                texto = stringResource(id = R.string.text_field_medication),
                                 meuType = KeyboardType.Text,
                                 value = comorbidade,
                                 onValueChange = {comorbidade = it })
@@ -299,7 +299,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                         ) {
 
                             OutlinedTextFieldTodos(
-                                texto = R.string.text_field_medication,
+                                texto = stringResource(id = R.string.text_field_medication),
                                 meuType = KeyboardType.Text,
                                 value = medicacao,
                                 onValueChange = { medicacao = it})
@@ -337,7 +337,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                     ) {
 
                         OutlinedTextFieldTodos(
-                            texto = R.string.text_field_cpf,
+                            texto = stringResource(id = R.string.text_field_cpf),
                             meuType = KeyboardType.Number,
                             value = cpf,
                             onValueChange = {cpf = it })

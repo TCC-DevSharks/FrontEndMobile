@@ -19,7 +19,7 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun TextDescription(
-    texto: Int
+    texto: String
 
 ) {
 
@@ -31,7 +31,7 @@ fun TextDescription(
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(id = texto),
+            text = texto,
             fontSize = 17.sp,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Light,

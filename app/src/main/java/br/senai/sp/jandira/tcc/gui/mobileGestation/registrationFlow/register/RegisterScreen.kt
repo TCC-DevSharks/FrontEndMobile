@@ -120,7 +120,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
             TextComp(texto = R.string.title_register)
 
-            TextDescription(texto = R.string.description_register)
+            TextDescription(texto = stringResource(id = R.string.description_register))
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -159,7 +159,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             }
 
             OutlinedTextFieldTodos(
-                texto = R.string.text_field_nome,
+                texto = stringResource(id = R.string.text_field_nome),
                 meuType = KeyboardType.Text,
                 value = nome,
                 onValueChange = {
@@ -169,7 +169,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextFieldTodos(
-                texto = R.string.types_of_users,
+                texto = stringResource(id = R.string.types_of_users),
                 meuType = KeyboardType.Email,
                 email,
                 onValueChange = {

@@ -81,7 +81,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
             TextComp(texto = R.string.title_login)
 
-            TextDescription(texto = R.string.description_login)
+            TextDescription(texto = stringResource(id = R.string.description_login))
 
             AnimatedVisibility(
                 visible = visible,
@@ -115,7 +115,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
             modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextFieldTodos(
-                texto = R.string.types_of_users,
+                texto = stringResource(id = R.string.types_of_users),
                 meuType = KeyboardType.Email,
                 value = email,
                 onValueChange ={
@@ -140,7 +140,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            navController.navigate("forgot_password")
+                            navController.navigate("forgot_email")
                         },
                     text = stringResource(id = br.senai.sp.jandira.tcc.R.string.forgot_password),
                     fontSize = 15.sp,
