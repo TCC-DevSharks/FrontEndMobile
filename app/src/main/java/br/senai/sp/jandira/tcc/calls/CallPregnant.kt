@@ -22,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 fun GetPregnant(viewModel: ModelPregnant){
-    val call = RetrofitFactory().getPregnant().getPregnant(viewModel.id)
+    val call = RetrofitFactory().pregnant().getPregnant(viewModel.id)
     var gestante: List<PregnantResponse>
 
     call.enqueue(object : retrofit2.Callback<PregnantResponseList> {
@@ -61,7 +61,7 @@ fun GetPregnant(viewModel: ModelPregnant){
 }
 
 fun GetEndereco(viewModel: ModelPregnant){
-    val call = RetrofitFactory().getEndress().getAndressPregnant(viewModel.id)
+    val call = RetrofitFactory().pregnant().getAndressPregnant(viewModel.id)
     var endereco: List<EndressPregnant>
 
     call.enqueue(object : retrofit2.Callback<EndressPregnantList> {
@@ -94,7 +94,7 @@ fun GetEndereco(viewModel: ModelPregnant){
 }
 
 fun PutWeight(viewModel: ModelPregnant, weight: WeightHeight){
-    val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+    val call = RetrofitFactory().pregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
 
     call.enqueue(object : retrofit2.Callback<WeightHeight> {
         override fun onResponse(
@@ -120,7 +120,7 @@ fun insertALergy(viewModel: ModelPregnant){
         viewModel.id,
         if (viewModel.alergia.length == 0)" " else viewModel.alergia
     )
-    val  call = RetrofitFactory().insertAlergy().postAlergy(alergy)
+    val  call = RetrofitFactory().pregnant().postAlergy(alergy)
 
     call.enqueue(object : retrofit2.Callback<ResponseBody> {
         override fun onResponse(
@@ -147,7 +147,7 @@ fun insertComorbidity(viewModel: ModelPregnant){
         viewModel.id,
         if (viewModel.comorbidades.length == 0)" " else viewModel.comorbidades
     )
-    val  call = RetrofitFactory().insertComorbidity().postComorbidity(comorbidity)
+    val  call = RetrofitFactory().pregnant().postComorbidity(comorbidity)
 
     call.enqueue(object : retrofit2.Callback<ResponseBody> {
         override fun onResponse(
@@ -174,7 +174,7 @@ fun insertDeficiency(viewModel: ModelPregnant){
         viewModel.id,
         if (viewModel.deficiencia.length == 0)" " else viewModel.deficiencia
     )
-    val  call = RetrofitFactory().insertDeficiency().postDeficiency(deficiency)
+    val  call = RetrofitFactory().pregnant().postDeficiency(deficiency)
 
     call.enqueue(object : retrofit2.Callback<ResponseBody> {
         override fun onResponse(
@@ -201,7 +201,7 @@ fun insertMedication(viewModel: ModelPregnant){
         viewModel.id,
         if (viewModel.medicacao.length == 0)" " else viewModel.medicacao
     )
-    val  call = RetrofitFactory().insertMedication().postMedication(medication)
+    val  call = RetrofitFactory().pregnant().postMedication(medication)
 
     call.enqueue(object : retrofit2.Callback<ResponseBody> {
         override fun onResponse(
@@ -222,74 +222,3 @@ fun insertMedication(viewModel: ModelPregnant){
         }
     })
 }
-
-fun getAlergy(viewModel: ModelPregnant){
-    val  call = RetrofitFactory().getAlergy().getAlergy(viewModel.id)
-
-    call.enqueue(object : retrofit2.Callback<AlergyResponseList> {
-        override fun onResponse(
-            call: Call<AlergyResponseList>,
-            response: Response<AlergyResponseList>
-
-        ) {
-            println(response)
-            println(response.body())
-        }
-
-        override fun onFailure(call: Call<AlergyResponseList>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-}
-
-fun getComorbidity(viewModel: ModelPregnant){
-    val  call = RetrofitFactory().getComorbidity().getComorbidity(viewModel.id)
-
-    call.enqueue(object : retrofit2.Callback<ComorbidityResponseList> {
-        override fun onResponse(
-            call: Call<ComorbidityResponseList>,
-            response: Response<ComorbidityResponseList>
-
-        ) {
-            println(response)
-            println(response.body())
-        }
-
-        override fun onFailure(call: Call<ComorbidityResponseList>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-}
-
-fun getMedication(viewModel: ModelPregnant){
-    val  call = RetrofitFactory().getMedication().getMedication(viewModel.id)
-
-    call.enqueue(object : retrofit2.Callback<MedicationResponseList> {
-        override fun onResponse(
-            call: Call<MedicationResponseList>,
-            response: Response<MedicationResponseList>
-
-        ) {
-            println(response)
-            println(response.body())
-        }
-
-        override fun onFailure(call: Call<MedicationResponseList>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-}
-
-

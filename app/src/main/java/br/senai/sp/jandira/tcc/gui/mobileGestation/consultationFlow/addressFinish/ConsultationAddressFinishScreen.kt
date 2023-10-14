@@ -259,7 +259,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                     )
 
                     println(Pregnant)
-                    val call = RetrofitFactory().updatePregnant().updatePregnant(viewModel.id, Pregnant )
+                    val call = RetrofitFactory().pregnant().updatePregnant(viewModel.id, Pregnant )
 
                     call.enqueue(object : retrofit2.Callback<Pregnant> {
                         override fun onResponse(

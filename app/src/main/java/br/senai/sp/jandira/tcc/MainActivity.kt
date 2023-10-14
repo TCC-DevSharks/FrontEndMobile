@@ -1,4 +1,5 @@
 package br.senai.sp.jandira.tcc
+import android.media.audiofx.DynamicsProcessing.Stage
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -32,6 +33,9 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.Docto
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.payment.PaymentScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.register.ConsultationRegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.speciality.ConsultationSpecialityScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Exercises
+import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
+import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategory
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
@@ -44,7 +48,9 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
+import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
@@ -88,6 +94,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val professional = Professional()
     val food = ModelFood()
     val modelSchedule = ModelSchedule()
+    val categories = ModelCategories()
+    val exercises = ModelExercises()
 
     AnimatedNavHost(
         navController = navController,
@@ -128,6 +136,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant, food) }
             composable(route = "FoodChange") { ChangeFoodScreen(navController, food) }
             composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, viewModelPregnant) }
+            composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
+            composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
+            composable(route = "Exercises") { Exercises(navController,categories) }
     }
 }
 

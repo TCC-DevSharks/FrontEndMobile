@@ -630,7 +630,7 @@ fun PaymentScreen(
 
                                         ) {
                                             if (response.isSuccessful) {
-                                                var call = RetrofitFactory().insertSchedule()
+                                                var call = RetrofitFactory().schedule()
                                                     .postSchedule(schedule)
 
                                                 call.enqueue(object :

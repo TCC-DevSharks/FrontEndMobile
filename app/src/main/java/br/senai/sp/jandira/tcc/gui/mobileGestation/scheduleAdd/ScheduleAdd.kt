@@ -260,7 +260,7 @@ fun ScheduleAdd(
                     painter = painterResource(id = R.drawable.lixeirinha),
                     contentDescription = null,
                     modifier = Modifier.size(27.dp).clickable {
-                        var call = RetrofitFactory().removeSchedule().deleteSchedule(modelSchedule.id)
+                        var call = RetrofitFactory().schedule().deleteSchedule(modelSchedule.id)
 
                         call.enqueue(object : retrofit2.Callback<ResponseBody> {
                             override fun onResponse(
@@ -341,7 +341,7 @@ fun ScheduleAdd(
                                 )
 
                                 var call = RetrofitFactory()
-                                    .insertSchedule()
+                                    .schedule()
                                     .postSchedule(schedule)
 
                                 call.enqueue(object : retrofit2.Callback<ResponseBody> {
@@ -403,7 +403,7 @@ fun ScheduleAdd(
                                 )
 
                                 var call = RetrofitFactory()
-                                    .updateSchedule()
+                                    .schedule()
                                     .putSchedule(modelSchedule.id, schedule)
 
                                 call.enqueue(object : retrofit2.Callback<ScheduleResponse> {

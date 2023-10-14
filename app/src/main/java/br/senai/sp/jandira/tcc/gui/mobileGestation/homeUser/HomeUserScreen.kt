@@ -82,7 +82,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 
     val preparations = listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")
 
-    val callSchedule = RetrofitFactory().getSchedule().getSchedule(viewModel.id)
+    val callSchedule = RetrofitFactory().schedule().getSchedule(viewModel.id)
     LaunchedEffect(Unit) {
         GetPregnant(viewModel)
         GetEndereco(viewModel)

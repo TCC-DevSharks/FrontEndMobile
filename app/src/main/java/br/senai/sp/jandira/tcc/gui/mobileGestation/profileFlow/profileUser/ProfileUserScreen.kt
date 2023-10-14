@@ -142,7 +142,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 altura = altura.toDouble(),
                 foto = viewModel.foto
             )
-            val call = RetrofitFactory().updateWeightPregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
+            val call = RetrofitFactory().pregnant().updateWeightPregnant(viewModel.id, weightHeight = weight)
 
             call.enqueue(object : retrofit2.Callback<WeightHeight> {
                 override fun onResponse(

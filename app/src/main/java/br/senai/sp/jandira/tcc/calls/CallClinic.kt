@@ -11,7 +11,7 @@ import retrofit2.Response
 
 fun GetClinicSpeciality(speciality: Int, clinic: Clinic){
 
-    val call = RetrofitFactory().getClinicSpeciality().getClinicSpeciality(speciality)
+    val call = RetrofitFactory().clinic().getClinicSpeciality(speciality)
 
     call.enqueue(object : retrofit2.Callback<ClinicSpecialityResponseList> {
         override fun onResponse(
@@ -35,7 +35,7 @@ fun GetClinicSpeciality(speciality: Int, clinic: Clinic){
 
 fun GetClinic(id: Int, clinic: Clinic, navController: NavController){
 
-    val call = RetrofitFactory().getClinic().getClinic(id)
+    val call = RetrofitFactory().clinic().getClinic(id)
 
     call.enqueue(object : retrofit2.Callback<ClinicResponseList> {
         override fun onResponse(

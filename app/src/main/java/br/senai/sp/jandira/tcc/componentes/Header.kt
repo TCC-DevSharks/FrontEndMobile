@@ -21,7 +21,6 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun Header(
     titulo: String,
-    img: Int = R.drawable.arrow_circle,
     tintIcon: Color = Color(182,182,246)
 //    rota: String,
 //    navController: NavController
@@ -30,7 +29,7 @@ fun Header(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 26.dp, top = 35.dp),
+            .padding(start = 20.dp, top = 35.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 

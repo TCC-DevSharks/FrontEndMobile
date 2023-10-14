@@ -17,46 +17,13 @@ class RetrofitFactory {
         return retrofitFactory.create(LoginService::class.java)
     }
 
-    fun insertPregnant(): PregnantService {
+    fun pregnant(): PregnantService {
         return retrofitFactory.create(PregnantService::class.java)
     }
 
-    fun getPregnant(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun getSchedule(): ScheduleService {
+    fun schedule(): ScheduleService {
         return retrofitFactory.create(ScheduleService::class.java)
     }
-
-    fun getEndress(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun updatePregnant(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun updateWeightPregnant(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun insertAlergy(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun insertComorbidity(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun insertDeficiency(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun insertMedication(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
 
     fun getNamesService(): NameSuggestionService {
         return retrofitFactory.create(NameSuggestionService::class.java)
@@ -65,35 +32,14 @@ class RetrofitFactory {
     fun getTrousseauService(): TrousseauService {
         return retrofitFactory.create(TrousseauService::class.java)
     }
-
-    fun getAlergy(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun getComorbidity(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-    fun getDeficiency(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
-
-    fun getMedication(): PregnantService {
-        return retrofitFactory.create(PregnantService::class.java)
-    }
-
     fun getEspeciality(): EspecialityService {
         return retrofitFactory.create(EspecialityService::class.java)
     }
 
-    fun getClinicSpeciality(): ClinicService {
+    fun clinic(): ClinicService {
         return retrofitFactory.create(ClinicService::class.java)
     }
 
-    fun getClinic(): ClinicService {
-        return retrofitFactory.create(ClinicService::class.java)
-    }
 
     fun getProfessional(): ProfessionalService {
         return retrofitFactory.create(ProfessionalService::class.java)
@@ -106,11 +52,6 @@ class RetrofitFactory {
     fun insertConsult(): ConsultService{
         return  retrofitFactory.create(ConsultService::class.java)
     }
-
-    fun insertSchedule(): ScheduleService{
-        return retrofitFactory.create(ScheduleService::class.java)
-    }
-
     fun findDiet(): DietService{
         return retrofitFactory.create(DietService::class.java)
     }
@@ -123,12 +64,12 @@ class RetrofitFactory {
         return retrofitFactory.create(FoodService::class.java)
     }
 
-    fun updateSchedule(): ScheduleService{
-        return retrofitFactory.create(ScheduleService::class.java)
+    fun Categories(): CategoriesService{
+        return retrofitFactory.create(CategoriesService::class.java)
     }
 
-    fun removeSchedule(): ScheduleService{
-        return retrofitFactory.create(ScheduleService::class.java)
+    fun Exercises(): ExercisesService{
+        return retrofitFactory.create(ExercisesService::class.java)
     }
 }
 

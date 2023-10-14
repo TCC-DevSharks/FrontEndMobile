@@ -193,7 +193,7 @@ fun PostPregnant(navController: NavController,viewModel: ModelRegister){
         complemento = ""
     )
 
-    var call = RetrofitFactory().insertPregnant().insertPregnant(pregnant)
+    var call = RetrofitFactory().pregnant().insertPregnant(pregnant)
 
     call.enqueue(object : Callback<ResponseBody> {
         override fun onResponse(

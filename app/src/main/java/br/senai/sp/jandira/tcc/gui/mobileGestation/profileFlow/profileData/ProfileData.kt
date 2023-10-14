@@ -732,7 +732,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         senha = viewModel.senha
                     )
                     val call =
-                        RetrofitFactory().updatePregnant().updatePregnant(viewModel.id, Pregnant)
+                        RetrofitFactory().pregnant().updatePregnant(viewModel.id, Pregnant)
 
                     call.enqueue(object : retrofit2.Callback<Pregnant> {
                         override fun onResponse(

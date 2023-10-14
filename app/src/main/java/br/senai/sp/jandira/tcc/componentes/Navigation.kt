@@ -27,6 +27,7 @@ import br.senai.sp.jandira.tcc.R
 @Composable
 fun Navigation(navController: NavController) {
 
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +45,7 @@ fun Navigation(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center, modifier = Modifier
                 .clickable {
-//                    navController.navigate("home")
+                    navController.navigate("Exercises")
 
                 }) {
                 Image(

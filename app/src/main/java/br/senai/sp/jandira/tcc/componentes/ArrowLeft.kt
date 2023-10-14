@@ -18,22 +18,13 @@ fun ArrowLeft(
     rota: String,
     tint: Color = Color(182,182,246),
     size: Dp = 40.dp,
-//    start = 26.dp, top = 35.dp)
-)
-
-{
-
-    // Valor padrão do Padding
-
-//    Row (modifier = Modifier.fillMaxWidth()
-//        .padding(start = 26.dp, top = 35.dp),
-//    ) {}
+) {
 
         Icon(painter = painterResource(id = R.drawable.arrow_circle),
             tint = tint,
             contentDescription = null,
             modifier = Modifier.clickable {
-//                navController.navigate(rota)
+                navController.navigate(rota)
             }.size(size),
         )
 
