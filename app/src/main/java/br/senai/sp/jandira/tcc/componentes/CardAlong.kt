@@ -26,10 +26,11 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardAlong(
-//    textTitle: String
-//    textDescription: String
+    textTitle: String,
+    textDescription: String,
+    onclick: () -> Unit,
 
-) {
+    ) {
 
     val expanded = remember { mutableStateOf(false) }
 
@@ -55,9 +56,7 @@ fun CardAlong(
             Image(painter = painterResource(id = R.drawable.baseline_add_circle_65),
                 contentDescription = null,
                 modifier = Modifier
-                    .clickable {
-//                                navController.navigate(rota)
-                    }
+                    .clickable(onClick = onclick)
                     .size(30.dp)
             )
 
@@ -66,7 +65,7 @@ fun CardAlong(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "Mamadeiras e Bicos",
+                text = textTitle,
                 fontSize = 18.sp,
                 fontWeight = FontWeight(700),
             )
@@ -83,7 +82,7 @@ fun CardAlong(
 
             if (expanded.value) {
                 Text(
-                    text = "Ter várias garrafas permitirá que você lave e esterilize todas de uma só vez, economizando um pouco de tempo e esforço.",
+                    text = textDescription,
                     fontSize = 14.sp, // Reduced font size
                     fontWeight = FontWeight.Normal, // Use FontWeight.Normal enum
                     color = Color.Gray
@@ -94,11 +93,4 @@ fun CardAlong(
 
 
     }
-
-}
-
-@Preview (showBackground = true, showSystemUi = true)
-@Composable
-fun CardAlongPreview() {
-    CardAlong()
 }

@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau
+package br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan
 
 import android.util.Log
 import androidx.compose.foundation.border
@@ -32,19 +32,20 @@ import br.senai.sp.jandira.tcc.componentes.FavoriteBirthPlan
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.SubHeader
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauDelte
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
-import br.senai.sp.jandira.tcc.model.troussea.trousseauBody.TrousseauBody
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanBody
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanList
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanListFavorite
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponse
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponseFavorite
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun TrousseauScreen(
+fun birthPlanScreen(
     navController: NavController,
     category: String?,
     viewModelPregnant: ModelPregnant
@@ -52,19 +53,20 @@ fun TrousseauScreen(
 
     var counterEffect by remember { mutableStateOf(false) }
 
-    var enxoval by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponse2>())
+    var planoParto by rememberSaveable {
+        mutableStateOf(listOf<BirthPlanResponse>())
     }
 
-    var enxovalFavorito by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponse2>())
+    var planoPartoFavorito by rememberSaveable {
+        mutableStateOf(listOf<BirthPlanResponse>())
     }
 
     var favorite by rememberSaveable {
-        mutableStateOf(listOf<TrousseauResponseFavorite2>())
+        mutableStateOf(listOf<BirthPlanResponseFavorite>())
     }
 
     var favoritoIds = favorite.map { it.item }
+
 
     fun String.capitalizeFirstLetter(): String {
         return if (isNotEmpty()) {
@@ -76,65 +78,55 @@ fun TrousseauScreen(
     }
 
     LaunchedEffect(favorite, counterEffect) {
-        enxovalFavorito = emptyList()
+        val callFavorrite = RetrofitFactory().getBirthPlanService()
+            .getBirthPlanFavorite(viewModelPregnant.id)
 
-        val callFavorrite = RetrofitFactory().getTrousseauService()
-            .getTrousseauFavorite(viewModelPregnant.id)
-
-        callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
+        callFavorrite.enqueue(object : Callback<BirthPlanListFavorite> {
             override fun onResponse(
-                call: retrofit2.Call<TrousseauListFavorite2>,
-                response: Response<TrousseauListFavorite2>
+                call: Call<BirthPlanListFavorite>,
+                response: Response<BirthPlanListFavorite>
             ) {
                 favorite = response.body()!!.favoritos
 
+                Log.i("BirthPlan", "onResponse: $favorite")
                 if (response.isSuccessful) {
-                    enxovalFavorito = emptyList()
-                    enxoval.map {
-                        if (favoritoIds.contains(it.item)) {
-                            enxovalFavorito = enxovalFavorito + it
-                            println(it.item)
-                        }
-                    }
+                    val favoritoIds = favorite.map { it.item }
+                    planoPartoFavorito = planoParto.filter { favoritoIds.contains(it.item) }
                 }
             }
 
-            override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
+            override fun onFailure(call: Call<BirthPlanListFavorite>, t: Throwable) {
                 Log.i("ds3m", "onFailure: ${t.message}")
             }
         })
     }
 
     LaunchedEffect(Unit) {
+        val call = RetrofitFactory().getBirthPlanService().getBirthPlanCategory(category!!)
 
-        val call = RetrofitFactory().getTrousseauService().getTrousseauCategory(category!!)
-
-        call.enqueue(object : retrofit2.Callback<TrousseauList2> {
+        call.enqueue(object : Callback<BirthPlanList> {
 
             override fun onResponse(
-                call: Call<TrousseauList2>,
-                response: Response<TrousseauList2>
+                call: Call<BirthPlanList>,
+                response: Response<BirthPlanList>
             ) {
 
-                enxoval = response.body()!!.enxoval
+                planoParto = response.body()!!.planos
 
-                Log.e("Gui", "onResponse: ${enxoval}")
+                Log.e("Gui", "onResponse: ${planoParto}")
             }
 
-            override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
+            override fun onFailure(call: Call<BirthPlanList>, t: Throwable) {
                 Log.i("Erro", "onFailure: ${t.message}")
             }
 
         })
     }
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     val category = navBackStackEntry?.arguments?.getString("category")
 
     var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
-
-
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -169,26 +161,29 @@ fun TrousseauScreen(
                         .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
-                    items(enxoval) {
+                    items(planoParto) {
                         CardBirthPlan(preparativo = it.item, onclick = {
 
                             if (favoritoIds.contains(it.item)) {
 
+
                             } else {
-                                var favoriteTrousseau = TrousseauBody(
-                                    id_enxoval = it.id,
+
+                                var favoriteBirthPlan = BirthPlanBody(
+                                    id_plano = it.id,
                                     id_gestante = viewModelPregnant.id,
                                 )
 
-                                val callAddTrousseau = RetrofitFactory().getTrousseauService()
-                                    .insertTrousseau(favoriteTrousseau)
+                                val callAddBirthPlan = RetrofitFactory().getBirthPlanService()
+                                    .insertBirthPlan(favoriteBirthPlan)
 
-                                callAddTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
+                                callAddBirthPlan.enqueue(object : Callback<BirthPlanListFavorite> {
                                     override fun onResponse(
-                                        call: Call<TrousseauListFavorite2>,
-                                        response: Response<TrousseauListFavorite2>
-                                    ) {
+                                        call: Call<BirthPlanListFavorite>,
+                                        response: Response<BirthPlanListFavorite>
 
+                                    ) {
+                                        Log.i("PostBirth", "onResponse: $response")
                                         if (response.isSuccessful) {
                                             counterEffect = !counterEffect
                                         }
@@ -196,12 +191,13 @@ fun TrousseauScreen(
                                     }
 
                                     override fun onFailure(
-                                        call: Call<TrousseauListFavorite2>,
+                                        call: Call<BirthPlanListFavorite>,
                                         t: Throwable
                                     ) {
                                         Log.i("TrousseauFavoriteErro", "onFailure: ${t.message}")
                                     }
                                 })
+
                             }
 
 
@@ -219,12 +215,12 @@ fun TrousseauScreen(
                         .padding(bottom = 85.dp, top = 9.dp)
                 ) {
 
-                    items(enxovalFavorito.filter { it.categoria == category }) {
+                    items(planoPartoFavorito.filter { it.categoria == category }) {
 
 
                         FavoriteBirthPlan(enxoval = it.item, onclick = {
-                            TrousseauDelte(idEnxoval = it.id, idGestante = viewModelPregnant.id)
-                            enxovalFavorito = enxovalFavorito - it
+                            BirthPLanDelte(idPlano = it.id, idGestante = viewModelPregnant.id)
+                            planoPartoFavorito = planoPartoFavorito - it
                         })
                     }
 
@@ -252,28 +248,22 @@ fun TrousseauScreen(
 
 }
 
-fun TrousseauDelte(idEnxoval: Int, idGestante: Int) {
+fun BirthPLanDelte(idPlano: Int, idGestante: Int) {
 
-    var callDeleteTrousseau =
-        RetrofitFactory().getTrousseauService().deleteTrousseau(idEnxoval, idGestante)
+    var callDeleteBirthPlan =
+        RetrofitFactory().getBirthPlanService().deleteBirthPlan(idPlano, idGestante)
 
-    callDeleteTrousseau.enqueue(object : Callback<TrousseauListFavorite2> {
+    callDeleteBirthPlan.enqueue(object : Callback<BirthPlanListFavorite> {
         override fun onResponse(
-            call: Call<TrousseauListFavorite2>,
-            response: Response<TrousseauListFavorite2>
+            call: Call<BirthPlanListFavorite>,
+            response: Response<BirthPlanListFavorite>
         ) {
-            Log.i("teste", "onResponse: ${idEnxoval}, ${idGestante}")
-            Log.i("DeleteSucesso", "onResponse: ${response.body()}")
+            Log.i("teste", "onResponse: ${idPlano}, ${idGestante}")
+            Log.i("DeletePlano", "onResponse: ${response.body()}")
         }
 
-        override fun onFailure(call: Call<TrousseauListFavorite2>, t: Throwable) {
-            Log.i("ErroDelete", "onFailure: ${t.message}")
+        override fun onFailure(call: Call<BirthPlanListFavorite>, t: Throwable) {
+            Log.i("ErroPlano", "onFailure: ${t.message}")
         }
     })
 }
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun TrousseauPreview() {
-//    TrousseauScreen()
-//}

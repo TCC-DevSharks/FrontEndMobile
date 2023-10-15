@@ -1,6 +1,5 @@
 package br.senai.sp.jandira.tcc.componentes
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,14 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.service.RetrofitFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
 fun CardBirthPlan(
-    enxoval: String,
+    preparativo: String,
     onclick: () -> Unit,
 
     ) {
@@ -59,7 +54,7 @@ fun CardBirthPlan(
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = enxoval,
+                text = preparativo,
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400),
             )

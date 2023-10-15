@@ -1,8 +1,6 @@
-package br.senai.sp.jandira.tcc.service
+package br.senai.sp.jandira.tcc.model.troussea
 
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
-import br.senai.sp.jandira.tcc.model.troussea.trousseauPos.TrousseauBody
+import br.senai.sp.jandira.tcc.model.troussea.trousseauBody.TrousseauBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -23,8 +21,6 @@ interface TrousseauService {
 
     @POST("enxoval/favorito")
     fun insertTrousseau(@Body trousseauBody: TrousseauBody): retrofit2.Call<TrousseauListFavorite2>
-
-    // Verdadeiro EndPoint
     @DELETE("enxoval/favorito")
     fun deleteTrousseau(@Query("idEnxoval") enxoval: Int, @Query("idGestante") gestante: Int): retrofit2.Call<TrousseauListFavorite2>
 

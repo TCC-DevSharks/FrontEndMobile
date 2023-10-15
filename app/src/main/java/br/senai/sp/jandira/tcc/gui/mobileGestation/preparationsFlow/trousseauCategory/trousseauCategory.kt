@@ -54,28 +54,45 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPregnant) {
-
-    var viewModel = viewModelPregnant
-
+fun trousseauCategorySceen(navController: NavController, viewModelPregnant: ModelPregnant) {
 
     var enxoval by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponse2>())
     }
 
-    var enxovalFavorite by rememberSaveable {
+    var enxovalFavorito by rememberSaveable {
+        mutableStateOf(listOf<TrousseauResponse2>())
+    }
+
+    var favorite by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponseFavorite2>())
     }
 
+    var favoritoIds = favorite.map { it.item }
+
+
     val callFavorrite = RetrofitFactory().getTrousseauService()
-        .getTrousseauFavorite(viewModel.id)
+        .getTrousseauFavorite(viewModelPregnant.id)
 
     callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
         override fun onResponse(
             call: retrofit2.Call<TrousseauListFavorite2>,
             response: Response<TrousseauListFavorite2>
         ) {
-            enxovalFavorite = response.body()!!.favoritos
+            favorite = response.body()!!.favoritos
+
+            if (response.isSuccessful){
+
+                enxovalFavorito = emptyList()
+
+
+                enxoval.map {
+                    if (favoritoIds.contains(it.item)) {
+                        enxovalFavorito = enxovalFavorito + it
+                        println(it.item)
+                    }
+                }
+            }
         }
 
         override fun onFailure(call: retrofit2.Call<TrousseauListFavorite2>, t: Throwable) {
@@ -144,7 +161,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = "Enxoval de ${viewModel.nome}",
+                                text = "Enxoval de ${viewModelPregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,
@@ -173,7 +190,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
 
                             ) {
                             Text(
-                                text = "${viewModel.FavoritoSugestao.size} itens",
+                                text = "${enxovalFavorito.size} itens",
                                 color = Color(182, 182, 246),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 15.sp
@@ -216,7 +233,7 @@ fun trousseauCategory(navController: NavController, viewModelPregnant: ModelPreg
                 items(enxoval) { item->
 
                     if (!categoriasExibidas.contains(item.categoria)) {
-                        CardCategoryPreparativos(category = item.categoria, navController)
+                        CardCategoryPreparativos(category = item.categoria, rota = "trousseau", navController = navController)
                         categoriasExibidas.add(item.categoria)
                     }
 

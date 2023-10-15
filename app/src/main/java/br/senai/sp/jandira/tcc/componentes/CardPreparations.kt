@@ -42,7 +42,7 @@ fun CardPreparations(
             modifier = Modifier
                 .clickable {
                     navController.navigate(when (preparations) {
-                        "Plano de Parto" -> ("trousseauCategory")
+                        "Plano de Parto" -> ("birthPlanCategory")
                         "Enxoval" -> ("trousseauCategory")
                         "Mala de Maternidade" -> ("bag")
                         "Sugestão de Nomes" -> ("nameSuggestion")

@@ -2,7 +2,5 @@ package br.senai.sp.jandira.tcc.model.maternityBag
 
 data class MaternityBagFavoriteList(
 
-//    val favoritos: List<>
-    val favoritos: String
-
+    val favoritos: List<MaternityBagResponseFavorite>
 )
