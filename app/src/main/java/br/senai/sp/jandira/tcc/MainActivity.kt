@@ -38,7 +38,9 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExer
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategory
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategorySceen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData.ProfileData
 import br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileUser.ProfileUserScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar.CalendarScreen
@@ -115,12 +117,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
             composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant, modelSchedule) }
             composable(route = "navigation") { Navigation (navController) }
-            composable(route = "bag") { MaternityBagScreen (navController) }
+            composable(route = "bag") { MaternityBagScreen (navController, viewModelPregnant) }
             composable("trousseau/{category}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category")
                 TrousseauScreen(navController, category, viewModelPregnant)
             }
-            composable(route = "trousseauCategory") { trousseauCategory (navController, viewModelPregnant) }
+            composable("birthPlan/{category}") { backStackEntry ->
+                            val category = backStackEntry.arguments?.getString("category")
+                            birthPlanScreen (navController, category, viewModelPregnant)
+                        }
+            composable(route = "trousseauCategory") { trousseauCategorySceen  (navController, viewModelPregnant) }
+            composable(route = "birthPlanCategory") { birthPlanCategoryScreen (navController, viewModelPregnant) }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
             composable(route = "nameSuggestion") { Name_Suggestion (navController, viewModelPregnant) }

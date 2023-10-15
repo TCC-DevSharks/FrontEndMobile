@@ -2,6 +2,8 @@ package br.senai.sp.jandira.tcc.model.maternityBag
 
 data class MaternityBagResponseFavorite(
 
-    val teste: String
-
+    var id: Int,
+    val item: String,
+    val gestante: String,
+    val descricao: String
 )

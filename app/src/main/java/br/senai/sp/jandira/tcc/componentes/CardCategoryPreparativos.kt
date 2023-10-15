@@ -20,7 +20,8 @@ import androidx.navigation.NavController
 @Composable
 fun CardCategoryPreparativos(
     category: String,
-    navController: NavController
+    navController: NavController,
+    rota: String
 
 ) {
 
@@ -40,7 +41,7 @@ fun CardCategoryPreparativos(
                 .height(49.dp)
                 .padding(horizontal = 30.dp, vertical = 9.dp)
                 .clickable {
-                    navController.navigate("trousseau/$category")
+                    navController.navigate("$rota/$category")
 
                 }
                 .background(Color(236, 238, 255), shape = CircleShape),

@@ -32,12 +32,11 @@ import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun FavoriteItensAlong(
-    //textTitle: String
-    //textDescription: String
-) {
+    textTitle: String,
+    textDescription: String,
+    onclick: () -> Unit,
 
-    var isChecked by remember { mutableStateOf(false) }
-
+    ) {
 
     val expanded = remember { mutableStateOf(false) }
 
@@ -57,27 +56,17 @@ fun FavoriteItensAlong(
                 modifier = Modifier
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
 
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(182, 182, 246),
-                            checkedColor = Color(182, 182, 246), // Cor quando marcado
-                            uncheckedColor = Color(182, 182, 246) // Cor quando não marcado
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(18.dp))
 
                     Text(
-                        text = "Mamadeiras e Bicos",
+                        text = textTitle,
                         fontSize = 18.sp,
                         fontWeight = FontWeight(700),
                     )
@@ -95,11 +84,7 @@ fun FavoriteItensAlong(
                         contentDescription = null,
                         modifier = Modifier
                             .size(20.dp)
-                            .clickable {
-
-                                Log.i("DS3m", "fdhgdfhgfhsdgfjhsdgfjhsdgfdhf")
-
-                            }
+                            .clickable(onClick =  onclick)
                     )
 
                 }
@@ -118,7 +103,7 @@ fun FavoriteItensAlong(
 
                 if (expanded.value) {
                     Text(
-                        text = "Ter várias garrafas permitirá que você lave e esterilize todas de uma só vez, economizando um pouco de tempo e esforço.",
+                        text = textDescription,
                         fontSize = 14.sp, // Reduced font size
                         fontWeight = FontWeight.Normal, // Use FontWeight.Normal enum
                         color = Color.Gray
@@ -127,12 +112,4 @@ fun FavoriteItensAlong(
 
             }
         }
-
-
-}
-
-@Preview (showBackground = true, showSystemUi = true)
-@Composable
-fun FavoriteItensPreview() {
-    FavoriteItensAlong()
 }
