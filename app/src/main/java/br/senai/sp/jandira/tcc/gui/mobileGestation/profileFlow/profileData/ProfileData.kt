@@ -457,7 +457,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         onValueChange = {
                             cep = it
                             if (cep.length == 8) {
-                                    val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
+                                    val call = RetrofitFactoryCep().getCep().getCep(cep)
 
                                     call.enqueue(object : retrofit2.Callback<ViaCep> {
                                         override fun onResponse(

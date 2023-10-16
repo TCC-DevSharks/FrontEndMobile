@@ -86,11 +86,6 @@ fun DescriptionExercises(navController: NavController, exercises: ModelExercises
         })
     }
 
-    Log.e("asd", "${exercises.video}")
-    Log.e("asd", "chHShPuPCqs")
-
-    var video = exercises.video
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,9 +103,9 @@ fun DescriptionExercises(navController: NavController, exercises: ModelExercises
                 colors = CardDefaults.cardColors(Color(182, 182, 246))
             ) {
 
-                if (video.isNotEmpty()){
+                if (exercises.video.isNotEmpty()){
                     YoutubePlayer(
-                        youtubeVideoId = video,
+                        youtubeVideoId = exercises.video,
                         lifecycleOwner = LocalLifecycleOwner.current
                     )
                 }

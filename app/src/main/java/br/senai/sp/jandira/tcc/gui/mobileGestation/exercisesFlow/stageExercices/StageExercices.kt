@@ -133,7 +133,7 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
             items(categoria){
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
@@ -155,11 +155,21 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
 
                         Spacer(modifier = Modifier.width(16.dp))
 
-                        Text(
-                            text = it.nome,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight(800),
-                        )
+                        Column (Modifier.width(230.dp)){
+                            Text(
+                                text = it.nome,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight(800),
+                            )
+
+                            Text(
+                                text = it.descricao,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight(500),
+                                lineHeight = 10.sp
+                            )
+                        }
+
 
                     }
 
