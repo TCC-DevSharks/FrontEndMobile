@@ -206,7 +206,7 @@
     <string name="maternal_guide">Maternal Guide</string>
     <string name="preparations">Preparations</string>
     <string name="finish">Finish</string>
-    <string name="Continueee">Continue -></string>
+    <string name="Continueee">Continue</string>
     <string name="card_number">Card number:</string>
     <string name="expiration_date">Expiration date:</string>
     <string name="cvv">CVV</string>
@@ -234,7 +234,7 @@
     <string name="specialization">Specialty: </string>
     <string name="professional">Professional: </string>
     <string name="clinic">Clinic: </string>
-    <string name="pag">Proceed to payment -> </string>
+    <string name="pag">Proceed to payment</string>
     <string name="Select_a_date">Select a date:</string>
     <string name="Service_charge">Service fee:</string>
     <string name="emailL">Email:</string>
@@ -247,6 +247,8 @@
     <string name="edit">Edit</string>
     <string name="your_consultations">Your week\'s appointments:</string>
     <string name="Welcome">Welcome,</string>
+    <string name="phone_clinic">Clinic telephone</string>
+    <string name="Charge">Charge</string>
 
 
 </resources>

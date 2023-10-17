@@ -6,8 +6,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -26,11 +24,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -46,19 +44,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
+import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
-import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
@@ -158,22 +154,26 @@ fun PaymentScreen(
 
         }
 
-        Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-            Image(painter = painterResource(id = R.drawable.arrow_circle),
-                contentDescription = null,
-                Modifier
-                    .clickable {
-                    }
-                    .size(40.dp)
-            )
-        }
+        Header(titulo = stringResource(id = R.string.pagseguro))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        Row(modifier = Modifier.padding(horizontal = 50.dp, vertical = 2.dp)) {
-            TextComp(
-                texto = R.string.pagseguro,
-                fontSize = 19.sp
-            )
-        }
+//        Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
+//            Image(painter = painterResource(id = R.drawable.arrow_circle),
+//                contentDescription = null,
+//                Modifier
+//                    .clickable {
+//                    }
+//                    .size(40.dp)
+//            )
+//        }
+//
+//        Row(modifier = Modifier.padding(horizontal = 50.dp, vertical = 2.dp)) {
+//            TextComp(
+//                texto = R.string.pagseguro,
+//                fontSize = 19.sp
+//            )
+//        }
+
 
         AnimatedVisibility(
             visible = visible,
@@ -188,7 +188,6 @@ fun PaymentScreen(
                 animationSpec = tween(durationMillis = 250)
             )
         ) {
-
             Scaffold(modifier = Modifier.background(Color.White), bottomBar = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -219,17 +218,16 @@ fun PaymentScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 20.dp, bottom = 15.dp)
+//                        .padding(top = 20.dp, bottom = 15.dp)
                         .verticalScroll(rememberScrollState())
                         .background(Color.White)
                 ) {
-
                     OutlinedTextFieldTodos(
                         texto = stringResource(id = R.string.example_name),
                         meuType = KeyboardType.Text,
                         value = nome,
                         onValueChange = { nome = it },
-                        shape = RoundedCornerShape(5.dp)
+                        shape = RoundedCornerShape(10.dp)
                     )
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -239,7 +237,7 @@ fun PaymentScreen(
                         meuType = KeyboardType.Text,
                         value = email,
                         onValueChange = { email = it },
-                        shape = RoundedCornerShape(5.dp)
+                        shape = RoundedCornerShape(10.dp)
                     )
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -248,7 +246,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_cpf),
                         meuType = KeyboardType.Text,
                         value = cpf,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { cpf = it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -257,7 +255,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_telefone),
                         meuType = KeyboardType.Text,
                         value = telefone,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { telefone = it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -266,7 +264,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.example_cep),
                         meuType = KeyboardType.Text,
                         value = cep,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { cep == it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -275,7 +273,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_rua),
                         meuType = KeyboardType.Text,
                         value = logradouro,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { logradouro = it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -284,7 +282,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_numero),
                         meuType = KeyboardType.Text,
                         value = numero,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { numero = it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -293,7 +291,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.example_complement),
                         meuType = KeyboardType.Text,
                         value = complemento,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { complemento = it })
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -302,7 +300,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_bairro),
                         meuType = KeyboardType.Text,
                         value = bairro,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { bairro = it }
                     )
 
@@ -312,7 +310,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_cidade),
                         meuType = KeyboardType.Text,
                         value = cidade,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { cidade == it }
                     )
 
@@ -322,7 +320,7 @@ fun PaymentScreen(
                         texto = stringResource(id = R.string.text_field_state),
                         meuType = KeyboardType.Text,
                         value = estado,
-                        shape = RoundedCornerShape(5.dp),
+                        shape = RoundedCornerShape(10.dp),
                         onValueChange = { estado == it }
                     )
 
@@ -360,8 +358,11 @@ fun PaymentScreen(
             )
             var expandedYears by remember { mutableStateOf(false) }
             var selectedOptionYears by remember { mutableStateOf(years[0]) }
+            val customColor = Color(182, 182, 246)
 
-            Scaffold(modifier = Modifier.background(Color.White), bottomBar = {
+            Scaffold(modifier = Modifier
+                .background(Color.White)
+                .padding(horizontal = 18.dp), bottomBar = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -372,7 +373,14 @@ fun PaymentScreen(
                             visible = true
                         },
                         modifier = Modifier
-                            .width(250.dp)
+                            .width(250.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(
+                                182,
+                                182,
+                                246
+                            )
+                        )
                     ) {
 
                         Text(
@@ -395,8 +403,8 @@ fun PaymentScreen(
 
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
+                            .fillMaxWidth(),
+//                            .padding(horizontal = 20.dp),
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
@@ -512,6 +520,7 @@ fun PaymentScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
+
                     Text(
                         modifier = Modifier.padding(start = 15.dp),
                         text = stringResource(id = R.string.cvv)
@@ -536,6 +545,8 @@ fun PaymentScreen(
             }
 
         }
+
+        // Ultima telaaaaaaaaaa
         AnimatedVisibility(
             visible = visiblePayment,
             modifier = Modifier
@@ -553,7 +564,7 @@ fun PaymentScreen(
                 ButtonPurple(
                     cor = Color(182, 182, 246),
                     navController = navController,
-                    texto = "Finalizar",
+                    texto = stringResource(id = R.string.finish),
                     rota = "",
                     onclick = {
                         val ddd = viewModel.telefone.substring(1, 3)
@@ -630,8 +641,9 @@ fun PaymentScreen(
 
                                         ) {
                                             if (response.isSuccessful) {
-                                                var call = RetrofitFactory().schedule()
-                                                    .postSchedule(schedule)
+                                                var call =
+                                                    RetrofitFactory().insertConsult()
+                                                        .insertConsult(consult)
 
                                                 call.enqueue(object :
                                                     retrofit2.Callback<ResponseBody> {
@@ -684,405 +696,388 @@ fun PaymentScreen(
 
                     })
             }) {
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 15.dp)
                         .background(Color.White)
                 ) {
-
-                    Text(
-                        text = stringResource(id = R.string.client),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Column(
+                    Row(
                         modifier = Modifier
-                            .padding(start = 15.dp, top = 10.dp)
-                            .background(Color.White)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start
                     ) {
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 30.dp),
+                            text = "Por favor, revise os detalhes abaixo:",
+                            fontSize = 15.sp,
+                            fontStyle = FontStyle.Normal,
+                            fontFamily = FontFamily.SansSerif
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    Column(modifier = Modifier.padding(horizontal = 30.dp)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .border(width = 0.5.dp, color = Color(229, 229, 229))
                         ) {
-                            Text(
-                                text = stringResource(id = R.string.name),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                            Row(
+                                modifier = Modifier.border(
+                                    .5.dp,
+                                    color = Color(229, 229, 229),
+                                    shape = RoundedCornerShape(
+                                        bottomStart = 15.dp,
+                                        bottomEnd = 15.dp
+                                    )
+                                )
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 10.dp),
+                                    horizontalArrangement = Arrangement.SpaceEvenly,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.consulta_icon),
+                                        contentDescription = null,
+                                        tint = Color(187, 187, 249),
+                                        modifier = Modifier
+                                            .size(35.dp)
+                                    )
+                                    Text(
+                                        text = "Consulta com nutricionista"
+                                    )
+                                }
+                            }
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 10.dp, vertical = 10.dp)
+                                    .verticalScroll(rememberScrollState())
+                            ) {
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.client),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = viewModel.nome,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
 
-                            Text(
-                                text = viewModel.nome,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
+                                Spacer(modifier = Modifier.height(10.dp))
 
-                        }
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.Email),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = viewModel.email,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.Email),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = viewModel.email,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-
-                        }
-
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.cpf),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = viewModel.cpf,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.Number),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = viewModel.telefone,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = buildAnnotatedString {
-                                    withStyle(
-                                        style = SpanStyle(
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 17.sp
-                                        )
-                                    ) {
-                                        append("Endereço: ")
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.cpf),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = viewModel.cpf,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
                                     }
-                                    append(viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil")
-                                },
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Start,
-                                lineHeight = 20.sp
-                            )
-                        }
-                    }
-
-                    Text(
-                        text = stringResource(id = R.string.card),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Column(
-                        modifier = Modifier
-                            .padding(start = 15.dp, top = 10.dp)
-                            .background(Color.White)
-                    ) {
 
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.card_number),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = numeroCartao,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.expiration),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = "${mesVencimento}/${anoVencimento}",
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-                    }
-
-                    Text(
-                        text = stringResource(id = R.string.consultation),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Column(
-                        modifier = Modifier
-                            .padding(start = 15.dp, top = 10.dp)
-                            .background(Color.White)
-                    ) {
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.clinic),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
-
-                            Text(
-                                text = professional.clinica,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = buildAnnotatedString {
-                                    withStyle(
-                                        style = SpanStyle(
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 17.sp
-                                        )
-                                    ) {
-                                        append("Endereço: ")
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.phone),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = viewModel.telefone,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
                                     }
-                                    append(clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil")
-                                },
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Start,
-                                lineHeight = 20.sp
-                            )
-                        }
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.professional),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                }
 
-                            Text(
-                                text = professional.nome,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
+                                Spacer(modifier = Modifier.height(10.dp))
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.specialization),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.address),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
 
-                            Text(
-                                text = professional.especialidade,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.phone),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.card),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = numeroCartao,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
+                                    }
 
-                            Text(
-                                text = professional.telefone,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.billing),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.expiration),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = "${mesVencimento}/${anoVencimento}",
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
+                                    }
+                                }
 
-                            Text(
-                                text = "Consulta com ${professional.especialidade}",
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
+                                Spacer(modifier = Modifier.height(10.dp))
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.day),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.clinic),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = professional.clinica,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
 
-                            Text(
-                                text = DataHora.selectedDate,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
+                                Spacer(modifier = Modifier.height(10.dp))
 
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.hour),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.address),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
 
-                            Text(
-                                text = DataHora.selectedTime,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
-                        }
-                        Row(
-                            Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.value),
-                                fontSize = 17.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                fontWeight = FontWeight.Black,
-                                lineHeight = 18.sp
-                            )
 
-                            Text(
-                                text = "R$" + professional.valor,
-                                fontSize = 15.sp,
-                                color = Color(57, 57, 56),
-                                textAlign = TextAlign.Center,
-                                lineHeight = 18.sp
-                            )
+                                Spacer(modifier = Modifier.height(10.dp))
+
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.professional),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = professional.nome,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
+                                    }
+
+
+                                    Column {
+                                        Row() {
+                                            Text(
+                                                text = stringResource(id = R.string.specialization),
+                                                fontWeight = FontWeight.Light,
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(1.dp))
+                                        Row() {
+                                            Text(
+                                                text = professional.especialidade,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 15.sp
+                                            )
+                                        }
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.phone_clinic),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = clinic.telefone,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.Charge),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = "Consulta com ${professional.especialidade}",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.date),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = DataHora.selectedDate,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.hour),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = DataHora.selectedTime,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Row() {
+                                    Text(
+                                        text = stringResource(id = R.string.value),
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(1.dp))
+                                Row() {
+                                    Text(
+                                        text = "R$" + professional.valor,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(50.dp))
+                            }
                         }
                     }
-
                 }
             }
-
         }
-
     }
-
 }

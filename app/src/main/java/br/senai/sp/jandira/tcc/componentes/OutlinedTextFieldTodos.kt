@@ -10,7 +10,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -36,7 +35,7 @@ fun OutlinedTextFieldTodos(
             .width(355.dp),
         shape = shape,
         label = {
-            Text(text =texto)
+            Text(text = texto)
         },
         keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Next),
         colors = TextFieldDefaults.textFieldColors(
