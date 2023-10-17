@@ -287,9 +287,9 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                     })
 
                     PutWeight(viewModel, weightHeight)
-//                    insertALergy(viewModel)
-//                    insertComorbidity(viewModel)
-//                    insertMedication(viewModel)
+                    insertALergy(viewModel)
+                    insertComorbidity(viewModel)
+                    insertMedication(viewModel)
                     GetEspeciality(speciality)
                 }
             }
