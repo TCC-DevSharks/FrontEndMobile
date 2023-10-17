@@ -219,6 +219,7 @@
     <string name="expiration">Expiration:  </string>
     <string name="consultation">Consultation:  </string>
     <string name="publish">Publish</string>
+    <string name="news">News</string>
 
 
     <string name="exercises">Exercises</string>
@@ -249,6 +250,8 @@
     <string name="Welcome">Welcome,</string>
     <string name="phone_clinic">Clinic telephone</string>
     <string name="Charge">Charge</string>
+    <string name="timeline">Timeline</string>
+
 
 
 </resources>

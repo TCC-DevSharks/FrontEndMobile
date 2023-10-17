@@ -1,5 +1,4 @@
 package br.senai.sp.jandira.tcc
-import android.media.audiofx.DynamicsProcessing.Stage
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
 
@@ -37,6 +37,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
@@ -148,6 +149,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
             composable(route = "Exercises") { Exercises(navController,categories) }
+            composable(route = "DoctorHome") { DoctorHome () }
+            composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
     }
 }
 

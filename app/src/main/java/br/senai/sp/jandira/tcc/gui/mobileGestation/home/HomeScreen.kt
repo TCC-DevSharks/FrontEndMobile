@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,7 +40,7 @@ fun CadastroScren(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color(182, 182, 246))
     ) {
 
 
@@ -53,13 +54,13 @@ fun CadastroScren(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color(236, 238, 255)),
+                    .background(Color.White),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo),
+                    painter = painterResource(id = R.drawable.logo_novo),
                     contentDescription = null,
-                    modifier = Modifier.size(300.dp),
+                    modifier = Modifier.size(260.dp),
                     alignment = Alignment.Center
                 )
             }
@@ -77,7 +78,8 @@ fun CadastroScren(navController: NavController) {
                 texto = R.string.title_home,
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
-            )
+                corText = Color.White,
+                )
 
         }
 
@@ -85,17 +87,19 @@ fun CadastroScren(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp)
+                .offset(y = (-15).dp)
         ) {
 
             TextComp(
                 texto = R.string.segundo_title_home,
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
-            )
+                corText = Color.White,
+                )
 
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Row(
             modifier = Modifier
@@ -105,7 +109,7 @@ fun CadastroScren(navController: NavController) {
 
             TextComp(
                 texto = R.string.description_home,
-                corText = Color(70, 68, 68),
+                corText = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight(300),
             )
@@ -148,14 +152,18 @@ fun CadastroScren(navController: NavController) {
             TextComp(
                 texto = R.string.text_switch,
                 fontSize = 13.sp,
-                fontWeight = FontWeight(300)
+                fontWeight = FontWeight(400),
+                corText = Color.White
             )
 
             var switchCheckedState by remember { mutableStateOf(false) }
 
-            SwitchComp (switchCheckedState = switchCheckedState, onCheckedChange = {
-                switchCheckedState = it
-            })
+            Row (modifier = Modifier.padding(top = 13.5.dp)) {
+
+                SwitchComp (switchCheckedState = switchCheckedState, CorFundo = Color.White, onCheckedChange = {
+                    switchCheckedState = it
+                })
+            }
         }
     }
 

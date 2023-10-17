@@ -368,14 +368,8 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                         .padding(start = 26.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
-
-
-
-
-
-                    MarternalGuide()
-
-                    MarternalGuide()
+                    MarternalGuide(navController)
+                    MarternalGuide(navController)
                     //
                 }
 

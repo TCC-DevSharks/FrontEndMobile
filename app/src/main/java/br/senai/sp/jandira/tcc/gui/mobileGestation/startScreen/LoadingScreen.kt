@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -27,13 +28,14 @@ fun LoadingScreen(navController: NavController) {
 
     Column (modifier = Modifier
         .fillMaxSize()
-        .background(Color(236, 238, 255)),
-        verticalArrangement = Arrangement.Center
+        .background(Color.White),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Image(painter = painterResource(id = R.drawable.logo),
+        Image(painter = painterResource(id = R.drawable.logo_novo),
             contentDescription = null,
-            modifier = Modifier.size(400.dp))
+            modifier = Modifier.size(300.dp))
     }
 }
 

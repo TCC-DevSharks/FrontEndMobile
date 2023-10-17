@@ -218,6 +218,8 @@
     <string name="expiration">Vencimento:  </string>
     <string name="consultation">Consulta:  </string>
     <string name="publish">Publicar</string>
+    <string name="news">Notícias</string>
+
     <string name="exercises">Exercícios</string>
     <string name="today_activity">Atividade de hoje</string>
     <string name="recommendation_class">Classe de recomendação</string>
@@ -244,5 +246,6 @@
     <string name="edit">Editar</string>
     <string name="your_consultations">Suas consultas da semana:</string>
     <string name="Welcome">Bem-Vinda,</string>
+    <string name="timeline">Linha do tempo</string>
 
 </resources>
