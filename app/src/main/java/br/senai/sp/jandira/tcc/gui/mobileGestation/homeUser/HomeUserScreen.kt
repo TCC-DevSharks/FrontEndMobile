@@ -52,6 +52,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetAlergy
+import br.senai.sp.jandira.tcc.calls.GetComorbidity
+import br.senai.sp.jandira.tcc.calls.GetDeficiency
 import br.senai.sp.jandira.tcc.calls.GetEndereco
 import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.componentes.CardPreparations
@@ -74,7 +77,7 @@ import java.time.temporal.ChronoUnit
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, modelSchedule: ModelSchedule) {
+fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelSchedule: ModelSchedule) {
 
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
@@ -82,10 +85,10 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 
     val preparations = listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")
 
-    val callSchedule = RetrofitFactory().schedule().getSchedule(viewModel.id)
+    val callSchedule = RetrofitFactory().schedule().getSchedule(pregnant.id)
     LaunchedEffect(Unit) {
-        GetPregnant(viewModel)
-        GetEndereco(viewModel)
+        GetPregnant(pregnant)
+        GetEndereco(pregnant)
         callSchedule.enqueue(object : retrofit2.Callback<ScheduleList> {
             override fun onResponse(
                 call: Call<ScheduleList>,
@@ -106,8 +109,12 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                 println(t.message + t.cause)
             }
         })
+        GetAlergy(pregnant)
+        GetDeficiency(pregnant)
+        GetComorbidity(pregnant)
+//        GetMedication(pregnant)
     }
-    Scaffold(bottomBar = {Navigation(navController = navController)}) {
+    Scaffold(bottomBar = {Navigation(navController = navController, pregnant = pregnant)}) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -141,7 +148,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                         ) {
 
                             AsyncImage(
-                                model = viewModel.foto,
+                                model = pregnant.foto,
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -162,23 +169,23 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 
                         ) {
 
-                            if (viewModel.data_parto != "") {
+                            if (pregnant.data_parto != "") {
                                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                                val dateString = viewModel.data_parto
+                                val dateString = pregnant.data_parto
                                 val date = LocalDate.parse(dateString, formatter)
                                 val currentDate = LocalDate.now()
 
                                 val period = ChronoUnit.DAYS.between(currentDate, date)
 
                                 val dateBirth =
-                                    LocalDate.parse(viewModel.data_nascimento, formatter)
+                                    LocalDate.parse(pregnant.data_nascimento, formatter)
                                 val idade = ChronoUnit.YEARS.between(dateBirth, currentDate)
 
                                 val weeks = period / 7
                                 val days = period % 7
 
-                                viewModel.semana_gestacao = 40 - weeks.toInt()
-                                viewModel.idade = idade.toInt()
+                                pregnant.semana_gestacao = 40 - weeks.toInt()
+                                pregnant.idade = idade.toInt()
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -186,7 +193,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                                 ) {
 
                                     Text(
-                                        text = "Oi, " + viewModel.nome + "!",
+                                        text = "Oi, " + pregnant.nome + "!",
                                         fontSize = 30.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = Color(182, 182, 246)
@@ -215,9 +222,9 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 
 
 
-                                if (viewModel.data_parto != "") {
+                                if (pregnant.data_parto != "") {
                                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                                    val dateString = viewModel.data_parto
+                                    val dateString = pregnant.data_parto
                                     val date = LocalDate.parse(dateString, formatter)
                                     val currentDate = LocalDate.now()
 
@@ -274,7 +281,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                                 ) {
 
                                     Text(
-                                        text = "${viewModel.data_parto}",
+                                        text = "${pregnant.data_parto}",
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Medium,
                                         color = Color(182, 182, 246)

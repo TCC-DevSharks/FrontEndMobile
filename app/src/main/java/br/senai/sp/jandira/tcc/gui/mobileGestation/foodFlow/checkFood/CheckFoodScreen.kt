@@ -319,7 +319,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
 
 

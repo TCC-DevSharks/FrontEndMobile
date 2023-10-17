@@ -33,9 +33,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
-fun ContatosScreen(navController: NavController) {
+fun ContatosScreen(navController: NavController, pregnant: ModelPregnant) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         Column(
@@ -815,7 +816,7 @@ fun ContatosScreen(navController: NavController) {
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
 
 
         }

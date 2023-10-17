@@ -36,11 +36,12 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
 
 @Composable
-fun DoctorScreen(navController: NavController, professional: Professional) {
+fun DoctorScreen(navController: NavController, professional: Professional, pregnant: ModelPregnant) {
 
 
     Box(
@@ -168,7 +169,7 @@ fun DoctorScreen(navController: NavController, professional: Professional) {
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController, pregnant)
 
 
         }

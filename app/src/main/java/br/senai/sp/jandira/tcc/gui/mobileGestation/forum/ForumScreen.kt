@@ -48,10 +48,11 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForumScreen(navController: NavController) {
+fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
     val expanded = remember { mutableStateOf(false) }
 
@@ -1022,7 +1023,7 @@ fun ForumScreen(navController: NavController) {
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
 
 
         }

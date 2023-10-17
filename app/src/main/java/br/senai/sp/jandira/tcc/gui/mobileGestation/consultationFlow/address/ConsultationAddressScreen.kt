@@ -47,7 +47,7 @@ import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
-fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
+fun AddressScreen(navController: NavController, pregnant: ModelPregnant) {
 
     var isCheckedAlergy by remember { mutableStateOf(false) }
     var isCheckedComorbid by remember { mutableStateOf(false) }
@@ -61,12 +61,12 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
     var medicacao by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit){
-        altura = viewModel.altura.toString()
-        peso = viewModel.peso.toString()
-        cpf = viewModel.cpf
-        comorbidade = viewModel.comorbidades
-        alergia = viewModel.alergia
-        medicacao = viewModel.medicacao
+        altura = pregnant.altura.toString()
+        peso = pregnant.peso.toString()
+        cpf = pregnant.cpf
+        comorbidade = pregnant.comorbidades
+        alergia = pregnant.alergia
+        medicacao = pregnant.medicacao
     }
 
     Box(
@@ -359,12 +359,12 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
 
 
                                 if (cpf.isNotEmpty() && peso.isNotEmpty() && altura.isNotEmpty()){
-                                    viewModel.altura = altura.toDouble()
-                                    viewModel.peso = peso.toDouble()
-                                    viewModel.cpf = cpf
-                                    viewModel.alergia = alergia
-                                    viewModel.comorbidades = comorbidade
-                                    viewModel.medicacao = medicacao
+                                    pregnant.altura = altura.toDouble()
+                                    pregnant.peso = peso.toDouble()
+                                    pregnant.cpf = cpf
+                                    pregnant.alergia = alergia
+                                    pregnant.comorbidades = comorbidade
+                                    pregnant.medicacao = medicacao
 
                                     navController.navigate("consultationEndress")
                                 }
@@ -407,7 +407,7 @@ fun AddressScreen(navController: NavController, viewModel: ModelPregnant) {
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
 
 
         }

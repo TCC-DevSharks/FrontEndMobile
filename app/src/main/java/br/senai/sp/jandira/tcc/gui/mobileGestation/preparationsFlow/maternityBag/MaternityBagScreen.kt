@@ -39,9 +39,6 @@ import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagFavoriteList
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagList
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagResponse
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagResponseFavorite
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +47,7 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPregnant) {
+fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
 
     var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
 
@@ -75,7 +72,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
 
         val callFavorite =
             RetrofitFactory().getMaternityBangService()
-                .getMaternityBagFavorite(viewModelPregnant.id)
+                .getMaternityBagFavorite(pregnant.id)
 
         callFavorite.enqueue(object : retrofit2.Callback<MaternityBagFavoriteList> {
             override fun onResponse(
@@ -165,7 +162,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
 
                             var favoriteMaternity = MaternityBagBody(
                                 id_mala = it.id,
-                                id_gestante = viewModelPregnant.id,
+                                id_gestante = pregnant.id,
                             )
                             if (favoritoIds.contains(it.item)) {
 
@@ -212,7 +209,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
                     items(malaFavorito) {
                         FavoriteItensAlong(textTitle = it.item, textDescription = it.descricao,
                             onclick = {
-                                MaternityDelte(idMala = it.id, idGestante = viewModelPregnant.id)
+                                MaternityDelte(idMala = it.id, idGestante = pregnant.id)
                                 malaFavorito = malaFavorito - it
 
                             })
@@ -236,7 +233,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
 
 
         }

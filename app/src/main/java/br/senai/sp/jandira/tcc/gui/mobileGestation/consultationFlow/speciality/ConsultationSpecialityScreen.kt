@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetClinicSpeciality
+import br.senai.sp.jandira.tcc.calls.GetEspeciality
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
@@ -35,6 +37,11 @@ import br.senai.sp.jandira.tcc.model.clinic.Clinic
 
 @Composable
 fun ConsultationSpecialityScreen(navController: NavController, speciality: ModelSpeciality, clinic: Clinic) {
+
+    LaunchedEffect(Unit){
+        GetEspeciality(speciality)
+    }
+
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -80,7 +87,9 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                LazyColumn(modifier = Modifier.fillMaxWidth().padding(bottom = 14.dp), horizontalAlignment = Alignment.CenterHorizontally){
+                LazyColumn(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 14.dp), horizontalAlignment = Alignment.CenterHorizontally){
                     items(speciality.especialidade){
                         Button(
                             onClick =

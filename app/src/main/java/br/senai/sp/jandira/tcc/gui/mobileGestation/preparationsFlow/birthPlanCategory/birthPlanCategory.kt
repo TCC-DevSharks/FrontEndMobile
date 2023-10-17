@@ -49,16 +49,13 @@ import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanList
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanListFavorite
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponse
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponseFavorite
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: ModelPregnant) {
+fun birthPlanCategoryScreen(navController: NavController, pregnant: ModelPregnant) {
 
     var planoParto by rememberSaveable {
         mutableStateOf(listOf<BirthPlanResponse>())
@@ -76,7 +73,7 @@ fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: Mod
 
 
     val callFavorrite = RetrofitFactory().getBirthPlanService()
-        .getBirthPlanFavorite(viewModelPregnant.id)
+        .getBirthPlanFavorite(pregnant.id)
 
     callFavorrite.enqueue(object : Callback<BirthPlanListFavorite> {
         override fun onResponse(
@@ -166,7 +163,7 @@ fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: Mod
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = "Plano de parto de ${viewModelPregnant.nome}",
+                                text = "Plano de parto de ${pregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,
@@ -259,7 +256,7 @@ fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: Mod
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
 
 

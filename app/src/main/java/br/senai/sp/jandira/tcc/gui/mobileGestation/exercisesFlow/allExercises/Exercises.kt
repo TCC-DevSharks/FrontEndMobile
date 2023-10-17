@@ -39,6 +39,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.categories.CategoriesResponse
 import br.senai.sp.jandira.tcc.model.categories.CategoriesResponseList
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
@@ -50,7 +51,7 @@ import retrofit2.Response
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Exercises(navController: NavController, categories: ModelCategories) {
+fun Exercises(navController: NavController, categories: ModelCategories, pregnant: ModelPregnant) {
     var categoria by remember { mutableStateOf(listOf<CategoriesResponse>()) }
 
     LaunchedEffect(Unit){
@@ -79,7 +80,7 @@ fun Exercises(navController: NavController, categories: ModelCategories) {
 
     Scaffold(
         topBar = { Header(titulo = "Exercices")},
-        bottomBar = { Navigation(navController = navController) }) {
+        bottomBar = { Navigation(navController = navController, pregnant) }) {
 
         Column(
             modifier = Modifier

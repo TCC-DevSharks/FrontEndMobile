@@ -18,12 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -52,7 +48,6 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.google.DistanceMatrix
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
@@ -63,10 +58,10 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewmodel: ModelPregnant) {
+fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregnant: ModelPregnant) {
 
     LaunchedEffect(Unit){
-        GetCep(viewmodel,viewmodel.cep)
+        GetCep(pregnant,pregnant.cep)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -122,8 +117,8 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
 
                         val call = RetrofitFactoryCep().getCep().getCep(it.cep)
 
-                        var distance by remember { mutableStateOf("Distância") }
-                        var duration by remember { mutableStateOf("Duração") }
+                        var distance by remember { mutableStateOf("0.0") }
+                        var duration by remember { mutableStateOf("0.0") }
 
                         call.enqueue(object : retrofit2.Callback<ViaCep> {
                             override fun onResponse(
@@ -131,18 +126,16 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
                                 response: Response<ViaCep>
 
                             ) {
-                                Log.i("asdf", "${response.body()}")
                                 val logradouro = response.body()!!.logradouro
                                 val cidade = response.body()!!.localidade
                                 val bairro = response.body()!!.bairro
 
                                 val destination = "${logradouro}, ${bairro}, ${cidade}, Brazil"
-                                val origin = "${viewmodel.logradouro}, ${viewmodel.bairro}, ${viewmodel.cidade}, Brazil"
+                                val origin = "${pregnant.logradouro}, ${pregnant.bairro}, ${pregnant.cidade}, Brazil"
                                 val key = "AIzaSyCLmZ-N0L89OzMsvIm8bcphurXZPSdBlDg"
 
-                                Log.e("qwert","${origin}")
 
-                                if (response.code() == 200) {
+                                if (response.isSuccessful) {
 
                                     val callDistance = RetrofitFactoryMaps().getDistance().getMatrix(
                                         origins = origin,
@@ -157,8 +150,14 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
                                             response: Response<DistanceMatrix>
 
                                         ) {
-                                           distance= "${response.body()!!.rows[0].elements[0].distance.text}"
-                                            duration = "${response.body()!!.rows[0].elements[0].duration.text}"
+                                            if(response.isSuccessful){
+                                                distance= "${response.body()!!.rows[0].elements[0].distance.text}"
+                                                duration = "${response.body()!!.rows[0].elements[0].duration.text}"
+                                            }else{
+                                                distance = "0.0"
+                                                duration = "0.0"
+                                            }
+
                                         }
 
                                         override fun onFailure(call: Call<DistanceMatrix>, t: Throwable) {
@@ -260,7 +259,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, viewm
                     )
             ) {
 
-                Navigation(navController = navController)
+                Navigation(navController = navController, pregnant)
 
 
             }

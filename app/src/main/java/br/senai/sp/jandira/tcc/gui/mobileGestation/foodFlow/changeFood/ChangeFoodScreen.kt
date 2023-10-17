@@ -41,6 +41,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
 import br.senai.sp.jandira.tcc.model.food.ModelFood
@@ -49,7 +50,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood) {
+fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnant: ModelPregnant) {
 
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
     val call = RetrofitFactory().findFood().getFood(modelFood.id)
@@ -156,7 +157,7 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood) {
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
     }
 }

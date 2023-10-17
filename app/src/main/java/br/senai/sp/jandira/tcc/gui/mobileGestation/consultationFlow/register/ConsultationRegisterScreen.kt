@@ -41,16 +41,17 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ConsultationRegisterScreen(navController: NavController, professional: Professional) {
+fun ConsultationRegisterScreen(navController: NavController, professional: Professional, pregnant: ModelPregnant) {
     
     Scaffold (bottomBar = {
-        Navigation(navController = navController)
+        Navigation(navController = navController, pregnant)
     }){
         Column(modifier = Modifier.fillMaxSize()) {
 
