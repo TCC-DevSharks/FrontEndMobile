@@ -232,7 +232,7 @@ fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: Mod
 
             LazyColumn(  modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 85.dp, top = 9.dp)
+                .padding(top = 9.dp)
             ) {
 
                 items(planoParto) { item->
