@@ -50,6 +50,7 @@ import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.google.DistanceMatrix
+import br.senai.sp.jandira.tcc.model.google.ElementsResponseList
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryMaps
@@ -63,6 +64,8 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
     LaunchedEffect(Unit){
         GetCep(pregnant,pregnant.cep)
     }
+
+    var matrix by remember { mutableStateOf(listOf<ElementsResponseList>()) }
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -151,8 +154,16 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                                         ) {
                                             if(response.isSuccessful){
-                                                distance= "${response.body()!!.rows[0].elements[0].distance.text}"
-                                                duration = "${response.body()!!.rows[0].elements[0].duration.text}"
+
+                                                matrix = response.body()!!.rows
+
+                                                matrix.map {
+                                                    it.elements.map {
+                                                        distance = it.distance.text
+                                                        duration = it.duration.text
+                                                    }
+                                                }
+
                                             }else{
                                                 distance = "0.0"
                                                 duration = "0.0"

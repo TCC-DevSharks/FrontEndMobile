@@ -153,7 +153,7 @@ fun PaymentScreen(
             estado = viewModel.estado
             numeroCartao = "4111111111111111"
             mesVencimento = "12"
-            anoVencimento = "2026"
+            anoVencimento = "2030"
             cvv = "123"
 
         }
@@ -162,7 +162,7 @@ fun PaymentScreen(
 
             if(erro == true){
                 println("Enrou")
-                delay(1000)
+                delay(3000)
                 navController.navigate("ConsultFinish")
             }
 
