@@ -74,13 +74,19 @@ import java.time.temporal.ChronoUnit
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, modelSchedule: ModelSchedule) {
+fun HomeUserScreen(
+    navController: NavController,
+    viewModel: ModelPregnant,
+    modelSchedule: ModelSchedule
+) {
 
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
 
-    val preparations = listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")
+    val preparations = listOf(
+        "Linha do Tempo","Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes"
+    )
 
     val callSchedule = RetrofitFactory().schedule().getSchedule(viewModel.id)
     LaunchedEffect(Unit) {
@@ -107,7 +113,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
             }
         })
     }
-    Scaffold(bottomBar = {Navigation(navController = navController)}) {
+    Scaffold(bottomBar = { Navigation(navController = navController) }) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -186,7 +192,7 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                                 ) {
 
                                     Text(
-                                        text = "Oi, " + viewModel.nome + "!",
+                                        text = stringResource(id = R.string.hi) + " " + viewModel.nome + "!",
                                         fontSize = 30.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = Color(182, 182, 246)
@@ -235,7 +241,9 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 
                                         Text(
                                             textAlign = TextAlign.Center,
-                                            text = "${weeks} semanas e ${days} dias ",
+                                            text = "${weeks} " + stringResource(id = R.string.weeks) + " ${days} " + stringResource(
+                                                id = R.string.day_user
+                                            ),
                                             fontSize = 21.sp,
                                             fontWeight = FontWeight.ExtraBold,
                                             color = Color(182, 182, 246)
@@ -394,21 +402,16 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
                 LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
 
 
+                    items(preparations) { preparation ->
 
-                        items(preparations) { preparation ->
+                        Log.i("pre", "${preparation}")
+                        Log.i("pre", "${preparations}")
+
+                        CardPreparations(preparations = preparation, navController)
 
 
-                            CardPreparations(preparations = preparation, navController)
-
-
-
-
-                        }
                     }
-
-
-
-
+                }
 
 
             }
@@ -423,10 +426,6 @@ fun HomeUserScreen(navController: NavController, viewModel: ModelPregnant, model
 //                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
 //                    )
 //            ) {
-//
-//
-//
-//
 //            }
 
         }

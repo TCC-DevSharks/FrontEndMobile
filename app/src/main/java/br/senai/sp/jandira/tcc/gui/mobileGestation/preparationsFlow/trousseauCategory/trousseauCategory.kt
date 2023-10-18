@@ -161,7 +161,7 @@ fun trousseauCategorySceen(navController: NavController, viewModelPregnant: Mode
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = "Enxoval de ${viewModelPregnant.nome}",
+                                text = stringResource(id = R.string.header_trousseau) + " ${viewModelPregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,

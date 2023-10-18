@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.login
+package br.senai.sp.jandira.tcc.gui.mobileGestation.login
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -39,21 +39,22 @@ import br.senai.sp.jandira.tcc.model.login.Login
 import br.senai.sp.jandira.tcc.model.login.LoginList
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.login.LoginDoctorList
 import br.senai.sp.jandira.tcc.model.login.ModelLogin
+import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 
 import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
+fun LoginDoctorScreen(navController: NavController, professional: Professional) {
 
     var password by rememberSaveable { mutableStateOf("") }
 
     var email by rememberSaveable { mutableStateOf("") }
 
     password = "123"
-
 
     var login by remember {
         mutableStateOf(listOf<Login>())
@@ -79,7 +80,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
             TextComp(texto = R.string.title_login)
 
-            TextDescription(texto = stringResource(id = R.string.description_login))
+            TextDescription(texto = stringResource(id = R.string.description_login_doctor))
 
             AnimatedVisibility(
                 visible = visible,
@@ -127,26 +128,6 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
                 password = it
             }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp, start = 10.dp, end = 25.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            navController.navigate("forgot_email")
-                        },
-                    text = stringResource(id = br.senai.sp.jandira.tcc.R.string.forgot_password),
-                    fontSize = 15.sp,
-                    textAlign = TextAlign.End,
-                    color = Color(66, 61, 61)
-
-                )
-            }
         }
         Spacer(modifier = Modifier.height(35.dp))
         Column(
@@ -162,29 +143,29 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
                 rota = "homeUser",
                 onclick = {
 
-                    var loginGestante = ModelLogin(
+                    var loginDoctor = ModelLogin(
                         email = email,
                         senha = password,
                     )
 
-                    val call = RetrofitFactory().findLogin().insertLogin(loginGestante)
+                    val call = RetrofitFactory().findLogin().insertLoginDoctor(loginDoctor)
 
                     if (email !== "" && password !== ""){
-                        call.enqueue(object : retrofit2.Callback<LoginList> {
+                        call.enqueue(object : retrofit2.Callback<LoginDoctorList> {
                             override fun onResponse(
-                                call: Call<LoginList>,
-                                response: Response<LoginList>
+                                call: Call<LoginDoctorList>,
+                                response: Response<LoginDoctorList>
 
                             ) {
                                 //Duas exclamações significam que pode vir nulo
-                                login = response.body()!!.login
+                                login = response.body()!!.doctor
 
                                 if (login[0].id !== 0) {
 
                                     login.forEach {
-                                        viewModel.id = it.id
+                                        professional.id = it.id
                                     }
-                                    navController.navigate("homeUser")
+                                    navController.navigate("DoctorHome")
 
                                 } else {
                                     visible = true
@@ -192,7 +173,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
                             }
 
-                            override fun onFailure(call: Call<LoginList>, t: Throwable) {
+                            override fun onFailure(call: Call<LoginDoctorList>, t: Throwable) {
                                 Log.i(
                                     "ds2m",
                                     "onFailure: ${t.message}"

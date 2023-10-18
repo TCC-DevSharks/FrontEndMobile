@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,13 +38,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetProfessional
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.professional.ProfessionalSpecialityResponse
+import br.senai.sp.jandira.tcc.model.professional.ProfessionalSpecialityResponseList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
-fun DoctorHome() {
+fun DoctorHome(professional: Professional) {
+
+    LaunchedEffect(Unit){
+        GetProfessional(professional)
+    }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +89,7 @@ fun DoctorHome() {
                     }
                     Row() {
                         Text(
-                            text = "Dr. Alvia Oliveira",
+                            text = professional.nome,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(242, 187, 137)
@@ -106,7 +121,7 @@ fun DoctorHome() {
 
                     Row() {
                         Text(
-                            text = "Clinica Amil, Nutricionista",
+                            text = professional.clinica + professional.especialidade,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.Gray
@@ -117,7 +132,7 @@ fun DoctorHome() {
 
                     Row() {
                         Text(
-                            text = "123.567.09",
+                            text = professional.crm,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
                             color = Color.Gray
@@ -486,8 +501,8 @@ fun DoctorHome() {
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DoctorHomePreview() {
-    DoctorHome()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun DoctorHomePreview() {
+//    DoctorHome(professional = )
+//}

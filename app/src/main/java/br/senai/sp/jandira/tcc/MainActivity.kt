@@ -37,6 +37,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
@@ -49,6 +50,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWee
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
+import br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine.TimeLineScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
@@ -149,8 +151,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
             composable(route = "Exercises") { Exercises(navController,categories) }
-            composable(route = "DoctorHome") { DoctorHome () }
+            composable(route = "DoctorHome") { DoctorHome (professional) }
             composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
+            composable(route = "timeLine") { TimeLineScreen () }
+            composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
+
+
     }
 }
 

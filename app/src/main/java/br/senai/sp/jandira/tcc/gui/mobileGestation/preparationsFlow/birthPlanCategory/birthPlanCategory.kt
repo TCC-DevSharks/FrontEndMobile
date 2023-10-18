@@ -166,7 +166,7 @@ fun birthPlanCategoryScreen(navController: NavController, viewModelPregnant: Mod
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = "Plano de parto de ${viewModelPregnant.nome}",
+                                text = stringResource(id = R.string.header_birth_plan) + " ${viewModelPregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,

@@ -31,11 +31,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ButtonHome
+import br.senai.sp.jandira.tcc.componentes.ButtonHomeDoctor
 import br.senai.sp.jandira.tcc.componentes.SwitchComp
 import br.senai.sp.jandira.tcc.componentes.TextComp
 
 @Composable
 fun CadastroScren(navController: NavController) {
+
+    var switchCheckedState by remember { mutableStateOf(false) }
+
 
     Column(
         modifier = Modifier
@@ -79,7 +83,7 @@ fun CadastroScren(navController: NavController) {
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
                 corText = Color.White,
-                )
+            )
 
         }
 
@@ -95,49 +99,59 @@ fun CadastroScren(navController: NavController) {
                 fontSize = 26.4.sp,
                 fontWeight = FontWeight.SemiBold,
                 corText = Color.White,
-                )
+            )
 
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp)
+            ) {
 
-            TextComp(
-                texto = R.string.description_home,
-                corText = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight(300),
-            )
-
-        }
+                TextComp(
+                    texto = R.string.description_home,
+                    corText = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(300),
+                )
+            }
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
-        ) {
+        if (switchCheckedState) {
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
+            ) {
 
-            ButtonHome(
-                shape = RoundedCornerShape(bottomStart = 10.dp, topStart = 10.dp),
-                text = stringResource(id = R.string.button_register),
-                navController,
-                rota = "register"
-            )
+                ButtonHomeDoctor(navController)
+            }
 
-            ButtonHome(
-                shape = RoundedCornerShape(bottomEnd = 10.dp, topEnd = 10.dp),
-                text = stringResource(id = R.string.button_enter),
-                navController,
-                rota = "login"
-            )
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
+            ) {
+
+                ButtonHome(
+                    shape = RoundedCornerShape(bottomStart = 10.dp, topStart = 10.dp),
+                    text = stringResource(id = R.string.button_register),
+                    navController,
+                    rota = "register"
+                )
+
+                ButtonHome(
+                    shape = RoundedCornerShape(bottomEnd = 10.dp, topEnd = 10.dp),
+                    text = stringResource(id = R.string.button_enter),
+                    navController,
+                    rota = "login"
+                )
 
 
+            }
         }
+
 
         Spacer(modifier = Modifier.height(25.dp))
 
@@ -156,13 +170,15 @@ fun CadastroScren(navController: NavController) {
                 corText = Color.White
             )
 
-            var switchCheckedState by remember { mutableStateOf(false) }
 
-            Row (modifier = Modifier.padding(top = 13.5.dp)) {
+            Row(modifier = Modifier.padding(top = 13.5.dp)) {
 
-                SwitchComp (switchCheckedState = switchCheckedState, CorFundo = Color.White, onCheckedChange = {
-                    switchCheckedState = it
-                })
+                SwitchComp(
+                    switchCheckedState = switchCheckedState,
+                    CorFundo = Color.White,
+                    onCheckedChange = {
+                        switchCheckedState = it
+                    })
             }
         }
     }

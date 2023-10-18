@@ -9,4 +9,7 @@ interface ProfessionalService {
 
     @GET("profissional/especialidade/{id}")
     fun getProfissionalSpeciality(@Path("id") id: Int): Call<ProfessionalSpecialityResponseList>
+
+    @GET("profissional/{id}")
+    fun getProfissional(@Path("id") id: Int): Call<ProfessionalSpecialityResponseList>
 }

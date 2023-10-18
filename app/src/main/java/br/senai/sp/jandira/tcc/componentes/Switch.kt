@@ -4,14 +4,14 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwitchComp(
     switchCheckedState: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     CorFundo : Color = Color(182, 182, 246, 51),
-    corPrimary : Color = Color(182, 182, 246,)
+    corPrimary : Color = Color(182, 182, 246,),
+    corBorder : Color = Color(182, 182, 246,)
 ) {
 
     Switch(
@@ -32,7 +32,7 @@ fun SwitchComp(
                 217
             ),
             checkedTrackColor = CorFundo,
-            checkedBorderColor = corPrimary,
+            checkedBorderColor = corBorder,
             uncheckedThumbColor = Color(217, 217, 217),
             uncheckedTrackColor = Color.White,
             disabledCheckedBorderColor = Color(182, 182, 246)

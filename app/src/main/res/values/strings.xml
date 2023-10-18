@@ -251,6 +251,11 @@
     <string name="phone_clinic">Clinic telephone</string>
     <string name="Charge">Charge</string>
     <string name="timeline">Timeline</string>
+    <string name="hi">Hi</string>
+    <string name="weeks">weeks</string>
+    <string name="day_user">day</string>
+
+    <string name="description_login_doctor">Ready for another journey of service?</string>
 
 
 

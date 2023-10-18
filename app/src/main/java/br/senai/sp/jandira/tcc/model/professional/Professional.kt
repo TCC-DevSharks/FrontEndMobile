@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 
 class Professional {
     var crm by mutableStateOf("")
+    var cpf by mutableStateOf("")
     var descricao by mutableStateOf("")
     var especialidade by mutableStateOf("")
     var nome by mutableStateOf("")
