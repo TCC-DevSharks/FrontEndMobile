@@ -19,5 +19,10 @@ class Professional {
     var cep by mutableStateOf("")
     var numero by mutableStateOf("")
     var clinica by mutableStateOf("")
+    var data_nascimento by mutableStateOf("")
+    var inicio_atendimento by mutableStateOf("")
+    var fim_atendimento by mutableStateOf("")
     var valor by mutableStateOf("")
+    var sexo by mutableStateOf("")
+    var complemento by mutableStateOf("")
 }

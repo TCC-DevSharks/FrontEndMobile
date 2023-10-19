@@ -244,14 +244,13 @@
     <string name="messages">Mensagens</string>
     <string name="All_Messages">Todas as mensagens</string>
     <string name="edit">Editar</string>
-    <string name="your_consultations">Suas consultas da semana:</string>
-    <string name="Welcome">Bem-Vinda,</string>
+    <string name="your_consultations">Suas consultas do dia:</string>
+    <string name="Welcome">Bem-Vindo(a),</string>
     <string name="timeline">Linha do Tempo</string>
     <string name="hi">Oi,</string>
     <string name="weeks">semanas e</string>
     <string name="day_user">dias</string>
 
     <string name="description_login_doctor">Pronto (a) para mais uma jornada de atendimento?</string>
-
 
 </resources>

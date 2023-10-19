@@ -51,6 +51,21 @@ import retrofit2.Response
                     professional.nome = it.nome
                     professional.cpf = it.cpf
                     professional.crm= it.crm
+                    professional.data_nascimento = it.data_nascimento
+                    professional.foto = it.foto
+                    professional.descricao = it.descricao
+                    professional.inicio_atendimento = it.inicio_atendimento
+                    professional.fim_atendimento = it.fim_atendimento
+                    professional.email = it.email
+                    professional.sexo = it.sexo
+                    professional.clinica = it.clinica
+                    professional.telefone= it.telefone
+                    professional.tipo_telefone= it.tipo_telefone
+                    professional.numero= it.numero
+                    professional.complemento = it.complemento
+                    professional.cep= it.cep
+                    professional.especialidade = it.especialidade
+
                 }
 
             }

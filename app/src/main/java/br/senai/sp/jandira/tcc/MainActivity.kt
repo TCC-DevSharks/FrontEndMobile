@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
 
@@ -151,10 +152,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
             composable(route = "Exercises") { Exercises(navController,categories) }
-            composable(route = "DoctorHome") { DoctorHome (professional) }
+            composable(route = "DoctorHome") { DoctorHome (professional, navController, modelSchedule) }
             composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
             composable(route = "timeLine") { TimeLineScreen () }
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
+            composable(route = "profileDoctor") { DoctorProfile (professional) }
 
 
     }

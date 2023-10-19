@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -37,68 +39,64 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import coil.compose.AsyncImage
 
 @Composable
-fun DoctorProfile() {
+fun DoctorProfile(professional: Professional) {
+
     Column(modifier = Modifier.fillMaxSize()) {
+
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Header(
                 titulo = stringResource(id = R.string.profile),
-                tintIcon = Color(255, 218, 185)
             )
 
         }
-        Spacer(modifier = Modifier.height(5.dp))
+
+        Spacer(modifier = Modifier.height(18.dp))
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(horizontal = 18.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             Box() {
                 Card(
-                    modifier = Modifier.size(100.dp),
+                    modifier = Modifier.size(85.dp),
                     shape = CircleShape,
-                    border = BorderStroke(3.5.dp, Color(255, 218, 185))
+                    border = BorderStroke(3.5.dp, Color(182, 182, 246))
 
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.avia),
-                        contentDescription = null,
+                    AsyncImage(
+                        model = professional.foto,
+                        contentDescription = "",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
                     )
                 }
             }
             Column {
                 Text(
-                    text = "Masi Ramezanzade",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    text = professional.nome,
+                    fontSize = 27.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 18.dp),
+
                 )
+
                 Text(
-                    text = "Lose a Fat Program",
-                    fontWeight = FontWeight.Normal
-
+                    text = professional.especialidade,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 18.dp, top = 2.dp),
+                    color = Color.Gray
                 )
-            }
-
-            Card(
-                modifier = Modifier.size(width = 100.dp, height = 30.dp),
-                colors = CardDefaults.cardColors(Color(255, 218, 185)),
-                shape = RoundedCornerShape(20.dp),
-                border = BorderStroke(0.dp, Color.Transparent)
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.edit),
-                        color = Color.White
-                    )
-                }
             }
 
         }
@@ -135,7 +133,7 @@ fun DoctorProfile() {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_person_outline_24),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint = Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -168,7 +166,7 @@ fun DoctorProfile() {
                                 id = R.drawable.baseline_library_books_24
                             ),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint = Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -201,7 +199,7 @@ fun DoctorProfile() {
                                 id = R.drawable.graph
                             ),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint =  Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -234,7 +232,7 @@ fun DoctorProfile() {
                                 id = R.drawable.baseline_insert_chart_24
                             ),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint = Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -286,7 +284,7 @@ fun DoctorProfile() {
                         Icon(
                             painter = painterResource(id = R.drawable.bell),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint =  Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -312,10 +310,10 @@ fun DoctorProfile() {
 
                         colors = SwitchDefaults.colors(
                             checkedThumbColor = if (switchCheckedState)
-                                Color.White else Color(242, 187, 137),
-                            checkedTrackColor = Color(242, 187, 137),
-                            checkedBorderColor = Color(242, 187, 137),
-                            uncheckedThumbColor = Color(217, 217, 217),
+                                Color.White else  Color(182,182,246),
+                            checkedTrackColor = Color(182,182,246),
+                            checkedBorderColor =  Color(182,182,246),
+                            uncheckedThumbColor =  Color(182,182,246),
                             uncheckedTrackColor = Color.White,
                             disabledCheckedBorderColor = Color(255, 255, 255)
                         )
@@ -356,7 +354,7 @@ fun DoctorProfile() {
                         Icon(
                             painter = painterResource(id = R.drawable.letter),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint =  Color(182,182,246)
 
                         )
                         Text(
@@ -390,7 +388,7 @@ fun DoctorProfile() {
                         Icon(
                             painter = painterResource(id = R.drawable.verification),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint =  Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -421,7 +419,7 @@ fun DoctorProfile() {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_settings_24),
                             contentDescription = null,
-                            tint = Color(242, 187, 137)
+                            tint =  Color(182,182,246)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -448,8 +446,8 @@ fun DoctorProfile() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DoctorProfilePreview() {
-    DoctorProfile()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun DoctorProfilePreview() {
+//    DoctorProfile()
+//}
