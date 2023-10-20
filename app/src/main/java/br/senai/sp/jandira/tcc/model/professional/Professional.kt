@@ -13,6 +13,7 @@ class Professional {
     var id by mutableStateOf(0)
     var profissional by mutableStateOf(listOf<ProfessionalSpecialityResponse>())
     var email by mutableStateOf("")
+    var senha by mutableStateOf("")
     var foto by mutableStateOf("")
     var telefone by mutableStateOf("")
     var tipo_telefone by mutableStateOf("")
@@ -25,4 +26,6 @@ class Professional {
     var valor by mutableStateOf("")
     var sexo by mutableStateOf("")
     var complemento by mutableStateOf("")
+    var id_endereco by mutableStateOf(0)
+    var id_telefone by mutableStateOf(0)
 }

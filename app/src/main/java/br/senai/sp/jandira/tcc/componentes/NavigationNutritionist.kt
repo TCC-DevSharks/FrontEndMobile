@@ -79,7 +79,7 @@ fun NavigationNutritionist(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-                    navController.navigate("insertEndress")
+                    navController.navigate("doctorSchedule")
 
                 }) {
 

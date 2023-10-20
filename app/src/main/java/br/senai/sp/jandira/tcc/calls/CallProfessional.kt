@@ -65,6 +65,8 @@ import retrofit2.Response
                     professional.complemento = it.complemento
                     professional.cep= it.cep
                     professional.especialidade = it.especialidade
+                    professional.id_endereco= it.idEndereco.toInt()
+                    professional.id_telefone = it.idTelefone.toInt()
 
                 }
 

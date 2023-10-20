@@ -64,7 +64,6 @@ import retrofit2.Response
 fun DoctorHome(
     professional: Professional,
     navController: NavController,
-    modelSchedule: ModelSchedule
 ) {
 
     LaunchedEffect(Unit) {

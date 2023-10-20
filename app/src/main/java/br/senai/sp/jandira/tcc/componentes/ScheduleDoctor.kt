@@ -40,6 +40,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -51,7 +52,6 @@ fun ScheduleDoctor(professional: Professional) {
 
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     val dataAtual = LocalDate.now()
-
 
     val call = RetrofitFactory().insertConsult().GetConsulta(professional.id)
 
@@ -115,6 +115,7 @@ fun ScheduleDoctor(professional: Professional) {
                 }) { paciente ->
 
                     var isChecked by remember { mutableStateOf(false) }
+
 
                     Row(
                         modifier = Modifier

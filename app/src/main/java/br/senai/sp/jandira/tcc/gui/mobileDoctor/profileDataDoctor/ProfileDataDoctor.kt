@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileGestation.profileFlow.profileData
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -46,11 +46,13 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.AlertDialog
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.Pregnant
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.professional.ProfissionalBody
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,14 +61,13 @@ import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
+fun ProfileDataDoctor(navController: NavController, profissional: Professional) {
     var cpf by remember { mutableStateOf("") }
     var nome by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var dataNascimento by remember { mutableStateOf("") }
     var telefone by remember { mutableStateOf("") }
     var dataParto by remember { mutableStateOf("") }
-    var semanaGestacao by remember { mutableStateOf(viewModel.semana_gestacao.toString()) }
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
     var cep by remember { mutableStateOf("") }
@@ -79,22 +80,20 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
     LaunchedEffect(Unit) {
 
-        nome = viewModel.nome
-        cpf = viewModel.cpf
-        email = viewModel.email
-        dataParto = viewModel.data_parto
-        dataNascimento = viewModel.data_nascimento
-        telefone = viewModel.telefone
-        complemento = viewModel.complemento
-        cep = viewModel.cep
-        numero = viewModel.numero
-        semanaGestacao = "${viewModel.semana_gestacao}"
+        nome = profissional.nome
+        cpf = profissional.cpf
+        email = profissional.email
+        dataNascimento = profissional.data_nascimento
+        telefone = profissional.telefone
+        complemento = profissional.complemento
+        cep = profissional.cep
+        numero = profissional.numero
 
 
-        if (viewModel.cep.length == 8) {
-            val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
+        if (profissional.cep.length == 8) {
+            val call = RetrofitFactoryCep().getCep().getCep(profissional.cep)
 
-            call.enqueue(object : Callback<ViaCep> {
+            call.enqueue(object : retrofit2.Callback<ViaCep> {
                 override fun onResponse(
                     call: Call<ViaCep>,
                     response: Response<ViaCep>
@@ -103,14 +102,12 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                     Log.i("asdf", "${response}")
 
                     if (response.code() == 200) {
-                        viewModel.bairro = response.body()!!.bairro
-                        viewModel.cidade = response.body()!!.localidade
-                        viewModel.logradouro = response.body()!!.logradouro
-                        viewModel.estado = response.body()!!.localidade
+                        bairro= response.body()!!.bairro
+                        cidade = response.body()!!.localidade
+                        logradouro = response.body()!!.logradouro
+//                        estado = response.body()!!.localidade
                     }
-                    logradouro = viewModel.logradouro
-                    bairro = viewModel.bairro
-                    cidade = viewModel.cidade
+
 
                 }
 
@@ -353,92 +350,6 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-
-
-
-                    OutlinedTextField(
-                        value = dataParto,
-                        onValueChange = {
-                            dataParto = it
-                            visible = true
-                        },
-                        modifier = Modifier
-                            .width(370.dp)
-                            .height(60.dp),
-                        shape = RoundedCornerShape(16.dp),
-                        label = {
-                            Text(
-                                text = stringResource(id = R.string.date_childbirth),
-                                fontSize = 15.sp,
-                                color = Color.Black, // Defina a cor do texto como preta
-
-                            )
-                        },
-                        colors = TextFieldDefaults
-                            .outlinedTextFieldColors(
-                                focusedBorderColor = Color(148, 112, 214),
-                                unfocusedBorderColor = Color(182, 182, 246)
-                            ),
-                        singleLine = true,
-
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.editor_outlined),
-                                contentDescription = "",
-                                tint = Color(182, 182, 246)
-                            )
-
-                        }
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-
-                    OutlinedTextField(
-                        value = semanaGestacao,
-                        onValueChange = {
-                            semanaGestacao = it
-                            visible = true
-                        },
-                        modifier = Modifier
-                            .width(370.dp)
-                            .height(60.dp),
-                        enabled = false,
-                        shape = RoundedCornerShape(16.dp),
-                        label = {
-                            Text(
-                                text = stringResource(id = R.string.gestation_week),
-                                fontSize = 15.sp,
-                                color = Color.Black,
-
-                                )
-                        },
-                        colors = TextFieldDefaults
-                            .outlinedTextFieldColors(
-                                focusedBorderColor = Color(148, 112, 214),
-                                unfocusedBorderColor = Color(182, 182, 246)
-                            ),
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            imeAction = ImeAction.Done,
-                            keyboardType = KeyboardType.Number,
-                        ),
-                        singleLine = true,
-                        trailingIcon = {
-                            Icon(
-                                painter = painterResource(id = R.drawable.editor_outlined),
-                                contentDescription = "",
-                                tint = Color(182, 182, 246)
-                            )
-
-                        },
-                        visualTransformation = VisualTransformation.None
-                    )
-
-
-
-
-
-                    Spacer(modifier = Modifier.height(10.dp))
                     Row() {
                         Text(
                             text = stringResource(id = R.string.address),
@@ -457,7 +368,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             if (cep.length == 8) {
                                 val call = RetrofitFactoryCep().getCep().getCep(cep)
 
-                                call.enqueue(object : Callback<ViaCep> {
+                                call.enqueue(object : retrofit2.Callback<ViaCep> {
                                     override fun onResponse(
                                         call: Call<ViaCep>,
                                         response: Response<ViaCep>
@@ -466,15 +377,11 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                                         Log.i("asdf", "${response}")
 
                                         if (response.code() == 200) {
-                                            viewModel.bairro = response.body()!!.bairro
-                                            viewModel.cidade = response.body()!!.localidade
-                                            viewModel.logradouro = response.body()!!.logradouro
-                                            viewModel.estado = response.body()!!.localidade
-                                        }
-                                        logradouro = viewModel.logradouro
-                                        bairro = viewModel.bairro
-                                        cidade = viewModel.cidade
+                                            bairro = response.body()!!.bairro
+                                            cidade = response.body()!!.localidade
+                                            logradouro = response.body()!!.logradouro
 
+                                        }
                                     }
 
                                     override fun onFailure(call: Call<ViaCep>, t: Throwable) {
@@ -713,42 +620,46 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                 onclick = {
                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-                    var Pregnant = Pregnant(
+                    var ProfissionalBody = ProfissionalBody(
                         nome = nome,
-                        altura = viewModel.altura,
-                        peso = viewModel.peso,
                         cpf = cpf,
                         telefone = telefone,
                         complemento = complemento,
                         numero = numero,
                         cep = cep,
-                        semana_gestacao = semanaGestacao.toInt(),
-                        foto = viewModel.foto,
-                        data_parto = "${LocalDate.parse(dataParto, formatter)}",
+                        foto = profissional.foto,
                         data_nascimento = "${LocalDate.parse(dataNascimento, formatter)}",
-                        email = viewModel.email,
-                        senha = viewModel.senha
+                        email = profissional.email,
+                        senha = profissional.senha,
+                        crm = profissional.crm,
+                        descricao = profissional.descricao,
+                        inicio_atendimento = profissional.inicio_atendimento,
+                        fim_atendimento = profissional.fim_atendimento,
+                        id_sexo = profissional.sexo,
+                        id_clinica = profissional.clinica,
+                        id_telefone = profissional.id_telefone,
+                        tipo_telefone = 1,
+                        id_endereco = profissional.id_endereco
                     )
-                    val call =
-                        RetrofitFactory().pregnant().updatePregnant(viewModel.id, Pregnant)
 
-                    call.enqueue(object : Callback<Pregnant> {
+                    val call = RetrofitFactory().getProfessional().putProfissional(profissional.id, ProfissionalBody)
+
+                    call.enqueue(object : retrofit2.Callback<ProfissionalBody> {
                         override fun onResponse(
-                            call: Call<Pregnant>,
-                            response: Response<Pregnant>
+                            call: Call<ProfissionalBody>,
+                            response: Response<ProfissionalBody>
 
                         ) {
+                            Log.i("fdfdf", "${response}")
                             if (response.code() == 200) {
-                                viewModel.semana_gestacao = semanaGestacao.toInt()
-                                viewModel.nome = nome
-                                viewModel.numero = numero
-                                viewModel.complemento = complemento
-                                viewModel.cpf = cpf
-                                viewModel.cep = cep
-                                viewModel.telefone = telefone
-                                viewModel.data_parto = dataParto
-                                viewModel.data_nascimento = dataNascimento
-                                viewModel.email = email
+                                profissional.nome = nome
+                                profissional.cpf = cpf
+                                profissional.data_nascimento = dataNascimento
+                                profissional.telefone = telefone
+                                profissional.cep = cep
+                                profissional.numero = numero
+                                profissional.complemento = complemento
+                                profissional.email = email
 
                                 openDialogSucess.value = true
                             } else {
@@ -757,7 +668,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
 
                         }
 
-                        override fun onFailure(call: Call<Pregnant>, t: Throwable) {
+                        override fun onFailure(call: Call<ProfissionalBody>, t: Throwable) {
                             Log.i(
                                 "ds2m",
                                 "onFailure: ${t.message}"
