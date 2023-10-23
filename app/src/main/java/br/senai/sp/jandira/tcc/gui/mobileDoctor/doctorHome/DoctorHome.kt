@@ -70,11 +70,6 @@ fun DoctorHome(
         GetProfessional(professional)
     }
 
-
-    var agenda by remember {
-        mutableStateOf(listOf<Schedule>())
-    }
-
     Box(
         modifier = Modifier
             .fillMaxSize()

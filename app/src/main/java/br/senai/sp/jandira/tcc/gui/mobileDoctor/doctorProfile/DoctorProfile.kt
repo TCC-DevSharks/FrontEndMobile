@@ -1,5 +1,9 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile
 
+import android.net.Uri
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -39,12 +43,108 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.PutWeight
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.professional.ProfissionalBody
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import retrofit2.Call
+import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun DoctorProfile(professional: Professional, navController: NavController) {
+
+    val storage = Firebase.storage
+    val storageRef = storage.reference
+
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    var launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        photoUri = uri
+
+
+        var file = uri
+
+        val photo = storageRef.child("${file}")
+
+        var upload = photo.putFile(file!!)
+
+        val urlTask = upload.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            photo.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                professional.foto = "${task.result}"
+
+                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
+                var ProfissionalBody = ProfissionalBody(
+                    nome = professional.nome,
+                    crm = professional.crm,
+                    email = professional.email,
+                    cpf = professional.cpf,
+                    data_nascimento = "${LocalDate.parse(professional.data_nascimento, formatter)}",
+                    foto = professional.foto,
+                    descricao = professional.descricao,
+                    inicio_atendimento = professional.inicio_atendimento,
+                    fim_atendimento = professional.fim_atendimento,
+                    id_sexo = professional.idSexo,
+                    id_clinica = professional.idClinica,
+                    telefone = professional.telefone,
+                    tipo_telefone = professional.idTipo,
+                    id_telefone = professional.id_telefone,
+                    id_endereco = professional.id_endereco,
+                    numero = professional.numero,
+                    complemento = professional.complemento,
+                    cep = professional.cep,
+                )
+
+                println(ProfissionalBody)
+
+                val call = RetrofitFactory().getProfessional().putProfissional(professional.id, ProfissionalBody)
+
+                call.enqueue(object : retrofit2.Callback<ProfissionalBody> {
+                    override fun onResponse(
+                        call: Call<ProfissionalBody>,
+                        response: Response<ProfissionalBody>
+
+                    ) {
+                        Log.i("fdfdf", "${response}")
+                        if (response.code() == 200) {
+
+                        } else {
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<ProfissionalBody>, t: Throwable) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
+
+            } else {
+                professional.foto
+            }
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -79,6 +179,7 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(CircleShape)
+                            .clickable { launcher.launch("image/*") }
                     )
                 }
             }

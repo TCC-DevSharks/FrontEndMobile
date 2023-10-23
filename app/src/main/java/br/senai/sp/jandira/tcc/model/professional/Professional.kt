@@ -28,4 +28,7 @@ class Professional {
     var complemento by mutableStateOf("")
     var id_endereco by mutableStateOf(0)
     var id_telefone by mutableStateOf(0)
+    var idSexo by mutableStateOf(0)
+    var idTipo by mutableStateOf(0)
+    var idClinica by mutableStateOf(0)
 }

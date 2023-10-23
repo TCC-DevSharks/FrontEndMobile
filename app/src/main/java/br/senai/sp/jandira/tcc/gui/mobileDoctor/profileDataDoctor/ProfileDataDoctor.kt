@@ -622,25 +622,26 @@ fun ProfileDataDoctor(navController: NavController, profissional: Professional) 
 
                     var ProfissionalBody = ProfissionalBody(
                         nome = nome,
-                        cpf = cpf,
-                        telefone = telefone,
-                        complemento = complemento,
-                        numero = numero,
-                        cep = cep,
-                        foto = profissional.foto,
-                        data_nascimento = "${LocalDate.parse(dataNascimento, formatter)}",
-                        email = profissional.email,
-                        senha = profissional.senha,
                         crm = profissional.crm,
+                        email = profissional.email,
+                        cpf = cpf,
+                        data_nascimento = "${LocalDate.parse(dataNascimento, formatter)}",
+                        foto = profissional.foto,
                         descricao = profissional.descricao,
                         inicio_atendimento = profissional.inicio_atendimento,
                         fim_atendimento = profissional.fim_atendimento,
-                        id_sexo = profissional.sexo,
-                        id_clinica = profissional.clinica,
+                        id_sexo = profissional.idSexo,
+                        id_clinica = profissional.idClinica,
+                        telefone = telefone,
+                        tipo_telefone = profissional.idTipo,
                         id_telefone = profissional.id_telefone,
-                        tipo_telefone = 1,
-                        id_endereco = profissional.id_endereco
+                        id_endereco = profissional.id_endereco,
+                        numero = numero,
+                        complemento = complemento,
+                        cep = cep,
                     )
+
+                    println(ProfissionalBody)
 
                     val call = RetrofitFactory().getProfessional().putProfissional(profissional.id, ProfissionalBody)
 

@@ -17,6 +17,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetProfessional
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
 import br.senai.sp.jandira.tcc.model.professional.Professional
@@ -53,21 +55,26 @@ fun ScheduleDoctor(professional: Professional) {
     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     val dataAtual = LocalDate.now()
 
-    val call = RetrofitFactory().insertConsult().GetConsulta(professional.id)
+    LaunchedEffect(Unit) {
+        val call = RetrofitFactory().insertConsult().GetConsulta(professional.id)
 
-    call.enqueue(object : Callback<ConsultList> {
-        override fun onResponse(
-            call: Call<ConsultList>,
-            response: Response<ConsultList>
-        ) {
-            pacientes = response.body()!!.pacientes
+        call.enqueue(object : Callback<ConsultList> {
+            override fun onResponse(
+                call: Call<ConsultList>,
+                response: Response<ConsultList>
+            ) {
+                pacientes = response.body()!!.pacientes
+                println(pacientes)
 
-        }
+            }
 
-        override fun onFailure(call: Call<ConsultList>, t: Throwable) {
-            Log.i("hgf", "${pacientes}")
-        }
-    })
+            override fun onFailure(call: Call<ConsultList>, t: Throwable) {
+                Log.i("hgf", "${pacientes}")
+            }
+        })
+    }
+
+
 
     Column(
         modifier = Modifier
@@ -99,12 +106,13 @@ fun ScheduleDoctor(professional: Professional) {
                     horizontalArrangement = Arrangement.Center
                 ) {
 
-                    Text(text = stringResource(id = R.string.your_consultations),
+                    Text(
+                        text = stringResource(id = R.string.your_consultations),
                         fontSize = 17.sp,
                         modifier = Modifier.padding(start = 18.dp),
                         fontWeight = FontWeight.SemiBold,
                     )
-              
+
                 }
             }
             LazyColumn() {

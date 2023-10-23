@@ -46,6 +46,9 @@ import retrofit2.Response
                 call: Call<ProfessionalSpecialityResponseList>,
                 response: Response<ProfessionalSpecialityResponseList>
             ) {
+
+                Log.i("fdfd", "${response.body()}")
+
                 response.body()!!.profissionais.map {
                     professional.id = it.id
                     professional.nome = it.nome
@@ -65,9 +68,11 @@ import retrofit2.Response
                     professional.complemento = it.complemento
                     professional.cep= it.cep
                     professional.especialidade = it.especialidade
-                    professional.id_endereco= it.idEndereco.toInt()
-                    professional.id_telefone = it.idTelefone.toInt()
-
+                    professional.id_endereco= it.idEndereco
+                    professional.id_telefone = it.idTelefone
+                    professional.idTipo = it.idTipo
+                    professional.idSexo = it.idSexo
+                    professional.idClinica= it.idClinica
                 }
 
             }
