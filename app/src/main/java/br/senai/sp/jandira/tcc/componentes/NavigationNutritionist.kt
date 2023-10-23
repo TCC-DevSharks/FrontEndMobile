@@ -41,7 +41,7 @@ fun NavigationNutritionist(navController: NavController) {
         ) {
 
             Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
-//                navController.navigate("FoodDoctor")
+                navController.navigate("nutritionSelect")
 
             }) {
                 Image(
@@ -66,7 +66,7 @@ fun NavigationNutritionist(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-//                        navController.navigate("register")
+                    navController.navigate("medicalRecordSelect")
 
                 }) {
                 Image(

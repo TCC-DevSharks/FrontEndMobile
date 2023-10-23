@@ -13,6 +13,7 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
@@ -161,6 +162,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
             composable(route = "DoctorSchedule") { DoctorSchedule () }
+            composable(route = "nutritionSelect") { SelectPatient () }
+//            composable(route = "medicalRecordSelect") { SelectPatient () }
 
     }
 }
