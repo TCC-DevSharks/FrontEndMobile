@@ -32,7 +32,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.GetProfessional
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
 import br.senai.sp.jandira.tcc.model.professional.Professional
@@ -41,8 +40,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -56,7 +53,7 @@ fun ScheduleDoctor(professional: Professional) {
     val dataAtual = LocalDate.now()
 
     LaunchedEffect(Unit) {
-        val call = RetrofitFactory().insertConsult().GetConsulta(professional.id)
+        val call = RetrofitFactory().insertConsult().getConsult(professional.id)
 
         call.enqueue(object : Callback<ConsultList> {
             override fun onResponse(

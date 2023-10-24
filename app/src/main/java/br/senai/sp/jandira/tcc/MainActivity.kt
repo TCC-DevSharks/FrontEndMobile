@@ -13,6 +13,8 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedicalRecord
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
@@ -109,7 +111,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "start",
+        startDestination = "medicalRecordSelectDate",
     )
 
         {
@@ -163,7 +165,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
             composable(route = "DoctorSchedule") { DoctorSchedule () }
             composable(route = "nutritionSelect") { SelectPatient () }
-//            composable(route = "medicalRecordSelect") { SelectPatient () }
+            composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
+            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord () }
 
     }
 }

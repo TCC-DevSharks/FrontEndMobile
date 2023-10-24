@@ -68,13 +68,11 @@ fun SelectPatient() {
                 OutlinedTextField(
                     value = date,
                     onValueChange = { date = it },
-                    singleLine = false,
                     modifier = Modifier
-                        .width(355.dp)
-                        .clip(RoundedCornerShape(60.dp)),
+                        .width(355.dp),
+                    shape = RoundedCornerShape(40.dp),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next
                     ),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color(243, 243, 243, 500),
