@@ -141,7 +141,7 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
                         modifier = Modifier
                             .width(340.dp)
                             .clickable {
-                                navController.navigate("")
+                                navController.navigate("medicalRecordSelectDate")
                             }
                             .height(85.dp)
                             .padding(bottom = 14.dp),

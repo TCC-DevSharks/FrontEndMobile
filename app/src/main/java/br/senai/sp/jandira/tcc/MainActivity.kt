@@ -111,7 +111,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     AnimatedNavHost(
         navController = navController,
-        startDestination = "medicalRecordSelectDate",
+        startDestination = "start",
     )
 
         {
@@ -166,7 +166,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DoctorSchedule") { DoctorSchedule () }
             composable(route = "nutritionSelect") { SelectPatient () }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
-            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord () }
+            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional) }
 
     }
 }
