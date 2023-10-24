@@ -166,10 +166,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DoctorSchedule") { DoctorSchedule () }
             composable(route = "nutritionSelect") { SelectPatient () }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
-            composable(route = "medicalRecordSelectDate/{idGestante}") { backStackEntry ->
-                val idGestante = backStackEntry.arguments?.getInt("idGestante")
-                SelectDateMedicalRecord(navController, professional, idGestante,)
-            }
+            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional) }
+
 
     }
 }

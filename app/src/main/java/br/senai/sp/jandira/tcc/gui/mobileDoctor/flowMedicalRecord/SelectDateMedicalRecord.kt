@@ -36,16 +36,9 @@ import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
 
 @Composable
-fun SelectDateMedicalRecord(navController: NavController, professional: Professional, idGestante: Int?) {
 
+fun SelectDateMedicalRecord(navController: NavController, professional: Professional) {
     Column(modifier = Modifier.fillMaxSize()) {
-
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-        val idGestante = navBackStackEntry?.arguments?.getInt("idGestante")
-
-        Log.i("gestante", "$idGestante")
-
 
         Header(titulo = stringResource(id = R.string.medical_record))
 
@@ -65,8 +58,10 @@ fun SelectDateMedicalRecord(navController: NavController, professional: Professi
 
         Spacer(modifier = Modifier.height(35.dp))
 
-        Column(modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
             Card(
                 modifier = Modifier
@@ -88,11 +83,15 @@ fun SelectDateMedicalRecord(navController: NavController, professional: Professi
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
 
-                    Row (modifier = Modifier
-                            .background(Color(182, 182, 246),
-                        shape = RoundedCornerShape(10.dp)),
+                    Row(
+                        modifier = Modifier
+                            .background(
+                                Color(182, 182, 246),
+                                shape = RoundedCornerShape(10.dp)
+                            ),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center) {
+                        horizontalArrangement = Arrangement.Center
+                    ) {
 
                         Text(
                             text = "Ingrid yty",
@@ -108,21 +107,26 @@ fun SelectDateMedicalRecord(navController: NavController, professional: Professi
                         )
                     }
 
-                    Column (verticalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(start = 17.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(start = 17.dp)
+                    ) {
 
-                        Text(text = stringResource(id = R.string.date) + " " + "06/10/2023",
+                        Text(
+                            text = stringResource(id = R.string.date) + " " + "06/10/2023",
                             fontWeight = FontWeight(400),
                             fontSize = 14.5.sp,
                             color = Color.Gray,
-                            )
+                        )
 
                         Spacer(modifier = Modifier.height(3.dp))
 
-                        Text(text = stringResource(id = R.string.hour) + " " + "17:30",
+                        Text(
+                            text = stringResource(id = R.string.hour) + " " + "17:30",
                             fontWeight = FontWeight(400),
                             fontSize = 14.5.sp,
-                            color = Color.Gray)
+                            color = Color.Gray
+                        )
 
 
                     }
