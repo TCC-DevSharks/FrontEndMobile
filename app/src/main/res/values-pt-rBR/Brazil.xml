@@ -257,6 +257,10 @@
     <string name="all_">Todos</string>
     <string name="select_one_patients">Selecione um de seus pacientes:</string>
     <string name="select_consult">Select one of the queries:</string>
+    <string name="consultation_title">Consultas</string>
+    <string name="scheduled">Agendadas</string>
+
+
 
 
 
