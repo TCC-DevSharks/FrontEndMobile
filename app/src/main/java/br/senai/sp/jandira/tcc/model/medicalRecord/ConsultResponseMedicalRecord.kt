@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.model.consult
+package br.senai.sp.jandira.tcc.model.medicalRecord
 
 data class ConsultResponseMedicalRecord(
     val idConsulta: Int,

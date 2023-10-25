@@ -13,6 +13,7 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.MedicalRecordAdd
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
@@ -64,6 +65,7 @@ import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -108,6 +110,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val modelSchedule = ModelSchedule()
     val categories = ModelCategories()
     val exercises = ModelExercises()
+    val modelMedicalRecord = ModelMedicalRecord()
 
     AnimatedNavHost(
         navController = navController,
@@ -166,8 +169,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "DoctorSchedule") { DoctorSchedule () }
             composable(route = "nutritionSelect") { SelectPatient () }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
-            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional) }
-
+            composable(route = "medicalRecordSelectDate/{idGestante}") { backStackEntry ->
+                val idGestante = backStackEntry.arguments?.getString("idGestante")?.toIntOrNull()
+                SelectDateMedicalRecord (navController, professional, idGestante, modelMedicalRecord)
+            }
+            composable(route = "medicalRecordAdd") { MedicalRecordAdd () }
 
     }
 }
