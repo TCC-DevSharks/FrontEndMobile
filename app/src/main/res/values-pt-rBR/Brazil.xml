@@ -259,6 +259,12 @@
     <string name="select_consult">Select one of the queries:</string>
     <string name="consultation_title">Consultas</string>
     <string name="scheduled">Agendadas</string>
+    <string name="consultation_with">Consulta com:</string>
+    <string name="details">DETALHES</string>
+    <string name="performed">Realizadas</string>
+
+
+
 
 
 

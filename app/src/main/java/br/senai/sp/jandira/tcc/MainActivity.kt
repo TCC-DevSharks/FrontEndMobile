@@ -18,6 +18,7 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedi
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled.AppointmentCanceled
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
 
@@ -174,6 +175,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 SelectDateMedicalRecord (navController, professional, idGestante, modelMedicalRecord)
             }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (modelMedicalRecord) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+
 
     }
 }
