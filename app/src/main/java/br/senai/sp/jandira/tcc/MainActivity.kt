@@ -173,7 +173,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 val idGestante = backStackEntry.arguments?.getString("idGestante")?.toIntOrNull()
                 SelectDateMedicalRecord (navController, professional, idGestante, modelMedicalRecord)
             }
-            composable(route = "medicalRecordAdd") { MedicalRecordAdd () }
+            composable(route = "medicalRecordAdd") { MedicalRecordAdd (modelMedicalRecord) }
 
     }
 }

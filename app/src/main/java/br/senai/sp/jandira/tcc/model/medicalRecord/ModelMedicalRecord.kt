@@ -9,6 +9,7 @@ class ModelMedicalRecord {
     var id by mutableStateOf(0)
     var descricao by mutableStateOf("")
     var id_consulta by mutableStateOf(0)
+    var id_prontuario by mutableStateOf(0)
     var dia by mutableStateOf("")
     var hora by mutableStateOf("")
     var id_profissional by mutableStateOf(0)

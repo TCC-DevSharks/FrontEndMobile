@@ -60,8 +60,6 @@ fun SelectDateMedicalRecord(
 
     val idGestante = navBackStackEntry?.arguments?.getString("idGestante")?.toIntOrNull()
 
-    Log.i("fdf", "$idGestante")
-
     var paciente by rememberSaveable {
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
@@ -84,8 +82,6 @@ fun SelectDateMedicalRecord(
             }
         })
     }
-
-    Log.i("trest", "${idGestante}")
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -117,6 +113,11 @@ fun SelectDateMedicalRecord(
                     modifier = Modifier
                         .width(340.dp)
                         .clickable {
+                            modelMedicalRecord.id = it.id
+                            modelMedicalRecord.dia = it.dia
+                            modelMedicalRecord.hora = it.hora
+                            modelMedicalRecord.id_prontuario = 0
+                            modelMedicalRecord.descricao = ""
                             navController.navigate("medicalRecordAdd")
                         }
                         .height(85.dp)

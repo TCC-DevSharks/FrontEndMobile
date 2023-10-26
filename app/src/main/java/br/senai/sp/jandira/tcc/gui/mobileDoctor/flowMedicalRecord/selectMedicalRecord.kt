@@ -75,7 +75,6 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
             response: Response<ConsultListMedicalRecord>
         ) {
             pacientes = response.body()!!.pacientes
-            Log.i("paciente", "${response.body()}")
 
         }
 
