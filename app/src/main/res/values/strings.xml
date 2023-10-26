@@ -263,6 +263,9 @@
     <string name="select_consult">Selecione uma das consultas:</string>
     <string name="consultation_title">Consultation</string>
     <string name="scheduled">Scheduled</string>
+    <string name="consultation_with">Consultation with:</string>
+    <string name="details">DETAILS</string>
+    <string name="performed">Performed</string>
 
 
 
