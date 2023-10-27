@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.Appointment
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -405,6 +406,8 @@ fun AppointmentCanceled(navController: NavController) {
             }
         }
         var isCardVisible by remember { mutableStateOf(false) }
+        var isCard2Visible by remember { mutableStateOf(false) }
+
 
         Column(
             modifier = Modifier
@@ -425,55 +428,131 @@ fun AppointmentCanceled(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .then(Modifier.background(MaterialTheme.colorScheme.background)
-                        .background(color = Color.Black.copy(alpha = 0.5f))
+                    .then(
+                        Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .background(color = Color.Black.copy(alpha = 0.5f))
                     )
+                    .align(Alignment.Center) // Centralizar a Box
             ) {
-                Column(
-                    verticalArrangement = Arrangement.Center
+                Card(
+                    modifier = Modifier
+                        .width(290.dp)
+                        .height(290.dp)
+                        .align(Alignment.Center), // Centralizar o Card
+                    colors = CardDefaults.cardColors(Color.White)
                 ) {
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     Column(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Card(
-                            modifier = Modifier
-                                .width(325.dp)
-                                .height(325.dp),
-                            colors = CardDefaults.cardColors(Color.White)
+                        Text(
+                            text = "Deseja cancelar a consulta?",
+                            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        )
+                        Spacer(modifier = Modifier.height(30.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
-                            Column(
+                            Image(
+                                painter = painterResource(id = R.drawable.cancelar),
+                                contentDescription = null,
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                    .size(50.dp)
+                                    .clickable {
+                                        isCardVisible = false
+                                        navController.popBackStack()
+                                    }
+                            )
+
+                            Image(
+                                painter = painterResource(id = R.drawable.correct),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .clickable {
+                                        isCard2Visible = true
+                                    }
+                            )
+
+
+                        }
+                    }
+                }
+            }
+            if (isCard2Visible) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .then(
+                            Modifier
+                                .background(MaterialTheme.colorScheme.background)
+                                .background(color = Color.Black.copy(alpha = 0.5f))
+                        )
+                        .align(Alignment.Center) // Centralizar a Box
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .width(290.dp)
+                            .height(290.dp)
+                            .align(Alignment.Center), // Centralizar o Card
+                        colors = CardDefaults.cardColors(Color.White)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.correct),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(65.dp)
+                            )
+                            Spacer(modifier = Modifier.height(30.dp))
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
                             ) {
+
+
                                 Text(
-                                    text = "Deseja cancelar a consulta?",
+                                    text = "Sua consulta foi cancelada.",
                                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
                                 )
-                                Spacer(modifier = Modifier.height(30.dp))
+                            }
+                            Spacer(modifier = Modifier.height(25.dp))
 
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+
+                                Button(
+                                    onClick = {
+//                                        isCard2Visible = false
+//                                        isCardVisible = false
+                                    },
+                                    modifier = Modifier
+                                        .width(327.dp)
+                                        .height(48.dp),
+                                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                                    shape = RoundedCornerShape(16.dp),
                                 ) {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.cancelar),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(50.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(10.dp))
-                                    Image(
-                                        painter = painterResource(id = R.drawable.correct),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(50.dp)
+                                    Text(
+                                        text = "Voltar",
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 18.sp
                                     )
                                 }
                             }

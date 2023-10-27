@@ -21,9 +21,15 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,37 +60,49 @@ fun TimeLineScreen() {
 
             Spacer(modifier = Modifier.height(10.dp))
 
+            var selectedItem by remember { mutableStateOf(-1) }
+
             LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)
+                modifier = Modifier.fillMaxWidth()
             ) {
                 items(40) { index ->
                     val number = index + 1
 
-                    Column(
+                    val isItemSelected = index == selectedItem
+
+                    Box(
                         modifier = Modifier
                             .padding(5.dp)
                             .size(75.dp, 35.dp)
-//                            .background(
-//                                if (isCurrentDate) Color(182, 182, 246) else Color(227, 228, 228),
-//                                shape = RoundedCornerShape(10.dp)
-//                            )
+                            .fillMaxSize()
+                            .clickable {
+                                selectedItem = index
+                            }
                             .background(
-                                Color(182, 182, 246),
-                                shape = RoundedCornerShape(10.dp)
+                                if (isItemSelected) Color(182, 182, 246) else Color(249, 246, 244),
+                                shape = RoundedCornerShape(20.dp)
                             ),
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        contentAlignment = Alignment.Center
                     ) {
-
-                        Text(
-                            text = "$number",
-//                            color = if (isCurrentDate) Color.White else Color.Black
-                            fontWeight = FontWeight(500),
-                            fontSize = 17.sp
-                        )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .graphicsLayer(
+                                    clip = true,
+                                    shape = RoundedCornerShape(20.dp)
+                                ),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "$number",
+                                fontWeight = FontWeight(500),
+                                fontSize = 17.sp,
+                                color = if (isItemSelected) Color.White else Color.Black
+                            )
+                        }
                     }
+
                 }
             }
 
