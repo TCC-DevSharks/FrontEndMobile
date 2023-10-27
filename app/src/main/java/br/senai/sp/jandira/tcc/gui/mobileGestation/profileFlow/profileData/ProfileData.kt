@@ -39,25 +39,23 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.GetCep
+import br.senai.sp.jandira.tcc.componentes.AlertDialog
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.componentes.AlertDialog
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,7 +94,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
         if (viewModel.cep.length == 8) {
             val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
 
-            call.enqueue(object : retrofit2.Callback<ViaCep> {
+            call.enqueue(object : Callback<ViaCep> {
                 override fun onResponse(
                     call: Call<ViaCep>,
                     response: Response<ViaCep>
@@ -457,36 +455,36 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                         onValueChange = {
                             cep = it
                             if (cep.length == 8) {
-                                    val call = RetrofitFactoryCep().getCep().getCep(cep)
+                                val call = RetrofitFactoryCep().getCep().getCep(cep)
 
-                                    call.enqueue(object : retrofit2.Callback<ViaCep> {
-                                        override fun onResponse(
-                                            call: Call<ViaCep>,
-                                            response: Response<ViaCep>
+                                call.enqueue(object : Callback<ViaCep> {
+                                    override fun onResponse(
+                                        call: Call<ViaCep>,
+                                        response: Response<ViaCep>
 
-                                        ) {
-                                            Log.i("asdf", "${response}")
+                                    ) {
+                                        Log.i("asdf", "${response}")
 
-                                            if (response.code() == 200) {
-                                                viewModel.bairro = response.body()!!.bairro
-                                                viewModel.cidade = response.body()!!.localidade
-                                                viewModel.logradouro = response.body()!!.logradouro
-                                                viewModel.estado = response.body()!!.localidade
-                                            }
-                                            logradouro = viewModel.logradouro
-                                            bairro = viewModel.bairro
-                                            cidade = viewModel.cidade
-
+                                        if (response.code() == 200) {
+                                            viewModel.bairro = response.body()!!.bairro
+                                            viewModel.cidade = response.body()!!.localidade
+                                            viewModel.logradouro = response.body()!!.logradouro
+                                            viewModel.estado = response.body()!!.localidade
                                         }
+                                        logradouro = viewModel.logradouro
+                                        bairro = viewModel.bairro
+                                        cidade = viewModel.cidade
 
-                                        override fun onFailure(call: Call<ViaCep>, t: Throwable) {
-                                            Log.i(
-                                                "ds2m",
-                                                "onFailure: ${t.message}"
-                                            )
-                                            println(t.message + t.cause)
-                                        }
-                                    })
+                                    }
+
+                                    override fun onFailure(call: Call<ViaCep>, t: Throwable) {
+                                        Log.i(
+                                            "ds2m",
+                                            "onFailure: ${t.message}"
+                                        )
+                                        println(t.message + t.cause)
+                                    }
+                                })
                             }
                             visible = true
                         },
@@ -734,7 +732,7 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                     val call =
                         RetrofitFactory().pregnant().updatePregnant(viewModel.id, Pregnant)
 
-                    call.enqueue(object : retrofit2.Callback<Pregnant> {
+                    call.enqueue(object : Callback<Pregnant> {
                         override fun onResponse(
                             call: Call<Pregnant>,
                             response: Response<Pregnant>

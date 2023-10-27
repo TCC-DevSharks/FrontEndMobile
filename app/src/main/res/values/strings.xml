@@ -206,7 +206,7 @@
     <string name="maternal_guide">Maternal Guide</string>
     <string name="preparations">Preparations</string>
     <string name="finish">Finish</string>
-    <string name="Continueee">Continue -></string>
+    <string name="Continueee">Continue</string>
     <string name="card_number">Card number:</string>
     <string name="expiration_date">Expiration date:</string>
     <string name="cvv">CVV</string>
@@ -219,6 +219,7 @@
     <string name="expiration">Expiration:  </string>
     <string name="consultation">Consultation:  </string>
     <string name="publish">Publish</string>
+    <string name="news">News</string>
 
 
     <string name="exercises">Exercises</string>
@@ -234,7 +235,7 @@
     <string name="specialization">Specialty: </string>
     <string name="professional">Professional: </string>
     <string name="clinic">Clinic: </string>
-    <string name="pag">Proceed to payment -> </string>
+    <string name="pag">Proceed to payment</string>
     <string name="Select_a_date">Select a date:</string>
     <string name="Service_charge">Service fee:</string>
     <string name="emailL">Email:</string>
@@ -245,8 +246,29 @@
     <string name="messages">Messages</string>
     <string name="All_Messages">All messages</string>
     <string name="edit">Edit</string>
-    <string name="your_consultations">Your week\'s appointments:</string>
+    <string name="your_consultations">Your queries of the day:</string>
     <string name="Welcome">Welcome,</string>
+    <string name="phone_clinic">Clinic telephone</string>
+    <string name="Charge">Charge</string>
+    <string name="timeline">Timeline</string>
+    <string name="hi">Hi</string>
+    <string name="weeks">weeks</string>
+    <string name="day_user">day</string>
+
+    <string name="description_login_doctor">Ready for another journey of service?</string>
+    <string name="select_patient">Select a patient</string>
+    <string name="search_patient">Search a patient</string>
+    <string name="all_">All</string>
+    <string name="select_one_patients">Select one of your patients</string>
+    <string name="select_consult">Selecione uma das consultas:</string>
+    <string name="consultation_title">Consultation</string>
+    <string name="scheduled">Scheduled</string>
+    <string name="consultation_with">Consultation with:</string>
+    <string name="details">DETAILS</string>
+    <string name="performed">Performed</string>
+    <string name="do_you_want_to_cancel">Do you want to cancel an appointment?</string>
+
+
 
 
 </resources>

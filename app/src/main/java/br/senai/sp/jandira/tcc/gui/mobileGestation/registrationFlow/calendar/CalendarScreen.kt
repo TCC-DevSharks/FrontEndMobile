@@ -2,7 +2,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.calendar
 
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

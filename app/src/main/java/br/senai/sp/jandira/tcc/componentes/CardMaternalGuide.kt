@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.componentes
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,19 +23,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun MarternalGuide(
     //textTitle: String
     //textDescription: String
-
+navController: NavController
 ) {
 
     Column (modifier = Modifier.padding(start = 16.dp)) {
 
         Card(
-            modifier = Modifier.size(250.dp, 215.dp),
+            modifier = Modifier.size(250.dp, 215.dp)
+                .clickable {
+                           navController.navigate("guiaMaterno")
+                },
             colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
             border = BorderStroke( .3.dp, Color(182, 182, 246))
 
@@ -100,9 +105,9 @@ fun MarternalGuide(
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MarternalGuidePreview() {
-
-    MarternalGuide()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun MarternalGuidePreview() {
+//
+//    MarternalGuide()
+//}

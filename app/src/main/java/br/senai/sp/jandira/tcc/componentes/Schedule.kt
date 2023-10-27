@@ -165,7 +165,7 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
 
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = "${it.dia}",
+                                text = "${it.dia.take(5)}",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
                                 textAlign = TextAlign.End

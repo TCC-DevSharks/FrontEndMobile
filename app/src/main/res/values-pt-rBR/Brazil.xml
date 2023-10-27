@@ -9,8 +9,8 @@
     <string name="forgot_password">Esqueceu a senha?</string>
     <string name="title_register">Bem-Vinda!</string>
     <string name="description_register">Preparada para Começar a Jornada?Bebê-Vindo, Seu Apoio na Maternidade.</string>
-    <string name="error_password">Your e-mail address or password is incorrect!</string>
-    <string name="empty_fields">All fields must be filled in.</string>
+    <string name="error_password">Seu endereço de e-mail ou senha estão incorretos!</string>
+    <string name="empty_fields">Todos os campos devem ser preenchidos.</string>
     <string name="fields_not_match">Fields do not match.</string>
 
     <!-- Register Password   -->
@@ -218,6 +218,8 @@
     <string name="expiration">Vencimento:  </string>
     <string name="consultation">Consulta:  </string>
     <string name="publish">Publicar</string>
+    <string name="news">Notícias</string>
+
     <string name="exercises">Exercícios</string>
     <string name="today_activity">Atividade de hoje</string>
     <string name="recommendation_class">Classe de recomendação</string>
@@ -242,7 +244,32 @@
     <string name="messages">Mensagens</string>
     <string name="All_Messages">Todas as mensagens</string>
     <string name="edit">Editar</string>
-    <string name="your_consultations">Suas consultas da semana:</string>
-    <string name="Welcome">Bem-Vinda,</string>
+    <string name="your_consultations">Suas consultas do dia:</string>
+    <string name="Welcome">Bem-Vindo(a),</string>
+    <string name="timeline">Linha do Tempo</string>
+    <string name="hi">Oi,</string>
+    <string name="weeks">semanas e</string>
+    <string name="day_user">dias</string>
+
+    <string name="description_login_doctor">Pronto (a) para mais uma jornada de atendimento?</string>
+    <string name="select_patient">Selecione um paciente</string>
+    <string name="search_patient">Buscar paciente</string>
+    <string name="all_">Todos</string>
+    <string name="select_one_patients">Selecione um de seus pacientes:</string>
+    <string name="select_consult">Select one of the queries:</string>
+    <string name="consultation_title">Consultas</string>
+    <string name="scheduled">Agendadas</string>
+    <string name="consultation_with">Consulta com:</string>
+    <string name="details">DETALHES</string>
+    <string name="performed">Realizadas</string>
+    <string name="do_you_want_to_cancel">Deseja cancelar uma consulta?</string>
+
+
+
+
+
+
+
+
 
 </resources>
