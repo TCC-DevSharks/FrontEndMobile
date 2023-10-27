@@ -49,6 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
@@ -69,7 +70,7 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MedicalRecordAdd(
-    //    navController: NavController
+    navController: NavController,
     modelMedicalRecord: ModelMedicalRecord
 ) {
 
@@ -100,6 +101,8 @@ fun MedicalRecordAdd(
                                 descricaoAdd = prontuario.descricao
 
                                 Log.i("abc", "${ modelMedicalRecord.id_consulta} ")
+                                Log.i("abc", "${ modelMedicalRecord.id_consulta} ")
+                                Log.i("abc", "${ prontuario.id_consulta} ")
 //                                Log.i("abdddc", "${response.body()} ")
 //
                             }
@@ -183,7 +186,7 @@ fun MedicalRecordAdd(
                 shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
-                    text = modelMedicalRecord.dia,
+                    text = modelMedicalRecord.dia.take(5),
                     fontSize = 12.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight(900),
@@ -226,7 +229,7 @@ fun MedicalRecordAdd(
                 shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
-                    text = modelMedicalRecord.hora,
+                    text = modelMedicalRecord.hora.take(5),
                     fontSize = 13.5.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight(900),
@@ -325,6 +328,8 @@ fun MedicalRecordAdd(
                                     ) {
 
                                         Log.i("", "${response.body()}")
+                                        Log.i("", "${response}")
+                                        Log.i("", "${prontuario}")
 
                                         if (response.isSuccessful) {
                                             val backgroundColor = Color.Gray
@@ -335,7 +340,7 @@ fun MedicalRecordAdd(
                                             toast.duration = Toast.LENGTH_SHORT
 
                                             val textView = TextView(context).apply {
-                                                text = "Evento adicionado com sucesso"
+                                                text = "Prontuario criado com sucesso"
                                                 textSize = 18f // Tamanho da fonte aumentado
                                                 setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
                                                 setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
@@ -349,6 +354,8 @@ fun MedicalRecordAdd(
 
                                             toast.view = textView
                                             toast.show()
+
+                                            navController.navigate("medicalRecordSelect")
                                         }
 
                                     }
@@ -364,9 +371,74 @@ fun MedicalRecordAdd(
                 }
 
             } else {
-                
-                Text(text = "Editar Consulta" + modelMedicalRecord.id.toString())
 
+                Box(
+                    modifier = Modifier
+                        .background(Color(182, 182, 246), CircleShape)
+                        .size(60.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.save),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(27.dp)
+                            .clickable {
+
+                                var prontuario = ProntuarioBody(
+
+                                    descricao = descricaoAdd,
+                                    id_consulta = modelMedicalRecord.id_consulta
+                                )
+
+                                var callPut = RetrofitFactory()
+                                    .insertConsult()
+                                    .putMedicalRecord(modelMedicalRecord.id_prontuario, prontuario)
+
+                                callPut.enqueue(object : Callback<ResponseBody> {
+                                    override fun onResponse(
+                                        call: Call<ResponseBody>,
+                                        response: Response<ResponseBody>
+                                    ) {
+
+                                        if (response.isSuccessful) {
+                                            val backgroundColor = Color.Gray
+                                            val contentColor = Color.White
+
+                                            val toast = Toast(context)
+                                            toast.setGravity(Gravity.CENTER, 0, 20)
+                                            toast.duration = Toast.LENGTH_SHORT
+
+                                            val textView = TextView(context).apply {
+                                                text = "Prontuario Editado com sucesso"
+                                                textSize = 18f // Tamanho da fonte aumentado
+                                                setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
+                                                setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
+                                                setPadding(
+                                                    36,
+                                                    36,
+                                                    36,
+                                                    36
+                                                ) // Valores inteiros em pixels para padding
+                                            }
+
+                                            toast.view = textView
+                                            toast.show()
+
+                                            navController.navigate("medicalRecordSelect")
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                        Log.i("dff", "${t.message}")
+                                    }
+                                })
+
+
+                            },
+                    )
+                }
             }
 
 

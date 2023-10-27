@@ -150,7 +150,7 @@ fun ScheduleDoctor(professional: Professional) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
-                                text = "${paciente.hora}",
+                                text = "${paciente.hora.take(5)}h",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
                                 textAlign = TextAlign.End

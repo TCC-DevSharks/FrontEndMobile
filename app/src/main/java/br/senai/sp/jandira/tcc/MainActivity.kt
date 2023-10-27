@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.componentes.ScheduleDoctor
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
@@ -167,14 +168,14 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
-            composable(route = "DoctorSchedule") { DoctorSchedule () }
+            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController) }
             composable(route = "nutritionSelect") { SelectPatient () }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
             composable(route = "medicalRecordSelectDate/{idGestante}") { backStackEntry ->
                 val idGestante = backStackEntry.arguments?.getString("idGestante")?.toIntOrNull()
                 SelectDateMedicalRecord (navController, professional, idGestante, modelMedicalRecord)
             }
-            composable(route = "medicalRecordAdd") { MedicalRecordAdd (modelMedicalRecord) }
+            composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
             composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
 
 

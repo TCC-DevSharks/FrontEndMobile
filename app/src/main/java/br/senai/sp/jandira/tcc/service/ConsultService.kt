@@ -11,6 +11,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ConsultService {
@@ -39,5 +40,8 @@ interface ConsultService {
 
     //Criar pontuario
     @POST("prontuario")
-    fun insertMedicalRecord (@Body consult: ProntuarioBody): Call<ResponseBody>
+    fun insertMedicalRecord (@Body prontuario: ProntuarioBody): Call<ResponseBody>
+
+    @PUT("prontuario/{id}")
+    fun putMedicalRecord (@Path("id") id: Int, @Body prontuario: ProntuarioBody): Call<ResponseBody>
 }

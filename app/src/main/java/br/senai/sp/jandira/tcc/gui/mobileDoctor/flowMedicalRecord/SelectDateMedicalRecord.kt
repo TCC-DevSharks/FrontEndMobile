@@ -82,6 +82,7 @@ fun SelectDateMedicalRecord(
             }
         })
     }
+    println(paciente)
 
     Column(modifier = Modifier.fillMaxSize()) {
 
@@ -118,6 +119,7 @@ fun SelectDateMedicalRecord(
                             modelMedicalRecord.hora = it.hora
                             modelMedicalRecord.id_prontuario = 0
                             modelMedicalRecord.descricao = ""
+                            modelMedicalRecord.id_consulta = it.id
                             navController.navigate("medicalRecordAdd")
                         }
                         .height(85.dp)
@@ -173,7 +175,7 @@ fun SelectDateMedicalRecord(
                             Spacer(modifier = Modifier.height(3.dp))
 
                             Text(
-                                text = stringResource(id = R.string.hour) + " " + it.hora,
+                                text = stringResource(id = R.string.hour) + " " + it.hora.take(5),
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.5.sp,
                                 color = Color.Gray

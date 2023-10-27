@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.componentes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -48,7 +49,7 @@ fun Header(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 23.dp),
+                .offset(x = (-30).dp),
             text = titulo,
             textAlign = TextAlign.Center,
             fontSize = 22.sp,
