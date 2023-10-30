@@ -47,7 +47,7 @@ import retrofit2.Response
 fun TrousseauScreen(
     navController: NavController,
     category: String?,
-    viewModelPregnant: ModelPregnant
+    pregnant: ModelPregnant
 ) {
 
     var counterEffect by remember { mutableStateOf(false) }
@@ -79,7 +79,7 @@ fun TrousseauScreen(
         enxovalFavorito = emptyList()
 
         val callFavorrite = RetrofitFactory().getTrousseauService()
-            .getTrousseauFavorite(viewModelPregnant.id)
+            .getTrousseauFavorite(pregnant.id)
 
         callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
             override fun onResponse(
@@ -177,7 +177,7 @@ fun TrousseauScreen(
                             } else {
                                 var favoriteTrousseau = TrousseauBody(
                                     id_enxoval = it.id,
-                                    id_gestante = viewModelPregnant.id,
+                                    id_gestante = pregnant.id,
                                 )
 
                                 val callAddTrousseau = RetrofitFactory().getTrousseauService()
@@ -223,7 +223,7 @@ fun TrousseauScreen(
 
 
                         FavoriteBirthPlan(enxoval = it.item, onclick = {
-                            TrousseauDelte(idEnxoval = it.id, idGestante = viewModelPregnant.id)
+                            TrousseauDelte(idEnxoval = it.id, idGestante = pregnant.id)
                             enxovalFavorito = enxovalFavorito - it
                         })
                     }
@@ -245,7 +245,7 @@ fun TrousseauScreen(
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
 
     }

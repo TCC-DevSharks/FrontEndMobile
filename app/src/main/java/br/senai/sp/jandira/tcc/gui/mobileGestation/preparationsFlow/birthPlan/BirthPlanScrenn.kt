@@ -32,7 +32,6 @@ import br.senai.sp.jandira.tcc.componentes.FavoriteBirthPlan
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.SubHeader
-import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauDelte
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanBody
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanList
@@ -48,7 +47,7 @@ import retrofit2.Response
 fun birthPlanScreen(
     navController: NavController,
     category: String?,
-    viewModelPregnant: ModelPregnant
+    pregnant: ModelPregnant
 ) {
 
     var counterEffect by remember { mutableStateOf(false) }
@@ -79,7 +78,7 @@ fun birthPlanScreen(
 
     LaunchedEffect(favorite, counterEffect) {
         val callFavorrite = RetrofitFactory().getBirthPlanService()
-            .getBirthPlanFavorite(viewModelPregnant.id)
+            .getBirthPlanFavorite(pregnant.id)
 
         callFavorrite.enqueue(object : Callback<BirthPlanListFavorite> {
             override fun onResponse(
@@ -171,7 +170,7 @@ fun birthPlanScreen(
 
                                 var favoriteBirthPlan = BirthPlanBody(
                                     id_plano = it.id,
-                                    id_gestante = viewModelPregnant.id,
+                                    id_gestante = pregnant.id,
                                 )
 
                                 val callAddBirthPlan = RetrofitFactory().getBirthPlanService()
@@ -219,7 +218,7 @@ fun birthPlanScreen(
 
 
                         FavoriteBirthPlan(enxoval = it.item, onclick = {
-                            BirthPLanDelte(idPlano = it.id, idGestante = viewModelPregnant.id)
+                            BirthPLanDelte(idPlano = it.id, idGestante = pregnant.id)
                             planoPartoFavorito = planoPartoFavorito - it
                         })
                     }
@@ -241,7 +240,7 @@ fun birthPlanScreen(
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
 
     }

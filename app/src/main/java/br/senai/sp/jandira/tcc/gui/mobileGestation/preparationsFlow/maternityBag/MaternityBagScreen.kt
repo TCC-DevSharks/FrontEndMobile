@@ -39,9 +39,6 @@ import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagFavoriteList
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagList
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagResponse
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagResponseFavorite
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauList2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
-import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +47,7 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPregnant) {
+fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
 
     var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
 
@@ -74,8 +71,8 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
         malaFavorito = emptyList()
 
         val callFavorite =
-            RetrofitFactory().getMaternityBangService()
-                .getMaternityBagFavorite(viewModelPregnant.id)
+            RetrofitFactory().getMaternityBagService()
+                .getMaternityBagFavorite(pregnant.id)
 
         callFavorite.enqueue(object : retrofit2.Callback<MaternityBagFavoriteList> {
             override fun onResponse(
@@ -105,7 +102,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
     }
 
     LaunchedEffect(Unit) {
-        val call = RetrofitFactory().getMaternityBangService().getMaternityBag()
+        val call = RetrofitFactory().getMaternityBagService().getMaternityBag()
 
         call.enqueue(object : retrofit2.Callback<MaternityBagList> {
             override fun onResponse(
@@ -165,12 +162,12 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
 
                             var favoriteMaternity = MaternityBagBody(
                                 id_mala = it.id,
-                                id_gestante = viewModelPregnant.id,
+                                id_gestante = pregnant.id,
                             )
                             if (favoritoIds.contains(it.item)) {
 
                             } else {
-                                val callAddMaternity = RetrofitFactory().getMaternityBangService()
+                                val callAddMaternity = RetrofitFactory().getMaternityBagService()
                                     .insertMaternityBag(favoriteMaternity)
 
                                 callAddMaternity.enqueue(object :
@@ -212,7 +209,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
                     items(malaFavorito) {
                         FavoriteItensAlong(textTitle = it.item, textDescription = it.descricao,
                             onclick = {
-                                MaternityDelte(idMala = it.id, idGestante = viewModelPregnant.id)
+                                MaternityDelte(idMala = it.id, idGestante = pregnant.id)
                                 malaFavorito = malaFavorito - it
 
                             })
@@ -236,7 +233,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
 
 
         }
@@ -247,7 +244,7 @@ fun MaternityBagScreen(navController: NavController, viewModelPregnant: ModelPre
 fun MaternityDelte(idMala: Int, idGestante: Int) {
 
     var callDeleteMaternity =
-        RetrofitFactory().getMaternityBangService().deleteMaternity(idMala, idGestante)
+        RetrofitFactory().getMaternityBagService().deleteMaternity(idMala, idGestante)
 
     callDeleteMaternity.enqueue(object : Callback<MaternityBagFavoriteList> {
         override fun onResponse(

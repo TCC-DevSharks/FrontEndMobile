@@ -54,7 +54,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun trousseauCategorySceen(navController: NavController, viewModelPregnant: ModelPregnant) {
+fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant) {
 
     var enxoval by rememberSaveable {
         mutableStateOf(listOf<TrousseauResponse2>())
@@ -72,7 +72,7 @@ fun trousseauCategorySceen(navController: NavController, viewModelPregnant: Mode
 
 
     val callFavorrite = RetrofitFactory().getTrousseauService()
-        .getTrousseauFavorite(viewModelPregnant.id)
+        .getTrousseauFavorite(pregnant.id)
 
     callFavorrite.enqueue(object : retrofit2.Callback<TrousseauListFavorite2> {
         override fun onResponse(
@@ -161,7 +161,7 @@ fun trousseauCategorySceen(navController: NavController, viewModelPregnant: Mode
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = stringResource(id = R.string.header_trousseau) + " ${viewModelPregnant.nome}",
+                                text = stringResource(id = R.string.header_trousseau) + " ${pregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,
@@ -254,7 +254,7 @@ fun trousseauCategorySceen(navController: NavController, viewModelPregnant: Mode
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController, pregnant)
         }
 
 

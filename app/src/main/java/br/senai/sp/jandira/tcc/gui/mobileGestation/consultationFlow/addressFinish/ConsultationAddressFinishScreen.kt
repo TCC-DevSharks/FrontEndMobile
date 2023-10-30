@@ -52,7 +52,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ConsultationAddressFinishScreen(navController: NavController, viewModel: ModelPregnant, speciality: ModelSpeciality) {
+fun ConsultationAddressFinishScreen(navController: NavController, pregnant: ModelPregnant, speciality: ModelSpeciality) {
 
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
@@ -63,13 +63,13 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
     var estado by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
-        complemento = viewModel.complemento
-        cep = viewModel.cep
-        numero = viewModel.numero
+        complemento = pregnant.complemento
+        cep = pregnant.cep
+        numero = pregnant.numero
 
-        val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
+        val call = RetrofitFactoryCep().getCep().getCep(pregnant.cep)
 
-        if (viewModel.cep.length == 8) {
+        if (pregnant.cep.length == 8) {
             call.enqueue(object : Callback<ViaCep> {
                 override fun onResponse(
                     call: Call<ViaCep>,
@@ -236,30 +236,30 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                     val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
                     var Pregnant = Pregnant(
-                        nome = viewModel.nome,
-                        altura = viewModel.altura,
-                        peso = viewModel.peso,
-                        cpf = viewModel.cpf,
-                        telefone = viewModel.telefone,
+                        nome = pregnant.nome,
+                        altura = pregnant.altura,
+                        peso = pregnant.peso,
+                        cpf = pregnant.cpf,
+                        telefone = pregnant.telefone,
                         complemento = complemento,
                         numero = numero,
                         cep = cep,
-                        semana_gestacao = viewModel.semana_gestacao,
-                        foto = viewModel.foto,
-                        data_parto = "${LocalDate.parse(viewModel.data_parto,formatter)}",
-                        data_nascimento = "${LocalDate.parse(viewModel.data_nascimento,formatter)}",
-                        email = viewModel.email,
-                        senha = viewModel.senha
+                        semana_gestacao = pregnant.semana_gestacao,
+                        foto = pregnant.foto,
+                        data_parto = "${LocalDate.parse(pregnant.data_parto,formatter)}",
+                        data_nascimento = "${LocalDate.parse(pregnant.data_nascimento,formatter)}",
+                        email = pregnant.email,
+                        senha = pregnant.senha
                     )
 
                     var weightHeight = WeightHeight(
-                        altura = viewModel.altura,
-                        peso = viewModel.peso,
-                        foto = viewModel.foto
+                        altura = pregnant.altura,
+                        peso = pregnant.peso,
+                        foto = pregnant.foto
                     )
 
                     println(Pregnant)
-                    val call = RetrofitFactory().pregnant().updatePregnant(viewModel.id, Pregnant )
+                    val call = RetrofitFactory().pregnant().updatePregnant(pregnant.id, Pregnant )
 
                     call.enqueue(object : retrofit2.Callback<Pregnant> {
                         override fun onResponse(
@@ -269,9 +269,9 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                         ) {
                             println(response)
                             if (response.code() == 200){
-                                viewModel.numero = numero
-                                viewModel.complemento = complemento
-                                viewModel.cep = cep
+                                pregnant.numero = numero
+                                pregnant.complemento = complemento
+                                pregnant.cep = cep
 
                                 navController.navigate("Completed")
                             }
@@ -286,10 +286,10 @@ fun ConsultationAddressFinishScreen(navController: NavController, viewModel: Mod
                         }
                     })
 
-                    PutWeight(viewModel, weightHeight)
-                    insertALergy(viewModel)
-                    insertComorbidity(viewModel)
-                    insertMedication(viewModel)
+                    PutWeight(pregnant, weightHeight)
+                    insertALergy(pregnant)
+                    insertComorbidity(pregnant)
+                    insertMedication(pregnant)
                     GetEspeciality(speciality)
                 }
             }

@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -65,6 +66,7 @@ import br.senai.sp.jandira.tcc.model.schedule.ScheduleResponse
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
+import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -105,6 +107,8 @@ fun PaymentScreen(
         var visible by remember { mutableStateOf(false) }
         var visibleCard by remember { mutableStateOf(true) }
         var visiblePayment by remember { mutableStateOf(true) }
+        var loading by remember { mutableStateOf(false) }
+        var erro by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
             val call = RetrofitFactoryCep().getCep().getCep(viewModel.cep)
@@ -149,8 +153,18 @@ fun PaymentScreen(
             estado = viewModel.estado
             numeroCartao = "4111111111111111"
             mesVencimento = "12"
-            anoVencimento = "2026"
+            anoVencimento = "2030"
             cvv = "123"
+
+        }
+
+        LaunchedEffect(erro){
+
+            if(erro == true){
+                println("Enrou")
+                delay(3000)
+                navController.navigate("ConsultFinish")
+            }
 
         }
 
@@ -173,6 +187,34 @@ fun PaymentScreen(
 //                fontSize = 19.sp
 //            )
 //        }
+
+        //Tela de carregamento
+        AnimatedVisibility(
+            visible = loading,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(bottom = 20.dp),
+            enter = fadeIn(
+                initialAlpha = 0.4f
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 250)
+            )
+        ){
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = "Consultando informações\n" +
+                            "do cartão...",
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold)
+                CircularProgressIndicator(
+                    Modifier.align(Alignment.Center),
+                    color = Color.Black)
+            }
+            
+        }
 
 
         AnimatedVisibility(
@@ -567,6 +609,7 @@ fun PaymentScreen(
                     texto = stringResource(id = R.string.finish),
                     rota = "",
                     onclick = {
+                        loading = true
                         val ddd = viewModel.telefone.substring(1, 3)
                         var numerousCert = viewModel.telefone.substring(4)
                         numerousCert = numerousCert.replace("-", "")
@@ -629,6 +672,8 @@ fun PaymentScreen(
                                 response: Response<ResponseBody>
 
                             ) {
+                                println(response)
+
                                 if (response.isSuccessful) {
 
                                     var call =
@@ -653,7 +698,32 @@ fun PaymentScreen(
 
                                                     ) {
                                                         if (response.isSuccessful) {
-                                                            navController.navigate("ConsultFinish")
+                                                            var call = RetrofitFactory().schedule()
+                                                                .postSchedule(schedule)
+
+                                                            call.enqueue(object :
+                                                                retrofit2.Callback<ResponseBody> {
+                                                                override fun onResponse(
+                                                                    call: Call<ResponseBody>,
+                                                                    response: Response<ResponseBody>
+
+                                                                ) {
+                                                                    if (response.isSuccessful) {
+                                                                        navController.navigate("ConsultFinish")
+                                                                    }
+                                                                }
+
+                                                                override fun onFailure(
+                                                                    call: Call<ResponseBody>,
+                                                                    t: Throwable
+                                                                ) {
+                                                                    Log.i(
+                                                                        "ds2m",
+                                                                        "onFailure: ${t.message}"
+                                                                    )
+                                                                    println(t.message + t.cause)
+                                                                }
+                                                            })
                                                         }
                                                     }
 
@@ -682,6 +752,8 @@ fun PaymentScreen(
                                             println(t.message + t.cause)
                                         }
                                     })
+                                }else{
+                                    erro = true
                                 }
                             }
 

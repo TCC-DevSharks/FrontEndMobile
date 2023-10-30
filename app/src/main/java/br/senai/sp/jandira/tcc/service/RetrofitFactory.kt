@@ -83,8 +83,12 @@ class RetrofitFactory {
         return retrofitFactory.create(ResetPasswordService::class.java)
     }
 
-    fun getMaternityBangService(): MaternityBagService {
+    fun getMaternityBagService(): MaternityBagService {
         return retrofitFactory.create(MaternityBagService::class.java)
+    }
+
+    fun ChatService(): ChatService {
+        return retrofitFactory.create(ChatService::class.java)
     }
 }
 

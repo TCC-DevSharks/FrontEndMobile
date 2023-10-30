@@ -2,18 +2,17 @@ package br.senai.sp.jandira.tcc.calls
 
 import android.util.Log
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.Pregnant
 import br.senai.sp.jandira.tcc.model.WeightHeight
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnantList
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Alergy
-import br.senai.sp.jandira.tcc.model.historicPregnant.AlergyResponse
 import br.senai.sp.jandira.tcc.model.historicPregnant.AlergyResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Comorbidity
 import br.senai.sp.jandira.tcc.model.historicPregnant.ComorbidityResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Deficiency
+import br.senai.sp.jandira.tcc.model.historicPregnant.DeficiencyResponseList
 import br.senai.sp.jandira.tcc.model.historicPregnant.Medication
 import br.senai.sp.jandira.tcc.model.historicPregnant.MedicationResponseList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
@@ -222,3 +221,107 @@ fun insertMedication(viewModel: ModelPregnant){
         }
     })
 }
+
+fun GetAlergy(pregnant: ModelPregnant){
+    val call = RetrofitFactory().pregnant().getAlergy(pregnant.id)
+
+    call.enqueue(object : retrofit2.Callback<AlergyResponseList> {
+        override fun onResponse(
+            call: Call<AlergyResponseList>,
+            response: Response<AlergyResponseList>
+
+        ) {
+            if (response.body()!!.alergia.isNotEmpty()){
+
+                pregnant.alergia = response.body()!!.alergia[0].alergia
+            }
+
+        }
+
+        override fun onFailure(call: Call<AlergyResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun GetComorbidity(pregnant: ModelPregnant){
+    val call = RetrofitFactory().pregnant().getComorbidity(pregnant.id)
+
+    call.enqueue(object : retrofit2.Callback<ComorbidityResponseList> {
+        override fun onResponse(
+            call: Call<ComorbidityResponseList>,
+            response: Response<ComorbidityResponseList>
+
+        ) {
+            if (response.body()!!.comorbidade.isNotEmpty()){
+
+                pregnant.comorbidades = response.body()!!.comorbidade[0].comorbidade
+            }
+
+        }
+
+        override fun onFailure(call: Call<ComorbidityResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+fun GetDeficiency(pregnant: ModelPregnant){
+    val call = RetrofitFactory().pregnant().getDeficiency(pregnant.id)
+
+    call.enqueue(object : retrofit2.Callback<DeficiencyResponseList> {
+        override fun onResponse(
+            call: Call<DeficiencyResponseList>,
+            response: Response<DeficiencyResponseList>
+
+        ) {
+            if (response.body()!!.deficiencia.isNotEmpty()){
+
+                pregnant.comorbidades = response.body()!!.deficiencia[0].deficiencia
+            }
+
+        }
+
+        override fun onFailure(call: Call<DeficiencyResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
+//fun GetMedication(pregnant: ModelPregnant){
+//    val call = RetrofitFactory().pregnant().getMedication(pregnant.id)
+//
+//    call.enqueue(object : retrofit2.Callback<MedicationResponseList> {
+//        override fun onResponse(
+//            call: Call<MedicationResponseList>,
+//            response: Response<MedicationResponseList>
+//
+//        ) {
+//            if (response.body()!!.medicacao[0].medicacao.isNotEmpty()){
+//
+//                pregnant.comorbidades = response.body()!!.medicacao[0].medicacao
+//            }
+//
+//        }
+//
+//        override fun onFailure(call: Call<MedicationResponseList>, t: Throwable) {
+//            Log.i(
+//                "ds2m",
+//                "onFailure: ${t.message}"
+//            )
+//            println(t.message + t.cause)
+//        }
+//    })
+//}

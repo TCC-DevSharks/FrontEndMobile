@@ -1,4 +1,5 @@
 package br.senai.sp.jandira.tcc
+import SocketManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,8 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedi
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled.AppointmentCanceled
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
@@ -76,8 +79,11 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TCCTheme {
                 // A surface container using the 'background' color from the theme
@@ -100,11 +106,9 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 
-
-
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
-    val viewModelPregnant = ModelPregnant()
+    val pregnant = ModelPregnant()
     val speciality = ModelSpeciality()
     val clinic = Clinic()
     val professional = Professional()
@@ -122,46 +126,46 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
-            composable(route = "login") { LoginScreen (navController, viewModelPregnant)}
+            composable(route = "login") { LoginScreen (navController, pregnant)}
             composable(route = "register") { RegisterScreen (navController, viewModel) }
             composable(route = "register_password") { RegisterPasswordScreen (navController, viewModel) }
             composable(route = "forgot_password") { ForgotPasswordScreen (navController) }
             composable(route = "forgot_email") { ForgotPasswordEmailScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController, viewModel) }
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController, viewModelPregnant, modelSchedule) }
-            composable(route = "navigation") { Navigation (navController) }
-            composable(route = "bag") { MaternityBagScreen (navController, viewModelPregnant) }
+            composable(route = "homeUser") { HomeUserScreen (navController, pregnant, modelSchedule) }
+            composable(route = "navigation") { Navigation (navController, pregnant) }
+            composable(route = "bag") { MaternityBagScreen (navController, pregnant) }
             composable("trousseau/{category}") { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category")
-                TrousseauScreen(navController, category, viewModelPregnant)
+                TrousseauScreen(navController, category, pregnant)
             }
             composable("birthPlan/{category}") { backStackEntry ->
                             val category = backStackEntry.arguments?.getString("category")
-                            birthPlanScreen (navController, category, viewModelPregnant)
+                            birthPlanScreen (navController, category, pregnant)
                         }
-            composable(route = "trousseauCategory") { trousseauCategorySceen  (navController, viewModelPregnant) }
-            composable(route = "birthPlanCategory") { birthPlanCategoryScreen (navController, viewModelPregnant) }
+            composable(route = "trousseauCategory") { trousseauCategorySceen  (navController, pregnant) }
+            composable(route = "birthPlanCategory") { birthPlanCategoryScreen (navController, pregnant) }
             composable(route = "Completed") { Completed_Registration(navController) }
             composable(route = "speciality") { ConsultationSpecialityScreen(navController, speciality, clinic) }
-            composable(route = "nameSuggestion") { Name_Suggestion (navController, viewModelPregnant) }
+            composable(route = "nameSuggestion") { Name_Suggestion (navController, pregnant) }
             composable(route = "AddTrousseau") { AddTrousseau() }
-            composable(route = "profileUser") { ProfileUserScreen (navController, viewModelPregnant) }
-            composable(route = "profileData") { ProfileData (navController, viewModelPregnant) }
-            composable(route = "insertEndress") { AddressScreen (navController, viewModelPregnant) }
-            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, viewModelPregnant, speciality) }
-            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, viewModelPregnant) }
+            composable(route = "profileUser") { ProfileUserScreen (navController, pregnant) }
+            composable(route = "profileData") { ProfileData (navController, pregnant) }
+            composable(route = "insertEndress") { AddressScreen (navController, pregnant) }
+            composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, pregnant, speciality) }
+            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, pregnant) }
             composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional) }
-            composable(route = "ConsultDoctor") { DoctorScreen (navController,professional) }
+            composable(route = "ConsultDoctor") { DoctorScreen (navController,professional,pregnant) }
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
-            composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional) }
-            composable(route = "Payment") { PaymentScreen(navController,viewModelPregnant, professional, clinic) }
-            composable(route = "Food") { CheckFoodScreen(navController, viewModelPregnant, food) }
-            composable(route = "FoodChange") { ChangeFoodScreen(navController, food) }
-            composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, viewModelPregnant) }
+            composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional,pregnant) }
+            composable(route = "Payment") { PaymentScreen(navController,pregnant, professional, clinic) }
+            composable(route = "Food") { CheckFoodScreen(navController, pregnant, food) }
+            composable(route = "FoodChange") { ChangeFoodScreen(navController, food, pregnant) }
+            composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, pregnant) }
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
-            composable(route = "Exercises") { Exercises(navController,categories) }
+            composable(route = "Exercises") { Exercises(navController,categories, pregnant) }
             composable(route = "DoctorHome") { DoctorHome (professional, navController,) }
             composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
             composable(route = "timeLine") { TimeLineScreen () }
@@ -177,6 +181,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
             composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+            composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
+            composable(route = "messagesChat") { MessagesScreen(navController) }
 
 
     }

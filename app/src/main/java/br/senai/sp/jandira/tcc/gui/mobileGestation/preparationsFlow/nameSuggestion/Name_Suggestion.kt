@@ -2,10 +2,8 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.nameSuggest
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,30 +15,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.CardNameSuggestion
@@ -50,47 +41,45 @@ import br.senai.sp.jandira.tcc.componentes.SubHeader
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NamePost.NamePost
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NameFavoriteList
-import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionFavorite.NomeFavoriteResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
-fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
+fun Name_Suggestion(navController: NavController, pregnant: ModelPregnant) {
 
     var selectedColumnInOtherScreen by remember { mutableStateOf(1) }
     var selectedSex by remember { mutableStateOf("Masculino") }
     var counterEffect by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        GetName(viewModel, selectedSex)
+        GetName(pregnant, selectedSex)
     }
-    GetFavoriteName(viewModel, selectedSex)
+    GetFavoriteName(pregnant, selectedSex)
 
 
     var lista by remember { mutableStateOf(listOf<NameSuggestionResponse>()) }
     var listaFavoritos by remember { mutableStateOf(listOf<NameSuggestionResponse>()) }
-    var favoritoIds = viewModel.FavoritoSugestao.map { it.nome }
+    var favoritoIds = pregnant.FavoritoSugestao.map { it.nome }
 
     LaunchedEffect(lista) {
         listaFavoritos = emptyList()
         val callFavorrite = RetrofitFactory().getNamesService()
-            .getNameFavorite(id = viewModel.id, sexo = selectedSex)
+            .getNameFavorite(id = pregnant.id, sexo = selectedSex)
 
         callFavorrite.enqueue(object : retrofit2.Callback<NameFavoriteList> {
             override fun onResponse(
                 call: retrofit2.Call<NameFavoriteList>,
                 response: Response<NameFavoriteList>
             ) {
-                viewModel.FavoritoSugestao = response.body()!!.favoritos
+                pregnant.FavoritoSugestao = response.body()!!.favoritos
 
                 if (response.isSuccessful) {
-                    var ids = viewModel.FavoritoSugestao.map { it.nome }
-                    viewModel.sugestao.forEach { sugestao ->
+                    var ids = pregnant.FavoritoSugestao.map { it.nome }
+                    pregnant.sugestao.forEach { sugestao ->
                         if (ids.contains(sugestao.nome) && !listaFavoritos.any { it.nome == sugestao.nome }) {
                             listaFavoritos = listaFavoritos + sugestao
                         }
@@ -106,8 +95,8 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
 
     }
 
-    LaunchedEffect(viewModel.sugestao) {
-        viewModel.sugestao.forEach { sugestao ->
+    LaunchedEffect(pregnant.sugestao) {
+        pregnant.sugestao.forEach { sugestao ->
             if (!favoritoIds.contains(sugestao.nome) && !lista.any { it.nome == sugestao.nome }) {
                 lista = lista + sugestao
             }
@@ -117,18 +106,18 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
     LaunchedEffect(counterEffect) {
         lista = emptyList()
         val callFavorrite = RetrofitFactory().getNamesService()
-            .getNameFavorite(id = viewModel.id, sexo = selectedSex)
+            .getNameFavorite(id = pregnant.id, sexo = selectedSex)
 
         callFavorrite.enqueue(object : retrofit2.Callback<NameFavoriteList> {
             override fun onResponse(
                 call: retrofit2.Call<NameFavoriteList>,
                 response: Response<NameFavoriteList>
             ) {
-                viewModel.FavoritoSugestao = response.body()!!.favoritos
+                pregnant.FavoritoSugestao = response.body()!!.favoritos
 
                 if (response.isSuccessful) {
-                    var ids = viewModel.FavoritoSugestao.map { it.nome }
-                    viewModel.sugestao.forEach { sugestao ->
+                    var ids = pregnant.FavoritoSugestao.map { it.nome }
+                    pregnant.sugestao.forEach { sugestao ->
                         if (!ids.contains(sugestao.nome) && !lista.any { it.nome == sugestao.nome }) {
                             lista = lista + sugestao
                         }
@@ -146,7 +135,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
     LaunchedEffect(selectedSex){
         lista = emptyList()
         listaFavoritos = emptyList()
-        GetName(viewModel, selectedSex)
+        GetName(pregnant, selectedSex)
     }
 
     Box(
@@ -271,14 +260,14 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     items(lista) { nome ->
 
-                        val matchingItem = viewModel.FavoritoSugestao.find { it.nome == nome.nome }
+                        val matchingItem = pregnant.FavoritoSugestao.find { it.nome == nome.nome }
                         val check = matchingItem != null
 
                         CardNameSuggestion(
-                            viewModel,
+                            pregnant,
                             nome = nome.nome,
                             idNome = nome.id,
-                            idGestante = viewModel.id,
+                            idGestante = pregnant.id,
                             sexo = selectedSex,
                             initialCheck = check,
                             onclick = {
@@ -286,7 +275,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
 
                                     var favoriteName = NamePost(
                                         id_nome = nome.id,
-                                        id_gestante = viewModel.id,
+                                        id_gestante = pregnant.id,
                                     )
 
                                     Log.e("Favorito", "${favoriteName}")
@@ -335,18 +324,18 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(listaFavoritos) { nome ->
-                        val matchingItem = viewModel.FavoritoSugestao.find { it.nome == nome.nome }
+                        val matchingItem = pregnant.FavoritoSugestao.find { it.nome == nome.nome }
                         val check = matchingItem != null
 
                         CardNameSuggestion(
-                            viewModel,
+                            pregnant,
                             nome = nome.nome,
                             idNome = nome.id,
-                            idGestante = viewModel.id,
+                            idGestante = pregnant.id,
                             sexo = selectedSex,
                             initialCheck = check,
                             onclick = {
-                                DeleteName(idNome = nome.id, idGestante = viewModel.id)
+                                DeleteName(idNome = nome.id, idGestante = pregnant.id)
                                 listaFavoritos = listaFavoritos - nome
                                 counterEffect = !counterEffect
                             })
@@ -366,7 +355,7 @@ fun Name_Suggestion(navController: NavController, viewModel: ModelPregnant) {
                 )
         ) {
 
-            Navigation(navController = navController)
+            Navigation(navController = navController,pregnant)
         }
 
 

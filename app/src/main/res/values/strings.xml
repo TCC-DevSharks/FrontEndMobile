@@ -260,7 +260,7 @@
     <string name="search_patient">Search a patient</string>
     <string name="all_">All</string>
     <string name="select_one_patients">Select one of your patients</string>
-    <string name="select_consult">Selecione uma das consultas:</string>
+    <string name="select_consult">Select one of the queries:</string>
     <string name="consultation_title">Consultation</string>
     <string name="scheduled">Scheduled</string>
     <string name="consultation_with">Consultation with:</string>

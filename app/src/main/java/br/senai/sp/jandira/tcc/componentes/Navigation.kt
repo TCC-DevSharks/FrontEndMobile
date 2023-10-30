@@ -22,10 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 
 @Composable
-fun Navigation(navController: NavController) {
+fun Navigation(navController: NavController, pregnant: ModelPregnant) {
 
 
     Row(
@@ -90,7 +91,7 @@ fun Navigation(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-//                        navController.navigate("register")
+                        navController.navigate("messagesChat")
 
                 }) {
                 Image(
@@ -103,7 +104,16 @@ fun Navigation(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
+                    if (
+                        pregnant.alergia.isEmpty() &&
+                        pregnant.deficiencia.isEmpty() &&
+                        pregnant.medicacao.isEmpty() &&
+                        pregnant.comorbidades.isEmpty()
+                        ){
                         navController.navigate("insertEndress")
+                    }else{
+                        navController.navigate("speciality")
+                    }
 
                 }) {
 
