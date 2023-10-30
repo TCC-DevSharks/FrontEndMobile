@@ -69,7 +69,7 @@ fun NavigationDoctor(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-                    navController.navigate("git")
+                    navController.navigate("doctorSchedule")
 
                 }) {
 

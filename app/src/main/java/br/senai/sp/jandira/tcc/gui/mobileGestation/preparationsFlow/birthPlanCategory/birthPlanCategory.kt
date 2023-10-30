@@ -163,7 +163,7 @@ fun birthPlanCategoryScreen(navController: NavController, pregnant: ModelPregnan
                         Row(modifier = Modifier.padding(top = 10.dp, start = 25.dp, end = 25.dp)) {
 
                             Text(
-                                text = stringResource(id = R.string.header_birth_plan) + " ${viewModelPregnant.nome}",
+                                text = stringResource(id = R.string.header_birth_plan) + " ${pregnant.nome}",
                                 fontWeight = FontWeight(900),
                                 fontSize = 27.sp,
                                 color = Color.White,

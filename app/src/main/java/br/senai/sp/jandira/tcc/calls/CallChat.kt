@@ -21,7 +21,7 @@ fun GetChatUser(email: String, chatModel: ChatModel) {
 
         ) {
 
-            chatModel.user = response.body()
+//            chatModel.user = response.body()
 
         }
 

@@ -61,6 +61,10 @@ import java.util.Locale
 @Composable
 fun DoctorSchedule(professional: Professional, navController: NavController) {
 
+    var selectedMonth by rememberSaveable {
+        mutableStateOf(LocalDate.now().monthValue)
+    }
+
     val currentDate = LocalDate.now()
     val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
 
@@ -72,6 +76,7 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
         dates.add(dateToAdd)
         dateToAdd = dateToAdd.plusDays(1)
     }
+
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -112,45 +117,54 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
             .map { it.atDay(1) } // Primeiro dia de cada mês
             .toList()
 
+
+
+
+
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 5.dp)
         ) {
             items(dateRange.size) { index ->
+
                 val monthFormatter = DateTimeFormatter.ofPattern("MMMM", Locale("pt", "BR"))
                 val monthName = dateRange[index].format(monthFormatter).capitalize()
 
-                val dayOfWeek = dateRange[index].dayOfWeek
-                val dayOfWeekName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
 
-                val isCurrentDate = dateRange[index] == currentDate // Verifica se é a data atual
+                Log.i("fdfsdf", "${dateRange[index]}")
 
-                val currentMonth = LocalDate.now().month
-
-
-
-                Button(   modifier = Modifier
-                    .size(135.dp, 40.dp)
-                    .padding(start = 4.5.dp),
-                    colors = if (dateRange[index].month == currentMonth) ButtonDefaults.buttonColors(
+                Button(
+                    modifier = Modifier
+                        .size(135.dp, 40.dp)
+                        .padding(start = 4.5.dp),
+                    colors = if (dateRange[index].monthValue == selectedMonth) ButtonDefaults.buttonColors(
                         Color(182, 182, 246)
                     ) else ButtonDefaults.buttonColors(Color.White),
                     shape = RoundedCornerShape(20.dp),
-                    border = if (dateRange[index].month == currentMonth) BorderStroke(2.dp, Color.Transparent) else BorderStroke(2.1.dp, Color(182,182,246))
-                    ,onClick = {
-
-                })
-                {
+                    border = if (dateRange[index].monthValue == selectedMonth) BorderStroke(
+                        2.dp,
+                        Color.Transparent
+                    ) else BorderStroke(2.1.dp, Color(182, 182, 246)),
+                    onClick = {
+                        selectedMonth =
+                            dateRange[index].monthValue // Atualiza o mês selecionado quando o botão é clicado
+                    }
+                ) {
                     Text(
                         text = monthName,
-                        color = if (dateRange[index].month == currentMonth) Color.White else Color(182,182,246),
+                        color = if (dateRange[index].monthValue == selectedMonth) Color.White else Color(
+                            182,
+                            182,
+                            246
+                        ),
                         fontWeight = FontWeight(900),
                         fontSize = 14.sp
                     )
                 }
             }
         }
+
         Spacer(Modifier.height(40.dp))
 
         var pacientes by rememberSaveable {
@@ -158,6 +172,7 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
         }
 
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
         val dataAtual = LocalDate.now()
 
         LaunchedEffect(Unit) {
@@ -179,8 +194,17 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
             })
         }
 
+        fun filterConsultsByCurrentMonth(consults: List<ConsultResponsePaciente>): List<ConsultResponsePaciente> {
+            val currentMonth = LocalDate.now().monthValue
+            return consults.filter { LocalDate.parse(it.dia, formatter).monthValue == selectedMonth }
+        }
+
+        val filteredPacientes = filterConsultsByCurrentMonth(pacientes)
+
+
         LazyColumn() {
-            items(pacientes) { paciente ->
+            items(filteredPacientes) { paciente ->
+
 
                 Row(
                     Modifier
@@ -192,7 +216,7 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
                     Card(
                         modifier = Modifier.size(width = 50.dp, height = 50.dp),
                         shape = CircleShape,
-                        colors = CardDefaults.cardColors(Color(182,182,246)),
+                        colors = CardDefaults.cardColors(Color(182, 182, 246)),
                     ) {
                         Box(
                             modifier = Modifier.fillMaxSize(),
@@ -210,7 +234,7 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
                             .padding(horizontal = 4.dp),
                         colors = CardDefaults.cardColors(Color.White),
                         shape = RoundedCornerShape(10.dp),
-                        border = BorderStroke(width = 2.dp, Color(182,182,246))
+                        border = BorderStroke(width = 2.dp, Color(182, 182, 246))
                     ) {
                         Row(
                             modifier = Modifier

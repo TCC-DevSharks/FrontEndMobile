@@ -60,13 +60,13 @@ import br.senai.sp.jandira.tcc.model.chatUser.ChatUserResponse
 val socketManager = SocketManager()
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
+fun MessagesScreen(navController: NavController) {
     socketManager.connect()
     socketManager.addUser("65367be11588e293ee18a60d")
 
-    var user = GetChatUser(pregnant.email)
+//    var user = GetChatUser(pregnant.email)
 
-    println(user)
+//    println(user)
 
 
 

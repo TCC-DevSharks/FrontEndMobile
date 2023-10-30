@@ -108,7 +108,9 @@ fun SelectDateMedicalRecord(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(paciente) {
+            items(paciente.filter { paciente ->
+                paciente.id_profissional == professional.id
+            }) {
 
                 Card(
                     modifier = Modifier
