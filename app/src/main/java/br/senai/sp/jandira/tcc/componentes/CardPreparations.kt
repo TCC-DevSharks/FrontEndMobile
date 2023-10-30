@@ -42,6 +42,7 @@ fun CardPreparations(
             modifier = Modifier
                 .clickable {
                     navController.navigate(when (preparations) {
+                        "Linha do Tempo" -> ("timeLine")
                         "Plano de Parto" -> ("birthPlanCategory")
                         "Enxoval" -> ("trousseauCategory")
                         "Mala de Maternidade" -> ("bag")
@@ -69,6 +70,7 @@ fun CardPreparations(
                 ) {
 
                     val imageResource = when (preparations) {
+                        "Linha do Tempo" -> R.drawable.time_line
                         "Plano de Parto" -> R.drawable.baby
                         "Enxoval" -> R.drawable.tags
                         "Mala de Maternidade" -> R.drawable.suitcase

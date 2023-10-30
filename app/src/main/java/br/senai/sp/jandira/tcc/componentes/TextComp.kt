@@ -19,7 +19,7 @@ fun TextComp(
     texto: Int,
     fontSize: TextUnit = 30.sp,
     fontWeight: FontWeight = FontWeight.Bold,
-    corText: Color = Color.Black
+    corText: Color = Color.Black,
 ) {
 
     Row(

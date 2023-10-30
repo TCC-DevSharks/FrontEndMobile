@@ -83,7 +83,9 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
         mutableStateOf(listOf<Schedule>())
     }
 
-    val preparations = listOf("Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes")
+    val preparations = listOf(
+        "Linha do Tempo","Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes"
+    )
 
     val callSchedule = RetrofitFactory().schedule().getSchedule(pregnant.id)
     LaunchedEffect(Unit) {
@@ -242,7 +244,9 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
 
                                         Text(
                                             textAlign = TextAlign.Center,
-                                            text = "${weeks} semanas e ${days} dias ",
+                                            text = "${weeks} " + stringResource(id = R.string.weeks) + " ${days} " + stringResource(
+                                                id = R.string.day_user
+                                            ),
                                             fontSize = 21.sp,
                                             fontWeight = FontWeight.ExtraBold,
                                             color = Color(182, 182, 246)
@@ -375,14 +379,8 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
                         .padding(start = 26.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
-
-
-
-
-
-                    MarternalGuide()
-
-                    MarternalGuide()
+                    MarternalGuide(navController)
+                    MarternalGuide(navController)
                     //
                 }
 
@@ -407,21 +405,16 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
                 LazyRow(modifier = Modifier.padding(horizontal = 28.dp)) {
 
 
+                    items(preparations) { preparation ->
 
-                        items(preparations) { preparation ->
+                        Log.i("pre", "${preparation}")
+                        Log.i("pre", "${preparations}")
+
+                        CardPreparations(preparations = preparation, navController)
 
 
-                            CardPreparations(preparations = preparation, navController)
-
-
-
-
-                        }
                     }
-
-
-
-
+                }
 
 
             }
@@ -436,10 +429,6 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
 //                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
 //                    )
 //            ) {
-//
-//
-//
-//
 //            }
 
         }

@@ -74,6 +74,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    //Socket.io
+    implementation ("io.socket:socket.io-client:2.0.0")
+
     implementation ("androidx.compose.material3:material3:1.0.0-alpha02")
 
     // Biblioteca de navegação
@@ -108,4 +111,8 @@ dependencies {
 
     //Youtube
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+
+
+
+
 }

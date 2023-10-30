@@ -1,4 +1,5 @@
 package br.senai.sp.jandira.tcc
+import SocketManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.componentes.ScheduleDoctor
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.MedicalRecordAdd
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedicalRecord
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled.AppointmentCanceled
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
 
@@ -36,6 +49,8 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
@@ -47,6 +62,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWee
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
+import br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine.TimeLineScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
@@ -54,6 +70,7 @@ import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -62,8 +79,11 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TCCTheme {
                 // A surface container using the 'background' color from the theme
@@ -86,8 +106,6 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 
-
-
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
     val pregnant = ModelPregnant()
@@ -98,6 +116,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val modelSchedule = ModelSchedule()
     val categories = ModelCategories()
     val exercises = ModelExercises()
+    val modelMedicalRecord = ModelMedicalRecord()
 
     AnimatedNavHost(
         navController = navController,
@@ -146,7 +165,26 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, pregnant) }
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
-            composable(route = "Exercises") { Exercises(navController,categories, pregnant) }
+            composable(route = "Exercises") { Exercises(navController,categories) }
+            composable(route = "DoctorHome") { DoctorHome (professional, navController,) }
+            composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
+            composable(route = "timeLine") { TimeLineScreen () }
+            composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
+            composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
+            composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
+            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController) }
+            composable(route = "nutritionSelect") { SelectPatient () }
+            composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController) }
+            composable(route = "medicalRecordSelectDate/{idGestante}") { backStackEntry ->
+                val idGestante = backStackEntry.arguments?.getString("idGestante")?.toIntOrNull()
+                SelectDateMedicalRecord (navController, professional, idGestante, modelMedicalRecord)
+            }
+            composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+            composable(route = "contactsChat") { ContatosScreen(navController) }
+            composable(route = "messagesChat") { MessagesScreen(navController, viewModelPregnant) }
+
+
     }
 }
 

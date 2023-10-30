@@ -1,7 +1,9 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,29 +14,44 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.consult.ConsultList
+import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
+import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -42,7 +59,8 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun DoctorSchedule() {
+fun DoctorSchedule(professional: Professional, navController: NavController) {
+
     val currentDate = LocalDate.now()
     val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
 
@@ -59,7 +77,6 @@ fun DoctorSchedule() {
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(
                 titulo = stringResource(id = R.string.schedule),
-                tintIcon = Color(255, 218, 185)
             )
             Row(
                 modifier = Modifier
@@ -102,26 +119,33 @@ fun DoctorSchedule() {
         ) {
             items(dateRange.size) { index ->
                 val monthFormatter = DateTimeFormatter.ofPattern("MMMM", Locale("pt", "BR"))
-                val monthName = dateRange[index].format(monthFormatter)
+                val monthName = dateRange[index].format(monthFormatter).capitalize()
 
                 val dayOfWeek = dateRange[index].dayOfWeek
                 val dayOfWeekName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
 
                 val isCurrentDate = dateRange[index] == currentDate // Verifica se é a data atual
 
-                Column(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .size(135.dp, 40.dp)
-                        .background(Color(255, 218, 185), shape = RoundedCornerShape(50.dp)),
+                val currentMonth = LocalDate.now().month
 
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+
+
+                Button(   modifier = Modifier
+                    .size(135.dp, 40.dp)
+                    .padding(start = 4.5.dp),
+                    colors = if (dateRange[index].month == currentMonth) ButtonDefaults.buttonColors(
+                        Color(182, 182, 246)
+                    ) else ButtonDefaults.buttonColors(Color.White),
+                    shape = RoundedCornerShape(20.dp),
+                    border = if (dateRange[index].month == currentMonth) BorderStroke(2.dp, Color.Transparent) else BorderStroke(2.1.dp, Color(182,182,246))
+                    ,onClick = {
+
+                })
+                {
                     Text(
                         text = monthName,
-                        color = if (isCurrentDate) Color.Black else Color.Black,
-                        fontWeight = FontWeight(400),
+                        color = if (dateRange[index].month == currentMonth) Color.White else Color(182,182,246),
+                        fontWeight = FontWeight(900),
                         fontSize = 14.sp
                     )
                 }
@@ -129,299 +153,103 @@ fun DoctorSchedule() {
         }
         Spacer(Modifier.height(40.dp))
 
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-                Card(
-                    modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                    shape = CircleShape,
-                    colors = CardDefaults.cardColors(Color(255, 218, 185)),
+        var pacientes by rememberSaveable {
+            mutableStateOf(listOf<ConsultResponsePaciente>())
+        }
+
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val dataAtual = LocalDate.now()
+
+        LaunchedEffect(Unit) {
+            val call = RetrofitFactory().insertConsult().getConsult(professional.id)
+
+            call.enqueue(object : Callback<ConsultList> {
+                override fun onResponse(
+                    call: Call<ConsultList>,
+                    response: Response<ConsultList>
                 ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
+                    pacientes = response.body()!!.pacientes
+                    println(pacientes)
+
+                }
+
+                override fun onFailure(call: Call<ConsultList>, t: Throwable) {
+                    Log.i("hgf", "${pacientes}")
+                }
+            })
+        }
+
+        LazyColumn() {
+            items(pacientes) { paciente ->
+
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp)
+                        .padding(horizontal = 20.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Card(
+                        modifier = Modifier.size(width = 50.dp, height = 50.dp),
+                        shape = CircleShape,
+                        colors = CardDefaults.cardColors(Color(182,182,246)),
                     ) {
-                      Text(
-                          text = "10",
-                          color = Color.White
-                      )
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = paciente.dia.take(2),
+                                color = Color.White
+                            )
+                        }
+                    }
+                    Card(
+                        modifier = Modifier
+                            .size(width = 315.dp, height = 50.dp)
+                            .padding(horizontal = 4.dp),
+                        colors = CardDefaults.cardColors(Color.White),
+                        shape = RoundedCornerShape(10.dp),
+                        border = BorderStroke(width = 2.dp, Color(182,182,246))
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(start = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "${paciente.hora.take(5)}h - ${paciente.nome}",
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(end = 16.dp)
+                            )
+
+//                            var isChecked by remember { mutableStateOf(false) }
+//
+//                            val dataConsulta = LocalDate.parse(paciente.dia, formatter)
+//
+//                            if (dataAtual != dataConsulta) {
+//                                isChecked = true
+//                            }
+//
+//                            Checkbox(
+//                                modifier = Modifier.height(30.dp),
+//                                checked = isChecked,
+//                                onCheckedChange = { isChecked = it },
+//                                colors = CheckboxDefaults.colors(
+//                                    checkmarkColor = Color(182,182,246),
+//                                    checkedColor = Color(182,182,246), // Cor quando marcado
+//                                    uncheckedColor = Color(182,182,246) // Cor quando não marcado
+//                                )
+//                            )
+                        }
                     }
                 }
-            Card(
-                modifier = Modifier
-                    .size(width = 315.dp, height = 50.dp)
-                    .padding(horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(width = 2.dp, Color(255, 218, 185))
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "10h - Ana Melo",
-                        modifier = Modifier.weight(1f).padding(end = 16.dp)
-                    )
 
-                    var isChecked by remember { mutableStateOf(false) }
 
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(255, 218, 185),
-                            checkedColor = Color(255, 218, 185), // Cor quando marcado
-                            uncheckedColor = Color(255, 218, 185) // Cor quando não marcado
-                        )
-                    )
-                }
             }
         }
 
-        Spacer(Modifier.height(20.dp))
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Card(
-                modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                shape = CircleShape,
-                colors = CardDefaults.cardColors(Color(255, 218, 185)),
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "10",
-                        color = Color.White
-                    )
-                }
-            }
-            Card(
-                modifier = Modifier
-                    .size(width = 315.dp, height = 50.dp)
-                    .padding(horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(width = 2.dp, Color(255, 218, 185))
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "10h - Ana Melo",
-                        modifier = Modifier.weight(1f).padding(end = 16.dp)
-                    )
-
-                    var isChecked by remember { mutableStateOf(false) }
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(255, 218, 185),
-                            checkedColor = Color(255, 218, 185), // Cor quando marcado
-                            uncheckedColor = Color(255, 218, 185) // Cor quando não marcado
-                        )
-                    )
-                }
-            }
-        }
-
-        Spacer(Modifier.height(20.dp))
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Card(
-                modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                shape = CircleShape,
-                colors = CardDefaults.cardColors(Color(255, 218, 185)),
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "10",
-                        color = Color.White
-                    )
-                }
-            }
-            Card(
-                modifier = Modifier
-                    .size(width = 315.dp, height = 50.dp)
-                    .padding(horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(width = 2.dp, Color(255, 218, 185))
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "10h - Ana Melo",
-                        modifier = Modifier.weight(1f).padding(end = 16.dp)
-                    )
-
-                    var isChecked by remember { mutableStateOf(false) }
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(255, 218, 185),
-                            checkedColor = Color(255, 218, 185), // Cor quando marcado
-                            uncheckedColor = Color(255, 218, 185) // Cor quando não marcado
-                        )
-                    )
-                }
-            }
-        }
-
-        Spacer(Modifier.height(20.dp))
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Card(
-                modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                shape = CircleShape,
-                colors = CardDefaults.cardColors(Color(255, 218, 185)),
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "10",
-                        color = Color.White
-                    )
-                }
-            }
-            Card(
-                modifier = Modifier
-                    .size(width = 315.dp, height = 50.dp)
-                    .padding(horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(width = 2.dp, Color(255, 218, 185))
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "10h - Ana Melo",
-                        modifier = Modifier.weight(1f).padding(end = 16.dp)
-                    )
-
-                    var isChecked by remember { mutableStateOf(false) }
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(255, 218, 185),
-                            checkedColor = Color(255, 218, 185), // Cor quando marcado
-                            uncheckedColor = Color(255, 218, 185) // Cor quando não marcado
-                        )
-                    )
-                }
-            }
-        }
-
-
-        Spacer(Modifier.height(20.dp))
-
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Card(
-                modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                shape = CircleShape,
-                colors = CardDefaults.cardColors(Color(255, 218, 185)),
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "10",
-                        color = Color.White
-                    )
-                }
-            }
-            Card(
-                modifier = Modifier
-                    .size(width = 315.dp, height = 50.dp)
-                    .padding(horizontal = 4.dp),
-                colors = CardDefaults.cardColors(Color.White),
-                shape = RoundedCornerShape(10.dp),
-                border = BorderStroke(width = 2.dp, Color(255, 218, 185))
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "10h - Ana Melo",
-                        modifier = Modifier.weight(1f).padding(end = 16.dp)
-                    )
-
-                    var isChecked by remember { mutableStateOf(false) }
-
-                    Checkbox(
-                        modifier = Modifier.height(30.dp),
-                        checked = isChecked,
-                        onCheckedChange = { isChecked = it },
-                        colors = CheckboxDefaults.colors(
-                            checkmarkColor = Color(255, 218, 185),
-                            checkedColor = Color(255, 218, 185), // Cor quando marcado
-                            uncheckedColor = Color(255, 218, 185) // Cor quando não marcado
-                        )
-                    )
-                }
-            }
-        }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DoctorSchedulePreview() {
-    DoctorSchedule()
 }

@@ -1,7 +1,5 @@
 package br.senai.sp.jandira.tcc.model.getPregnant
 
-import java.time.OffsetDateTime
-
 data class PregnantResponse(
     val id : Int,
     val nome: String,

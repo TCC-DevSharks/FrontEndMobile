@@ -102,7 +102,7 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
     }
 
     LaunchedEffect(Unit) {
-        val call = RetrofitFactory().getMaternityBangService().getMaternityBag()
+        val call = RetrofitFactory().getMaternityBagService().getMaternityBag()
 
         call.enqueue(object : retrofit2.Callback<MaternityBagList> {
             override fun onResponse(
@@ -167,7 +167,7 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
                             if (favoritoIds.contains(it.item)) {
 
                             } else {
-                                val callAddMaternity = RetrofitFactory().getMaternityBangService()
+                                val callAddMaternity = RetrofitFactory().getMaternityBagService()
                                     .insertMaternityBag(favoriteMaternity)
 
                                 callAddMaternity.enqueue(object :
@@ -244,7 +244,7 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
 fun MaternityDelte(idMala: Int, idGestante: Int) {
 
     var callDeleteMaternity =
-        RetrofitFactory().getMaternityBangService().deleteMaternity(idMala, idGestante)
+        RetrofitFactory().getMaternityBagService().deleteMaternity(idMala, idGestante)
 
     callDeleteMaternity.enqueue(object : Callback<MaternityBagFavoriteList> {
         override fun onResponse(
