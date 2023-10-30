@@ -1,5 +1,7 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages
 
+import SocketManager
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,8 +27,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,11 +50,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetChatUser
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.chatUser.ChatUserResponse
 
+
+val socketManager = SocketManager()
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MessagesScreen() {
+fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
+    socketManager.connect()
+    socketManager.addUser("65367be11588e293ee18a60d")
+
+    var user = GetChatUser(pregnant.email)
+
+    println(user)
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -360,10 +378,4 @@ fun MessagesScreen() {
 
     }
 
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun MessagesGuiPreview() {
-    MessagesScreen()
 }

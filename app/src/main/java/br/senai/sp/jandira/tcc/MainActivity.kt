@@ -1,4 +1,5 @@
 package br.senai.sp.jandira.tcc
+import SocketManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,8 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedi
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled.AppointmentCanceled
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.completedRegistration.Completed_Registration
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ConsultationDescriptionClinicScreen
@@ -76,8 +79,11 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 class MainActivity : ComponentActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TCCTheme {
                 // A surface container using the 'background' color from the theme
@@ -98,8 +104,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-
-
 
 
     val navController = rememberAnimatedNavController()
@@ -177,6 +181,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
             composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+            composable(route = "contactsChat") { ContatosScreen(navController) }
+            composable(route = "messagesChat") { MessagesScreen(navController, viewModelPregnant) }
 
 
     }

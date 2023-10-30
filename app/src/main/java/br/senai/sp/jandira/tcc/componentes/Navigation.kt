@@ -90,7 +90,7 @@ fun Navigation(navController: NavController) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-//                        navController.navigate("register")
+                        navController.navigate("messagesChat")
 
                 }) {
                 Image(

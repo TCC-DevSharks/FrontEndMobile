@@ -38,6 +38,7 @@ import br.senai.sp.jandira.tcc.componentes.TextComp
 @Composable
 fun CadastroScren(navController: NavController) {
 
+
     var switchCheckedState by remember { mutableStateOf(false) }
 
 
