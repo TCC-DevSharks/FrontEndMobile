@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +42,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineList
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineResonse
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
@@ -48,6 +57,21 @@ import java.util.Locale
 fun TimeLineScreen() {
 
     Box(modifier = Modifier.fillMaxSize()) {
+
+        var timeLine by rememberSaveable {
+            mutableStateOf(listOf<timeLineResonse>())
+        }
+
+        var call = RetrofitFactory().getTrousseauService().getTimeLine()
+         call.enqueue(object: Callback<timeLineList>{
+             override fun onResponse(call: Call<timeLineList>, response: Response<timeLineList>) {
+                 timeLine = response.body()!!.semanas
+             }
+
+             override fun onFailure(call: Call<timeLineList>, t: Throwable) {
+                 Log.i("", "T${t.message}: ")
+             }
+         })
 
         Column(
             modifier = Modifier
