@@ -32,9 +32,10 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
-fun MaternalGuideScreen(navController: NavController) {
+fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -139,7 +140,7 @@ fun MaternalGuideScreen(navController: NavController) {
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController)
+            Navigation(navController = navController, pregnant)
         }
     }
 }

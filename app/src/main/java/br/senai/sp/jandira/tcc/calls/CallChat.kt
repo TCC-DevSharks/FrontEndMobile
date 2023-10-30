@@ -10,7 +10,7 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
 
-fun GetChatUser(email: String, chatModel: ChatModel) {
+fun GetChatUser(email: String) {
 
     val call = RetrofitFactory().ChatService().getUser(email, "Gestante")
 
@@ -21,7 +21,7 @@ fun GetChatUser(email: String, chatModel: ChatModel) {
 
         ) {
 
-            chatModel.user = response.body()
+//            chatModel.user = response.body()
 
         }
 

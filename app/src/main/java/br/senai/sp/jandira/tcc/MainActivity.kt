@@ -165,9 +165,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "Schedule") { ScheduleAdd(navController, modelSchedule, pregnant) }
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
-            composable(route = "Exercises") { Exercises(navController,categories) }
+            composable(route = "Exercises") { Exercises(navController,categories, pregnant) }
             composable(route = "DoctorHome") { DoctorHome (professional, navController,) }
-            composable(route = "guiaMaterno") { MaternalGuideScreen (navController) }
+            composable(route = "guiaMaterno") { MaternalGuideScreen (navController, pregnant) }
             composable(route = "timeLine") { TimeLineScreen () }
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
@@ -181,8 +181,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
             composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
-            composable(route = "contactsChat") { ContatosScreen(navController) }
-            composable(route = "messagesChat") { MessagesScreen(navController, viewModelPregnant) }
+            composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
+            composable(route = "messagesChat") { MessagesScreen(navController, pregnant) }
 
 
     }

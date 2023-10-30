@@ -71,7 +71,7 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
         malaFavorito = emptyList()
 
         val callFavorite =
-            RetrofitFactory().getMaternityBangService()
+            RetrofitFactory().getMaternityBagService()
                 .getMaternityBagFavorite(pregnant.id)
 
         callFavorite.enqueue(object : retrofit2.Callback<MaternityBagFavoriteList> {
