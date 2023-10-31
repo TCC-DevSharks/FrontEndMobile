@@ -59,6 +59,8 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
 
                     Header(
                         titulo = stringResource(id = R.string.header_speciality),
+                        rota = "",
+                        navController = navController
                     )
 
                 Spacer(modifier = Modifier.height(13.dp))

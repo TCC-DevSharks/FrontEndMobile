@@ -55,6 +55,8 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
          
                 Header(
                     titulo = stringResource(id = R.string.header_speciality),
+                    rota = "",
+                    navController = navController
                 )
 
 

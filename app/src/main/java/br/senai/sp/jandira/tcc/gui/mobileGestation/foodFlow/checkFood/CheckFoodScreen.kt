@@ -115,7 +115,11 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                 .padding(bottom = 90.dp)
         ) {
 
-            Header(titulo = stringResource(id = R.string.header_food))
+            Header(
+                titulo = stringResource(id = R.string.header_food),
+                rota = "",
+                navController = navController
+            )
 
             Row(
                 modifier = Modifier
@@ -241,68 +245,68 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                 animationSpec = tween(durationMillis = 50)
                             )
                         ) {
-                         Column(modifier = Modifier.fillMaxSize()) {
-                             for (it in meal){
-                                 Row(
-                                     verticalAlignment = Alignment.CenterVertically,
-                                     modifier = Modifier
-                                         .fillMaxWidth()
-                                         .padding(horizontal = 15.dp),
-                                     horizontalArrangement = Arrangement.SpaceBetween
-                                 ) {
+                            Column(modifier = Modifier.fillMaxSize()) {
+                                for (it in meal) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 15.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
 
-                                     Row(
-                                         verticalAlignment = Alignment.CenterVertically
-                                     ) {
-                                         Card(
-                                             modifier = Modifier
-                                                 .size(60.dp),
-                                             shape = RoundedCornerShape(12.dp),
-                                         ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Card(
+                                                modifier = Modifier
+                                                    .size(60.dp),
+                                                shape = RoundedCornerShape(12.dp),
+                                            ) {
 
-                                             Image(
-                                                 painter = painterResource(id = R.drawable.bg),
-                                                 contentDescription = null,
-                                                 contentScale = ContentScale.Crop,
-                                                 modifier = Modifier.fillMaxSize()
-                                             )
-                                         }
+                                                Image(
+                                                    painter = painterResource(id = R.drawable.bg),
+                                                    contentDescription = null,
+                                                    contentScale = ContentScale.Crop,
+                                                    modifier = Modifier.fillMaxSize()
+                                                )
+                                            }
 
-                                         Spacer(modifier = Modifier.width(16.dp))
+                                            Spacer(modifier = Modifier.width(16.dp))
 
-                                         Column {
-                                             Text(
-                                                 text = it.nome,
-                                                 fontSize = 14.sp,
-                                                 fontWeight = FontWeight(800),
-                                             )
+                                            Column {
+                                                Text(
+                                                    text = it.nome,
+                                                    fontSize = 14.sp,
+                                                    fontWeight = FontWeight(800),
+                                                )
 
-                                             Spacer(modifier = Modifier.height(5.dp))
+                                                Spacer(modifier = Modifier.height(5.dp))
 
-                                             Text(
-                                                 text = it.peso + "gm",
-                                                 fontSize = 14.sp,
-                                                 fontWeight = FontWeight(800),
-                                             )
-                                         }
+                                                Text(
+                                                    text = it.peso + "gm",
+                                                    fontSize = 14.sp,
+                                                    fontWeight = FontWeight(800),
+                                                )
+                                            }
 
-                                     }
+                                        }
 
-                                     Image(
-                                         painter = painterResource(id = R.drawable.icon_arrow),
-                                         contentDescription = null,
-                                         modifier = Modifier
-                                             .size(35.dp)
-                                             .clickable {
-                                                 food.id = it.idCategoria
-                                                 navController.navigate("FoodChange")
-                                             }
-                                     )
-                                 }
+                                        Image(
+                                            painter = painterResource(id = R.drawable.icon_arrow),
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .size(35.dp)
+                                                .clickable {
+                                                    food.id = it.idCategoria
+                                                    navController.navigate("FoodChange")
+                                                }
+                                        )
+                                    }
 
-                                 Spacer(modifier = Modifier.height(5.dp))
-                             }
-                         }
+                                    Spacer(modifier = Modifier.height(5.dp))
+                                }
+                            }
                         }
                     }
                 }
@@ -319,7 +323,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController,pregnant)
+            Navigation(navController = navController, pregnant)
         }
 
 

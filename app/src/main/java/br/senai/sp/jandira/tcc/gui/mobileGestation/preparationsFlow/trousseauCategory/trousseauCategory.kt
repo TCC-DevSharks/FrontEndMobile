@@ -81,7 +81,7 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
         ) {
             favorite = response.body()!!.favoritos
 
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
 
                 enxovalFavorito = emptyList()
 
@@ -112,7 +112,11 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
                 .padding(bottom = 90.dp)
         ) {
 
-            Header(titulo = stringResource(id = R.string.header_trousseau))
+            Header(
+                titulo = stringResource(id = R.string.header_trousseau),
+                rota = "homeUser",
+                navController = navController
+            )
 
             Column(
                 modifier = Modifier
@@ -216,7 +220,7 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
 
                     enxoval = response.body()!!.enxoval
 
-                    Log.e("Gui", "onResponse: ${enxoval}", )
+                    Log.e("Gui", "onResponse: ${enxoval}")
                 }
 
                 override fun onFailure(call: Call<TrousseauList2>, t: Throwable) {
@@ -225,15 +229,20 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
 
             })
 
-            LazyColumn(  modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 9.dp)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 9.dp)
             ) {
 
-                items(enxoval) { item->
+                items(enxoval) { item ->
 
                     if (!categoriasExibidas.contains(item.categoria)) {
-                        CardCategoryPreparativos(category = item.categoria, rota = "trousseau", navController = navController)
+                        CardCategoryPreparativos(
+                            category = item.categoria,
+                            rota = "trousseau",
+                            navController = navController
+                        )
                         categoriasExibidas.add(item.categoria)
                     }
 

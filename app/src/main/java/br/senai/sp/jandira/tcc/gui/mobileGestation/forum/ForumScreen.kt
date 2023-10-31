@@ -70,7 +70,11 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                 .padding(bottom = 90.dp)
         ) {
 
-            Header(titulo = stringResource(id = R.string.header_forum))
+            Header(
+                titulo = stringResource(id = R.string.header_forum),
+                rota = "",
+                navController = navController
+            )
 
 
             Row(modifier = Modifier.padding(20.dp)) {
@@ -215,7 +219,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                         .padding(vertical = 8.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
 
-                ) {
+                    ) {
 
                     Row(
                         modifier = Modifier.padding(14.dp)
@@ -309,8 +313,6 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                             }
 
 
-
-
                         }
 
 
@@ -322,7 +324,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                             .background(Color.Gray)
                             .height(.2.dp)
                     ) {}
-                    
+
 
                     if (expanded.value) {
 
@@ -424,7 +426,10 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
                             }
 
-                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+                            Column(
+                                modifier = Modifier.padding(start = 11.dp, bottom = 8.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
 
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -458,15 +463,12 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                                     )
 
 
-
                                 }
 
 
                             }
 
                         }
-
-
 
 
                     }
@@ -572,8 +574,6 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
 
                             }
-
-
 
 
                         }
@@ -689,7 +689,10 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
                             }
 
-                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+                            Column(
+                                modifier = Modifier.padding(start = 11.dp, bottom = 8.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
 
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -723,15 +726,12 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                                     )
 
 
-
                                 }
 
 
                             }
 
                         }
-
-
 
 
                     }
@@ -837,8 +837,6 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
 
                             }
-
-
 
 
                         }
@@ -954,7 +952,10 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
 
                             }
 
-                            Column(modifier = Modifier.padding(start = 11.dp, bottom = 8.dp), verticalArrangement = Arrangement.Center) {
+                            Column(
+                                modifier = Modifier.padding(start = 11.dp, bottom = 8.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
 
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
@@ -988,7 +989,6 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                                     )
 
 
-
                                 }
 
 
@@ -997,14 +997,10 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                         }
 
 
-
-
                     }
 
 
                 }
-
-
 
 
             }
@@ -1023,7 +1019,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                 )
         ) {
 
-            Navigation(navController = navController,pregnant)
+            Navigation(navController = navController, pregnant)
 
 
         }

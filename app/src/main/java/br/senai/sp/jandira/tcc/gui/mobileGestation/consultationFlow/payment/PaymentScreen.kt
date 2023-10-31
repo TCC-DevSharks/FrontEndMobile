@@ -158,9 +158,9 @@ fun PaymentScreen(
 
         }
 
-        LaunchedEffect(erro){
+        LaunchedEffect(erro) {
 
-            if(erro == true){
+            if (erro == true) {
                 println("Enrou")
                 delay(3000)
                 navController.navigate("ConsultFinish")
@@ -168,7 +168,12 @@ fun PaymentScreen(
 
         }
 
-        Header(titulo = stringResource(id = R.string.pagseguro))
+        Header(
+            titulo = stringResource(id = R.string.pagseguro),
+            rota = "",
+            navController = navController
+        )
+
         Spacer(modifier = Modifier.height(30.dp))
 
 //        Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
@@ -201,19 +206,21 @@ fun PaymentScreen(
             exit = fadeOut(
                 animationSpec = tween(durationMillis = 250)
             )
-        ){
+        ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = "Consultando informações\n" +
                             "do cartão...",
                     modifier = Modifier.align(Alignment.TopCenter),
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold
+                )
                 CircularProgressIndicator(
                     Modifier.align(Alignment.Center),
-                    color = Color.Black)
+                    color = Color.Black
+                )
             }
-            
+
         }
 
 
@@ -752,7 +759,7 @@ fun PaymentScreen(
                                             println(t.message + t.cause)
                                         }
                                     })
-                                }else{
+                                } else {
                                     erro = true
                                 }
                             }

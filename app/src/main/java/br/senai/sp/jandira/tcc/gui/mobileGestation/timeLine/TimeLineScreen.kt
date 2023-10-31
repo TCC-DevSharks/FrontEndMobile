@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import java.time.format.DateTimeFormatter
@@ -45,7 +46,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun TimeLineScreen() {
+fun TimeLineScreen(navController: NavController) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -56,7 +57,11 @@ fun TimeLineScreen() {
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Header(titulo = stringResource(id = R.string.timeline))
+            Header(
+                titulo = stringResource(id = R.string.timeline),
+                rota = "homeUser",
+                navController = navController
+            )
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -244,23 +249,10 @@ fun TimeLineScreen() {
 
                                 )
                             }
-
                         }
-
                     }
                 }
-
             }
-
         }
-
     }
-
-
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun TimeLinePreview() {
-    TimeLineScreen()
 }

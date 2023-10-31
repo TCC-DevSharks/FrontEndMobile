@@ -33,14 +33,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 
 @Composable
-fun checkQuery() {
+fun checkQuery(navController: NavController) {
+
     Column(modifier = Modifier.fillMaxSize()) {
+
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.consultation_title))
+            Header(
+                titulo = stringResource(id = R.string.consultation_title),
+                rota = "",
+                navController = navController
+            )
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row(
@@ -610,10 +617,4 @@ fun checkQuery() {
 
         }
     }
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun checkQueryPreview() {
-    checkQuery()
 }

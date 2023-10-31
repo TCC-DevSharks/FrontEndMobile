@@ -42,17 +42,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectPatient() {
+fun SelectPatient(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.select_patient))
+            Header(
+                titulo = stringResource(id = R.string.select_patient),
+                rota = "DoctorHome",
+                navController = navController
+            )
         }
         Spacer(modifier = Modifier.height(20.dp))
+
         var date by remember { mutableStateOf("") }
 
         Column(
@@ -304,11 +310,4 @@ fun SelectPatient() {
 
         }
     }
-}
-
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun selectPatientPreview() {
-    SelectPatient()
 }

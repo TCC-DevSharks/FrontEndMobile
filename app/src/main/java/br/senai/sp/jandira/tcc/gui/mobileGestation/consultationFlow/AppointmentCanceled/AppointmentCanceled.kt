@@ -63,7 +63,9 @@ fun AppointmentCanceled(navController: NavController) {
         ) {
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Header(titulo = stringResource(id = R.string.consultation_title))
+                Header(titulo = stringResource(id = R.string.consultation_title),
+                    rota = "",
+                    navController = navController)
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row(

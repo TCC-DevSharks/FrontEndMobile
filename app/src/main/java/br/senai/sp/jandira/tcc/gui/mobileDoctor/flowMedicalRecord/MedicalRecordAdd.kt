@@ -144,6 +144,8 @@ fun MedicalRecordAdd(
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(
                 titulo = stringResource(id = R.string.medical_record),
+                rota = "medicalRecordSelectDate",
+                navController = navController
             )
             Row(
                 modifier = Modifier

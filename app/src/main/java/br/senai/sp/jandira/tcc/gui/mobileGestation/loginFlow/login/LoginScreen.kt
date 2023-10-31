@@ -52,8 +52,8 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
     var email by rememberSaveable { mutableStateOf("") }
 
-    email = "p@p.com"
-    password = "123"
+//    email = "p@p.com"
+//    password = "123"
 
     var login by remember {
         mutableStateOf(listOf<Login>())

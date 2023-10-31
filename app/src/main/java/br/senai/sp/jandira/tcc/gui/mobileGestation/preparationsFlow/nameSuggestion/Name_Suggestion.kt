@@ -154,7 +154,9 @@ fun Name_Suggestion(navController: NavController, pregnant: ModelPregnant) {
             Column(modifier = Modifier.fillMaxWidth()) {
 
 
-                Header(titulo = stringResource(id = R.string.name_suggestion))
+                Header(titulo = stringResource(id = R.string.name_suggestion),
+                    navController = navController,
+                    rota = "homeUser")
 
                 SubHeader(
                     leftText = stringResource(id = R.string.suggested),

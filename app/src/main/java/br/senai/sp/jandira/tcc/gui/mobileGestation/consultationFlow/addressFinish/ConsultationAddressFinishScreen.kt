@@ -35,6 +35,7 @@ import br.senai.sp.jandira.tcc.calls.PutWeight
 import br.senai.sp.jandira.tcc.calls.insertALergy
 import br.senai.sp.jandira.tcc.calls.insertComorbidity
 import br.senai.sp.jandira.tcc.calls.insertMedication
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.OutlinedTextFieldTodos
 import br.senai.sp.jandira.tcc.componentes.TextComp
@@ -104,13 +105,9 @@ fun ConsultationAddressFinishScreen(navController: NavController, pregnant: Mode
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-                Image(painter = painterResource(id = R.drawable.arrow_circle),
-                    contentDescription = null,
-                    Modifier
-                        .clickable {
-                        }
-                        .size(40.dp)
-                )
+
+                ArrowLeft(navController = navController, rota = "insertEndress")
+
             }
             Row(modifier = Modifier.padding(horizontal = 50.dp)) {
                 TextComp(texto = R.string.title_address_finish, fontSize = 20.sp)

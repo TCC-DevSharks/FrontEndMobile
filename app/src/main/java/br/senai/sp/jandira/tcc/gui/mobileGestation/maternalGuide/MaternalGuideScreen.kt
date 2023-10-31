@@ -46,7 +46,11 @@ fun MaternalGuideScreen(navController: NavController) {
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Header(titulo = stringResource(id = R.string.news))
+            Header(
+                titulo = stringResource(id = R.string.news),
+                rota = "homeUser",
+                navController = navController
+            )
 
             Spacer(modifier = Modifier.height(25.dp))
 

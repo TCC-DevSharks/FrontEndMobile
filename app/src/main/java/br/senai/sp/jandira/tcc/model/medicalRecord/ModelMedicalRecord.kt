@@ -14,6 +14,7 @@ class ModelMedicalRecord {
     var hora by mutableStateOf("")
     var id_profissional by mutableStateOf(0)
     var id_gestante by mutableStateOf(0)
+    var id_paciente by mutableStateOf(0)
     var profissional by mutableStateOf("")
     var gestante by mutableStateOf("")
 

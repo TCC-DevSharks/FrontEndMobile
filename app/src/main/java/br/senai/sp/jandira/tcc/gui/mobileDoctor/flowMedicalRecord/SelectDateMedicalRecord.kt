@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -47,26 +48,26 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.log
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 
 fun SelectDateMedicalRecord(
     navController: NavController,
     professional: Professional,
-    idGestante: Int?,
-    modelMedicalRecord: ModelMedicalRecord
+    modelMedicalRecord: ModelMedicalRecord,
+//    idGestante: Int?
 ) {
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-    val idGestante = navBackStackEntry?.arguments?.getString("idGestante")?.toIntOrNull()
+//    val navBackStackEntry by navController.currentBackStackEntryAsState()
+//
+//    val idGestante = navBackStackEntry?.arguments?.getString("idGestante")?.toIntOrNull()
 
     var paciente by rememberSaveable {
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-    var call = idGestante?.let { RetrofitFactory().insertConsult().getConsultPatient(it) }
+    var call =  RetrofitFactory().insertConsult().getConsultPatient(modelMedicalRecord.id_paciente)
 
-    if (call != null) {
         call.enqueue(object : Callback<MedicalRecordListDataConsult> {
             override fun onResponse(
                 call: Call<MedicalRecordListDataConsult>,
@@ -81,12 +82,13 @@ fun SelectDateMedicalRecord(
                 Log.i("ggdf", "${t.message}")
             }
         })
-    }
+
     println(paciente)
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        Header(titulo = stringResource(id = R.string.medical_record))
+        Header(titulo = stringResource(id = R.string.medical_record),
+            rota = "medicalRecordSelect" , navController = navController)
 
         Spacer(modifier = Modifier.height(50.dp))
 

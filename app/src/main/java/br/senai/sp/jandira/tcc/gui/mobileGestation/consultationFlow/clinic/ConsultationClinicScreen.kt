@@ -85,6 +85,8 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                     Header(
                         titulo = stringResource(id = R.string.header_speciality),
+                        rota = "",
+                        navController = navController
                     )
 
                 Spacer(modifier = Modifier.height(13.dp))
@@ -116,7 +118,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                 LazyColumn(modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally){
-                    items(clinic.clinica){
+                    items(clinic.clinica.distinctBy { it.id }){ it ->
 
                         val call = RetrofitFactoryCep().getCep().getCep(it.cep)
 
@@ -157,7 +159,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                                                 matrix = response.body()!!.rows
 
-                                                matrix.map {
+                                                matrix.map { it ->
                                                     it.elements.map {
                                                         distance = it.distance.text
                                                         duration = it.duration.text

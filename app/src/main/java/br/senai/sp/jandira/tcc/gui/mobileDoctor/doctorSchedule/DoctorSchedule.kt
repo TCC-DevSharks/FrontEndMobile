@@ -82,6 +82,8 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(
                 titulo = stringResource(id = R.string.schedule),
+                rota = "DoctorHome",
+                navController = navController
             )
             Row(
                 modifier = Modifier

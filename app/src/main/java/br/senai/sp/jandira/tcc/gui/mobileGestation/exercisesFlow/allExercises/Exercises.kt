@@ -54,7 +54,7 @@ import retrofit2.Response
 fun Exercises(navController: NavController, categories: ModelCategories, pregnant: ModelPregnant) {
     var categoria by remember { mutableStateOf(listOf<CategoriesResponse>()) }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         val call = RetrofitFactory().Categories().getCategories()
 
         call.enqueue(object : retrofit2.Callback<CategoriesResponseList> {
@@ -79,7 +79,13 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
 
     Scaffold(
-        topBar = { Header(titulo = "Exercices")},
+        topBar = {
+            Header(
+                titulo = stringResource(id = R.string.exercises),
+                rota = "homeUser",
+                navController = navController
+            )
+        },
         bottomBar = { Navigation(navController = navController, pregnant) }) {
 
         Column(
@@ -87,6 +93,7 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
                 .fillMaxSize()
                 .padding(top = 60.dp)
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(modifier = Modifier.padding(start = 20.dp, top = 20.dp)) {
                     Text(
@@ -177,10 +184,12 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
             //Lazyrow
 
-            LazyRow( modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)){
-                items(categoria){
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+            ) {
+                items(categoria) {
 
                     Card(
                         modifier = Modifier
@@ -210,8 +219,9 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            AsyncImage(model =it.imagem ,
-                                contentDescription ="",
+                            AsyncImage(
+                                model = it.imagem,
+                                contentDescription = "",
                                 modifier = Modifier.size(150.dp)
 
                             )

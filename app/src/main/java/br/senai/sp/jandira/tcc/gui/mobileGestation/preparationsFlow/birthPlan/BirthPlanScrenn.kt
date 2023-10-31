@@ -134,7 +134,11 @@ fun birthPlanScreen(
         Column(modifier = Modifier.fillMaxSize()) {
 
             if (category != null) {
-                Header(titulo = "${category.capitalizeFirstLetter()}")
+                Header(
+                    titulo = "${category.capitalizeFirstLetter()}",
+                    rota = "birthPlanCategory",
+                    navController = navController
+                )
             }
 
             SubHeader(
@@ -240,7 +244,7 @@ fun birthPlanScreen(
                     shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
                 )
         ) {
-            Navigation(navController = navController,pregnant)
+            Navigation(navController = navController, pregnant)
         }
 
     }
