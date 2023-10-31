@@ -264,12 +264,7 @@
     <string name="performed">Realizadas</string>
     <string name="do_you_want_to_cancel">Deseja cancelar uma consulta?</string>
 
-
-
-
-
-
-
-
+    <string name="development">Desenvolvimento</string>
+    <string name="how_many_months">Quantos meses?</string>
 
 </resources>

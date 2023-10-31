@@ -1,6 +1,9 @@
 package br.senai.sp.jandira.tcc.model.troussea
 
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineList
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineSemanaList
 import br.senai.sp.jandira.tcc.model.troussea.trousseauBody.TrousseauBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -24,4 +27,9 @@ interface TrousseauService {
     @DELETE("enxoval/favorito")
     fun deleteTrousseau(@Query("idEnxoval") enxoval: Int, @Query("idGestante") gestante: Int): retrofit2.Call<TrousseauListFavorite2>
 
+    @GET("timeline")
+    fun getTimeLine(): Call<timeLineList>
+
+    @GET("timeline/{id}")
+    fun getTimeLineID(@Path("id") id: Int): Call<timeLineSemanaList>
 }

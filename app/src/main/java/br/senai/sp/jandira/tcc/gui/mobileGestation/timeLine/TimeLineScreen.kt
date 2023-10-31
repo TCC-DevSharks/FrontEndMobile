@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -24,9 +27,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
@@ -41,20 +46,52 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineList
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineResonse
+import br.senai.sp.jandira.tcc.model.timeLine.timeLineSemanaList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun TimeLineScreen(navController: NavController) {
+fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
 
     Box(modifier = Modifier.fillMaxSize()) {
+
+        var timeLine by rememberSaveable {
+            mutableStateOf(listOf<timeLineResonse>())
+        }
+
+        var timeLineId by rememberSaveable {
+            mutableStateOf(listOf<timeLineResonse>())
+        }
+
+        var call = RetrofitFactory().getTrousseauService().getTimeLine()
+        call.enqueue(object : Callback<timeLineList> {
+            override fun onResponse(call: Call<timeLineList>, response: Response<timeLineList>) {
+                timeLine = response.body()!!.semanas
+
+                Log.i("", "${response.body()}")
+            }
+
+            override fun onFailure(call: Call<timeLineList>, t: Throwable) {
+                Log.i("", "T${t.message}: ")
+            }
+        })
+
+
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 90.dp)
-                .verticalScroll(rememberScrollState())
         ) {
 
             Header(
@@ -65,15 +102,16 @@ fun TimeLineScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            var selectedItem by remember { mutableStateOf(-1) }
+            var selectedItem by remember { mutableStateOf(pregnant.semana_gestacao) }
+
+            Log.i("fdfdf", "${selectedItem}")
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                items(40) { index ->
-                    val number = index + 1
+                items(timeLine) { semana ->
 
-                    val isItemSelected = index == selectedItem
+                    val isItemSelected = semana.id == selectedItem
 
                     Box(
                         modifier = Modifier
@@ -81,7 +119,7 @@ fun TimeLineScreen(navController: NavController) {
                             .size(75.dp, 35.dp)
                             .fillMaxSize()
                             .clickable {
-                                selectedItem = index
+                                selectedItem = semana.id
                             }
                             .background(
                                 if (isItemSelected) Color(182, 182, 246) else Color(249, 246, 244),
@@ -89,6 +127,7 @@ fun TimeLineScreen(navController: NavController) {
                             ),
                         contentAlignment = Alignment.Center
                     ) {
+
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -100,7 +139,7 @@ fun TimeLineScreen(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                text = "$number",
+                                text = "${semana.id}",
                                 fontWeight = FontWeight(500),
                                 fontSize = 17.sp,
                                 color = if (isItemSelected) Color.White else Color.Black
@@ -113,144 +152,173 @@ fun TimeLineScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.chat_cinza),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(27.dp)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 14.dp),
-                    text = "Seu bebê tem o tamanho de uma framboesa",
-                    fontSize = 14.5.sp,
-                    fontWeight = FontWeight(500),
-                )
-            }
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = CardDefaults.cardColors(Color.Transparent)
+            var call = RetrofitFactory().getTrousseauService().getTimeLineID(selectedItem)
+            call.enqueue(object : Callback<timeLineSemanaList> {
+                override fun onResponse(
+                    call: Call<timeLineSemanaList>,
+                    response: Response<timeLineSemanaList>
                 ) {
-                    Image(
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Fit,
-                        painter = painterResource(id = R.drawable.feto_preview),
-                        contentDescription = null
-                    )
+
+                    timeLineId = response.body()!!.semana
+
+                    Log.i("", "${response.body()}")
                 }
 
-                Spacer(modifier = Modifier.height(30.dp))
+                override fun onFailure(call: Call<timeLineSemanaList>, t: Throwable) {
+                    Log.i("", "T${t.message}: ")
+                }
+            })
 
-                Column(modifier = Modifier.fillMaxSize()) {
+            LazyColumn() {
 
-                    Card(
+                items(timeLineId) { semana ->
+
+
+                    Row(
                         modifier = Modifier
-                            .fillMaxSize(1f),
-                        shape = RoundedCornerShape(10.dp),
-                        colors = CardDefaults.cardColors(Color(182, 182, 246, 40))
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
+                        AsyncImage(
+                            model = semana.imagemFruta,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(27.dp)
+                                .scale(0.5f)
+                        )
+                        Text(
+                            modifier = Modifier.padding(start = 14.dp),
+                            text = "${semana.comparacao}",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight(500),
+                        )
+                    }
 
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.padding(16.dp)
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = CardDefaults.cardColors(Color.Transparent)
                         ) {
+                            AsyncImage(
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Fit,
+                                model = semana.imagem,
+                                contentDescription = null
+                            )
+                        }
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                        Spacer(modifier = Modifier.height(30.dp))
 
-                                Text(
-                                    text = "Desenvolvimento",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(900),
-                                    fontSize = 15.sp,
-                                    color = Color(182, 182, 246)
-                                )
-                            }
+                        Column(modifier = Modifier.fillMaxSize()) {
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxSize(1f),
+                                shape = RoundedCornerShape(10.dp),
+                                colors = CardDefaults.cardColors(Color(182, 182, 246, 40))
+                            ) {
 
-                                Text(
-                                    text = "A genitália deixa de ser ambigua e começa a diferenciação do sexo.",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(600),
-                                    fontSize = 13.sp,
-                                    color = Color.Black,
-                                    lineHeight = 15.sp
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier.padding(16.dp)
+                                ) {
 
-                                )
-                            }
+                                    Row(modifier = Modifier.fillMaxWidth()) {
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                                        Text(
+                                            text = stringResource(id = R.string.development),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(900),
+                                            fontSize = 15.sp,
+                                            color = Color(182, 182, 246)
+                                        )
+                                    }
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                                    Row(modifier = Modifier.fillMaxWidth()) {
 
-                                Text(
-                                    text = "Agenda",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(900),
-                                    fontSize = 15.sp,
-                                    color = Color(182, 182, 246)
-                                )
-                            }
+                                        Text(
+                                            text = "${semana.desenvolvimento}",
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 13.sp,
+                                            color = Color.Black,
+                                            lineHeight = 19.sp
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                                        )
+                                    }
 
-                                Text(
-                                    text = "Exames de sangue e de urina devem ser realizados para verificar as condições de saúde da mamãe.",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(600),
-                                    fontSize = 13.sp,
-                                    color = Color.Black,
-                                    lineHeight = 15.sp
+                                    Spacer(modifier = Modifier.height(20.dp))
 
-                                )
-                            }
+                                    Row(modifier = Modifier.fillMaxWidth()) {
 
-                            Spacer(modifier = Modifier.height(20.dp))
+                                        Text(
+                                            text = stringResource(id = R.string.schedule) ,
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(900),
+                                            fontSize = 15.sp,
+                                            color = Color(182, 182, 246)
+                                        )
+                                    }
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                                    Row(modifier = Modifier.fillMaxWidth()) {
 
-                                Text(
-                                    text = "Quantos meses?",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(900),
-                                    fontSize = 15.sp,
-                                    color = Color(182, 182, 246)
-                                )
-                            }
+                                        Text(
+                                            text = "${semana.agenda}",
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 13.sp,
+                                            color = Color.Black,
+                                            lineHeight = 19.sp
 
-                            Row(modifier = Modifier.fillMaxWidth()) {
+                                        )
+                                    }
 
-                                Text(
-                                    text = "8 semanas de gravidez são 2 meses. Com a semana 8 da gravidez, você está na semana final do mês 2 da sua gestação.",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(600),
-                                    fontSize = 13.sp,
-                                    color = Color.Black,
-                                    lineHeight = 15.sp
+                                    Spacer(modifier = Modifier.height(20.dp))
 
-                                )
+                                    Row(modifier = Modifier.fillMaxWidth()) {
+
+                                        Text(
+                                            text = stringResource(id = R.string.how_many_months),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(900),
+                                            fontSize = 15.sp,
+                                            color = Color(182, 182, 246)
+                                        )
+                                    }
+
+                                    Row(modifier = Modifier.fillMaxWidth()) {
+
+                                        Text(
+                                            text = "${semana.meses}",
+                                            modifier = Modifier.fillMaxWidth(),
+                                            textAlign = TextAlign.Center,
+                                            fontWeight = FontWeight(600),
+                                            fontSize = 13.sp,
+                                            color = Color.Black,
+                                            lineHeight = 19.sp
+
+                                        )
+                                    }
+
+                                }
+
                             }
                         }
                     }
+
                 }
             }
         }
