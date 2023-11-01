@@ -97,6 +97,7 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
                             onClick =
                             {
                                 clinic.especialidade = it.id
+                                clinic.nomeEspecialidade = it.nome
                                 GetClinicSpeciality(it.id, clinic)
                                 navController.navigate("ConsultClinic")
 

@@ -17,6 +17,7 @@ class Clinic {
     var cep by mutableStateOf("")
     var numero by mutableStateOf("")
     var especialidade by mutableStateOf(0)
+    var nomeEspecialidade by mutableStateOf("")
     var complemento by mutableStateOf("")
     var logradouro by mutableStateOf("")
     var bairro by mutableStateOf("")

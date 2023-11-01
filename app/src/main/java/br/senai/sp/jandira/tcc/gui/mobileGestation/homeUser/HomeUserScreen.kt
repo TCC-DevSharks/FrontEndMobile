@@ -195,7 +195,7 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
                                 ) {
 
                                     Text(
-                                        text = "Oi, " + pregnant.nome + "!",
+                                        text = stringResource(id = R.string.hi) + " " + pregnant.nome + "!",
                                         fontSize = 30.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = Color(182, 182, 246)

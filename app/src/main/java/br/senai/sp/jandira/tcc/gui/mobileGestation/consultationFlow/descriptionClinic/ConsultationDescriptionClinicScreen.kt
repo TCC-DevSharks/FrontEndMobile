@@ -54,7 +54,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
 
-                ArrowLeft(navController = navController, rota = "")
+                ArrowLeft(navController = navController, rota = "ConsultClinic")
 
             }
 
@@ -232,7 +232,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
 
         Column {
             ButtonPurple(navController = navController,
-                texto = stringResource(id = R.string.check_nutritionists),
+                texto = clinic.nomeEspecialidade + "s " + stringResource(id = R.string.check_nutritionists),
                 rota = "",
                 onclick = {
                           GetProfessionalSpeciality(clinic.especialidade, professional, navController)

@@ -52,7 +52,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
     var email by rememberSaveable { mutableStateOf("") }
 
-    email = "p@p.com"
+    email = "g@g.com"
     password = "123"
 
 
@@ -133,12 +133,10 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
                     .fillMaxWidth()
                     .padding(top = 20.dp, start = 10.dp, end = 25.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.End
             ) {
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
+                    modifier = Modifier.clickable {
                             navController.navigate("forgot_email")
                         },
                     text = stringResource(id = br.senai.sp.jandira.tcc.R.string.forgot_password),

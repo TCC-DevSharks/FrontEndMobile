@@ -142,6 +142,8 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
                             .clickable {
                                 navController.navigate("medicalRecordSelectDate")
                                 modelMedicalRecord.id_paciente = paciente.idGestante
+                                modelMedicalRecord.gestante = paciente.nome
+                                modelMedicalRecord.fotoGestante = paciente.foto
 
                             }
                             .height(85.dp)

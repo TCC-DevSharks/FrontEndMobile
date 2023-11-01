@@ -85,7 +85,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                     Header(
                         titulo = stringResource(id = R.string.header_speciality),
-                        rota = "",
+                        rota = "speciality",
                         navController = navController
                     )
 

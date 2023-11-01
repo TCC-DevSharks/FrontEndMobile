@@ -65,7 +65,8 @@
     <string name="title_clinic">Essa especialidade está disponível nessas clínicas:</string>
 
     <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
-    <string name="title_doctor">Na clínica exemplo,  existem esses nutricionistas :</string>
+    <string name="title_doctor">Na</string>
+    <string name="sub_title_doctor">existem esses</string>
 
     <!-- Tela Alimentação -->
     <string name="header_food">Alimentação</string>
@@ -167,7 +168,7 @@
     <string name="title_address_finish">Falta pouco! Seu cadastro está sendo finalizado.</string>
     <string name="finalize">Finalizar</string>
     <string name="Continue">Continuar</string>
-    <string name="check_nutritionists">Verificar nutricionistas disponíveis</string>
+    <string name="check_nutritionists">disponíveis</string>
     <string name="schedule">Agenda</string>
     <string name="tasks">Tarefas:</string>
     <string name="description">Descrição:</string>

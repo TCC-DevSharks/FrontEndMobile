@@ -170,7 +170,7 @@ fun PaymentScreen(
 
         Header(
             titulo = stringResource(id = R.string.pagseguro),
-            rota = "",
+            rota = "DescriptionDoctor",
             navController = navController
         )
 

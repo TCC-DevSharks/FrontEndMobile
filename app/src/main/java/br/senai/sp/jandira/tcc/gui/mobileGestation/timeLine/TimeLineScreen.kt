@@ -185,8 +185,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                             model = semana.imagemFruta,
                             contentDescription = null,
                             modifier = Modifier
-                                .size(27.dp)
-                                .scale(0.5f)
+                                .size(40.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 14.dp),
