@@ -67,7 +67,6 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
     val pacientesFiltrados = pacientes.filter { it.nome.contains(searchText, ignoreCase = true) }
         .distinctBy { it.idGestante }
 
-
     var call = RetrofitFactory().insertConsult().getConsultMedicalRecord(professional.id)
 
     call.enqueue(object : Callback<ConsultListMedicalRecord> {

@@ -334,6 +334,7 @@ fun MedicalRecordAdd(
                                         Log.i("", "${prontuario}")
 
                                         if (response.isSuccessful) {
+
                                             val backgroundColor = Color.Gray
                                             val contentColor = Color.White
 

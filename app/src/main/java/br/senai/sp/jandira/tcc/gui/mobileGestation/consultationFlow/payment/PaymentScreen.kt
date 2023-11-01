@@ -220,7 +220,6 @@ fun PaymentScreen(
                     color = Color.Black
                 )
             }
-
         }
 
 
