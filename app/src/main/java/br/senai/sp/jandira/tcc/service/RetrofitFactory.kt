@@ -56,7 +56,7 @@ class RetrofitFactory {
         return  retrofitFactory.create(PaymentService::class.java)
     }
 
-    fun insertConsult(): ConsultService{
+    fun consult(): ConsultService{
         return  retrofitFactory.create(ConsultService::class.java)
     }
     fun findDiet(): DietService{
@@ -89,6 +89,10 @@ class RetrofitFactory {
 
     fun ChatService(): ChatService {
         return retrofitFactory.create(ChatService::class.java)
+    }
+
+    fun MongoService(): MongoService {
+        return retrofitFactory.create(MongoService::class.java)
     }
 }
 

@@ -67,7 +67,7 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
         .distinctBy { it.idGestante }
 
 
-    var call = RetrofitFactory().insertConsult().getConsultMedicalRecord(professional.id)
+    var call = RetrofitFactory().consult().getConsultMedicalRecord(professional.id)
 
     call.enqueue(object : Callback<ConsultListMedicalRecord> {
         override fun onResponse(

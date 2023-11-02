@@ -91,7 +91,7 @@ fun Navigation(navController: NavController, pregnant: ModelPregnant) {
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-                        navController.navigate("messagesChat")
+                        navController.navigate("contactsChat")
 
                 }) {
                 Image(

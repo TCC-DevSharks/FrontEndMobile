@@ -2,6 +2,7 @@ import io.socket.client.IO
 import io.socket.client.Socket
 import java.net.URISyntaxException
 import android.util.Log
+import org.json.JSONObject
 
 class SocketManager {
     private var socket: Socket? = null
@@ -35,10 +36,26 @@ class SocketManager {
     }
 
     fun addUser(user: String){
+        Log.e("SocketManager", "$user")
         socket?.emit("add-user", user)
         Log.e("SocketManager", "Adicionando um usuario")
 
     }
 
-    // ...
+    fun sendMsg(to: String, msg: String){
+        try {
+            val data = JSONObject()
+            data.put("to", to)
+            data.put("msg", msg)
+
+            socket?.emit("send-msg", data)
+            Log.e("SocketManager", "$data")
+            Log.e("SocketManager", "Enviando mensagem")
+        }catch (e: Exception) {
+            Log.e("SocketManager", "Erro desconhecido: ${e.message}")
+            e.printStackTrace()
+        }
+
+    }
+
 }

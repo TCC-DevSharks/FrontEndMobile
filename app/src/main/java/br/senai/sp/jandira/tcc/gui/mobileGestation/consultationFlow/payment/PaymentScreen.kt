@@ -677,7 +677,7 @@ fun PaymentScreen(
                                 if (response.isSuccessful) {
 
                                     var call =
-                                        RetrofitFactory().insertConsult().insertConsult(consult)
+                                        RetrofitFactory().consult().insertConsult(consult)
 
                                     call.enqueue(object : retrofit2.Callback<ResponseBody> {
                                         override fun onResponse(
@@ -687,7 +687,7 @@ fun PaymentScreen(
                                         ) {
                                             if (response.isSuccessful) {
                                                 var call =
-                                                    RetrofitFactory().insertConsult()
+                                                    RetrofitFactory().consult()
                                                         .insertConsult(consult)
 
                                                 call.enqueue(object :

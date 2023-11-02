@@ -45,7 +45,6 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 @Composable
 
@@ -64,7 +63,7 @@ fun SelectDateMedicalRecord(
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-    var call = idGestante?.let { RetrofitFactory().insertConsult().getConsultPatient(it) }
+    var call = idGestante?.let { RetrofitFactory().consult().getConsultPatient(it) }
 
     if (call != null) {
         call.enqueue(object : Callback<MedicalRecordListDataConsult> {

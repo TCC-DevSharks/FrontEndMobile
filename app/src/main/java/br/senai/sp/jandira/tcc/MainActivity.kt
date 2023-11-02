@@ -67,6 +67,7 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
+import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
@@ -117,6 +118,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val categories = ModelCategories()
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
+    val chatModel = ChatModel()
 
     AnimatedNavHost(
         navController = navController,
@@ -181,8 +183,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
             composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
-            composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
-            composable(route = "messagesChat") { MessagesScreen(navController, pregnant) }
+            composable(route = "contactsChat") { ContatosScreen(navController, pregnant, chatModel) }
+            composable(route = "messagesChat") { MessagesScreen(navController, pregnant, chatModel) }
 
 
     }

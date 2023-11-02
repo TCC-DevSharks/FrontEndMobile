@@ -1,7 +1,7 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages
 
 import SocketManager
-import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,11 +16,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -34,39 +34,51 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomEnd
-import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.GetChatUser
+import br.senai.sp.jandira.tcc.calls.GetMsg
+import br.senai.sp.jandira.tcc.calls.SendMsg
+import br.senai.sp.jandira.tcc.componentes.Chat
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.chatUser.ChatUserResponse
+import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
+import br.senai.sp.jandira.tcc.model.mongoDb.ChatDbResponse
+import coil.compose.AsyncImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 
-val socketManager = SocketManager()
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
-    socketManager.connect()
-    socketManager.addUser("65367be11588e293ee18a60d")
+fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatModel: ChatModel){
+    val socketManager = SocketManager()
+    var user = chatModel.user
+    var profissional = chatModel.profissional
+    var effect by remember { mutableStateOf(true) }
 
-    var user = GetChatUser(pregnant.email)
+    var msg by remember { mutableStateOf(listOf<ChatDbResponse>()) }
+    msg =  chatModel.msgs
 
-    println(user)
+    LaunchedEffect(Unit){
+        GetMsg(user, profissional, chatModel)
+    }
+
+    LaunchedEffect(effect){
+        GetMsg(user, profissional, chatModel)
+    }
 
 
 
@@ -75,7 +87,8 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 50.dp)
+                .background(Color.White)
+                .padding(bottom = 70.dp)
         ) {
 
             Row(
@@ -111,17 +124,19 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
 
 
                         ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.doctor),
-                            contentDescription = null,
+                        AsyncImage(
+                            model = chatModel.foto,
+                            contentDescription = "",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clip(CircleShape)
                         )
 
                     }
 
                     Text(
-                        text = "Dr Rafsan jani",
+                        text = chatModel.nomeProfissional,
                         fontSize = 19.sp,
                         fontWeight = FontWeight(900),
                         modifier = Modifier.padding(start = 12.dp)
@@ -131,190 +146,14 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
             }
 
 
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 10.dp)
             ) {
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth(1f)
-                        .padding(vertical = 6.dp)
-                ) {
-
-                    Spacer(modifier = Modifier.height(23.dp))
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 26.dp),
-                        verticalAlignment = CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-
-                        Card(
-                            modifier = Modifier
-                                .size(40.dp),
-                            shape = CircleShape,
-
-
-                            ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.doctor),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
-                            )
-
-                        }
-
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth(0.9f)
-                                .padding(start = 20.dp, end = 14.dp),
-                        ) {
-
-                            Box(
-                                modifier = Modifier
-                                    .background(
-                                        Color(255, 218, 185),
-                                        RoundedCornerShape(10.dp)
-                                    ),
-                            ) {
-                                Text(
-                                    text = "Murillo Otario",
-                                    style = TextStyle(
-                                        color = Color.Black,
-                                    ),
-                                    modifier = Modifier
-                                        .padding(13.dp)
-                                        .padding(bottom = 9.dp),
-                                    textAlign = TextAlign.Start
-                                )
-
-
-
-                                Row(
-                                    modifier = Modifier
-                                        .padding(horizontal = 12.dp)
-                                        .align(BottomStart),
-                                    horizontalArrangement = Arrangement.Start
-                                ) {
-
-                                    Text(
-                                        text = "Tue",
-                                        fontSize = 14.sp,
-                                        color = Color(102, 97, 97, 95)
-                                    )
-
-                                    Text(
-                                        text = "12.30",
-                                        fontSize = 14.sp,
-                                        modifier = Modifier.padding(start = 7.dp),
-                                        color = Color(102, 97, 97, 95)
-                                    )
-
-                                }
-                            }
-                        }
-
-
-                    }
-
+                items(msg){
+                    Chat(messageText = it.text, sender = it.sender, currentUser = chatModel.user, fotoPregnant = pregnant.foto, fotoProfissional = chatModel.foto)
                 }
-
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth(1f)
-                        .padding(vertical = 6.dp)
-                ) {
-
-
-                    Spacer(modifier = Modifier.height(9.dp))
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 26.dp),
-                        verticalAlignment = CenterVertically,
-                        horizontalArrangement = Arrangement.End
-                    ) {
-
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth(0.9f)
-                                .padding(start = 58.dp, end = 10.dp),
-                            horizontalAlignment = Alignment.End
-                        ) {
-
-                            Box(
-                                modifier = Modifier
-                                    .background(
-                                        Color(182, 182, 246, 98),
-                                        RoundedCornerShape(10.dp)
-                                    ),
-                            ) {
-                                Text(
-                                    text = "Heytytfr3 ggghg hgjhghghg gvv gvgv gvgv  gvvgvh hgv gvvv  huj hbhb hbjjn nbnj bl3jfr3fr",
-                                    style = TextStyle(
-                                        color = Color.Black,
-                                    ),
-                                    modifier = Modifier
-                                        .padding(13.dp)
-                                        .padding(bottom = 9.dp),
-                                    textAlign = TextAlign.Start
-                                )
-
-
-
-                                Row(
-                                    modifier = Modifier
-                                        .padding(horizontal = 12.dp)
-                                        .align(BottomEnd),
-                                    horizontalArrangement = Arrangement.End
-                                ) {
-
-                                    Text(
-                                        text = "Tue",
-                                        fontSize = 14.sp,
-                                        color = Color(102, 97, 97, 95)
-                                    )
-
-                                    Text(
-                                        text = "12.30",
-                                        fontSize = 14.sp,
-                                        modifier = Modifier.padding(start = 7.dp),
-                                        color = Color(102, 97, 97, 95)
-                                    )
-
-                                }
-                            }
-                        }
-
-                        Card(
-                            modifier = Modifier
-                                .size(40.dp),
-                            shape = CircleShape,
-
-
-                            ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.doctor),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
-                            )
-
-                        }
-
-                    }
-
-
-                }
-
-
             }
 
         }
@@ -322,8 +161,9 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(Color.LightGray)
                 .align(Alignment.BottomCenter)
-                .padding(horizontal = 28.dp, vertical = 20.dp),
+                .padding(horizontal = 28.dp, vertical = 10.dp),
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -340,7 +180,7 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
                 shape = RoundedCornerShape(10.dp),
                 label = {
                     Text(
-                        text = "Digite seus problemas",
+                        text = "",
                         fontSize = 14.sp,
                         color = Color(102, 97, 97, 95)
                     )
@@ -362,7 +202,17 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant) {
                     .background(Color(182, 182, 246), CircleShape)
                     .size(38.dp)
                     .clickable {
-//                            navController.navigate("week")
+                        CoroutineScope(Dispatchers.IO).launch {
+                            socketManager.connect()
+                            socketManager.addUser(user)
+                            socketManager.sendMsg(profissional, message)
+                            SendMsg(text = message, users = listOf(user, profissional), sender = user, timestamp = LocalTime.now() )
+                            effect = !effect
+
+                            Log.e("", "$msg")
+                            message = ""
+
+                        }
                     }, contentAlignment = Center
             ) {
 
