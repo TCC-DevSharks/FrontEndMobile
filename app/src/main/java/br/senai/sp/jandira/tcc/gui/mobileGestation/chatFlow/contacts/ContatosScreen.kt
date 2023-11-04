@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetChatProfissional
 import br.senai.sp.jandira.tcc.calls.GetChatUser
+import br.senai.sp.jandira.tcc.calls.GetMsg
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
@@ -65,6 +66,8 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     LaunchedEffect(Unit) {
         Consult(pregnant)
         GetChatUser(pregnant.email, chatModel)
+
+
     }
 
     var consult by remember { mutableStateOf(listOf<MedicalRecordDataConsult>()) }
@@ -169,6 +172,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                             ) {
 
                                 chatModel.profissional = response.body()!!._id;
+                                profissional = response.body()!!._id;
                             }
 
                             override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
@@ -179,6 +183,8 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                 println(t.message + t.cause)
                             }
                         })
+
+                        GetMsg(chatModel.user,profissional, chatModel)
 
                         Row(modifier = Modifier.padding(vertical = 9.dp)) {
 

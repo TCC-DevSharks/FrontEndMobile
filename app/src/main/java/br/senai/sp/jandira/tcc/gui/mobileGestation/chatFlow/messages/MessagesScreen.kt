@@ -2,10 +2,12 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages
 
 import SocketManager
 import android.util.Log
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -68,12 +71,29 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     var user = chatModel.user
     var profissional = chatModel.profissional
     var effect by remember { mutableStateOf(true) }
+    val scrollState = rememberLazyListState()
+
+    socketManager.handleMsgReceive {
+        println(it)
+        GetMsg(user, profissional, chatModel)
+    }
 
     var msg by remember { mutableStateOf(listOf<ChatDbResponse>()) }
     msg =  chatModel.msgs
 
+    LaunchedEffect(msg) {
+        println("asf")
+        val lastIndex = msg.size.toFloat() * 200
+        if (lastIndex >= 0) {
+            // Scroll to the last item with animation
+            scrollState.animateScrollBy(lastIndex, tween(5000))
+        }
+    }
+
     LaunchedEffect(Unit){
         GetMsg(user, profissional, chatModel)
+        socketManager.connect()
+        socketManager.addUser(user)
     }
 
     LaunchedEffect(effect){
@@ -149,7 +169,8 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = 10.dp)
+                    .padding(vertical = 10.dp),
+                state = scrollState
             ) {
                 items(msg){
                     Chat(messageText = it.text, sender = it.sender, currentUser = chatModel.user, fotoPregnant = pregnant.foto, fotoProfissional = chatModel.foto)
@@ -204,7 +225,7 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     .clickable {
                         CoroutineScope(Dispatchers.IO).launch {
                             socketManager.connect()
-                            socketManager.addUser(user)
+//                            socketManager.addUser(user)
                             socketManager.sendMsg(profissional, message)
                             SendMsg(text = message, users = listOf(user, profissional), sender = user, timestamp = LocalTime.now() )
                             effect = !effect
