@@ -25,6 +25,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
+import br.senai.sp.jandira.tcc.calls.PostDefaultMeal
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
@@ -55,28 +58,58 @@ import retrofit2.Response
 @Composable
 fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
 
+    var effect by remember { mutableStateOf(true) }
     val painter = painterResource(id = R.drawable.dieta)
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
-    val call = RetrofitFactory().food().getFood(modelFood.categoria)
+    var comidaFiltrada by remember { mutableStateOf(listOf<FoodResponse>()) }
 
-    call.enqueue(object : retrofit2.Callback<FoodResponseList> {
-        override fun onResponse(
-            call: Call<FoodResponseList>,
-            response: Response<FoodResponseList>
+    var foodFilter = comidaFiltrada.map { it.idAlimento }
 
-        ) {
-            food = response.body()!!.alimentos
-        }
+    LaunchedEffect(effect){
+        val call = RetrofitFactory().food().getFood(modelFood.categoria)
+
+        call.enqueue(object : retrofit2.Callback<FoodResponseList> {
+            override fun onResponse(
+                call: Call<FoodResponseList>,
+                response: Response<FoodResponseList>
+
+            ) {
+                food = response.body()!!.alimentos
+            }
 
 
-        override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
-            Log.i(
-                "ds2",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
+            override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
+                Log.i(
+                    "ds2",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+
+        val callFilter = RetrofitFactory().food().getFoodMeal(modelFood.refeicao)
+
+        callFilter.enqueue(object : retrofit2.Callback<FoodResponseList> {
+            override fun onResponse(
+                call: Call<FoodResponseList>,
+                response: Response<FoodResponseList>
+
+            ) {
+                comidaFiltrada = response.body()!!.alimentos
+
+            }
+
+
+            override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
+                Log.i(
+                    "ds2",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+    }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -96,8 +129,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
             Spacer(modifier = Modifier.height(35.dp))
 
             LazyColumn{
-                items(food){
-                    var effect by remember { mutableStateOf(true) }
+                items(food){teste ->
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -116,7 +148,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                                 shape = RoundedCornerShape(12.dp),
                             ) {
                                 AsyncImage(
-                                    model = it.imagem,
+                                    model = teste.imagem,
                                     contentDescription = "",
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxSize(),
@@ -139,20 +171,21 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
 
                             Column {
                                 Text(
-                                    text = it.nome,
+                                    text = teste.nome,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight(800),
                                 )
                             }
                         }
-                        if (effect){
+                        if (!foodFilter.contains(teste.id)){
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_add_24),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(30.dp)
                                     .clickable {
-                                               effect = !effect
+                                        PostDefaultMeal(modelFood.refeicao, teste.id)
+                                        effect = !effect
                                     },
                                 colorFilter = ColorFilter.tint(Color(182, 182, 246))
                                 )
@@ -160,10 +193,12 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_horizontal_rule_24),
                                 contentDescription = "",
-                                modifier = Modifier.size(30.dp)
+                                modifier = Modifier
+                                    .size(30.dp)
                                     .clickable {
-                                    effect = !effect
-                                },
+                                        DeleteDefaultMeal(modelFood.refeicao, teste.id)
+                                        effect = !effect
+                                    },
                                 colorFilter = ColorFilter.tint(Color.Red)
 
                                 )

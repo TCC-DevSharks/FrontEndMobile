@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.service.defaultMeal
 
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelFoodToDefaultMeal
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -20,6 +21,9 @@ interface DietService {
     @DELETE("refeicao/padrao/{idRefeicao}/alimento/{idAlimento}")
     fun deleteDefaultMeal(
         @Path("idRefeicao") idRefeicao: Int,
-        @Path("idAlimento") idAlimento: Int): Call<ResponseBody>
-    
+        @Path("idAlimento") idAlimento: Int
+    ): Call<ResponseBody>
+
+    @POST("refeicao/padrao/alimento")
+    fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
 }

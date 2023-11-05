@@ -23,6 +23,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -54,6 +56,7 @@ import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Response
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FoodMeal(navController: NavController, modelFood: ModelFood) {
 
@@ -86,84 +89,105 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
 
 
     Box(modifier = Modifier.fillMaxSize()) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
+        Scaffold(floatingActionButton = { Button(
+            onClick = {
+                      navController.navigate("foodCategory")
+            },
+            modifier = Modifier.size(70.dp),
+            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+            border = BorderStroke(width = 2.dp, Color.Black)
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_add_24),
+                contentDescription = "",
+                modifier = Modifier.size(35.dp),
 
-            Header(titulo =modelFood.nomeRefeicao)
-            Row(
+                )
+        }}) {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(.3.dp)
-            ) {}
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
 
-            Spacer(modifier = Modifier.height(35.dp))
+                Header(titulo =modelFood.nomeRefeicao)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Gray)
+                        .height(.3.dp)
+                ) {}
 
-            LazyColumn{
-                items(food){
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.dp, vertical = 5.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
+                Spacer(modifier = Modifier.height(35.dp))
 
+                LazyColumn{
+                    items(food){
                         Row(
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp, vertical = 5.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Card(
-                                modifier = Modifier
-                                    .size(60.dp),
-                                shape = RoundedCornerShape(12.dp),
+
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                AsyncImage(
-                                    model = it.imagem,
-                                    contentDescription = "",
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize(),
-                                    transform = { state ->
-                                        when (state) {
-                                            is AsyncImagePainter.State.Loading -> {
-                                                state.copy(painter = painter)
-                                            }
-                                            is AsyncImagePainter.State.Error -> {
-                                                state.copy(painter = painter)
-                                            }
+                                Card(
+                                    modifier = Modifier
+                                        .size(60.dp),
+                                    shape = RoundedCornerShape(12.dp),
+                                ) {
+                                    AsyncImage(
+                                        model = it.imagem,
+                                        contentDescription = "",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier.fillMaxSize(),
+                                        transform = { state ->
+                                            when (state) {
+                                                is AsyncImagePainter.State.Loading -> {
+                                                    state.copy(painter = painter)
+                                                }
+                                                is AsyncImagePainter.State.Error -> {
+                                                    state.copy(painter = painter)
+                                                }
 
-                                            else -> state
+                                                else -> state
+                                            }
                                         }
-                                    }
-                                )
-                            }
+                                    )
+                                }
 
-                            Spacer(modifier = Modifier.width(16.dp))
+                                Spacer(modifier = Modifier.width(16.dp))
 
-                            Column {
-                                Text(
-                                    text = it.nome,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
+                                Column {
+                                    Text(
+                                        text = it.nome,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight(800),
+                                    )
+                                }
                             }
-                        }
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_horizontal_rule_24),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(30.dp)
                                     .clickable {
-                                        DeleteDefaultMeal(idAlimento = it.idAlimento, idRefeicao = modelFood.refeicao)
-                                               effect = !effect
+                                        DeleteDefaultMeal(
+                                            idAlimento = it.idAlimento,
+                                            idRefeicao = modelFood.refeicao
+                                        )
+                                        effect = !effect
                                     },
                                 colorFilter = ColorFilter.tint(Color.Red)
 
-                                )
+                            )
+                        }
                     }
                 }
             }
         }
+
+
 }}

@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.model.food
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 class ModelFood {
@@ -9,5 +10,6 @@ class ModelFood {
     var categoria by mutableStateOf(0)
     var refeicao by mutableStateOf(0)
     var nomeRefeicao by mutableStateOf("")
+
 
 }
