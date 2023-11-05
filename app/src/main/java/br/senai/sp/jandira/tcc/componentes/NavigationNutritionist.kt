@@ -19,9 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.professional.Professional
 
 @Composable
-fun NavigationNutritionist(navController: NavController) {
+fun NavigationNutritionist(navController: NavController, professional: Professional) {
 
     Row(
         modifier = Modifier
@@ -40,16 +41,20 @@ fun NavigationNutritionist(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
 
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
-                navController.navigate("nutritionSelect")
+            if (professional.especialidade == "Nutricionista") {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+                    navController.navigate("dietSelect")
 
-            }) {
-                Image(
-                    painter = painterResource(id = R.drawable.utensils_cinza),
-                    contentDescription = null,
-                    modifier = Modifier.size(27.dp)
-                )
+                }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.utensils_cinza),
+                        contentDescription = null,
+                        modifier = Modifier.size(27.dp)
+                    )
+                }
             }
+
+
 
 
             Box(contentAlignment = Alignment.Center,

@@ -69,10 +69,7 @@ import java.time.format.DateTimeFormatter
 fun DescriptionDoctorScreen(
     navController: NavController, professional: Professional,
 ) {
-
     val context = LocalContext.current
-
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -82,7 +79,6 @@ fun DescriptionDoctorScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
         ) {
 
 
@@ -293,7 +289,7 @@ fun DescriptionDoctorScreen(
 
                 if (selectedDate != null) {
                     item {
-                        Spacer(modifier = Modifier.height(30.dp))
+                        Spacer(modifier = Modifier.height(10.dp))
 
                         val startTime = LocalTime.of(10, 0) // Horário inicial
                         val endTime = LocalTime.of(18, 0) // Horário final
@@ -404,20 +400,6 @@ fun DescriptionDoctorScreen(
             }
 
 
-        }
-
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-//                    .align(Alignment.BottomCenter)
-                .border(
-                    .9.dp,
-                    Color(182, 182, 246),
-                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                )
-        ) {
-//            Navigation(navController = navController)
         }
     }
 

@@ -217,45 +217,9 @@ fun DoctorHome(
 
             ScheduleDoctor(professional)
 
-            Spacer(modifier = Modifier.height(50.dp))
-
-
-        }
-
-        if (professional.especialidade == "Nutricionista") {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .border(
-                        .9.dp,
-                        Color(182, 182, 246),
-                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                    )
-            ) {
-
-                NavigationNutritionist(navController = navController)
-            }
-
-        } else {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .border(
-                        .9.dp,
-                        Color(182, 182, 246),
-                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                    )
-            ) {
-
-                NavigationDoctor(navController = navController)
-            }
+            Spacer(modifier = Modifier.height(10.dp))
 
         }
-
     }
 
 }

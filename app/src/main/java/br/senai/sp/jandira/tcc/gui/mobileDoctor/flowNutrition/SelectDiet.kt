@@ -62,37 +62,18 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectPatient(professional: Professional, navController: NavController) {
+fun SelectDiet(professional: Professional, navController: NavController) {
 
-    var pacientes by rememberSaveable {
-        mutableStateOf(listOf<ConsultResponseMedicalRecord>())
-    }
+    data class Itens(val nome: String, val navegacao: String)
 
-    var searchText by remember { mutableStateOf("") }
-
-
-    val pacientesFiltrados = pacientes.filter { it.nome.contains(searchText, ignoreCase = true) }
-        .distinctBy { it.idGestante }
-
-    var call = RetrofitFactory().consult().getConsultMedicalRecord(professional.id)
-
-    call.enqueue(object : Callback<ConsultListMedicalRecord> {
-        override fun onResponse(
-            call: Call<ConsultListMedicalRecord>,
-            response: Response<ConsultListMedicalRecord>
-        ) {
-            pacientes = response.body()!!.pacientes
-
-        }
-
-        override fun onFailure(call: Call<ConsultListMedicalRecord>, t: Throwable) {
-            Log.i("paciente", "${t.message}")
-        }
-    })
+    val opcoes = listOf(
+        Itens("Pacientes","nutritionSelect"),
+        Itens("Refeições Padrões","mealSelect")
+    )
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.select_patient))
+            Header(titulo = "Selecione")
         }
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -101,62 +82,21 @@ fun SelectPatient(professional: Professional, navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                OutlinedTextField(
-                    value = searchText,
-                    onValueChange = { searchText = it },
-                    modifier = Modifier
-                        .width(355.dp),
-                    shape = RoundedCornerShape(40.dp),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                    ),
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color(243, 243, 243, 500),
-                        focusedIndicatorColor = Color(243, 243, 243),
-                        unfocusedIndicatorColor = Color(243, 243, 243)
-                    ),
-                    label = {
-                        Text(
-                            text = stringResource(id = R.string.search_patient),
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .fillMaxWidth(),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                )
-            }
-
             Spacer(modifier = Modifier.height(30.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Text(
-                    text = stringResource(id = R.string.all_),
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                )
-
-            }
-            Spacer(modifier = Modifier.height(10.dp))
 
             LazyColumn(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ){
-                items(pacientesFiltrados)      {
+                items(opcoes)      {
                     Card(
                         modifier = Modifier
                             .width(340.dp)
                             .height(85.dp)
-                            .padding(bottom = 14.dp),
+                            .padding(bottom = 14.dp)
+                            .clickable {
+                                navController.navigate(it.navegacao)
+                            },
                         colors = CardDefaults.cardColors(Color(182, 182, 246, 100)),
                         border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
 
@@ -164,30 +104,16 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                     ) {
                         Row(
                             Modifier
-                                .fillMaxSize()
-                                .padding(start = 20.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                                .fillMaxSize(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
                         ) {
-
-                            AsyncImage(
-                                model = it.foto,
-                                contentDescription = "",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .size(55.dp)
-                                    .clip(CircleShape)
-                            )
-
-                            Spacer(modifier = Modifier.width(25.dp))
-
-                            Column {
                                 Text(
                                     text = it.nome,
                                     color = Color.Black,
                                     fontWeight = FontWeight.Black,
                                     fontSize = 20.sp,
                                 )
-                            }
                         }
                     }
                 }

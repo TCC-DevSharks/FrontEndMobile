@@ -86,34 +86,9 @@ fun Chat(
                                     color = Color.Black,
                                 ),
                                 modifier = Modifier
-                                    .padding(13.dp)
-                                    .padding(bottom = 9.dp),
+                                    .padding(13.dp),
                                 textAlign = TextAlign.Start
                             )
-
-
-
-                            Row(
-                                modifier = Modifier
-                                    .padding(horizontal = 12.dp,)
-                                    .align(Alignment.BottomEnd),
-                                horizontalArrangement = Arrangement.End
-                            ) {
-
-                                Text(
-                                    text = "Tue",
-                                    fontSize = 14.sp,
-                                    color = Color(102, 97, 97, 95)
-                                )
-
-                                Text(
-                                    text = "12.30",
-                                    fontSize = 14.sp,
-                                    modifier = Modifier.padding(start = 7.dp),
-                                    color = Color(102, 97, 97, 95)
-                                )
-
-                            }
                         }
                     }
 

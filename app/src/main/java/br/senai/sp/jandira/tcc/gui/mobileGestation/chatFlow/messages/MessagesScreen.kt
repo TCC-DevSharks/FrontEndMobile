@@ -74,7 +74,6 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     val scrollState = rememberLazyListState()
 
     socketManager.handleMsgReceive {
-        println(it)
         GetMsg(user, profissional, chatModel)
     }
 
@@ -82,10 +81,8 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     msg =  chatModel.msgs
 
     LaunchedEffect(msg) {
-        println("asf")
         val lastIndex = msg.size.toFloat() * 200
         if (lastIndex >= 0) {
-            // Scroll to the last item with animation
             scrollState.animateScrollBy(lastIndex, tween(5000))
         }
     }
@@ -225,7 +222,6 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     .clickable {
                         CoroutineScope(Dispatchers.IO).launch {
                             socketManager.connect()
-//                            socketManager.addUser(user)
                             socketManager.sendMsg(profissional, message)
                             SendMsg(text = message, users = listOf(user, profissional), sender = user, timestamp = LocalTime.now() )
                             effect = !effect

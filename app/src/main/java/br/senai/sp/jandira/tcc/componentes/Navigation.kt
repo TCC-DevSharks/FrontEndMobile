@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.componentes
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,12 +28,15 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
 fun Navigation(navController: NavController, pregnant: ModelPregnant) {
-
+    Log.e("alergia","${pregnant.alergia}")
+    Log.e("comorbidade","${pregnant.comorbidades}")
+    Log.e("deficiencia","${pregnant.deficiencia}")
+    Log.e("medicacao","${pregnant.medicacao}")
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(Color(236, 236, 255))
     ) {
 
         Row(
