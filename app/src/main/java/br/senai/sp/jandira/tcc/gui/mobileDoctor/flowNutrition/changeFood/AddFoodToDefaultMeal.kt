@@ -1,10 +1,8 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFood
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,8 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,10 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
+import br.senai.sp.jandira.tcc.calls.DeleteFoodDefaultMeal
 import br.senai.sp.jandira.tcc.calls.PostDefaultMeal
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
 import br.senai.sp.jandira.tcc.model.food.ModelFood
@@ -196,7 +191,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                                 modifier = Modifier
                                     .size(30.dp)
                                     .clickable {
-                                        DeleteDefaultMeal(modelFood.refeicao, teste.id)
+                                        DeleteFoodDefaultMeal(modelFood.refeicao, teste.id)
                                         effect = !effect
                                     },
                                 colorFilter = ColorFilter.tint(Color.Red)

@@ -19,11 +19,15 @@ interface DietService {
     fun postDefaultMeal(@Body() meal: ModelDefaultMeal): Call<ResponseBody>
 
     @DELETE("refeicao/padrao/{idRefeicao}/alimento/{idAlimento}")
-    fun deleteDefaultMeal(
+    fun deleteFoodDefaultMeal(
         @Path("idRefeicao") idRefeicao: Int,
         @Path("idAlimento") idAlimento: Int
     ): Call<ResponseBody>
 
     @POST("refeicao/padrao/alimento")
     fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
+
+    @DELETE("refeicao/padrao/{id}")
+    fun deleteDefaultMeal(
+        @Path("id") idRefeicao: Int): Call<ResponseBody>
 }

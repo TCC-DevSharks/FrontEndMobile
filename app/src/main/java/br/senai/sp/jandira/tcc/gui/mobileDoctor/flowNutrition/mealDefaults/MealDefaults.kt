@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -54,6 +55,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
 import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.componentes.AddMealDialog
 import br.senai.sp.jandira.tcc.componentes.ButtonAdd
@@ -83,12 +85,13 @@ import java.util.Locale
 fun MealDefaults(navController: NavController, professional: Professional,food: ModelFood) {
 
     var refeicao by remember { mutableStateOf(listOf<DefaultMealResponse>()) }
+    var effect by remember { mutableStateOf(true)}
 
     var openDialog = remember { mutableStateOf(false) }
 
     var nome by remember { mutableStateOf("") }
 
-    LaunchedEffect(refeicao){
+    LaunchedEffect(effect){
 
         val call = RetrofitFactory().Diet().getDefaultMeal(professional.id)
 
@@ -99,6 +102,7 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
 
             ) {
                 refeicao = response.body()!!.refeicao
+                println(refeicao)
 
             }
 
@@ -111,6 +115,7 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
             }
         })
     }
+
 
     AddMealDialog(
         openDialog = openDialog,
@@ -129,8 +134,9 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
                     response: Response<ResponseBody>
 
                 ) {
-                    refeicao = emptyList()
                     openDialog.value = false
+                   effect = !effect
+                    nome = ""
 
                 }
 
@@ -172,36 +178,58 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(refeicao){
-                        Card(
-                            modifier = Modifier
-                                .padding(horizontal = 15.dp, vertical = 10.dp)
-                                .fillMaxWidth()
-                                .clickable {
-                                    food.refeicao = it.id
-                                    food.nomeRefeicao = it.nome
-                                    navController.navigate("foodMeal")
-                                },
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
-                            shape = RoundedCornerShape(0.dp),
-                            border = BorderStroke(1.dp, Color.Black)
-                        ) {
-                            Row(modifier = Modifier
-                                .padding(horizontal = 15.dp, vertical = 15.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
+                if (refeicao.isNotEmpty()){
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(refeicao){
+                            Card(
+                                modifier = Modifier
+                                    .padding(horizontal = 15.dp, vertical = 10.dp)
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        food.refeicao = it.id
+                                        food.nomeRefeicao = it.nome
+                                        navController.navigate("foodMeal")
+                                    },
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
+                                shape = RoundedCornerShape(0.dp),
+                                border = BorderStroke(1.dp, Color.Black)
                             ) {
-                                Text(
-                                    text = it.nome,
-                                    color = Color(182, 182, 246),
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.ExtraBold
-                                )
+                                Row(modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 15.dp, vertical = 15.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = it.nome,
+                                        color = Color(182, 182, 246),
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.ExtraBold
+                                    )
+
+                                    Image(
+                                        painter = painterResource(id = R.drawable.trash),
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .height(20.dp)
+                                            .clickable {
+                                                DeleteDefaultMeal(it.id)
+                                                effect = !effect
+                                            },
+                                        colorFilter = ColorFilter.tint(Color(218, 47, 66, 255))
+                                    )
+
+                                }
                             }
                         }
-                    }
 
+                    }
+                    
+                }else{
+                    Text(text = "Não há nenhuma refeicao criada, clique no botão para adicionar.",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight(600),
+                        modifier = Modifier.padding(horizontal = 15.dp))
                 }
             }
         }

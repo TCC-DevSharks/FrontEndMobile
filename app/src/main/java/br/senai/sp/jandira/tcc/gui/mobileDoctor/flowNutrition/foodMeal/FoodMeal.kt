@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,15 +37,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
+import br.senai.sp.jandira.tcc.calls.DeleteFoodDefaultMeal
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
 import br.senai.sp.jandira.tcc.model.food.ModelFood
@@ -120,71 +117,79 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
 
                 Spacer(modifier = Modifier.height(35.dp))
 
-                LazyColumn{
-                    items(food){
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 15.dp, vertical = 5.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-
+                if (food.isNotEmpty()){
+                    LazyColumn{
+                        items(food){
                             Row(
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Card(
-                                    modifier = Modifier
-                                        .size(60.dp),
-                                    shape = RoundedCornerShape(12.dp),
-                                ) {
-                                    AsyncImage(
-                                        model = it.imagem,
-                                        contentDescription = "",
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier.fillMaxSize(),
-                                        transform = { state ->
-                                            when (state) {
-                                                is AsyncImagePainter.State.Loading -> {
-                                                    state.copy(painter = painter)
-                                                }
-                                                is AsyncImagePainter.State.Error -> {
-                                                    state.copy(painter = painter)
-                                                }
-
-                                                else -> state
-                                            }
-                                        }
-                                    )
-                                }
-
-                                Spacer(modifier = Modifier.width(16.dp))
-
-                                Column {
-                                    Text(
-                                        text = it.nome,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight(800),
-                                    )
-                                }
-                            }
-                            Image(
-                                painter = painterResource(id = R.drawable.baseline_horizontal_rule_24),
-                                contentDescription = "",
+                                verticalAlignment = Alignment.CenterVertically,
                                 modifier = Modifier
-                                    .size(30.dp)
-                                    .clickable {
-                                        DeleteDefaultMeal(
-                                            idAlimento = it.idAlimento,
-                                            idRefeicao = modelFood.refeicao
-                                        )
-                                        effect = !effect
-                                    },
-                                colorFilter = ColorFilter.tint(Color.Red)
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 15.dp, vertical = 5.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
 
-                            )
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Card(
+                                        modifier = Modifier
+                                            .size(60.dp),
+                                        shape = RoundedCornerShape(12.dp),
+                                    ) {
+                                        AsyncImage(
+                                            model = it.imagem,
+                                            contentDescription = "",
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier.fillMaxSize(),
+                                            transform = { state ->
+                                                when (state) {
+                                                    is AsyncImagePainter.State.Loading -> {
+                                                        state.copy(painter = painter)
+                                                    }
+                                                    is AsyncImagePainter.State.Error -> {
+                                                        state.copy(painter = painter)
+                                                    }
+
+                                                    else -> state
+                                                }
+                                            }
+                                        )
+                                    }
+
+                                    Spacer(modifier = Modifier.width(16.dp))
+
+                                    Column {
+                                        Text(
+                                            text = it.nome,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight(800),
+                                        )
+                                    }
+                                }
+                                Image(
+                                    painter = painterResource(id = R.drawable.baseline_horizontal_rule_24),
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .size(30.dp)
+                                        .clickable {
+                                            DeleteFoodDefaultMeal(
+                                                idAlimento = it.idAlimento,
+                                                idRefeicao = modelFood.refeicao
+                                            )
+                                            effect = !effect
+                                        },
+                                    colorFilter = ColorFilter.tint(Color.Red)
+
+                                )
+                            }
                         }
                     }
+
+                }else{
+                    Text(text = "Não há nenhum alimento adicionada a essa refeição, clique no botão para adicionar.",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight(600),
+                        modifier = Modifier.padding(horizontal = 15.dp))
                 }
             }
         }
