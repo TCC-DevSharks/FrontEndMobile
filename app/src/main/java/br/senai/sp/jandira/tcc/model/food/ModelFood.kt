@@ -6,4 +6,8 @@ import androidx.compose.runtime.setValue
 
 class ModelFood {
     var id by mutableStateOf(0)
+    var categoria by mutableStateOf(0)
+    var refeicao by mutableStateOf(0)
+    var nomeRefeicao by mutableStateOf("")
+
 }

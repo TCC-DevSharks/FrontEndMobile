@@ -4,6 +4,7 @@ import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanService
 import br.senai.sp.jandira.tcc.model.maternityBag.MaternityBagService
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionService
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauService
+import br.senai.sp.jandira.tcc.service.defaultMeal.DietService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -59,15 +60,7 @@ class RetrofitFactory {
     fun consult(): ConsultService{
         return  retrofitFactory.create(ConsultService::class.java)
     }
-    fun findDiet(): DietService{
-        return retrofitFactory.create(DietService::class.java)
-    }
-
-    fun findMeal(): MealService{
-        return retrofitFactory.create(MealService::class.java)
-    }
-
-    fun findFood(): FoodService{
+    fun food(): FoodService{
         return retrofitFactory.create(FoodService::class.java)
     }
 
@@ -93,6 +86,10 @@ class RetrofitFactory {
 
     fun MongoService(): MongoService {
         return retrofitFactory.create(MongoService::class.java)
+    }
+
+    fun Diet(): DietService{
+        return retrofitFactory.create(DietService::class.java)
     }
 }
 

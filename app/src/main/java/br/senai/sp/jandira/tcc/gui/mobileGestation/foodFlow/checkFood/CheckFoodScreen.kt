@@ -72,27 +72,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
     var diet by remember { mutableStateOf(listOf<DietResponse>()) }
 
     LaunchedEffect(Unit) {
-        val call = RetrofitFactory().findDiet().getDiet(pregnant.id)
 
-        call.enqueue(object : retrofit2.Callback<DietResponseList> {
-            override fun onResponse(
-                call: Call<DietResponseList>,
-                response: Response<DietResponseList>
-
-            ) {
-
-                diet = response.body()!!.dieta
-            }
-
-
-            override fun onFailure(call: Call<DietResponseList>, t: Throwable) {
-                Log.i(
-                    "ds2",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -206,27 +186,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                         }
 
                         var meal by remember { mutableStateOf(listOf<MealResponse>()) }
-
-                        val call = RetrofitFactory().findMeal().getMeal(it.idRefeicao)
-
-                        call.enqueue(object : retrofit2.Callback<MealResponseList> {
-                            override fun onResponse(
-                                call: Call<MealResponseList>,
-                                response: Response<MealResponseList>
-
-                            ) {
-                                meal = response.body()!!.alimentos
-                            }
-
-
-                            override fun onFailure(call: Call<MealResponseList>, t: Throwable) {
-                                Log.i(
-                                    "ds2",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
 
                         AnimatedVisibility(
                             visible = visible,
