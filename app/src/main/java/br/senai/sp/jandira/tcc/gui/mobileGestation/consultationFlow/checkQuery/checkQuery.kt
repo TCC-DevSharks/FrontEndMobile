@@ -80,9 +80,10 @@ fun checkQuery(
     Column(modifier = Modifier.fillMaxSize()) {
 
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Header(
                 titulo = stringResource(id = R.string.consultation_title),
-                rota = "",
+                rota = "profileUser",
                 navController = navController
             )
         }
@@ -187,6 +188,7 @@ fun checkQuery(
                                 modifier = Modifier
                                     .width(80.dp)
                                     .clickable {
+                                        navController.navigate("AppointmentCanceled")
                                     }
                                     .height(35.dp)
                                     .padding(bottom = 14.dp),

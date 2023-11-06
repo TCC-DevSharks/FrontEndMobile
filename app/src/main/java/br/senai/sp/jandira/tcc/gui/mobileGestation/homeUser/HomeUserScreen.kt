@@ -37,6 +37,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,12 +63,15 @@ import br.senai.sp.jandira.tcc.componentes.MarternalGuide
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.article.articleList
+import br.senai.sp.jandira.tcc.model.article.articleResponse
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
 import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -77,14 +81,27 @@ import java.time.temporal.ChronoUnit
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelSchedule: ModelSchedule) {
+fun HomeUserScreen(
+    navController: NavController,
+    pregnant: ModelPregnant,
+    modelSchedule: ModelSchedule
+) {
+
+    fun String.capitalizeFirstLetter(): String {
+        return if (isNotEmpty()) {
+            val lowercase = substring(1).toLowerCase()
+            this[0].toUpperCase() + lowercase
+        } else {
+            this
+        }
+    }
 
     var agenda by remember {
         mutableStateOf(listOf<Schedule>())
     }
 
     val preparations = listOf(
-        "Linha do Tempo","Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes"
+        "Linha do Tempo", "Plano de Parto", "Enxoval", "Mala de Maternidade", "Sugestão de Nomes"
     )
 
     val callSchedule = RetrofitFactory().schedule().getSchedule(pregnant.id)
@@ -116,7 +133,7 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
         GetComorbidity(pregnant)
 //        GetMedication(pregnant)
     }
-    Scaffold(bottomBar = {Navigation(navController = navController, pregnant = pregnant)}) {
+    Scaffold(bottomBar = { Navigation(navController = navController, pregnant = pregnant) }) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -372,16 +389,53 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
 
                 Spacer(modifier = Modifier.height(13.dp))
 
+                var artigos by rememberSaveable {
+                    mutableStateOf(listOf<articleResponse>())
+                }
 
-                Row(
+                var call = RetrofitFactory().getTrousseauService().getArticle()
+
+                call.enqueue(object : Callback<articleList> {
+                    override fun onResponse(
+                        call: Call<articleList>,
+                        response: Response<articleList>
+                    ) {
+                        Log.i("ddsdsd", "")
+
+                        artigos = response.body()!!.artigos
+
+                    }
+
+                    override fun onFailure(call: Call<articleList>, t: Throwable) {
+                        Log.i("fdfdfdf", "${t.message}")
+                    }
+                })
+
+                LazyRow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 26.dp),
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    MarternalGuide(navController)
-                    MarternalGuide(navController)
-                    //
+                    items(artigos) { artigo ->
+
+                        MarternalGuide(
+                            navController,
+                            titulo = artigo.titulo.take(55).capitalizeFirstLetter() + "...",
+                            descricao = artigo.descricao.take(80) + "...",
+                            imagem = artigo.imagem,
+                            idArtigo = artigo.id,
+                            pregnant = ModelPregnant()
+                        ){
+                            pregnant.artigo = artigo.id
+                            navController.navigate("guiaMaterno")
+
+                        }
+
+
+                    }
+
+
                 }
 
                 Spacer(modifier = Modifier.height(50.dp))
@@ -406,13 +460,7 @@ fun HomeUserScreen(navController: NavController, pregnant: ModelPregnant, modelS
 
 
                     items(preparations) { preparation ->
-
-                        Log.i("pre", "${preparation}")
-                        Log.i("pre", "${preparations}")
-
                         CardPreparations(preparations = preparation, navController)
-
-
                     }
                 }
 

@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -18,6 +21,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,9 +40,31 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.article.articleList
+import br.senai.sp.jandira.tcc.model.article.articleResponse
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
-fun MaternalGuideScreen(navController: NavController) {
+fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
+
+    Log.i("fdfgdfgdfgdfgdfgdf", "${pregnant.artigo}")
+
+     var artigos by rememberSaveable {
+        mutableStateOf(listOf<articleResponse>())
+    }
+
+    fun String.capitalizeFirstLetter(): String {
+        return if (isNotEmpty()) {
+            val lowercase = substring(1).toLowerCase()
+            this[0].toUpperCase() + lowercase
+        } else {
+            this
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -43,7 +72,6 @@ fun MaternalGuideScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 90.dp)
-                .verticalScroll(rememberScrollState())
         ) {
 
             Header(
@@ -82,58 +110,83 @@ fun MaternalGuideScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Column(modifier = Modifier.padding(horizontal = 26.dp)) {
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(220.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    colors = CardDefaults.cardColors(Color(182, 182, 246))
+            var call = RetrofitFactory().getTrousseauService().getArticleId(pregnant.artigo)
+
+
+            call.enqueue(object : Callback<articleList> {
+                override fun onResponse(
+                    call: Call<articleList>,
+                    response: Response<articleList>
                 ) {
-                    Image(
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop,
-                        painter = painterResource(id = R.drawable.gravidinha_card),
-                        contentDescription = null
-                    )
-                }
-            }
 
-            Spacer(modifier = Modifier.height(20.dp))
+                    artigos = response.body()!!.artigos
+                    Log.i("dsdsds", "${response.body()}")
 
-
-            Column(modifier = Modifier.padding(horizontal = 26.dp)) {
-                Row(modifier = Modifier.fillMaxWidth()) {
-
-                    Text(
-                        text = "6 Habits of Highly Healthy",
-                        modifier = Modifier.fillMaxWidth(),
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight(900),
-                        color = Color(182, 182, 246),
-                        textAlign = TextAlign.Center
-                    )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                override fun onFailure(call: Call<articleList>, t: Throwable) {
+                    Log.i("fdfdfdf", "${t.message}")
+                }
+            })
 
-                Row(modifier = Modifier.fillMaxWidth()) {
+            LazyColumn() {
 
-                    Text(
-                        text = "Ukrainian President Volodymyr Zelensky has accused European countries that continue to buy Russian oil of \"earning their money in other people's blood\".\n" +
-                                "\n" +
-                                "In an interview with the BBC, President Zelensky singled out Germany and Hungary, accusing them of blocking efforts to embargo energy sales, from which Russia stands to make up to £250bn (\$326bn) this year.\n" +
-                                "\n" +
-                                "There has been a growing frustration among Ukraine's leadership with Berlin, which has backed some sanctions against Russia but so far resisted calls to back tougher action on oil sales.",
-                        fontSize = 13.5.sp,
-                        fontWeight = FontWeight(400),
+                items(artigos) { artigo ->
+                    Column(modifier = Modifier.padding(horizontal = 26.dp)) {
+
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(220.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = CardDefaults.cardColors(Color(182, 182, 246))
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop,
+                                model = artigo.imagem,
+                                contentDescription = null
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+
+                    Column(modifier = Modifier.padding(horizontal = 26.dp)) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+
+                            Text(
+                                text = artigo.titulo.capitalizeFirstLetter(),
+                                modifier = Modifier.fillMaxWidth(),
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight(900),
+                                color = Color(182, 182, 246),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Row(modifier = Modifier.fillMaxWidth()) {
+
+                            Text(
+                                text = artigo.descricao,
+                                fontSize = 13.5.sp,
+                                fontWeight = FontWeight(400),
 //                        lineHeight = 16.sp
-                    )
+                            )
 
+                        }
+                    }
                 }
             }
+
         }
+
+
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
