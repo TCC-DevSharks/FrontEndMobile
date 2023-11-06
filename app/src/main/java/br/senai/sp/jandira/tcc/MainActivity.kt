@@ -39,6 +39,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.addTrousseau
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseau.TrousseauScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.AddressScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.checkQuery.checkQuery
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ConsultationClinicScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionDoctor.DescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DoctorScreen
@@ -177,9 +178,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional ,modelMedicalRecord) }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
-            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, ) }
             composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
             composable(route = "messagesChat") { MessagesScreen(navController) }
+            composable(route = "query") { checkQuery (navController, pregnant ) }
 
 
     }

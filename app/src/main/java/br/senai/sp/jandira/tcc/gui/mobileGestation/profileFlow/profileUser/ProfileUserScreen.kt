@@ -299,6 +299,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable { navController.navigate("query") }
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
