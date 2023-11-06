@@ -48,9 +48,28 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
+import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.professional.Professional
 
 @Composable
-fun AppointmentCanceled(navController: NavController) {
+fun AppointmentCanceled(
+    navController: NavController,
+    viewModel: ModelPregnant,
+    professional: Professional,
+    clinic: Clinic
+) {
+
+    var numeroCartao by remember { mutableStateOf("") }
+    var mesVencimento by remember { mutableStateOf("") }
+    var anoVencimento by remember { mutableStateOf("") }
+    var cvv by remember { mutableStateOf("") }
+
+    numeroCartao = "4111111111111111"
+    mesVencimento = "12"
+    anoVencimento = "2030"
+    cvv = "123"
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -63,9 +82,11 @@ fun AppointmentCanceled(navController: NavController) {
         ) {
 
             Column(modifier = Modifier.fillMaxWidth()) {
-                Header(titulo = stringResource(id = R.string.consultation_title),
+                Header(
+                    titulo = stringResource(id = R.string.consultation_title),
                     rota = "",
-                    navController = navController)
+                    navController = navController
+                )
             }
             Spacer(modifier = Modifier.height(20.dp))
             Row(
@@ -130,7 +151,9 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = viewModel.nome,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp
                             )
                         }
 
@@ -146,7 +169,9 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = viewModel.email,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp
                             )
                         }
 
@@ -166,7 +191,9 @@ fun AppointmentCanceled(navController: NavController) {
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                        text = viewModel.cpf,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
                                     )
                                 }
                             }
@@ -183,7 +210,9 @@ fun AppointmentCanceled(navController: NavController) {
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                        text = viewModel.telefone,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
                                     )
                                 }
                             }
@@ -201,7 +230,8 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil",
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp
                             )
                         }
 
@@ -221,7 +251,9 @@ fun AppointmentCanceled(navController: NavController) {
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                        text = numeroCartao,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
                                     )
                                 }
                             }
@@ -238,7 +270,9 @@ fun AppointmentCanceled(navController: NavController) {
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                        text = "${mesVencimento}/${anoVencimento}",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
                                     )
                                 }
                             }
@@ -256,7 +290,9 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = professional.clinica,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp
                             )
                         }
 
@@ -272,7 +308,8 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil",
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp
                             )
                         }
 
@@ -312,7 +349,9 @@ fun AppointmentCanceled(navController: NavController) {
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                        text = professional.especialidade,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
                                     )
                                 }
                             }
@@ -330,7 +369,9 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = clinic.telefone,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp
                             )
                         }
 
@@ -346,7 +387,8 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = "Consulta com ${professional.especialidade}",
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp
                             )
                         }
 
@@ -399,7 +441,8 @@ fun AppointmentCanceled(navController: NavController) {
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "", fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                text = "R$" + professional.valor,
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp
                             )
                         }
                         Spacer(modifier = Modifier.height(70.dp))
@@ -407,162 +450,162 @@ fun AppointmentCanceled(navController: NavController) {
                 }
             }
         }
-        var isCardVisible by remember { mutableStateOf(false) }
-        var isCard2Visible by remember { mutableStateOf(false) }
-
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 40.dp)
-        ) {
-            ButtonPurple(navController = navController, texto = "Cancelar", rota = "", onclick = {
-                isCardVisible = true
-            })
-        }
-
-
-
-
-        if (isCardVisible) {
-            // Aplicar um efeito de fundo desfocado usando Modifier.background
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .then(
-                        Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .background(color = Color.Black.copy(alpha = 0.5f))
-                    )
-                    .align(Alignment.Center) // Centralizar a Box
-            ) {
-                Card(
-                    modifier = Modifier
-                        .width(290.dp)
-                        .height(290.dp)
-                        .align(Alignment.Center), // Centralizar o Card
-                    colors = CardDefaults.cardColors(Color.White)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Deseja cancelar a consulta?",
-                            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.cancelar),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(50.dp)
-                                    .clickable {
-                                        isCardVisible = false
-                                        navController.popBackStack()
-                                    }
-                            )
-
-                            Image(
-                                painter = painterResource(id = R.drawable.correct),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(50.dp)
-                                    .clickable {
-                                        isCard2Visible = true
-                                    }
-                            )
-
-
-                        }
-                    }
-                }
-            }
-            if (isCard2Visible) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .then(
-                            Modifier
-                                .background(MaterialTheme.colorScheme.background)
-                                .background(color = Color.Black.copy(alpha = 0.5f))
-                        )
-                        .align(Alignment.Center) // Centralizar a Box
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .width(290.dp)
-                            .height(290.dp)
-                            .align(Alignment.Center), // Centralizar o Card
-                        colors = CardDefaults.cardColors(Color.White)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.correct),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(65.dp)
-                            )
-                            Spacer(modifier = Modifier.height(30.dp))
-
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-
-
-                                Text(
-                                    text = "Sua consulta foi cancelada.",
-                                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.height(25.dp))
-
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-
-                                Button(
-                                    onClick = {
-//                                        isCard2Visible = false
+//        var isCardVisible by remember { mutableStateOf(false) }
+//        var isCard2Visible by remember { mutableStateOf(false) }
+//
+//
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .align(Alignment.BottomCenter)
+//                .padding(bottom = 40.dp)
+//        ) {
+//            ButtonPurple(navController = navController, texto = "Cancelar", rota = "", onclick = {
+//                isCardVisible = true
+//            })
+//        }
+//
+//
+//
+//
+//        if (isCardVisible) {
+//            // Aplicar um efeito de fundo desfocado usando Modifier.background
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .then(
+//                        Modifier
+//                            .background(MaterialTheme.colorScheme.background)
+//                            .background(color = Color.Black.copy(alpha = 0.5f))
+//                    )
+//                    .align(Alignment.Center) // Centralizar a Box
+//            ) {
+//                Card(
+//                    modifier = Modifier
+//                        .width(290.dp)
+//                        .height(290.dp)
+//                        .align(Alignment.Center), // Centralizar o Card
+//                    colors = CardDefaults.cardColors(Color.White)
+//                ) {
+//                    Column(
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .padding(16.dp),
+//                        verticalArrangement = Arrangement.Center,
+//                        horizontalAlignment = Alignment.CenterHorizontally
+//                    ) {
+//                        Text(
+//                            text = "Deseja cancelar a consulta?",
+//                            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+//                        )
+//                        Spacer(modifier = Modifier.height(30.dp))
+//
+//                        Row(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            verticalAlignment = Alignment.CenterVertically,
+//                            horizontalArrangement = Arrangement.SpaceEvenly
+//                        ) {
+//                            Image(
+//                                painter = painterResource(id = R.drawable.cancelar),
+//                                contentDescription = null,
+//                                modifier = Modifier
+//                                    .size(50.dp)
+//                                    .clickable {
 //                                        isCardVisible = false
-                                    },
-                                    modifier = Modifier
-                                        .width(327.dp)
-                                        .height(48.dp),
-                                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                                    shape = RoundedCornerShape(16.dp),
-                                ) {
-                                    Text(
-                                        text = "Voltar",
-                                        color = Color.White,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//                                        navController.popBackStack()
+//                                    }
+//                            )
+//
+//                            Image(
+//                                painter = painterResource(id = R.drawable.correct),
+//                                contentDescription = null,
+//                                modifier = Modifier
+//                                    .size(50.dp)
+//                                    .clickable {
+//                                        isCard2Visible = true
+//                                    }
+//                            )
+//
+//
+//                        }
+//                    }
+//                }
+//            }
+//            if (isCard2Visible) {
+//                Box(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .then(
+//                            Modifier
+//                                .background(MaterialTheme.colorScheme.background)
+//                                .background(color = Color.Black.copy(alpha = 0.5f))
+//                        )
+//                        .align(Alignment.Center) // Centralizar a Box
+//                ) {
+//                    Card(
+//                        modifier = Modifier
+//                            .width(290.dp)
+//                            .height(290.dp)
+//                            .align(Alignment.Center), // Centralizar o Card
+//                        colors = CardDefaults.cardColors(Color.White)
+//                    ) {
+//                        Column(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .padding(16.dp),
+//                            verticalArrangement = Arrangement.Center,
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ) {
+//                            Image(
+//                                painter = painterResource(id = R.drawable.correct),
+//                                contentDescription = null,
+//                                modifier = Modifier
+//                                    .size(65.dp)
+//                            )
+//                            Spacer(modifier = Modifier.height(30.dp))
+//
+//                            Row(
+//                                verticalAlignment = Alignment.CenterVertically,
+//                                horizontalArrangement = Arrangement.Center
+//                            ) {
+//
+//
+//                                Text(
+//                                    text = "Sua consulta foi cancelada.",
+//                                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+//                                )
+//                            }
+//                            Spacer(modifier = Modifier.height(25.dp))
+//
+//                            Row(
+//                                verticalAlignment = Alignment.CenterVertically,
+//                                horizontalArrangement = Arrangement.Center
+//                            ) {
+//
+//                                Button(
+//                                    onClick = {
+////                                        isCard2Visible = false
+////                                        isCardVisible = false
+//                                    },
+//                                    modifier = Modifier
+//                                        .width(327.dp)
+//                                        .height(48.dp),
+//                                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+//                                    shape = RoundedCornerShape(16.dp),
+//                                ) {
+//                                    Text(
+//                                        text = "Voltar",
+//                                        color = Color.White,
+//                                        fontWeight = FontWeight.Bold,
+//                                        fontSize = 18.sp
+//                                    )
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
 
