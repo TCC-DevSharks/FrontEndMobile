@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,7 +52,13 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
+import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
 import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 @Composable
 fun AppointmentCanceled(
@@ -69,6 +77,13 @@ fun AppointmentCanceled(
     mesVencimento = "12"
     anoVencimento = "2030"
     cvv = "123"
+
+
+    var gestante by rememberSaveable {
+        mutableStateOf(listOf<MedicalRecordDataConsult>())
+    }
+
+
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -441,7 +456,7 @@ fun AppointmentCanceled(
                         Spacer(modifier = Modifier.height(1.dp))
                         Row() {
                             Text(
-                                text = "R$" + professional.valor,
+                                text = "R$200" + professional.valor,
                                 fontWeight = FontWeight.Bold, fontSize = 15.sp
                             )
                         }
@@ -450,20 +465,20 @@ fun AppointmentCanceled(
                 }
             }
         }
-//        var isCardVisible by remember { mutableStateOf(false) }
+        var isCardVisible by remember { mutableStateOf(false) }
 //        var isCard2Visible by remember { mutableStateOf(false) }
-//
-//
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .align(Alignment.BottomCenter)
-//                .padding(bottom = 40.dp)
-//        ) {
-//            ButtonPurple(navController = navController, texto = "Cancelar", rota = "", onclick = {
-//                isCardVisible = true
-//            })
-//        }
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 40.dp)
+        ) {
+            ButtonPurple(navController = navController, texto = "Cancelar", rota = "", onclick = {
+                isCardVisible = true
+            })
+        }
 //
 //
 //
