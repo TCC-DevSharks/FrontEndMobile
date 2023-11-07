@@ -22,6 +22,7 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.MedicalRecordAdd
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.addDiet.AddDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFood.AddFoodToDefaultMeal
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodCategory.FoodCategory
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal.FoodMeal
@@ -158,10 +159,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional )
                 "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
                 "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelectDate/{idGestante}" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
                 "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
+                "addDiet" -> NavigationNutritionist(navController = navController, professional =professional )
                 else -> Navigation(navController,pregnant)
             }
         }
@@ -235,6 +237,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodCategory") { FoodCategory (navController, food)}
             composable(route = "addFood") { AddFoodToDefaultMeal (navController, food)}
             composable(route = "foodMeal") { FoodMeal (navController, food)}
+            composable(route = "addDiet") { AddDiet (navController,professional, food) }
 
 
 

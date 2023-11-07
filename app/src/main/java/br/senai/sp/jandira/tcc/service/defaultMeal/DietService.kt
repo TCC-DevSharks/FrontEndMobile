@@ -30,4 +30,6 @@ interface DietService {
     @DELETE("refeicao/padrao/{id}")
     fun deleteDefaultMeal(
         @Path("id") idRefeicao: Int): Call<ResponseBody>
+
+    @POST()
 }

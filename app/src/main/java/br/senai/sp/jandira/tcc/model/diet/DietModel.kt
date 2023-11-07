@@ -1,6 +1,6 @@
 package br.senai.sp.jandira.tcc.model.diet
 
-data class DietResponse(
+data class DietModel(
     val idDieta: Int,
     val profissional: String,
     val gestante: String,
@@ -8,5 +8,3 @@ data class DietResponse(
     val idRefeicao: Int,
     val horario: String
 )
-
-
