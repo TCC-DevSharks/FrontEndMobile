@@ -43,6 +43,7 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,7 +52,8 @@ import retrofit2.Response
 @Composable
 fun checkQuery(
     navController: NavController,
-    modelPregnant: ModelPregnant
+    modelPregnant: ModelPregnant,
+    modelMedicalRecord: ModelMedicalRecord
 ) {
 
     var gestante by rememberSaveable {
@@ -109,6 +111,9 @@ fun checkQuery(
             verticalArrangement = Arrangement.Center
         ) {
             items(gestante) { gestante ->
+
+                modelMedicalRecord.id_consulta = gestante.id
+
 
                 Card(
                     modifier = Modifier
@@ -188,7 +193,10 @@ fun checkQuery(
                                 modifier = Modifier
                                     .width(80.dp)
                                     .clickable {
+                                        modelMedicalRecord.id_consulta = gestante.id
+                                        Log.i("Teste 5", "${gestante.id}")
                                         navController.navigate("AppointmentCanceled")
+
                                     }
                                     .height(35.dp)
                                     .padding(bottom = 14.dp),

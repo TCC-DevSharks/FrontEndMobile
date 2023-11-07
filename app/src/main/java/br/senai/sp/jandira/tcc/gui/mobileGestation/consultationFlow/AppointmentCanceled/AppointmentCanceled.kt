@@ -1,6 +1,9 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.AppointmentCanceled
 
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,6 +39,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -54,8 +59,11 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,13 +73,16 @@ fun AppointmentCanceled(
     navController: NavController,
     viewModel: ModelPregnant,
     professional: Professional,
-    clinic: Clinic
+    clinic: Clinic,
+    modelMedicalRecord: ModelMedicalRecord
 ) {
 
     var numeroCartao by remember { mutableStateOf("") }
     var mesVencimento by remember { mutableStateOf("") }
     var anoVencimento by remember { mutableStateOf("") }
     var cvv by remember { mutableStateOf("") }
+    val context = LocalContext.current
+
 
     numeroCartao = "4111111111111111"
     mesVencimento = "12"
@@ -83,9 +94,7 @@ fun AppointmentCanceled(
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-
-
-    Box(
+            Box(
         modifier = Modifier.fillMaxSize()
     ) {
 
@@ -465,8 +474,10 @@ fun AppointmentCanceled(
                 }
             }
         }
-        var isCardVisible by remember { mutableStateOf(false) }
-//        var isCard2Visible by remember { mutableStateOf(false) }
+
+                Log.i("Teste 1", "${modelMedicalRecord.id_consulta}")
+
+
 
 
         Column(
@@ -475,8 +486,57 @@ fun AppointmentCanceled(
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 40.dp)
         ) {
-            ButtonPurple(navController = navController, texto = "Cancelar", rota = "", onclick = {
-                isCardVisible = true
+            ButtonPurple(navController = navController, texto = "Cancelar", rota = "query", onclick = {
+
+                var call = RetrofitFactory().schedule().deleteConsult(modelMedicalRecord.id_consulta)
+
+                call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+
+                    ) {
+                        if (response.isSuccessful){
+                            Log.i("fdf", "${response.body()}")
+                            Log.i("Teste 2 ", "${modelMedicalRecord.id}")
+                            navController.navigate("query")
+//                            val backgroundColor = Color.Gray
+//                            val contentColor = Color.White
+//
+//                            val toast = Toast(context)
+//                            toast.setGravity(Gravity.CENTER, 0, 20)
+//                            toast.duration = Toast.LENGTH_SHORT
+//
+//                            val textView = TextView(context).apply {
+//                                text = "Evento removido com sucesso"
+//                                textSize = 18f // Tamanho da fonte aumentado
+//                                setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
+//                                setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
+//                                setPadding(
+//                                    36,
+//                                    36,
+//                                    36,
+//                                    36
+//                                ) // Valores inteiros em pixels para padding
+//                            }
+//
+//                            toast.view = textView
+//                            toast.show()
+                        }
+
+                    }
+
+                    override fun onFailure(
+                        call: Call<ResponseBody>,
+                        t: Throwable
+                    ) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
             })
         }
 //
