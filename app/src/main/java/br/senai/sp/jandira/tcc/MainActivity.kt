@@ -178,10 +178,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional ,modelMedicalRecord) }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
-            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional, clinic) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional,clinic, modelMedicalRecord) }
             composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
             composable(route = "messagesChat") { MessagesScreen(navController) }
-            composable(route = "query") { checkQuery (navController, pregnant ) }
+            composable(route = "query") { checkQuery (navController, pregnant, modelMedicalRecord ) }
 
 
     }
