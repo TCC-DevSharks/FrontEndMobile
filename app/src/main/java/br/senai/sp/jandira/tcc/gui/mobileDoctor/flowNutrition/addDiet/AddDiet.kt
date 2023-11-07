@@ -148,7 +148,7 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                     .padding(it)
             ) {
 
-                Header(titulo = stringResource(id = R.string.header_food))
+                Header(titulo = stringResource(id = R.string.header_food), rota ="", navController = navController)
 
                 Spacer(modifier = Modifier.height(40.dp))
 

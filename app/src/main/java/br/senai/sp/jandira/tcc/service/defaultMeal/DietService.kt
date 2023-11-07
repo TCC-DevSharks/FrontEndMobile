@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.service.defaultMeal
 
+import br.senai.sp.jandira.tcc.model.diet.DietModel
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelFoodToDefaultMeal
@@ -31,5 +32,6 @@ interface DietService {
     fun deleteDefaultMeal(
         @Path("id") idRefeicao: Int): Call<ResponseBody>
 
-    @POST()
+    @POST("dieta")
+    fun addDiet(@Body() diet: DietModel): Call<ResponseBody>
 }
