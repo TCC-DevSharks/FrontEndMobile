@@ -143,7 +143,7 @@ fun HomeUserScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(top = 70.dp, bottom = 105.dp)
+                    .padding(top = 70.dp, bottom = 20.dp)
             ) {
 
                 Column(

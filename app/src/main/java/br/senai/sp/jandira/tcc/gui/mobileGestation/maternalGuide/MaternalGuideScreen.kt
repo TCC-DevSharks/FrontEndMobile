@@ -71,7 +71,7 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
+                .padding(bottom = 20.dp)
         ) {
 
             Header(

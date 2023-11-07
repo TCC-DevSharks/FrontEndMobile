@@ -50,6 +50,7 @@ import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanListFavorite
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponse
 import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponseFavorite
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -152,8 +153,8 @@ fun birthPlanCategoryScreen(navController: NavController, pregnant: ModelPregnan
                                 border = BorderStroke(4.dp, Color.White)
 
                             ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.avia),
+                                AsyncImage(
+                                    model = pregnant.foto,
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxSize()

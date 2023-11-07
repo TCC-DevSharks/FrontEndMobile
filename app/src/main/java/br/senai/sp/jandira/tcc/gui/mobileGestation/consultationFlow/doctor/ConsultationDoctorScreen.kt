@@ -86,7 +86,7 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
 
             Column(
                 modifier = Modifier
-                    .padding(bottom = 95.dp)
+                    .padding(bottom = 20.dp)
             ) {
 
 
