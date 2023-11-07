@@ -82,34 +82,6 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
 
             Spacer(modifier = Modifier.height(25.dp))
 
-            Row(modifier = Modifier.padding(start = 26.dp)) {
-                Text(
-                    text = "Author",
-                    fontWeight = FontWeight(900),
-                    fontSize = 16.sp
-                )
-            }
-
-            Row(
-                modifier = Modifier.padding(start = 26.dp, top = 3.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(id = R.string.day),
-                    fontWeight = FontWeight(300),
-                    fontSize = 14.5.sp
-
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = "16/10/2023",
-                    fontWeight = FontWeight(300),
-                    fontSize = 14.5.sp
-                )
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
 
             var call = RetrofitFactory().getTrousseauService().getArticleId(pregnant.artigo)
 
@@ -173,7 +145,7 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
 
                             Text(
                                 text = artigo.descricao,
-                                fontSize = 13.5.sp,
+                                fontSize = 15.sp,
                                 fontWeight = FontWeight(400),
 //                        lineHeight = 16.sp
                             )

@@ -421,8 +421,7 @@ fun HomeUserScreen(
 
                         MarternalGuide(
                             navController,
-                            titulo = artigo.titulo.take(55).capitalizeFirstLetter() + "...",
-                            descricao = artigo.descricao.take(80) + "...",
+                            titulo = if ( artigo.titulo.length < 70) artigo.titulo.capitalizeFirstLetter() else artigo.titulo.take(70).capitalizeFirstLetter() + "...",
                             imagem = artigo.imagem,
                             idArtigo = artigo.id,
                             pregnant = ModelPregnant()

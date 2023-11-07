@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,6 @@ fun MarternalGuide(
     //textDescription: String
     navController: NavController,
     imagem: String,
-    descricao: String,
     titulo: String,
     idArtigo: Int,
     pregnant: ModelPregnant,
@@ -59,7 +59,6 @@ fun MarternalGuide(
     Column(modifier = Modifier.padding(start = 16.dp))
     {
 
-//        pregnant.artigo = idArtigo
 
         Card(
                 modifier = Modifier
@@ -75,12 +74,13 @@ fun MarternalGuide(
                     AsyncImage(
                         model = imagem,
                         contentDescription = null,
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
 
 
                 }
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Column(
                     modifier = Modifier
@@ -98,7 +98,7 @@ fun MarternalGuide(
                             modifier = Modifier.fillMaxWidth(),
                             text = titulo,
                             color = Color(182, 182, 246),
-                            fontSize = 13.9.sp,
+                            fontSize = 15.9.sp,
                             fontWeight = FontWeight(900),
                             lineHeight = 15.5.sp, // Ajuste a altura das linhas conforme necessário
 
@@ -106,24 +106,6 @@ fun MarternalGuide(
 
                     }
 
-                    Spacer(modifier = Modifier.height(7.dp))
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.5.dp)
-                    ) {
-
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = descricao,
-                            fontSize = 10.sp,
-                            color = Color(102, 97, 97),
-                            fontWeight = FontWeight(300),
-                            lineHeight = 12.sp, // Ajuste a altura das linhas conforme necessário
-                        )
-
-                    }
 
                 }
 
