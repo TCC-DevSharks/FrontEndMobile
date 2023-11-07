@@ -79,7 +79,6 @@ import java.time.temporal.ChronoUnit
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeUserScreen(
     navController: NavController,
@@ -133,7 +132,6 @@ fun HomeUserScreen(
         GetComorbidity(pregnant)
 //        GetMedication(pregnant)
     }
-    Scaffold(bottomBar = { Navigation(navController = navController, pregnant = pregnant) }) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -462,24 +460,10 @@ fun HomeUserScreen(
                         CardPreparations(preparations = preparation, navController)
                     }
                 }
-
-
             }
 
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .align(Alignment.BottomCenter)
-//                    .border(
-//                        .9.dp,
-//                        Color(182, 182, 246),
-//                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-//                    )
-//            ) {
-//            }
-
         }
-    }
+
 
 }
 

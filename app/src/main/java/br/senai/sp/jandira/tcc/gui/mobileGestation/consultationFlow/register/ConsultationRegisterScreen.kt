@@ -50,10 +50,7 @@ import coil.compose.AsyncImage
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ConsultationRegisterScreen(navController: NavController, professional: Professional, pregnant: ModelPregnant) {
-    
-    Scaffold (bottomBar = {
-        Navigation(navController = navController, pregnant)
-    }){
+
         Column(modifier = Modifier.fillMaxSize()) {
 
             val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -171,5 +168,3 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
 
         }    
     }
-    
-}

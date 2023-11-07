@@ -162,23 +162,6 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
                 }
             }
         }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .border(
-                    .9.dp,
-                    Color(182, 182, 246),
-                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                )
-        ) {
-
-            Navigation(navController = navController, pregnant)
-
-
-        }
-
-
     }
 
 }

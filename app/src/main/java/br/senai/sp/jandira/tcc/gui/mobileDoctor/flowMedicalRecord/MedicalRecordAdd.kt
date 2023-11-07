@@ -46,26 +46,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAllList
-import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
 import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.medicalRecord.ProntuarioBody
-import br.senai.sp.jandira.tcc.model.schedule.ScheduleResponse
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,7 +77,7 @@ fun MedicalRecordAdd(
     }
 
     LaunchedEffect(Unit) {
-        var call = RetrofitFactory().insertConsult().getMedicalRecord()
+        var call = RetrofitFactory().consult().getMedicalRecord()
 
         call.enqueue(object : Callback<MedicalRecordAllList> {
             override fun onResponse(
@@ -109,7 +103,7 @@ fun MedicalRecordAdd(
                         }
                     }
 
-                    var callId = RetrofitFactory().insertConsult().getMedicalRecordId(modelMedicalRecord.id_prontuario)
+                    var callId = RetrofitFactory().consult().getMedicalRecordId(modelMedicalRecord.id_prontuario)
 
                     callId.enqueue(object : Callback<MedicalRecordAllList> {
                         override fun onResponse(
@@ -320,7 +314,7 @@ fun MedicalRecordAdd(
                                 )
 
                                 var callInsert = RetrofitFactory()
-                                    .insertConsult()
+                                    .consult()
                                     .insertMedicalRecord(prontuario)
 
                                 callInsert.enqueue(object : Callback<ResponseBody> {
@@ -396,7 +390,7 @@ fun MedicalRecordAdd(
                                 )
 
                                 var callPut = RetrofitFactory()
-                                    .insertConsult()
+                                    .consult()
                                     .putMedicalRecord(modelMedicalRecord.id_prontuario, prontuario)
 
                                 callPut.enqueue(object : Callback<ResponseBody> {
