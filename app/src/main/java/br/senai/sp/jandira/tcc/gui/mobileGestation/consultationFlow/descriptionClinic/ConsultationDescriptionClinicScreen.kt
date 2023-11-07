@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetProfessionalSpeciality
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
@@ -52,11 +53,9 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-                Image(painter = painterResource(id = R.drawable.arrow_circle),
-                        contentDescription = null,
-                    Modifier
-                        .clickable {}
-                        .size(40.dp))
+
+                ArrowLeft(navController = navController, rota = "ConsultClinic")
+
             }
 
         }
@@ -233,7 +232,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
 
         Column {
             ButtonPurple(navController = navController,
-                texto = stringResource(id = R.string.check_nutritionists),
+                texto = clinic.nomeEspecialidade + "s " + stringResource(id = R.string.check_nutritionists),
                 rota = "",
                 onclick = {
                           GetProfessionalSpeciality(clinic.especialidade, professional, navController)

@@ -138,6 +138,8 @@ fun MedicalRecordAdd(
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(
                 titulo = stringResource(id = R.string.medical_record),
+                rota = "medicalRecordSelectDate",
+                navController = navController
             )
             Row(
                 modifier = Modifier
@@ -326,6 +328,7 @@ fun MedicalRecordAdd(
                                         Log.i("", "${prontuario}")
 
                                         if (response.isSuccessful) {
+
                                             val backgroundColor = Color.Gray
                                             val contentColor = Color.White
 

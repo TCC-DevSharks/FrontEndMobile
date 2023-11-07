@@ -140,7 +140,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                 modifier = Modifier
                     .background(Color.White)
             ) {
-                Header(titulo = stringResource(id = R.string.header_date))
+                Header(titulo = stringResource(id = R.string.header_date),
+                    rota = "profileUser",
+                    navController = navController)
 
                 Spacer(modifier = Modifier.height(5.dp))
                 Row() {

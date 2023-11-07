@@ -65,7 +65,8 @@
     <string name="title_clinic">Essa especialidade está disponível nessas clínicas:</string>
 
     <!--    <string name="header_add_birth_plan">Encontre uma clínica</string>-->
-    <string name="title_doctor">Na clínica exemplo,  existem esses nutricionistas :</string>
+    <string name="title_doctor">Na</string>
+    <string name="sub_title_doctor">existem esses</string>
 
     <!-- Tela Alimentação -->
     <string name="header_food">Alimentação</string>
@@ -167,7 +168,7 @@
     <string name="title_address_finish">Falta pouco! Seu cadastro está sendo finalizado.</string>
     <string name="finalize">Finalizar</string>
     <string name="Continue">Continuar</string>
-    <string name="check_nutritionists">Verificar nutricionistas disponíveis</string>
+    <string name="check_nutritionists">disponíveis</string>
     <string name="schedule">Agenda</string>
     <string name="tasks">Tarefas:</string>
     <string name="description">Descrição:</string>
@@ -256,7 +257,7 @@
     <string name="search_patient">Buscar paciente</string>
     <string name="all_">Todos</string>
     <string name="select_one_patients">Selecione um de seus pacientes:</string>
-    <string name="select_consult">Select one of the queries:</string>
+    <string name="select_consult">Selecione uma das consultas:</string>
     <string name="consultation_title">Consultas</string>
     <string name="scheduled">Agendadas</string>
     <string name="consultation_with">Consulta com:</string>
@@ -264,12 +265,7 @@
     <string name="performed">Realizadas</string>
     <string name="do_you_want_to_cancel">Deseja cancelar uma consulta?</string>
 
-
-
-
-
-
-
-
+    <string name="development">Desenvolvimento</string>
+    <string name="how_many_months">Quantos meses?</string>
 
 </resources>

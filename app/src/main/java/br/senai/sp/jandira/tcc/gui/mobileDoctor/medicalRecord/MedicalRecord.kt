@@ -58,9 +58,9 @@ fun MedicalRecord() {
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(
-                titulo = stringResource(id = R.string.medical_record),
-                tintIcon = Color(255,218,185))
+//            Header(
+//                titulo = stringResource(id = R.string.medical_record),
+//                tintIcon = Color(255,218,185))
 
             Row(
                 modifier = Modifier

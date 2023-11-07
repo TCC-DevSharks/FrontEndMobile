@@ -79,7 +79,11 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
                 .padding(bottom = 90.dp)
         ) {
 
-            Header(titulo = if (food.isNotEmpty())food[0].categoria else stringResource(id = R.string.header_food))
+            Header(
+                titulo = if (food.isNotEmpty()) food[0].categoria else stringResource(id = R.string.header_food),
+                rota = "",
+                navController = navController
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,8 +93,8 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
 
             Spacer(modifier = Modifier.height(35.dp))
 
-            LazyColumn{
-                items(food){
+            LazyColumn {
+                items(food) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier

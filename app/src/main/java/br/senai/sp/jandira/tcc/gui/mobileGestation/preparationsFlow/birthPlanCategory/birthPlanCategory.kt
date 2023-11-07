@@ -114,7 +114,9 @@ fun birthPlanCategoryScreen(navController: NavController, pregnant: ModelPregnan
                 .padding(bottom = 90.dp)
         ) {
 
-            Header(titulo = stringResource(id = R.string.header_birth_plan))
+            Header(titulo = stringResource(id = R.string.header_birth_plan),
+                rota = "homeUser",
+                navController = navController)
 
             Column(
                 modifier = Modifier

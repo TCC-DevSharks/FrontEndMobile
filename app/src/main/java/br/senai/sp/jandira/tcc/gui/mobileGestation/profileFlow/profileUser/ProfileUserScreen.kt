@@ -47,6 +47,7 @@ import br.senai.sp.jandira.tcc.componentes.Comp
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.calls.PutWeight
+import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.ShowDialog
 import br.senai.sp.jandira.tcc.model.endressPregnant.EndressPregnant
 import br.senai.sp.jandira.tcc.model.ModelPregnant
@@ -171,20 +172,8 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    stringResource(id = R.string.profile),
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.End,
-                    color = Color(66, 61, 61),
-                    fontWeight = FontWeight.ExtraBold
-                )
 
-            }
+            Header(titulo = stringResource(id = R.string.profile), rota = "homeUser", navController = navController)
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -310,6 +299,7 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .clickable { navController.navigate("query") }
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {

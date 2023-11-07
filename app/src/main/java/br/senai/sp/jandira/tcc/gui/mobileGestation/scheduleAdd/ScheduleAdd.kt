@@ -88,7 +88,9 @@ fun ScheduleAdd(
     }
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.schedule))
+            Header(titulo = stringResource(id = R.string.schedule),
+                navController = navController,
+                rota = "homeUser")
         }
         Spacer(modifier = Modifier.height(20.dp))
         Column(

@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -37,11 +38,12 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import coil.compose.AsyncImage
 
 @Composable
-fun DoctorScreen(navController: NavController, professional: Professional, pregnant: ModelPregnant) {
+fun DoctorScreen(navController: NavController, professional: Professional, pregnant: ModelPregnant, clinic: Clinic) {
 
 
     Box(
@@ -55,6 +57,8 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
          
                 Header(
                     titulo = stringResource(id = R.string.header_speciality),
+                    rota = "DescriptionClinic",
+                    navController = navController
                 )
 
 
@@ -71,8 +75,8 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
 
             Row(modifier = Modifier.padding(horizontal = 50.dp, vertical = 2.dp)) {
 
-                TextComp(
-                    texto = R.string.title_doctor,
+                Text(
+                    text = stringResource(id = R.string.title_doctor) + " " + clinic.razao_social + ", " + stringResource(id = R.string.sub_title_doctor) + " " + clinic.nomeEspecialidade.toLowerCase() + "s",
                     fontSize = 21.sp,
                     fontWeight = FontWeight(400)
                 )
