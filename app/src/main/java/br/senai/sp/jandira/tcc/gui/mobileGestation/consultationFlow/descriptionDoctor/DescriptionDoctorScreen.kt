@@ -89,7 +89,7 @@ fun DescriptionDoctorScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                ArrowLeft(navController = navController, rota = "")
+                ArrowLeft(navController = navController, rota = "ConsultDoctor")
 
             }
 

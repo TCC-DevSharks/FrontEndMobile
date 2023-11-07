@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.ModelPregnant
@@ -57,11 +58,9 @@ fun ConsultationRegisterScreen(navController: NavController, professional: Profe
 
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-                    Image(painter = painterResource(id = R.drawable.arrow_circle),
-                        contentDescription = null,
-                        Modifier
-                            .clickable {}
-                            .size(40.dp))
+
+                    ArrowLeft(navController = navController, rota = "")
+
                 }
 
             }

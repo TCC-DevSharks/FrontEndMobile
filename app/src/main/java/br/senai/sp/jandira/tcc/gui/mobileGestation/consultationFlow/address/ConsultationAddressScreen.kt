@@ -86,7 +86,7 @@ fun AddressScreen(navController: NavController, pregnant: ModelPregnant) {
                     .padding(start = 26.dp, top = 35.dp),
             ) {
 
-                ArrowLeft(navController = navController, rota = "")
+                ArrowLeft(navController = navController, rota = "homeUser")
 
             }
 

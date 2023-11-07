@@ -137,7 +137,10 @@ fun ProfileDataDoctor(navController: NavController, profissional: Professional) 
                 modifier = Modifier
                     .background(Color.White)
             ) {
-                Header(titulo = stringResource(id = R.string.header_date))
+                Header(titulo = stringResource(id = R.string.header_date),
+                    rota = "profileDoctor",
+                    navController = navController
+                )
 
                 Spacer(modifier = Modifier.height(5.dp))
                 Row() {

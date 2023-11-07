@@ -34,6 +34,7 @@ class ModelPregnant {
     var bairro by mutableStateOf("")
     var cidade by mutableStateOf("")
     var estado by mutableStateOf("")
+    var artigo by mutableStateOf(0)
     var FavoritoSugestao by mutableStateOf(listOf<NomeFavoriteResponse>())
     var sugestao by mutableStateOf(listOf<NameSuggestionResponse>())
     var consult by mutableStateOf(listOf<MedicalRecordDataConsult>())

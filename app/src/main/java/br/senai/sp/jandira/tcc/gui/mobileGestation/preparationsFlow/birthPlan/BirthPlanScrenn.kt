@@ -134,7 +134,11 @@ fun birthPlanScreen(
         Column(modifier = Modifier.fillMaxSize()) {
 
             if (category != null) {
-                Header(titulo = "${category.capitalizeFirstLetter()}")
+                Header(
+                    titulo = "${category.capitalizeFirstLetter()}",
+                    rota = "birthPlanCategory",
+                    navController = navController
+                )
             }
 
             SubHeader(

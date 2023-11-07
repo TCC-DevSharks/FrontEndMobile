@@ -17,14 +17,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun Header(
     titulo: String,
-    tintIcon: Color = Color(182,182,246)
-//    rota: String,
-//    navController: NavController
+    tintIcon: Color = Color(182,182,246),
+    rota: String,
+    navController: NavController
 ) {
 
     Row(
@@ -40,7 +41,7 @@ fun Header(
             tint = tintIcon,
             modifier =  Modifier
                 .clickable {
-//                    navController.navigate(rota)
+                    navController.navigate(rota)
 
                 }
                 .size(40.dp),

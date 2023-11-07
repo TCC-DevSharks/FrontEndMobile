@@ -107,7 +107,7 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
                     .padding(it)
             ) {
 
-                Header(titulo =modelFood.nomeRefeicao)
+                Header(titulo =modelFood.nomeRefeicao,rota ="", navController = navController)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

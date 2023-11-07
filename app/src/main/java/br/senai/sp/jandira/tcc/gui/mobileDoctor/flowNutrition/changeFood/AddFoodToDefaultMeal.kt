@@ -113,7 +113,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                 .fillMaxSize()
         ) {
 
-            Header(titulo = if (food.isNotEmpty())food[0].categoria else stringResource(id = R.string.header_food))
+            Header(titulo = if (food.isNotEmpty())food[0].categoria else stringResource(id = R.string.header_food),rota ="", navController = navController)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

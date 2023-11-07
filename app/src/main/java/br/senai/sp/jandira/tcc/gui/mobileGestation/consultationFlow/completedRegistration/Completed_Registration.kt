@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.TextComp
 
@@ -28,18 +29,16 @@ import br.senai.sp.jandira.tcc.componentes.TextComp
 fun Completed_Registration(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
+
             Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-                Image(painter = painterResource(id = R.drawable.arrow_circle),
-                    contentDescription = null,
-                    Modifier
-                        .clickable {
-                        }
-                        .size(40.dp)
-                )
+
+                ArrowLeft(navController = navController, rota = "consultationEndress")
             }
 
         }
+
         Spacer(modifier = Modifier.height(100.dp))
+
         Row(modifier = Modifier.padding(horizontal = 50.dp)) {
             TextComp(texto = R.string.registration, fontSize = 20.sp)
         }
@@ -52,8 +51,9 @@ fun Completed_Registration(navController: NavController) {
         ) {
             Image(painter = painterResource(id = R.drawable.atualizargravida),
                 contentDescription ="",
-                modifier = Modifier.width(345.dp)
-                                    .height(230.dp))
+                modifier = Modifier
+                    .width(345.dp)
+                    .height(230.dp))
         }
 
         Spacer(modifier = Modifier.height(50.dp))

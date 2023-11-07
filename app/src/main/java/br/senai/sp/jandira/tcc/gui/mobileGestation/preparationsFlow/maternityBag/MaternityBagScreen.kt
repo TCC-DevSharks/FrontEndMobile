@@ -132,8 +132,8 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
 
             Header(
                 titulo = stringResource(id = R.string.header_maternity_bag),
-//            rota = "homeUser",
-//            navController = navController
+                rota = "homeUser",
+                navController = navController
             )
 
             SubHeader(

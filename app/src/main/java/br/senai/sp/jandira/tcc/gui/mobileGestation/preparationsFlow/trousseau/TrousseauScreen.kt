@@ -143,7 +143,9 @@ fun TrousseauScreen(
         Column(modifier = Modifier.fillMaxSize()) {
 
             if (category != null) {
-                Header(titulo = "${category.capitalizeFirstLetter()}")
+                Header(titulo = "${category.capitalizeFirstLetter()}",
+                    rota = "trousseauCategory",
+                    navController = navController)
             }
 
             SubHeader(

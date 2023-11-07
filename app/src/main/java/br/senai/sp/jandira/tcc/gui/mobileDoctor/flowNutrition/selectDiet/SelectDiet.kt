@@ -42,7 +42,7 @@ fun SelectDiet(professional: Professional, navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = "Selecione")
+            Header(titulo = "Selecione",rota ="", navController = navController)
         }
         Spacer(modifier = Modifier.height(20.dp))
 

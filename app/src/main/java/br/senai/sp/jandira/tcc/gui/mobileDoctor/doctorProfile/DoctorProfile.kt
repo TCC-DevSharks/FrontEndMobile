@@ -152,6 +152,8 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
 
             Header(
                 titulo = stringResource(id = R.string.profile),
+                rota = "DoctorHome",
+                navController = navController
             )
 
         }

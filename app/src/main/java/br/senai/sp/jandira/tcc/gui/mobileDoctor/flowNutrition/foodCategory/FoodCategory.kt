@@ -71,7 +71,7 @@ fun FoodCategory(navController: NavController, modelFood: ModelFood){
                     .fillMaxSize()
             ) {
 
-                Header(titulo = stringResource(id = R.string.header_food))
+                Header(titulo = stringResource(id = R.string.header_food),rota ="", navController = navController)
 
                 Spacer(modifier = Modifier.height(20.dp))
 

@@ -46,6 +46,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultListMedicalRecord
 import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultResponseMedicalRecord
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
@@ -55,7 +56,7 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun selectMedicalRecord(professional: Professional, navController: NavController) {
+fun selectMedicalRecord(professional: Professional, navController: NavController, modelMedicalRecord: ModelMedicalRecord) {
 
     var pacientes by rememberSaveable {
         mutableStateOf(listOf<ConsultResponseMedicalRecord>())
@@ -76,6 +77,7 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
         ) {
             pacientes = response.body()!!.pacientes
 
+
         }
 
         override fun onFailure(call: Call<ConsultListMedicalRecord>, t: Throwable) {
@@ -86,7 +88,10 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
     Column(modifier = Modifier.fillMaxSize()) {
 
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.medical_record))
+            Header(titulo = stringResource(id = R.string.medical_record),
+                rota = "DoctorHome",
+                navController = navController
+            )
         }
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -131,11 +136,16 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
 
             LazyColumn {
                 items(pacientesFiltrados) { paciente ->
+
                     Card(
                         modifier = Modifier
                             .width(340.dp)
                             .clickable {
-                                navController.navigate("medicalRecordSelectDate/${paciente.idGestante}")
+                                navController.navigate("medicalRecordSelectDate")
+                                modelMedicalRecord.id_paciente = paciente.idGestante
+                                modelMedicalRecord.gestante = paciente.nome
+                                modelMedicalRecord.fotoGestante = paciente.foto
+
                             }
                             .height(85.dp)
                             .padding(bottom = 14.dp),
