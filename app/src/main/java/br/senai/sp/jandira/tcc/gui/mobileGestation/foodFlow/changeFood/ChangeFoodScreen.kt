@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,9 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,7 +50,7 @@ import retrofit2.Response
 fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnant: ModelPregnant) {
 
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
-    val call = RetrofitFactory().findFood().getFood(modelFood.id)
+    val call = RetrofitFactory().food().getFood(modelFood.id)
 
     call.enqueue(object : retrofit2.Callback<FoodResponseList> {
         override fun onResponse(
@@ -61,7 +58,7 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
             response: Response<FoodResponseList>
 
         ) {
-            food = response.body()!!.categoria
+            food = response.body()!!.alimentos
         }
 
 
@@ -131,37 +128,11 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight(800),
                                 )
-
-                                Spacer(modifier = Modifier.height(5.dp))
-
-                                Text(
-                                    text = it.peso + "gm",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight(800),
-                                )
                             }
                         }
                     }
                 }
             }
-        }
-
-
-
-
-
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .border(
-                    .9.dp,
-                    Color(182, 182, 246),
-                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                )
-        ) {
-            Navigation(navController = navController, pregnant)
         }
     }
 }

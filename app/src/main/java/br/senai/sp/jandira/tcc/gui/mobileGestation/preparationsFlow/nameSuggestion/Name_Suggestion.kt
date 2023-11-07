@@ -148,7 +148,7 @@ fun Name_Suggestion(navController: NavController, pregnant: ModelPregnant) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(250, 250, 254))
-                .padding(bottom = 90.dp)
+                .padding(bottom = 20.dp)
         ) {
 
             Column(modifier = Modifier.fillMaxWidth()) {
@@ -346,21 +346,6 @@ fun Name_Suggestion(navController: NavController, pregnant: ModelPregnant) {
                 }
             }
         }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .border(
-                    .9.dp,
-                    Color(182, 182, 246),
-                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                )
-        ) {
-
-            Navigation(navController = navController,pregnant)
-        }
-
-
     }
 }
 

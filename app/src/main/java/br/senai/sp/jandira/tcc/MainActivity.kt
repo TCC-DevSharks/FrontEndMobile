@@ -1,24 +1,33 @@
 package br.senai.sp.jandira.tcc
-import SocketManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.tcc.componentes.Navigation
-import br.senai.sp.jandira.tcc.componentes.ScheduleDoctor
+import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.MedicalRecordAdd
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.SelectPatient
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFood.AddFoodToDefaultMeal
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodCategory.FoodCategory
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal.FoodMeal
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.mealDefaults.MealDefaults
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectDiet.SelectDiet
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
@@ -68,6 +77,7 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
+import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
@@ -101,7 +111,7 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -118,13 +128,50 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val categories = ModelCategories()
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
+    val chatModel = ChatModel()
 
-    AnimatedNavHost(
-        navController = navController,
-        startDestination = "start",
-    )
+    val currentRoute = remember { mutableStateOf("start") }
 
-        {
+    navController.addOnDestinationChangedListener { _, destination, _ ->
+        currentRoute.value = destination.route ?: "route1"
+    }
+
+
+    Scaffold(
+        bottomBar = {
+            when (currentRoute.value){
+                "home" -> {}
+                "start" -> {}
+                "login" -> {}
+                "register" -> {}
+                "register_password" -> {}
+                "forgot_password" -> {}
+                "forgot_email" -> {}
+                "week" -> {}
+                "calendar" -> {}
+                "loginDoctor" -> {}
+                "profileDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
+                "DoctorHome" -> NavigationNutritionist(navController = navController, professional =professional )
+                "profileDataDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
+                "DoctorSchedule" -> NavigationNutritionist(navController = navController, professional =professional )
+                "dietSelect" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordSelect" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional )
+                "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
+                "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordSelectDate/{idGestante}" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
+                else -> Navigation(navController,pregnant)
+            }
+        }
+    ) {
+        AnimatedNavHost(
+            navController = navController,
+            startDestination = "start",
+            Modifier.padding(it)
+        ) {
             composable(route = "home") { CadastroScren (navController) }
             composable(route = "start") { LoadingScreen (navController) }
             composable(route = "login") { LoginScreen (navController, pregnant)}
@@ -142,9 +189,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 TrousseauScreen(navController, category, pregnant)
             }
             composable("birthPlan/{category}") { backStackEntry ->
-                            val category = backStackEntry.arguments?.getString("category")
-                            birthPlanScreen (navController, category, pregnant)
-                        }
+                val category = backStackEntry.arguments?.getString("category")
+                birthPlanScreen (navController, category, pregnant)
+            }
             composable(route = "trousseauCategory") { trousseauCategorySceen  (navController, pregnant) }
             composable(route = "birthPlanCategory") { birthPlanCategoryScreen (navController, pregnant) }
             composable(route = "Completed") { Completed_Registration(navController) }
@@ -174,17 +221,32 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
             composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController) }
-            composable(route = "nutritionSelect") { SelectPatient (navController) }
+            composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional ,modelMedicalRecord) }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
-            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional,clinic, modelMedicalRecord) }
-            composable(route = "contactsChat") { ContatosScreen(navController, pregnant) }
-            composable(route = "messagesChat") { MessagesScreen(navController) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional, clinic,modelMedicalRecord) }
+            composable(route = "contactsChat") { ContatosScreen(navController, pregnant, chatModel) }
+            composable(route = "messagesChat") { MessagesScreen(navController,pregnant, chatModel) }
             composable(route = "query") { checkQuery (navController, pregnant, modelMedicalRecord ) }
+            composable(route = "dietSelect") { SelectDiet (professional, navController) }
+            composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
+            composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional, modelMedicalRecord) }
+            composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
+//            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController) }
+            composable(route = "contactsChat") { ContatosScreen(navController, pregnant, chatModel) }
+            composable(route = "messagesChat") { MessagesScreen(navController, pregnant, chatModel) }
+            composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
+            composable(route = "mealSelect") { MealDefaults (navController, professional, food) }
+            composable(route = "foodCategory") { FoodCategory (navController, food)}
+            composable(route = "addFood") { AddFoodToDefaultMeal (navController, food)}
+            composable(route = "foodMeal") { FoodMeal (navController, food)}
 
 
+
+        }
     }
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)

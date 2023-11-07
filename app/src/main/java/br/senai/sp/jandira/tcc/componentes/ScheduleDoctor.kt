@@ -53,7 +53,7 @@ fun ScheduleDoctor(professional: Professional) {
     val dataAtual = LocalDate.now()
 
     LaunchedEffect(Unit) {
-        val call = RetrofitFactory().insertConsult().getConsult(professional.id)
+        val call = RetrofitFactory().consult().getConsult(professional.id)
 
         call.enqueue(object : Callback<ConsultList> {
             override fun onResponse(

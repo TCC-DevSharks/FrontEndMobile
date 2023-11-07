@@ -76,7 +76,7 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
 
         var file = uri
 
-        val photo = storageRef.child("${file!!.lastPathSegment}")
+        val photo = storageRef.child("${file}")
 
         var upload = photo.putFile(file!!)
 

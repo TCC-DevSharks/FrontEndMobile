@@ -79,7 +79,6 @@ import java.time.temporal.ChronoUnit
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeUserScreen(
     navController: NavController,
@@ -133,7 +132,6 @@ fun HomeUserScreen(
         GetComorbidity(pregnant)
 //        GetMedication(pregnant)
     }
-    Scaffold(bottomBar = { Navigation(navController = navController, pregnant = pregnant) }) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -145,7 +143,7 @@ fun HomeUserScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(top = 70.dp, bottom = 105.dp)
+                    .padding(top = 70.dp, bottom = 20.dp)
             ) {
 
                 Column(
@@ -421,8 +419,7 @@ fun HomeUserScreen(
 
                         MarternalGuide(
                             navController,
-                            titulo = artigo.titulo.take(55).capitalizeFirstLetter() + "...",
-                            descricao = artigo.descricao.take(80) + "...",
+                            titulo = if ( artigo.titulo.length < 70) artigo.titulo.capitalizeFirstLetter() else artigo.titulo.take(70).capitalizeFirstLetter() + "...",
                             imagem = artigo.imagem,
                             idArtigo = artigo.id,
                             pregnant = ModelPregnant()
@@ -463,24 +460,10 @@ fun HomeUserScreen(
                         CardPreparations(preparations = preparation, navController)
                     }
                 }
-
-
             }
 
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .align(Alignment.BottomCenter)
-//                    .border(
-//                        .9.dp,
-//                        Color(182, 182, 246),
-//                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-//                    )
-//            ) {
-//            }
-
         }
-    }
+
 
 }
 

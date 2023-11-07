@@ -51,7 +51,6 @@ import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
@@ -71,7 +70,7 @@ fun SelectDateMedicalRecord(
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-    var call =  RetrofitFactory().insertConsult().getConsultPatient(modelMedicalRecord.id_paciente)
+    var call =  RetrofitFactory().consult().getConsultPatient(modelMedicalRecord.id_paciente)
 
         call.enqueue(object : Callback<MedicalRecordListDataConsult> {
             override fun onResponse(
