@@ -94,7 +94,7 @@ fun AppointmentCanceled(
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-            Box(
+    Box(
         modifier = Modifier.fillMaxSize()
     ) {
 
@@ -475,7 +475,7 @@ fun AppointmentCanceled(
             }
         }
 
-                Log.i("Teste 1", "${modelMedicalRecord.id_consulta}")
+        Log.i("Teste 1", "${modelMedicalRecord.id_consulta}")
 
 
 
@@ -486,20 +486,25 @@ fun AppointmentCanceled(
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 40.dp)
         ) {
-            ButtonPurple(navController = navController, texto = "Cancelar", rota = "query", onclick = {
+            ButtonPurple(
+                navController = navController,
+                texto = "Cancelar",
+                rota = "query",
+                onclick = {
 
-                var call = RetrofitFactory().schedule().deleteConsult(modelMedicalRecord.id_consulta)
+                    var call =
+                        RetrofitFactory().schedule().deleteConsult(modelMedicalRecord.id_consulta)
 
-                call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
+                    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: Response<ResponseBody>
 
-                    ) {
-                        if (response.isSuccessful){
-                            Log.i("fdf", "${response.body()}")
-                            Log.i("Teste 2 ", "${modelMedicalRecord.id}")
-                            navController.navigate("query")
+                        ) {
+                            if (response.isSuccessful) {
+                                Log.i("fdf", "${response.body()}")
+                                Log.i("teste2", "${modelMedicalRecord.id}")
+                                navController.navigate("query")
 //                            val backgroundColor = Color.Gray
 //                            val contentColor = Color.White
 //
@@ -522,29 +527,27 @@ fun AppointmentCanceled(
 //
 //                            toast.view = textView
 //                            toast.show()
+                            }
+
                         }
 
-                    }
-
-                    override fun onFailure(
-                        call: Call<ResponseBody>,
-                        t: Throwable
-                    ) {
-                        Log.i(
-                            "ds2m",
-                            "onFailure: ${t.message}"
-                        )
-                        println(t.message + t.cause)
-                    }
+                        override fun onFailure(
+                            call: Call<ResponseBody>,
+                            t: Throwable
+                        ) {
+                            Log.i(
+                                "ds2m",
+                                "onFailure: ${t.message}"
+                            )
+                            println(t.message + t.cause)
+                        }
+                    })
                 })
-            })
         }
 //
 //
 //
 //
-//        if (isCardVisible) {
-//            // Aplicar um efeito de fundo desfocado usando Modifier.background
 //            Box(
 //                modifier = Modifier
 //                    .fillMaxSize()
@@ -605,7 +608,7 @@ fun AppointmentCanceled(
 //                        }
 //                    }
 //                }
-//            }
+
 //            if (isCard2Visible) {
 //                Box(
 //                    modifier = Modifier
