@@ -79,7 +79,7 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
 
     Scaffold(
-        topBar = { Header(titulo = "Exercices")}) {
+        topBar = { Header(titulo = "Exercices",rota ="", navController = navController)}) {
 
         Column(
             modifier = Modifier

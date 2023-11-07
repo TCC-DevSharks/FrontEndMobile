@@ -58,7 +58,7 @@ fun checkQuery(
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
 
-    var call = RetrofitFactory().insertConsult().getConsultPatient(modelPregnant.id)
+    var call = RetrofitFactory().consult().getConsultPatient(modelPregnant.id)
 
     call.enqueue(object : Callback<MedicalRecordListDataConsult> {
         override fun onResponse(

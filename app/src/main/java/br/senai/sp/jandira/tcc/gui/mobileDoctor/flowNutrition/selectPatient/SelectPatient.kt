@@ -85,7 +85,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.select_patient))
+            Header(titulo = stringResource(id = R.string.select_patient),rota ="", navController = navController)
         }
         Spacer(modifier = Modifier.height(20.dp))
 
