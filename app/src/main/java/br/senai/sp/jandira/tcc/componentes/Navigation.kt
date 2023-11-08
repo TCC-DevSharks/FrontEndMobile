@@ -28,10 +28,6 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 @Composable
 fun Navigation(navController: NavController, pregnant: ModelPregnant) {
-    Log.e("alergia","${pregnant.alergia}")
-    Log.e("comorbidade","${pregnant.comorbidades}")
-    Log.e("deficiencia","${pregnant.deficiencia}")
-    Log.e("medicacao","${pregnant.medicacao}")
 
     Row(
         modifier = Modifier
@@ -112,7 +108,8 @@ fun Navigation(navController: NavController, pregnant: ModelPregnant) {
                         pregnant.alergia.isEmpty() &&
                         pregnant.deficiencia.isEmpty() &&
                         pregnant.medicacao.isEmpty() &&
-                        pregnant.comorbidades.isEmpty()
+                        pregnant.comorbidades.isEmpty() &&
+                        pregnant.cpf.isEmpty()
                         ){
                         navController.navigate("insertEndress")
                     }else{

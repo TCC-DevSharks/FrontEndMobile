@@ -8,3 +8,7 @@ data class DietModel(
     val idRefeicao: Int,
     val horario: String
 )
+
+data class DietModelAdd(
+    val id_consulta: Int
+)

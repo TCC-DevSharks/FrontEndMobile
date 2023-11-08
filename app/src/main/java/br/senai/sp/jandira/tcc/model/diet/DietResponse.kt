@@ -9,4 +9,9 @@ data class DietResponse(
     val horario: String
 )
 
+data class DietResponseName(
+    val idDieta: Int,
+    val gestante: String,
+)
+
 

@@ -1,6 +1,9 @@
 package br.senai.sp.jandira.tcc.service.defaultMeal
 
 import br.senai.sp.jandira.tcc.model.diet.DietModel
+import br.senai.sp.jandira.tcc.model.diet.DietModelAdd
+import br.senai.sp.jandira.tcc.model.diet.DietResponseList
+import br.senai.sp.jandira.tcc.model.diet.DietResponseListName
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelFoodToDefaultMeal
@@ -33,5 +36,8 @@ interface DietService {
         @Path("id") idRefeicao: Int): Call<ResponseBody>
 
     @POST("dieta")
-    fun addDiet(@Body() diet: DietModel): Call<ResponseBody>
+    fun addDiet(@Body() diet: DietModelAdd): Call<ResponseBody>
+
+    @GET("dieta/{id}")
+    fun dietValidation(@Path("id") id: Int): Call<DietResponseListName>
 }

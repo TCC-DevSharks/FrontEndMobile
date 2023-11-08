@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,12 +45,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.AddDietDialog
+import br.senai.sp.jandira.tcc.componentes.AddMealDialog
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.diet.DietModel
+import br.senai.sp.jandira.tcc.model.diet.DietModelAdd
+import br.senai.sp.jandira.tcc.model.diet.DietResponseListName
 import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultListMedicalRecord
 import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultResponseMedicalRecord
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,25 +72,65 @@ fun SelectPatient(professional: Professional, navController: NavController) {
 
     var searchText by remember { mutableStateOf("") }
 
+    var effect by remember { mutableStateOf(true)}
+
+    var openDialog = remember { mutableStateOf(false) }
+    var consulta by remember { mutableStateOf(0) }
+
 
     val pacientesFiltrados = pacientes.filter { it.nome.contains(searchText, ignoreCase = true) }
         .distinctBy { it.idGestante }
 
-    var call = RetrofitFactory().consult().getConsultMedicalRecord(professional.id)
+    LaunchedEffect(Unit){
+        var call = RetrofitFactory().consult().getConsultMedicalRecord(professional.id)
 
-    call.enqueue(object : Callback<ConsultListMedicalRecord> {
-        override fun onResponse(
-            call: Call<ConsultListMedicalRecord>,
-            response: Response<ConsultListMedicalRecord>
-        ) {
-            pacientes = response.body()!!.pacientes
+        call.enqueue(object : Callback<ConsultListMedicalRecord> {
+            override fun onResponse(
+                call: Call<ConsultListMedicalRecord>,
+                response: Response<ConsultListMedicalRecord>
+            ) {
+                pacientes = response.body()!!.pacientes
 
-        }
+            }
 
-        override fun onFailure(call: Call<ConsultListMedicalRecord>, t: Throwable) {
-            Log.i("paciente", "${t.message}")
-        }
-    })
+            override fun onFailure(call: Call<ConsultListMedicalRecord>, t: Throwable) {
+                Log.i("paciente", "${t.message}")
+            }
+        })
+    }
+
+    AddDietDialog(
+        openDialog = openDialog) {
+
+        var diet  = DietModelAdd(
+            id_consulta = consulta
+        )
+
+        val call = RetrofitFactory().Diet().addDiet(diet)
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+
+            ) {
+                openDialog.value = false
+                effect = !effect
+
+                navController.navigate("addDiet")
+
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -149,7 +198,30 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                         modifier = Modifier
                             .width(340.dp)
                             .height(85.dp)
-                            .padding(bottom = 14.dp),
+                            .padding(bottom = 14.dp)
+                            .clickable {
+                                var call = RetrofitFactory().Diet().dietValidation(it.idGestante)
+
+                                call.enqueue(object : Callback<DietResponseListName> {
+                                    override fun onResponse(
+                                        call: Call<DietResponseListName>,
+                                        response: Response<DietResponseListName>
+                                    ) {
+                                        if (response.body()!!.dieta.isEmpty()){
+                                            consulta = it.idConsulta
+                                            openDialog.value = true
+                                        }
+
+                                        else
+                                            navController.navigate("addDiet")
+
+                                    }
+
+                                    override fun onFailure(call: Call<DietResponseListName>, t: Throwable) {
+                                        Log.i("paciente", "${t.message}")
+                                    }
+                                })
+                            },
                         colors = CardDefaults.cardColors(Color(182, 182, 246, 100)),
                         border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
 
