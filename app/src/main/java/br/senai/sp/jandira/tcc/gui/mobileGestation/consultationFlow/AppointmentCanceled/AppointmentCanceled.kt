@@ -92,6 +92,7 @@ fun AppointmentCanceled(
     val context = LocalContext.current
 
 
+
     var consultas by rememberSaveable {
         mutableStateOf(listOf<consultDataResponse>())
     }
@@ -109,6 +110,11 @@ fun AppointmentCanceled(
         }
     })
 
+    var gestante by rememberSaveable {
+        mutableStateOf(listOf<MedicalRecordDataConsult>())
+    }
+
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -122,7 +128,7 @@ fun AppointmentCanceled(
             Column(modifier = Modifier.fillMaxWidth()) {
                 Header(
                     titulo = stringResource(id = R.string.consultation_title),
-                    rota = "",
+                    rota = "query",
                     navController = navController
                 )
             }

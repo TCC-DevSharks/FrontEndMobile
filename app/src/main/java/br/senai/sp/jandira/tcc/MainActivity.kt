@@ -28,6 +28,8 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal.FoodMeal
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.mealDefaults.MealDefaults
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectDiet.SelectDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient.SelectPatient
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.medicalRecordMade.MedicalRecordMadeScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.patientProfile.PatientProfileScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
@@ -159,10 +161,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional )
                 "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
                 "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelectDate/{idGestante}" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
                 "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
+                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional )
+
                 else -> Navigation(navController,pregnant)
             }
         }
@@ -220,7 +225,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
-            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController) }
+            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController, modelMedicalRecord) }
             composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional ,modelMedicalRecord) }
@@ -241,6 +246,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodCategory") { FoodCategory (navController, food)}
             composable(route = "addFood") { AddFoodToDefaultMeal (navController, food)}
             composable(route = "foodMeal") { FoodMeal (navController, food)}
+            composable(route = "patientProfile") { PatientProfileScreen (navController,modelMedicalRecord) }
+            composable(route = "medicalRecordMade") { MedicalRecordMadeScreen (professional,modelMedicalRecord,navController) }
 
 
 
