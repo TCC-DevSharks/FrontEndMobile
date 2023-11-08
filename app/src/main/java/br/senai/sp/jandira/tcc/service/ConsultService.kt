@@ -47,4 +47,6 @@ interface ConsultService {
     fun putMedicalRecord (@Path("id") id: Int, @Body prontuario: ProntuarioBody): Call<ResponseBody>
 
 
+
+
 }
