@@ -83,13 +83,6 @@ fun AppointmentCanceled(
     var cvv by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-
-    numeroCartao = "4111111111111111"
-    mesVencimento = "12"
-    anoVencimento = "2030"
-    cvv = "123"
-
-
     var gestante by rememberSaveable {
         mutableStateOf(listOf<MedicalRecordDataConsult>())
     }
@@ -108,7 +101,7 @@ fun AppointmentCanceled(
             Column(modifier = Modifier.fillMaxWidth()) {
                 Header(
                     titulo = stringResource(id = R.string.consultation_title),
-                    rota = "",
+                    rota = "query",
                     navController = navController
                 )
             }
