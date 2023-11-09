@@ -12,3 +12,9 @@ data class DietModel(
 data class DietModelAdd(
     val id_consulta: Int
 )
+
+data class DietModelAddMeal(
+    val id_dieta: Int,
+    val id_refeicao: Int,
+    val horario: String
+)

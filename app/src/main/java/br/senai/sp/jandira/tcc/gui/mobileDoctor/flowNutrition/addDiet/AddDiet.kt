@@ -47,7 +47,9 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponse
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.MealResponse
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelMeal
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import okhttp3.ResponseBody
@@ -58,7 +60,7 @@ import retrofit2.Response
 @Composable
 fun AddDiet(navController: NavController, professional: Professional,food: ModelFood) {
 
-    var refeicao by remember { mutableStateOf(listOf<DefaultMealResponse>()) }
+    var refeicao by remember { mutableStateOf(listOf<MealResponse>()) }
     var effect by remember { mutableStateOf(true)}
 
     var openDialog = remember { mutableStateOf(false) }
@@ -95,12 +97,13 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
         openDialog = openDialog,
         nome =nome ,
         onValueChangeNome = {nome = it}) {
-            var meal = ModelDefaultMeal(
+            var meal = ModelMeal(
                 nome = nome,
-                id_profissional = professional.id
+                id_profissional = professional.id,
+                id_gestante = professional.id_gestante
             )
 
-            val call = RetrofitFactory().Diet().postDefaultMeal(meal)
+            val call = RetrofitFactory().Diet().postMeal(meal)
 
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(
@@ -111,6 +114,10 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                     openDialog.value = false
                    effect = !effect
                     nome = ""
+
+                    if (response.isSuccessful){
+
+                    }
 
                 }
 

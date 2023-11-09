@@ -31,4 +31,5 @@ class Professional {
     var idSexo by mutableStateOf(0)
     var idTipo by mutableStateOf(0)
     var idClinica by mutableStateOf(0)
+    var id_gestante by mutableStateOf(0)
 }

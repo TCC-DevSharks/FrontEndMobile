@@ -209,10 +209,12 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                                     ) {
                                         if (response.body()!!.dieta.isEmpty()){
                                             consulta = it.idConsulta
+                                            professional.id_gestante = it.idGestante
                                             openDialog.value = true
                                         }
 
                                         else
+                                            professional.id_gestante = it.idGestante
                                             navController.navigate("addDiet")
 
                                     }
