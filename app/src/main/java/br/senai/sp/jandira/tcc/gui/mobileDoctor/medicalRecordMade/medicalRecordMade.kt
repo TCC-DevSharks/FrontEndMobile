@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.extrairPrimeiroNome
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponse
 import br.senai.sp.jandira.tcc.model.getPregnant.PregnantResponseList
@@ -153,7 +154,7 @@ fun MedicalRecordMadeScreen(
                         Row() {
 
                             Text(
-                                text = gestante.nome,
+                                text = extrairPrimeiroNome(gestante.nome),
                                 fontSize = 31.sp,
                                 fontWeight = FontWeight(700),
 
@@ -200,9 +201,10 @@ fun MedicalRecordMadeScreen(
                             modelMedicalRecord.dia = it.dia
                             modelMedicalRecord.hora = it.hora
                             modelMedicalRecord.descricao = it.descricao
+                            modelMedicalRecord.profissional = it.profissional
                             navController.navigate("medicalRecordMadeData")
                         }
-                        .height(85.dp)
+                        .height(95.dp)
                         .padding(bottom = 14.dp),
                     colors = CardDefaults.cardColors(Color(255, 255, 255)),
                     border = BorderStroke(width = .4.dp, color = Color(182, 182, 246)),
@@ -227,7 +229,7 @@ fun MedicalRecordMadeScreen(
                         ) {
 
                             Text(
-                                text = it.gestante,
+                                text = extrairPrimeiroNome(it.gestante),
                                 color = Color.White,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight(700),
@@ -241,26 +243,39 @@ fun MedicalRecordMadeScreen(
                         }
 
                         Column(
-                            verticalArrangement = Arrangement.Center,
-                            modifier = Modifier.padding(start = 17.dp)
+                            verticalArrangement = Arrangement.SpaceAround,
+                            modifier = Modifier.padding(horizontal = 17.dp)
                         ) {
 
-                            Text(
-                                text = stringResource(id = R.string.date) + " " + it.dia,
-                                fontWeight = FontWeight(400),
-                                fontSize = 14.5.sp,
-                                color = Color.Gray,
-                            )
+                            Row (modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween) {
+
+                                Text(
+                                    text = stringResource(id = R.string.date) + " " + it.dia,
+                                    fontWeight = FontWeight(400),
+                                    fontSize = 14.5.sp,
+                                    color = Color.Gray,
+                                )
+
+                                Spacer(modifier = Modifier.width(3.dp))
+
+                                Text(
+                                    text = stringResource(id = R.string.hour) + " " + it.hora.take(5),
+                                    fontWeight = FontWeight(400),
+                                    fontSize = 14.5.sp,
+                                    color = Color.Gray
+                                )
+
+                            }
 
                             Spacer(modifier = Modifier.height(3.dp))
 
                             Text(
-                                text = stringResource(id = R.string.hour) + " " + it.hora.take(5),
+                                text = stringResource(id = R.string.professional) + " " + extrairPrimeiroNome(it.profissional),
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.5.sp,
                                 color = Color.Gray
                             )
-
 
                         }
                     }

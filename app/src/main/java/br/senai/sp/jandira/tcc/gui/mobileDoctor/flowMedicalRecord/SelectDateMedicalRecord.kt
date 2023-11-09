@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.extrairPrimeiroNome
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
@@ -135,7 +136,7 @@ fun SelectDateMedicalRecord(
                     Row() {
 
                         Text(
-                            text = modelMedicalRecord.gestante,
+                            text = extrairPrimeiroNome( modelMedicalRecord.gestante),
                             fontSize = 31.sp,
                             fontWeight = FontWeight(700),
 
@@ -210,7 +211,7 @@ fun SelectDateMedicalRecord(
                         ) {
 
                             Text(
-                                text = it.gestante,
+                                text = extrairPrimeiroNome( it.gestante),
                                 color = Color.White,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight(700),

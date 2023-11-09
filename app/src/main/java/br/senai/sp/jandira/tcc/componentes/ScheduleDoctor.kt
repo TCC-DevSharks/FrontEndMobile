@@ -144,7 +144,7 @@ fun ScheduleDoctor(professional: Professional, navController: NavController, med
                                 )
                             )
 
-                            LimitedText(text = paciente.nome, maxLength = 25) {
+                            LimitedText(text = paciente.nome, maxLength = 17) {
                                 medicalRecord.id_paciente = paciente.idGestante
                                 navController.navigate("patientProfile")                            }
                         }

@@ -168,6 +168,49 @@ fun MedicalRecordMadeDataScreen(
 
         }
 
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.professional),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(
+                onClick = {
+
+                },
+                modifier = Modifier
+                    .padding(start = 4.5.dp),
+                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text(
+                    text = modelMedicalRecord.profissional,
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight(900),
+                    color = Color.White
+                )
+            }
+
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
         Spacer(modifier = Modifier.height(30.dp))
 
         Row(

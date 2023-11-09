@@ -13,7 +13,8 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-    fun GetProfessionalSpeciality(speciality: Int, professional: Professional, navController: NavController){
+
+fun GetProfessionalSpeciality(speciality: Int, professional: Professional, navController: NavController){
 
         val call = RetrofitFactory().getProfessional().getProfissionalSpeciality(speciality)
 
@@ -51,7 +52,7 @@ import retrofit2.Response
 
                 response.body()!!.profissionais.map {
                     professional.id = it.id
-                    professional.nome = it.nome
+                    professional.nome = extrairPrimeiroNome( it.nome)
                     professional.cpf = it.cpf
                     professional.crm= it.crm
                     professional.data_nascimento = it.data_nascimento
