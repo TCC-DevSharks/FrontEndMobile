@@ -1,7 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -31,34 +28,28 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineList
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineResonse
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineSemanaList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
@@ -72,6 +63,10 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
         var timeLineId by rememberSaveable {
             mutableStateOf(listOf<timeLineResonse>())
         }
+
+        val painterFeto = painterResource(id = R.drawable.feto_preview)
+        
+        val painterFruta = painterResource(id = R.drawable.frutas)
 
         var call = RetrofitFactory().getTrousseauService().getTimeLine()
         call.enqueue(object : Callback<timeLineList> {
@@ -185,7 +180,19 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                             model = semana.imagemFruta,
                             contentDescription = null,
                             modifier = Modifier
-                                .size(40.dp)
+                                .size(40.dp),
+                            transform = { state ->
+                                when (state) {
+                                    is AsyncImagePainter.State.Loading -> {
+                                        state.copy(painter = painterFruta)
+                                    }
+                                    is AsyncImagePainter.State.Error -> {
+                                        state.copy(painter = painterFruta)
+                                    }
+
+                                    else -> state
+                                }
+                            }
 
                         )
                         Text(
@@ -211,7 +218,19 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Fit,
                                 model = semana.imagem,
-                                contentDescription = null
+                                contentDescription = null,
+                                transform = { state ->
+                                    when (state) {
+                                        is AsyncImagePainter.State.Loading -> {
+                                            state.copy(painter = painterFeto)
+                                        }
+                                        is AsyncImagePainter.State.Error -> {
+                                            state.copy(painter = painterFeto)
+                                        }
+
+                                        else -> state
+                                    }
+                                }
                             )
                         }
 

@@ -81,19 +81,24 @@ fun PatientProfileScreen(
         Log.i("", "${medicalRecord.id_paciente}")
 
         Header(
-            titulo = stringResource(id = R.string.medical_record),
+            titulo = stringResource(id = R.string.patietent_profile),
             rota = "DoctorSchedule", navController = navController
         )
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        LazyColumn() {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+        {
             items(gestante) { gestante ->
 
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp)
+
                 ) {
 
                     Column(

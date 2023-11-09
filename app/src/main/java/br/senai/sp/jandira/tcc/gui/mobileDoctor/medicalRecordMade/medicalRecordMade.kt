@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -56,6 +57,7 @@ import retrofit2.Response
 fun MedicalRecordMadeScreen(
     professional: Professional,
     medicalRecord: ModelMedicalRecord,
+    modelMedicalRecord: ModelMedicalRecord,
     navController: NavController
 ) {
 
@@ -117,9 +119,8 @@ fun MedicalRecordMadeScreen(
                 .background(Color(182, 182, 246, 40))
                 .padding(20.dp),
 
-        ) {
-            items(gestante) {
-                gestante ->
+            ) {
+            items(gestante) { gestante ->
 
                 Row(
                     modifier = Modifier.padding(start = 20.dp)
@@ -170,26 +171,36 @@ fun MedicalRecordMadeScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        Row(modifier = Modifier.fillMaxWidth()) {
+
+            Text(
+                text = "Visualizar prontuarios",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight(500),
+            )
+        }
+
+        Spacer(modifier = Modifier.height(25.dp))
+
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             items(prontuario.filter { prontuario ->
-                prontuario.gestante == medicalRecord.gestante
+                prontuario.id_gestante == medicalRecord.id_paciente
             }) {
 
                 Card(
                     modifier = Modifier
                         .width(340.dp)
                         .clickable {
-//                            modelMedicalRecord.id = it.id
-//                            modelMedicalRecord.dia = it.dia
-//                            modelMedicalRecord.hora = it.hora
-//                            modelMedicalRecord.id_prontuario = 0
-//                            modelMedicalRecord.descricao = ""
-//                            modelMedicalRecord.id_consulta = it.id
-//                            navController.navigate("medicalRecordAdd")
+                            modelMedicalRecord.dia = it.dia
+                            modelMedicalRecord.hora = it.hora
+                            modelMedicalRecord.descricao = it.descricao
+                            navController.navigate("medicalRecordMadeData")
                         }
                         .height(85.dp)
                         .padding(bottom = 14.dp),

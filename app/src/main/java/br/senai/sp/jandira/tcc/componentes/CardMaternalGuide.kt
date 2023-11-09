@@ -35,7 +35,6 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.article.articleList
-import br.senai.sp.jandira.tcc.model.article.articleResponse
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineResonse
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage

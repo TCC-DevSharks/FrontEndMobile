@@ -240,7 +240,6 @@ fun DoctorSchedule(
                             .size(width = 315.dp, height = 50.dp)
                             .clickable {
                                medicalRecord.id_paciente = paciente.idGestante
-                               medicalRecord.gestante = paciente.nome
                                 navController.navigate("patientProfile")
                             }
                             .padding(horizontal = 4.dp),

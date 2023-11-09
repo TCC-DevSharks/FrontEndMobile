@@ -49,6 +49,7 @@ import br.senai.sp.jandira.tcc.calls.GetProfessional
 import br.senai.sp.jandira.tcc.componentes.NavigationDoctor
 import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
 import br.senai.sp.jandira.tcc.componentes.ScheduleDoctor
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.professional.ProfessionalSpecialityResponse
 import br.senai.sp.jandira.tcc.model.professional.ProfessionalSpecialityResponseList
@@ -64,6 +65,7 @@ import retrofit2.Response
 fun DoctorHome(
     professional: Professional,
     navController: NavController,
+    medicalRecord: ModelMedicalRecord
 ) {
 
     LaunchedEffect(Unit) {
@@ -215,7 +217,7 @@ fun DoctorHome(
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            ScheduleDoctor(professional)
+            ScheduleDoctor(professional, navController, medicalRecord)
 
             Spacer(modifier = Modifier.height(10.dp))
 

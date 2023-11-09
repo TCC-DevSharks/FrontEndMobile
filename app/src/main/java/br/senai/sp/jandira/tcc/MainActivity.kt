@@ -28,6 +28,7 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal.FoodMeal
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.mealDefaults.MealDefaults
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectDiet.SelectDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient.SelectPatient
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.medicalRecordMade.MedicalRecordMadeDataScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.medicalRecordMade.MedicalRecordMadeScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.patientProfile.PatientProfileScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
@@ -105,7 +106,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Greeting("Android")
 
-
                 }
             }
         }
@@ -167,6 +167,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
                 "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional )
                 "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional )
 
                 else -> Navigation(navController,pregnant)
             }
@@ -219,7 +220,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
             composable(route = "Exercises") { Exercises(navController,categories, pregnant) }
-            composable(route = "DoctorHome") { DoctorHome (professional, navController,) }
+            composable(route = "DoctorHome") { DoctorHome (professional, navController, modelMedicalRecord) }
             composable(route = "guiaMaterno") { MaternalGuideScreen (navController, pregnant) }
             composable(route = "timeLine") { TimeLineScreen (pregnant,navController) }
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
@@ -247,10 +248,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "addFood") { AddFoodToDefaultMeal (navController, food)}
             composable(route = "foodMeal") { FoodMeal (navController, food)}
             composable(route = "patientProfile") { PatientProfileScreen (navController,modelMedicalRecord) }
-            composable(route = "medicalRecordMade") { MedicalRecordMadeScreen (professional,modelMedicalRecord,navController) }
-
-
-
+            composable(route = "medicalRecordMade") { MedicalRecordMadeScreen (professional,modelMedicalRecord,modelMedicalRecord,navController) }
+            composable(route = "medicalRecordMadeData") { MedicalRecordMadeDataScreen (navController, modelMedicalRecord ) }
         }
     }
 
