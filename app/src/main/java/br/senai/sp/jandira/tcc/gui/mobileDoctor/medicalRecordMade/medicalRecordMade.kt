@@ -142,6 +142,7 @@ fun MedicalRecordMadeScreen(
                                 .clip(CircleShape)
                         )
 
+
                     }
 
                     Column(
