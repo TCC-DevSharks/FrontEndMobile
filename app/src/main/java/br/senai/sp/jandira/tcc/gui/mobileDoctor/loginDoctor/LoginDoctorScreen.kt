@@ -54,8 +54,8 @@ fun LoginDoctorScreen(navController: NavController, professional: Professional) 
 
     var email by rememberSaveable { mutableStateOf("") }
 
-//    email = "m@t.com"
-//    password = "123"
+    email = "l@l.com"
+    password = "1234"
 
     var login by remember {
         mutableStateOf(listOf<Login>())

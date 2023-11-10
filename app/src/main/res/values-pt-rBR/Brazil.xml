@@ -206,7 +206,7 @@
     <string name="maternal_guide">Guia Materno</string>
     <string name="preparations">Preparativos</string>
     <string name="finish">Finalizar</string>
-    <string name="Continueee">Continuar -></string>
+    <string name="Continueee">Continuar</string>
     <string name="card_number">Número do cartão:</string>
     <string name="expiration_date">Data de validade:</string>
     <string name="cvv">CVV</string>
@@ -234,7 +234,7 @@
     <string name="specialization">Especialidade: </string>
     <string name="professional">Profissional: </string>
     <string name="clinic">Clínica: </string>
-    <string name="pag">Ir para pagamento -> </string>
+    <string name="pag">Ir para pagamento</string>
     <string name="Select_a_date">Selecione uma data:</string>
     <string name="Service_charge">Taxa de serviço:</string>
     <string name="emailL">Email:</string>

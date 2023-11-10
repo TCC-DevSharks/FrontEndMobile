@@ -139,7 +139,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                     )
 
                     Text(
-                        text = clinic.email,
+                        text = " " + clinic.email,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -176,7 +176,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                     )
 
                     Text(
-                        text = clinic.complemento,
+                        text = " " + clinic.complemento,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Start,
@@ -195,7 +195,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                     )
 
                     Text(
-                        text = clinic.cep,
+                        text = " " + clinic.cep,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Start,
@@ -214,7 +214,7 @@ fun ConsultationDescriptionClinicScreen(navController: NavController, clinic: Cl
                     )
 
                     Text(
-                        text = "" + clinic.telefone,
+                        text = " " + clinic.telefone,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
