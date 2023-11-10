@@ -122,7 +122,7 @@ fun DoctorScreen(navController: NavController, professional: Professional, pregn
                                         professional.telefone = it.telefone
                                         professional.tipo_telefone = it.tipo_telefone
                                         professional.clinica = it.clinica
-                                        professional.valor = "200,00"
+                                        professional.valor = "R$ 200,00"
 
                                         navController.navigate("DescriptionDoctor")
                                     },
