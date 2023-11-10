@@ -11,20 +11,27 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +46,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,6 +56,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetChatProfissional
 import br.senai.sp.jandira.tcc.calls.GetChatUser
 import br.senai.sp.jandira.tcc.calls.GetMsg
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
@@ -60,14 +70,13 @@ import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Response
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatModel: ChatModel) {
 
     LaunchedEffect(Unit) {
         Consult(pregnant)
         GetChatUser(pregnant.email, chatModel)
-
-
     }
 
     var consult by remember { mutableStateOf(listOf<MedicalRecordDataConsult>()) }
@@ -78,6 +87,11 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
             }
         }
     }
+
+    var searchText by remember { mutableStateOf("") }
+
+    val consultFiltrados = consult.filter { it.profissional.contains(searchText, ignoreCase = true) }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -96,6 +110,12 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
             ) {
 
                 Row() {
+
+                    ArrowLeft(navController = navController, rota = "homeUser")
+                }
+
+                Row() {
+
                     Box(
 
                     ) {
@@ -117,24 +137,6 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                         }
 
                     }
-                }
-
-                Row() {
-
-
-                    Box(
-                        modifier = Modifier
-                            .background(Color(182, 182, 246), CircleShape)
-                            .size(40.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.search_branco),
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp),
-                        )
-                    }
 
 
                 }
@@ -150,6 +152,40 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
                 )
             }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                OutlinedTextField(
+                    value = searchText,
+                    onValueChange = {
+                        searchText = it
+                    },
+                    modifier = Modifier
+                        .width(355.dp),
+                    shape = RoundedCornerShape(40.dp),
+                    label = {
+                        Text(stringResource(id = R.string.search_doctor))
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next
+                    ),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color(243, 243, 243),
+                        focusedIndicatorColor = Color(243, 243, 243),
+                        unfocusedIndicatorColor = Color(243, 243, 243)
+                    ),
+                    singleLine = true
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+
             if (consult.isNotEmpty()) {
 
 
@@ -158,7 +194,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                         .fillMaxSize()
                         .padding(horizontal = 25.dp)
                 ) {
-                    items(consult) {
+                    items(consultFiltrados) {
 
                         var profissional by remember { mutableStateOf("") }
 
@@ -196,7 +232,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                         chatModel.foto = it.foto
                                         chatModel.nomeProfissional = it.profissional
                                         navController.navigate("messagesChat")
-                                               },
+                                    },
                                 colors = CardDefaults.cardColors(Color(182, 182, 246, 65)),
                             ) {
 
@@ -234,10 +270,12 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                         Column(
                                             modifier = Modifier
                                                 .fillMaxSize()
-                                                .padding(vertical = 10.dp)
+                                                .padding(vertical = 10.dp),
+                                            verticalArrangement = Arrangement.SpaceBetween
                                         ) {
 
-                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Column(verticalArrangement = Arrangement.SpaceAround,
+                                                modifier = Modifier.fillMaxSize()) {
 
                                                 Text(
                                                     modifier = Modifier.padding(start = 26.dp),
@@ -247,7 +285,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                                 )
 
                                                 Text(
-                                                    modifier = Modifier.padding(start = 12.dp),
+                                                    modifier = Modifier.padding(start = 26.dp),
                                                     text = it.clinica,
                                                     fontSize = 14.sp,
                                                     fontWeight = FontWeight.Bold,
@@ -340,6 +378,7 @@ fun Consult(pregnant: ModelPregnant) {
 
         ) {
             pregnant.consult = response.body()!!.gestante
+            Log.i("fgfgfg", "${pregnant.consult}")
         }
 
         override fun onFailure(call: Call<MedicalRecordListDataConsult>, t: Throwable) {

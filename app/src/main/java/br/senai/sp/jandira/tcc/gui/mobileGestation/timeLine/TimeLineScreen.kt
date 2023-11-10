@@ -64,10 +64,6 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
             mutableStateOf(listOf<timeLineResonse>())
         }
 
-        val painterFeto = painterResource(id = R.drawable.feto_preview)
-        
-        val painterFruta = painterResource(id = R.drawable.frutas)
-
         var call = RetrofitFactory().getTrousseauService().getTimeLine()
         call.enqueue(object : Callback<timeLineList> {
             override fun onResponse(call: Call<timeLineList>, response: Response<timeLineList>) {
@@ -181,20 +177,7 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                             contentDescription = null,
                             modifier = Modifier
                                 .size(40.dp),
-                            transform = { state ->
-                                when (state) {
-                                    is AsyncImagePainter.State.Loading -> {
-                                        state.copy(painter = painterFruta)
-                                    }
-                                    is AsyncImagePainter.State.Error -> {
-                                        state.copy(painter = painterFruta)
-                                    }
-
-                                    else -> state
-                                }
-                            }
-
-                        )
+                            )
                         Text(
                             modifier = Modifier.padding(start = 14.dp),
                             text = "${semana.comparacao}",
@@ -219,18 +202,6 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                 contentScale = ContentScale.Fit,
                                 model = semana.imagem,
                                 contentDescription = null,
-                                transform = { state ->
-                                    when (state) {
-                                        is AsyncImagePainter.State.Loading -> {
-                                            state.copy(painter = painterFeto)
-                                        }
-                                        is AsyncImagePainter.State.Error -> {
-                                            state.copy(painter = painterFeto)
-                                        }
-
-                                        else -> state
-                                    }
-                                }
                             )
                         }
 

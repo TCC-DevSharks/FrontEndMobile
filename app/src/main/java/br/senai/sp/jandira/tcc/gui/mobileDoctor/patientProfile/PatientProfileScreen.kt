@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.tcc.gui.mobileDoctor.patientProfile
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,12 +13,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -77,41 +85,28 @@ fun PatientProfileScreen(
             }
         })
 
+        Header(titulo = stringResource(id = R.string.patietent_profile), rota = "DoctorHome", navController = navController)
 
-        Log.i("", "${medicalRecord.id_paciente}")
+        Spacer(modifier = Modifier.height(15.dp))
 
-        Header(
-            titulo = stringResource(id = R.string.patietent_profile),
-            rota = "DoctorSchedule", navController = navController
-        )
+        LazyColumn() {
 
-        Spacer(modifier = Modifier.height(50.dp))
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-        {
             items(gestante) { gestante ->
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp)
-
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+                        Spacer(modifier = Modifier.height(15.dp))
 
                         Card(
                             modifier = Modifier
-                                .size(105.dp),
+                                .size(110.dp),
                             shape = CircleShape,
+                            border = BorderStroke(3.5.dp, Color(182, 182, 246))
 
-                            ) {
+                        ) {
                             AsyncImage(
                                 model = gestante.foto,
                                 contentDescription = "",
@@ -120,13 +115,11 @@ fun PatientProfileScreen(
                                     .size(105.dp)
                                     .clip(CircleShape)
                             )
-
                         }
 
                         Column(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(top = 10.dp),
+                                .padding(top = 15.dp),
                             verticalArrangement = Arrangement.Center,
                         ) {
 
@@ -136,226 +129,296 @@ fun PatientProfileScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     textAlign = TextAlign.Center,
                                     text = gestante.nome,
-                                    fontSize = 31.sp,
-                                    fontWeight = FontWeight(700),
+                                    fontSize = 28.sp,
+                                    fontWeight = FontWeight(600),
                                 )
 
                             }
 
                         }
-
-                    }
-                }
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row() {
-
-                        Text(
-                            text = "Peso:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.peso.toString(),
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                    }
-
-                    Row() {
-
-                        Text(
-                            text = "Altura:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.altura.toString(),
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                    }
-
                 }
 
                 Spacer(modifier = Modifier.height(15.dp))
 
+
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
                 ) {
+                        Card(
+                            modifier = Modifier
+                                .size(width = 120.dp, height = 80.dp)
+                                .padding(vertical = 9.dp, horizontal = 4.dp),
+                            colors = CardDefaults.cardColors(Color.White),
+                            border = BorderStroke(.1.dp, Color.Gray)
 
-                    Row() {
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(9.dp)
+                            ) {
+                                Text(
+                                    text = gestante.altura.toString(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 4.dp),
+                                    textAlign = TextAlign.Center,
+                                    color = Color(182, 182, 246),
+                                    fontSize = 15.5.sp,
+                                    fontWeight = FontWeight(800)
 
-                        Text(
-                            text = "Data do parto:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
+                                )
+                                Text(
+                                    text = "Altura",
+                                    fontSize = 13.sp,
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight(500)
 
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.data_parto,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
+                                )
+                            }
+                        }
 
-                    }
+                        Spacer(modifier = Modifier.width(10.dp))
+
+
+                        Card(
+                            modifier = Modifier
+                                .size(width = 120.dp, height = 80.dp)
+                                .padding(vertical = 9.dp, horizontal = 4.dp),
+                            colors = CardDefaults.cardColors(Color.White),
+                            border = BorderStroke(.1.dp, Color.Gray)
+
+                        ) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(9.dp)
+                            ) {
+                                Text(
+                                    text = gestante.peso.toString(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(bottom = 4.dp),
+                                    textAlign = TextAlign.Center,
+                                    color = Color(182, 182, 246),
+                                    fontSize = 15.5.sp,
+                                    fontWeight = FontWeight(800)
+
+
+                                )
+                                Text(
+                                    text = "Peso",
+                                    fontSize = 13.sp,
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    textAlign = TextAlign.Center,
+                                    fontWeight = FontWeight(500)
+
+                                )
+                            }
+                        }
+
                 }
-
                 Spacer(modifier = Modifier.height(15.dp))
 
-                Row(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    Row() {
+                        Card(
+                            modifier = Modifier
+                                .size(width = 350.dp, height = 205.dp)
+                                .shadow(elevation = 5.dp, shape = RoundedCornerShape(10.dp)),
+                            colors = CardDefaults.cardColors(Color.White),
+                        ) {
+                            Column(modifier = Modifier.padding(13.dp)) {
 
-                        Text(
-                            text = "Semana de gestação:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
+                                Row() {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
 
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.semana_gestacao.toString(),
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
 
-                    }
+                                            Image(
+                                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                                contentDescription = null
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 15.dp),
+                                                text = stringResource(id = R.string.date_childbirth) + ":"
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 7.dp),
+                                                text = gestante.data_parto
+                                            )
+
+                                        }
+
+                                    }
+                                }
+
+                                Row() {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+
+                                            Image(
+                                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                                contentDescription = null
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 15.dp),
+                                                text = stringResource(id = R.string.gestation_week) + ":"
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 7.dp),
+                                                text = gestante.semana_gestacao.toString()
+                                            )
+
+                                        }
+
+                                    }
+                                }
+
+                                Row() {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+
+                                            Image(
+                                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                                contentDescription = null
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 15.dp),
+                                                text = stringResource(id = R.string.telephone) + ":"
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 7.dp),
+                                                text = gestante.telefone
+                                            )
+
+                                        }
+
+                                    }
+                                }
+
+                                Row() {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+
+                                            Image(
+                                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                                contentDescription = null
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 15.dp),
+                                                text = stringResource(id = R.string.cpf)
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 7.dp),
+                                                text = gestante.cpf
+                                            )
+
+                                        }
+
+                                    }
+                                }
+
+                                Row() {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 10.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+
+                                            Image(
+                                                painter = painterResource(id = R.drawable.baseline_person_outline_24),
+                                                contentDescription = null
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 15.dp),
+                                                text = stringResource(id = R.string.email) + ":"
+                                            )
+
+                                            Text(
+                                                modifier = Modifier.padding(start = 7.dp),
+                                                text = gestante.email
+                                            )
+
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
 
                 }
 
-                Spacer(modifier = Modifier.height(15.dp))
+            }
+        }
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row() {
-
-                        Text(
-                            text = "Telefone:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.telefone,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                    }
+        Spacer(modifier = Modifier.height(30.dp))
 
 
-                }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 40.dp),
+            horizontalArrangement = Arrangement.End
+        ) {
 
-                Spacer(modifier = Modifier.height(15.dp))
+            Box(
+                modifier = Modifier
+                    .background(Color(182, 182, 246), CircleShape)
+                    .size(60.dp)
+                    .clickable {
+                        navController.navigate("medicalRecordMade")
+                    }, contentAlignment = Alignment.Center
+            ) {
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row() {
-
-                        Text(
-                            text = "cpf:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.cpf,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-
-                    Row() {
-
-                        Text(
-                            text = "email:",
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(start = 10.dp),
-                            text = gestante.email,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight(700)
-                        )
-
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(65.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-
-                    Box(
-                        modifier = Modifier
-                            .background(Color(182, 182, 246), CircleShape)
-                            .size(60.dp)
-                            .clickable {
-                                navController.navigate("medicalRecordMade")
-                            }, contentAlignment = Alignment.Center
-                    ) {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.clipboard_branco),
-                            contentDescription = null,
-                            modifier = Modifier.size(30.dp),
-                        )
-                    }
-                }
-
-
+                Image(
+                    painter = painterResource(id = R.drawable.clipboard_branco),
+                    contentDescription = null,
+                    modifier = Modifier.size(30.dp),
+                )
             }
         }
     }

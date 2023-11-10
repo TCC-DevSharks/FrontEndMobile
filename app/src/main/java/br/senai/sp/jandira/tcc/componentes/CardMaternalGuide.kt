@@ -38,6 +38,7 @@ import br.senai.sp.jandira.tcc.model.article.articleList
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineResonse
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +59,9 @@ fun MarternalGuide(
     Column(modifier = Modifier.padding(start = 16.dp))
     {
 
+        val painter = painterResource(id = R.drawable.gravida_card)
+
+
 
         Card(
                 modifier = Modifier
@@ -74,7 +78,19 @@ fun MarternalGuide(
                         model = imagem,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
+                        transform = { state ->
+                            when (state) {
+                                is AsyncImagePainter.State.Loading -> {
+                                    state.copy(painter = painter)
+                                }
+                                is AsyncImagePainter.State.Error -> {
+                                    state.copy(painter = painter)
+                                }
+
+                                else -> state
+                            }
+                        }
                     )
 
 

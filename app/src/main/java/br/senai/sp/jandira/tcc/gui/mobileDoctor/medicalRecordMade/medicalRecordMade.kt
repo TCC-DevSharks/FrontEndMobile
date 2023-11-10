@@ -108,7 +108,7 @@ fun MedicalRecordMadeScreen(
 
         Header(
             titulo = stringResource(id = R.string.medical_record),
-            rota = "medicalRecordSelect", navController = navController
+            rota = "DoctorHome", navController = navController
         )
 
         Spacer(modifier = Modifier.height(50.dp))
