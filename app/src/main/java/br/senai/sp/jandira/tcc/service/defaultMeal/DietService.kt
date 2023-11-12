@@ -59,4 +59,10 @@ interface DietService {
         @Path("idRefeicao") idRefeicao: Int,
         @Path("idAlimento") idAlimento: Int
     ): Call<ResponseBody>
+
+    @POST("refeicao/alimento/{idRefeicao}/padrao/{idRefeicaoPadrao}")
+    fun addFoodDefaultToMeal(
+        @Path("idRefeicao") idRefeicao: Int,
+        @Path("idRefeicaoPadrao") idRefeicaoPadrao: Int
+    ): Call<ResponseBody>
 }

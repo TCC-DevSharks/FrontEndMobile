@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.mealDefaults
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.mealDefaults
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -160,12 +160,12 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
             },
             modifier = Modifier.size(70.dp),
             colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-            border = BorderStroke(width = 2.dp, Color.Black)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.baseline_add_24),
+                painter = painterResource(id = R.drawable.plus),
                 contentDescription = "",
-                modifier = Modifier.size(35.dp),
+                modifier = Modifier.width(28.dp).height(35.dp),
+                colorFilter = ColorFilter.tint(Color.White)
 
                 )
         }},
@@ -192,9 +192,8 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
                                         food.nomeRefeicao = it.nome
                                         navController.navigate("foodMeal")
                                     },
-                                colors = CardDefaults.cardColors(containerColor = Color.White),
-                                shape = RoundedCornerShape(0.dp),
-                                border = BorderStroke(1.dp, Color.Black)
+                                colors = CardDefaults.cardColors(containerColor = Color(182,182,246)),
+                                shape = RoundedCornerShape(12.dp),
                             ) {
                                 Row(modifier = Modifier
                                     .fillMaxWidth()
@@ -204,7 +203,7 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
                                 ) {
                                     Text(
                                         text = it.nome,
-                                        color = Color(182, 182, 246),
+                                        color = Color.White,
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.ExtraBold
                                     )
@@ -218,7 +217,7 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
                                                 DeleteDefaultMeal(it.id)
                                                 effect = !effect
                                             },
-                                        colorFilter = ColorFilter.tint(Color(218, 47, 66, 255))
+                                        colorFilter = ColorFilter.tint(Color.White)
                                     )
 
                                 }

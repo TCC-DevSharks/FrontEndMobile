@@ -1,7 +1,6 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.addDiet
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.copyMeal.mealCopy
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,78 +42,45 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
-import br.senai.sp.jandira.tcc.calls.DeleteMealDiet
 import br.senai.sp.jandira.tcc.componentes.AddMealDialog
-import br.senai.sp.jandira.tcc.componentes.AddMealToDietDialog
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.model.diet.DietModelAddMeal
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponse
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseListProf
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseProf
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddDiet(navController: NavController, professional: Professional,food: ModelFood) {
+fun MealCopy(navController: NavController, professional: Professional,food: ModelFood) {
 
-    var refeicao by remember { mutableStateOf(listOf<DietResponseProf>()) }
+    var refeicao by remember { mutableStateOf(listOf<DefaultMealResponse>()) }
     var effect by remember { mutableStateOf(true)}
 
     var openDialog = remember { mutableStateOf(false) }
 
     var nome by remember { mutableStateOf("") }
-    var horario by remember { mutableStateOf("") }
-
-    LaunchedEffect(Unit){
-
-        val call = RetrofitFactory().Diet().getMealDiet(professional.id_gestante)
-
-        call.enqueue(object : retrofit2.Callback<DietResponseListProf> {
-            override fun onResponse(
-                call: Call<DietResponseListProf>,
-                response: Response<DietResponseListProf>
-
-            ) {
-                refeicao = response.body()!!.dieta
-                println(refeicao)
-
-            }
-
-            override fun onFailure(call: Call<DietResponseListProf>, t: Throwable) {
-                Log.i(
-                    "ds2m",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
-    }
 
     LaunchedEffect(effect){
 
-        delay(300)
-        val call = RetrofitFactory().Diet().getMealDiet(professional.id_gestante)
+        val call = RetrofitFactory().Diet().getDefaultMeal(professional.id)
 
-        call.enqueue(object : retrofit2.Callback<DietResponseListProf> {
+        call.enqueue(object : retrofit2.Callback<DefaultMealResponseList> {
             override fun onResponse(
-                call: Call<DietResponseListProf>,
-                response: Response<DietResponseListProf>
+                call: Call<DefaultMealResponseList>,
+                response: Response<DefaultMealResponseList>
 
             ) {
-                refeicao = response.body()!!.dieta
+                refeicao = response.body()!!.refeicao
                 println(refeicao)
 
             }
 
-            override fun onFailure(call: Call<DietResponseListProf>, t: Throwable) {
+            override fun onFailure(call: Call<DefaultMealResponseList>, t: Throwable) {
                 Log.i(
                     "ds2m",
                     "onFailure: ${t.message}"
@@ -125,21 +91,16 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
     }
 
 
-    AddMealToDietDialog(
+    AddMealDialog(
         openDialog = openDialog,
         nome =nome ,
-        onValueChangeNome = {nome = it},
-        horario = horario ,
-        onValueChangeHorario = {horario = it}) {
-            var meal = DietModelAddMeal(
+        onValueChangeNome = {nome = it}) {
+            var meal = ModelDefaultMeal(
                 nome = nome,
-                id_profissional = professional.id,
-                id_gestante = professional.id_gestante,
-                id_dieta = professional.id_dieta,
-                horario = horario
+                id_profissional = professional.id
             )
 
-            val call = RetrofitFactory().Diet().addMealToDiet(meal)
+            val call = RetrofitFactory().Diet().postDefaultMeal(meal)
 
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(
@@ -147,14 +108,9 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                     response: Response<ResponseBody>
 
                 ) {
-
-                    if (response.isSuccessful){
-                        openDialog.value = false
-                        effect = !effect
-                        nome = ""
-                        horario = ""
-
-                    }
+                    openDialog.value = false
+                   effect = !effect
+                    nome = ""
 
                 }
 
@@ -170,29 +126,12 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(floatingActionButton = {   Button(
-            onClick = {
-                openDialog.value = true
-            },
-            modifier = Modifier.size(70.dp),
-            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.plus),
-                contentDescription = "",
-                modifier = Modifier.width(28.dp).height(35.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-
-                )
-        }},
-        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)
             ) {
 
-                Header(titulo = stringResource(id = R.string.header_food), rota ="", navController = navController)
+                Header(titulo = stringResource(id = R.string.header_food),rota ="", navController = navController)
 
                 Spacer(modifier = Modifier.height(40.dp))
 
@@ -204,9 +143,9 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                     .padding(horizontal = 15.dp, vertical = 10.dp)
                                     .fillMaxWidth()
                                     .clickable {
-                                        food.refeicao = it.idRefeicao
-                                        food.nomeRefeicao = it.refeicao
-                                        navController.navigate("foodMealPatient")
+                                        food.refeicaoPadrao = it.id
+                                        food.nomeRefeicao = it.nome
+                                        navController.navigate("foodMealCopy")
                                     },
                                 colors = CardDefaults.cardColors(containerColor = Color(182,182,246)),
                                 shape = RoundedCornerShape(12.dp),
@@ -218,14 +157,7 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = it.refeicao,
-                                        color = Color.White,
-                                        fontSize = 20.sp,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-
-                                    Text(
-                                        text = it.horario,
+                                        text = it.nome,
                                         color = Color.White,
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.ExtraBold
@@ -237,7 +169,7 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                         modifier = Modifier
                                             .height(20.dp)
                                             .clickable {
-                                                DeleteMealDiet(it.idRefeicao)
+                                                DeleteDefaultMeal(it.id)
                                                 effect = !effect
                                             },
                                         colorFilter = ColorFilter.tint(Color.White)
@@ -259,7 +191,6 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
         }
     }
 
-}
 
 
 //@Preview(showBackground = true, showSystemUi = true)

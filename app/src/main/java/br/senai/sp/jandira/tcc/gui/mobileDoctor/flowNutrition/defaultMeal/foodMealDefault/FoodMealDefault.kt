@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMealDefault
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodMealDefault
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke

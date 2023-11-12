@@ -43,12 +43,15 @@ import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Response
 
 @Composable
 fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnant: ModelPregnant) {
 
+    val painter = painterResource(id = R.drawable.dieta)
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
     val call = RetrofitFactory().food().getFood(modelFood.id)
 
@@ -76,7 +79,6 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
         ) {
 
             Header(
@@ -112,11 +114,23 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
                                 shape = RoundedCornerShape(12.dp),
                             ) {
 
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg),
-                                    contentDescription = null,
+                                AsyncImage(
+                                    model = it.imagem,
+                                    contentDescription = "",
                                     contentScale = ContentScale.Crop,
-                                    modifier = Modifier.fillMaxSize()
+                                    modifier = Modifier.fillMaxSize(),
+                                    transform = { state ->
+                                        when (state) {
+                                            is AsyncImagePainter.State.Loading -> {
+                                                state.copy(painter = painter)
+                                            }
+                                            is AsyncImagePainter.State.Error -> {
+                                                state.copy(painter = painter)
+                                            }
+
+                                            else -> state
+                                        }
+                                    }
                                 )
                             }
 

@@ -6,5 +6,5 @@ data class FoodResponse(
     val nome: String,
     val imagem: String,
     val categoria: String,
-    val idCategoria: String
+    val idCategoria: Int
 )

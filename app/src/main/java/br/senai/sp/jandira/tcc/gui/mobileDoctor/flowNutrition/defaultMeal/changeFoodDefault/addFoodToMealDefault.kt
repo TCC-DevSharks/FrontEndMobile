@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFoodDefault
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.changeFoodDefault
 
 import android.util.Log
 import androidx.compose.foundation.Image

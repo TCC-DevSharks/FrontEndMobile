@@ -54,11 +54,18 @@ import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.diet.DietResponse
 import br.senai.sp.jandira.tcc.model.diet.DietResponseList
+import br.senai.sp.jandira.tcc.model.food.FoodResponse
+import br.senai.sp.jandira.tcc.model.food.FoodResponseList
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.meal.MealResponse
 import br.senai.sp.jandira.tcc.model.meal.MealResponseList
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseListProf
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseProf
 import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import java.time.LocalDate
@@ -69,10 +76,34 @@ import java.util.Locale
 @Composable
 fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food: ModelFood) {
 
-    var diet by remember { mutableStateOf(listOf<DietResponse>()) }
+    var diet by remember { mutableStateOf(listOf<DietResponseProf>()) }
+    val painter = painterResource(id = R.drawable.dieta)
+
 
     LaunchedEffect(Unit) {
 
+        val call = RetrofitFactory().Diet().getMealDiet(pregnant.id)
+
+        call.enqueue(object : retrofit2.Callback<DietResponseListProf> {
+            override fun onResponse(
+                call: Call<DietResponseListProf>,
+                response: Response<DietResponseListProf>
+
+            ) {
+                println(response)
+                println(response.body())
+
+                diet = response.body()!!.dieta
+            }
+
+            override fun onFailure(call: Call<DietResponseListProf>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -92,7 +123,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
         ) {
 
             Header(
@@ -186,10 +216,36 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                 fontWeight = FontWeight.ExtraBold
                             )
 
-                            Text(text = it.horario)
+                            Text(text = it.horario,
+                                color = Color(182, 182, 246),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.ExtraBold)
                         }
+                        println(it)
 
-                        var meal by remember { mutableStateOf(listOf<MealResponse>()) }
+                        var meal by remember { mutableStateOf(listOf<FoodResponse>()) }
+
+                        val call = RetrofitFactory().food().getFoodMeal(it.idRefeicao)
+
+                        call.enqueue(object : retrofit2.Callback<FoodResponseList> {
+                            override fun onResponse(
+                                call: Call<FoodResponseList>,
+                                response: Response<FoodResponseList>
+
+                            ) {
+                                meal = response.body()!!.alimentos
+                            }
+
+
+                            override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
+                                Log.i(
+                                    "ds2",
+                                    "onFailure: ${t.message}"
+                                )
+                                println(t.message + t.cause)
+                            }
+                        })
+
 
                         AnimatedVisibility(
                             visible = visible,
@@ -214,7 +270,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                         horizontalArrangement = Arrangement.SpaceBetween
                                     ) {
 
-                                        Row(
+                                        Row(modifier = Modifier.padding(bottom = 10.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Card(
@@ -223,11 +279,23 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                                 shape = RoundedCornerShape(12.dp),
                                             ) {
 
-                                                Image(
-                                                    painter = painterResource(id = R.drawable.bg),
-                                                    contentDescription = null,
+                                                AsyncImage(
+                                                    model = it.imagem,
+                                                    contentDescription = "",
                                                     contentScale = ContentScale.Crop,
-                                                    modifier = Modifier.fillMaxSize()
+                                                    modifier = Modifier.fillMaxSize(),
+                                                transform = { state ->
+                                                    when (state) {
+                                                        is AsyncImagePainter.State.Loading -> {
+                                                            state.copy(painter = painter)
+                                                        }
+                                                        is AsyncImagePainter.State.Error -> {
+                                                            state.copy(painter = painter)
+                                                        }
+
+                                                        else -> state
+                                                    }
+                                                }
                                                 )
                                             }
 
@@ -236,14 +304,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                             Column {
                                                 Text(
                                                     text = it.nome,
-                                                    fontSize = 14.sp,
-                                                    fontWeight = FontWeight(800),
-                                                )
-
-                                                Spacer(modifier = Modifier.height(5.dp))
-
-                                                Text(
-                                                    text = it.peso + "gm",
                                                     fontSize = 14.sp,
                                                     fontWeight = FontWeight(800),
                                                 )
@@ -258,12 +318,11 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                                 .size(35.dp)
                                                 .clickable {
                                                     food.id = it.idCategoria
+                                                    println(it)
                                                     navController.navigate("FoodChange")
                                                 }
                                         )
                                     }
-
-                                    Spacer(modifier = Modifier.height(5.dp))
                                 }
                             }
                         }
@@ -271,21 +330,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                 }
             }
         }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .border(
-                    .9.dp,
-                    Color(182, 182, 246),
-                    shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
-                )
-        ) {
-            Navigation(navController = navController, pregnant)
-        }
-
-
     }
 }
 

@@ -24,12 +24,14 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.SelectDateMedi
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowMedicalRecord.selectMedicalRecord
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.addDiet.AddDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFood.AddFoodToMeal
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.changeFoodDefault.AddFoodToDefaultMeal
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.copyMeal.foodMealCopy.FoodMealCopy
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.copyMeal.mealCopy.MealCopy
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.changeFoodDefault.AddFoodToDefaultMeal
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodCategory.FoodCategory
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodCategoryDefault.FoodCategoryDefault
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodCategoryDefault.FoodCategoryDefault
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal.FoodMeal
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMealDefault.FoodMealDefault
-import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.mealDefaults.MealDefaults
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodMealDefault.FoodMealDefault
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.mealDefaults.MealDefaults
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectDiet.SelectDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient.SelectPatient
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
@@ -173,6 +175,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
                 "addDiet" -> NavigationNutritionist(navController = navController, professional =professional )
+                "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
                 else -> Navigation(navController,pregnant)
             }
         }
@@ -248,13 +252,15 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "messagesChat") { MessagesScreen(navController, pregnant, chatModel) }
             composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
             composable(route = "mealSelect") { MealDefaults (navController, professional, food) }
-            composable(route = "foodCategory") { FoodCategoryDefault (navController, food)}
-            composable(route = "addFood") { AddFoodToDefaultMeal (navController, food)}
-            composable(route = "foodMeal") { FoodMealDefault (navController, food)}
+            composable(route = "foodCategory") { FoodCategoryDefault (navController, food) }
+            composable(route = "addFood") { AddFoodToDefaultMeal (navController, food) }
+            composable(route = "foodMeal") { FoodMealDefault (navController, food) }
             composable(route = "addDiet") { AddDiet (navController,professional, food) }
             composable(route = "foodCategoryPatient") { FoodCategory (navController, food)}
             composable(route = "addFoodPatient") { AddFoodToMeal (navController, food)}
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
+            composable(route = "mealCopy") { MealCopy (navController,professional, food) }
+            composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
 
 
 

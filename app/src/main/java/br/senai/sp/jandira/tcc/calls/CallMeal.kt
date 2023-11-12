@@ -161,3 +161,27 @@ fun DeleteFoodMeal(idRefeicao: Int, idAlimento: Int) {
     })
 }
 
+fun PostFoodDefaultToMeal(idRefeicao: Int, idRefeicaoPadrao: Int) {
+
+    val call = RetrofitFactory().Diet().addFoodDefaultToMeal( idRefeicaoPadrao,idRefeicao)
+
+    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+        override fun onResponse(
+            call: Call<ResponseBody>,
+            response: Response<ResponseBody>
+
+        ) {
+            println(response)
+            println(response.body())
+        }
+
+        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}
+
