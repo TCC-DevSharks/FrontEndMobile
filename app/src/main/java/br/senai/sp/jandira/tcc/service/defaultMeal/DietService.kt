@@ -1,14 +1,12 @@
 package br.senai.sp.jandira.tcc.service.defaultMeal
 
-import br.senai.sp.jandira.tcc.model.diet.DietModel
 import br.senai.sp.jandira.tcc.model.diet.DietModelAdd
 import br.senai.sp.jandira.tcc.model.diet.DietModelAddMeal
-import br.senai.sp.jandira.tcc.model.diet.DietResponseList
 import br.senai.sp.jandira.tcc.model.diet.DietResponseListName
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseListProf
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelFoodToDefaultMeal
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelMeal
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -31,7 +29,7 @@ interface DietService {
     ): Call<ResponseBody>
 
     @POST("refeicao/padrao/alimento")
-    fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
+    fun postFoodToMealDefault(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
 
     @DELETE("refeicao/padrao/{id}")
     fun deleteDefaultMeal(
@@ -43,12 +41,22 @@ interface DietService {
     @GET("dieta/{id}")
     fun dietValidation(@Path("id") id: Int): Call<DietResponseListName>
 
-    @POST("dieta")
-    fun postMeal(@Body() meal: ModelMeal): Call<ResponseBody>
-
-    @GET("refeicao/padrao/profissional/{id}")
-    fun getMeal(@Path("id") id: Int): Call<DefaultMealResponseList>
-
     @POST("dieta/refeicao")
     fun addMealToDiet(@Body() diet: DietModelAddMeal): Call<ResponseBody>
+
+    @GET("dieta/refeicao/{id}")
+    fun getMealDiet(@Path("id") id: Int): Call<DietResponseListProf>
+
+    @DELETE("dieta/refeicao/{id}")
+    fun deleteMealDiet(
+        @Path("id") idRefeicao: Int): Call<ResponseBody>
+
+    @POST("refeicao/alimento")
+    fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
+
+    @DELETE("refeicao/{idRefeicao}/alimento/{idAlimento}")
+    fun deleteFoodMeal(
+        @Path("idRefeicao") idRefeicao: Int,
+        @Path("idAlimento") idAlimento: Int
+    ): Call<ResponseBody>
 }

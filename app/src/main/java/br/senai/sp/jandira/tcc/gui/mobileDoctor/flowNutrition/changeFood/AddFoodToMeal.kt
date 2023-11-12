@@ -39,7 +39,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.DeleteFoodDefaultMeal
+import br.senai.sp.jandira.tcc.calls.DeleteFoodMeal
 import br.senai.sp.jandira.tcc.calls.PostDefaultMeal
+import br.senai.sp.jandira.tcc.calls.PostMeal
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
@@ -51,7 +53,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
+fun AddFoodToMeal(navController: NavController, modelFood: ModelFood) {
 
     var effect by remember { mutableStateOf(true) }
     val painter = painterResource(id = R.drawable.dieta)
@@ -179,7 +181,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                                 modifier = Modifier
                                     .size(30.dp)
                                     .clickable {
-                                        PostDefaultMeal(modelFood.refeicao, teste.id)
+                                        PostMeal(modelFood.refeicao, teste.id)
                                         effect = !effect
                                     },
                                 colorFilter = ColorFilter.tint(Color(182, 182, 246))
@@ -191,7 +193,7 @@ fun AddFoodToDefaultMeal(navController: NavController, modelFood: ModelFood) {
                                 modifier = Modifier
                                     .size(30.dp)
                                     .clickable {
-                                        DeleteFoodDefaultMeal(modelFood.refeicao, teste.id)
+                                        DeleteFoodMeal(modelFood.refeicao, teste.id)
                                         effect = !effect
                                     },
                                 colorFilter = ColorFilter.tint(Color.Red)

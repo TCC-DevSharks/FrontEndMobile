@@ -46,7 +46,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetProfessional
-import br.senai.sp.jandira.tcc.componentes.NavigationDoctor
 import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
 import br.senai.sp.jandira.tcc.componentes.ScheduleDoctor
 import br.senai.sp.jandira.tcc.model.professional.Professional

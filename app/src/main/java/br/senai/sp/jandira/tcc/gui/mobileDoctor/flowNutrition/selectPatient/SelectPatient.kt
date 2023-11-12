@@ -117,8 +117,6 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                 openDialog.value = false
                 effect = !effect
 
-                navController.navigate("addDiet")
-
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -211,11 +209,12 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                                             consulta = it.idConsulta
                                             professional.id_gestante = it.idGestante
                                             openDialog.value = true
+                                        } else{
+                                            professional.id_gestante = it.idGestante
+                                            professional.id_dieta = response.body()!!.dieta[0].idDieta
+                                            navController.navigate("addDiet")
                                         }
 
-                                        else
-                                            professional.id_gestante = it.idGestante
-                                            navController.navigate("addDiet")
 
                                     }
 

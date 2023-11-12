@@ -42,16 +42,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.DeleteDefaultMeal
+import br.senai.sp.jandira.tcc.calls.DeleteMealDiet
 import br.senai.sp.jandira.tcc.componentes.AddMealDialog
+import br.senai.sp.jandira.tcc.componentes.AddMealToDietDialog
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.model.diet.DietModelAddMeal
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponse
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.MealResponse
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
-import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelMeal
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseListProf
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseProf
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -60,29 +64,56 @@ import retrofit2.Response
 @Composable
 fun AddDiet(navController: NavController, professional: Professional,food: ModelFood) {
 
-    var refeicao by remember { mutableStateOf(listOf<MealResponse>()) }
+    var refeicao by remember { mutableStateOf(listOf<DietResponseProf>()) }
     var effect by remember { mutableStateOf(true)}
 
     var openDialog = remember { mutableStateOf(false) }
 
     var nome by remember { mutableStateOf("") }
+    var horario by remember { mutableStateOf("") }
 
-    LaunchedEffect(effect){
+    LaunchedEffect(Unit){
 
-        val call = RetrofitFactory().Diet().getDefaultMeal(professional.id)
+        val call = RetrofitFactory().Diet().getMealDiet(professional.id_gestante)
 
-        call.enqueue(object : retrofit2.Callback<DefaultMealResponseList> {
+        call.enqueue(object : retrofit2.Callback<DietResponseListProf> {
             override fun onResponse(
-                call: Call<DefaultMealResponseList>,
-                response: Response<DefaultMealResponseList>
+                call: Call<DietResponseListProf>,
+                response: Response<DietResponseListProf>
 
             ) {
-                refeicao = response.body()!!.refeicao
+                refeicao = response.body()!!.dieta
                 println(refeicao)
 
             }
 
-            override fun onFailure(call: Call<DefaultMealResponseList>, t: Throwable) {
+            override fun onFailure(call: Call<DietResponseListProf>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+    }
+
+    LaunchedEffect(effect){
+
+        delay(300)
+        val call = RetrofitFactory().Diet().getMealDiet(professional.id_gestante)
+
+        call.enqueue(object : retrofit2.Callback<DietResponseListProf> {
+            override fun onResponse(
+                call: Call<DietResponseListProf>,
+                response: Response<DietResponseListProf>
+
+            ) {
+                refeicao = response.body()!!.dieta
+                println(refeicao)
+
+            }
+
+            override fun onFailure(call: Call<DietResponseListProf>, t: Throwable) {
                 Log.i(
                     "ds2m",
                     "onFailure: ${t.message}"
@@ -93,17 +124,21 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
     }
 
 
-    AddMealDialog(
+    AddMealToDietDialog(
         openDialog = openDialog,
         nome =nome ,
-        onValueChangeNome = {nome = it}) {
-            var meal = ModelMeal(
+        onValueChangeNome = {nome = it},
+        horario = horario ,
+        onValueChangeHorario = {horario = it}) {
+            var meal = DietModelAddMeal(
                 nome = nome,
                 id_profissional = professional.id,
-                id_gestante = professional.id_gestante
+                id_gestante = professional.id_gestante,
+                id_dieta = professional.id_dieta,
+                horario = horario
             )
 
-            val call = RetrofitFactory().Diet().postMeal(meal)
+            val call = RetrofitFactory().Diet().addMealToDiet(meal)
 
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(
@@ -111,11 +146,12 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                     response: Response<ResponseBody>
 
                 ) {
-                    openDialog.value = false
-                   effect = !effect
-                    nome = ""
 
                     if (response.isSuccessful){
+                        openDialog.value = false
+                        effect = !effect
+                        nome = ""
+                        horario = ""
 
                     }
 
@@ -167,9 +203,9 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                     .padding(horizontal = 15.dp, vertical = 10.dp)
                                     .fillMaxWidth()
                                     .clickable {
-                                        food.refeicao = it.id
-                                        food.nomeRefeicao = it.nome
-                                        navController.navigate("foodMeal")
+                                        food.refeicao = it.idRefeicao
+                                        food.nomeRefeicao = it.refeicao
+                                        navController.navigate("foodMealPatient")
                                     },
                                 colors = CardDefaults.cardColors(containerColor = Color.White),
                                 shape = RoundedCornerShape(0.dp),
@@ -182,7 +218,14 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Text(
-                                        text = it.nome,
+                                        text = it.refeicao,
+                                        color = Color(182, 182, 246),
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.ExtraBold
+                                    )
+
+                                    Text(
+                                        text = it.horario,
                                         color = Color(182, 182, 246),
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.ExtraBold
@@ -194,7 +237,7 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                                         modifier = Modifier
                                             .height(20.dp)
                                             .clickable {
-                                                DeleteDefaultMeal(it.id)
+                                                DeleteMealDiet(it.idRefeicao)
                                                 effect = !effect
                                             },
                                         colorFilter = ColorFilter.tint(Color(218, 47, 66, 255))

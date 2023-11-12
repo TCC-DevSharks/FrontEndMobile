@@ -57,6 +57,7 @@ import br.senai.sp.jandira.tcc.calls.GetAlergy
 import br.senai.sp.jandira.tcc.calls.GetComorbidity
 import br.senai.sp.jandira.tcc.calls.GetDeficiency
 import br.senai.sp.jandira.tcc.calls.GetEndereco
+import br.senai.sp.jandira.tcc.calls.GetMedication
 import br.senai.sp.jandira.tcc.calls.GetPregnant
 import br.senai.sp.jandira.tcc.componentes.CardPreparations
 import br.senai.sp.jandira.tcc.componentes.MarternalGuide
@@ -130,7 +131,7 @@ fun HomeUserScreen(
         GetAlergy(pregnant)
         GetDeficiency(pregnant)
         GetComorbidity(pregnant)
-//        GetMedication(pregnant)
+        GetMedication(pregnant)
     }
         Box(
             modifier = Modifier

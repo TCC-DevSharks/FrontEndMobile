@@ -134,6 +134,8 @@ fun MealDefaults(navController: NavController, professional: Professional,food: 
                     response: Response<ResponseBody>
 
                 ) {
+                    println(response)
+                    println(response.body())
                     openDialog.value = false
                    effect = !effect
                     nome = ""

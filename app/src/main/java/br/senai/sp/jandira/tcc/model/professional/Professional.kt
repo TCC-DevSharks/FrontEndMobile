@@ -32,4 +32,5 @@ class Professional {
     var idTipo by mutableStateOf(0)
     var idClinica by mutableStateOf(0)
     var id_gestante by mutableStateOf(0)
+    var id_dieta by mutableStateOf(0)
 }

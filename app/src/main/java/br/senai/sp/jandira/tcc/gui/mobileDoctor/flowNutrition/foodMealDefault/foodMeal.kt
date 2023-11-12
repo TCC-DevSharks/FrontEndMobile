@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMealDefault
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -55,14 +55,14 @@ import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodMeal(navController: NavController, modelFood: ModelFood) {
+fun FoodMealDefault(navController: NavController, modelFood: ModelFood) {
 
     val painter = painterResource(id = R.drawable.dieta)
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
     var effect by remember { mutableStateOf(true) }
 
     LaunchedEffect(effect){
-        val call = RetrofitFactory().food().getFoodMeal(modelFood.refeicao)
+        val call = RetrofitFactory().food().getFoodMealDefault(modelFood.refeicao)
 
         call.enqueue(object : retrofit2.Callback<FoodResponseList> {
             override fun onResponse(
@@ -88,7 +88,7 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(floatingActionButton = { Button(
             onClick = {
-                      navController.navigate("foodCategoryPatient")
+                      navController.navigate("foodCategory")
             },
             modifier = Modifier.size(70.dp),
             colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
