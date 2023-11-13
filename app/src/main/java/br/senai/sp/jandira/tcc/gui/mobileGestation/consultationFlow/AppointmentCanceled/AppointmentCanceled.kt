@@ -470,7 +470,7 @@ fun AppointmentCanceled(
                             Spacer(modifier = Modifier.height(1.dp))
                             Row() {
                                 Text(
-                                    text = consulta.hora,
+                                    text = consulta.hora.take(5),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 15.sp
                                 )

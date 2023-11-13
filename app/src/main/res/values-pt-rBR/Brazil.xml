@@ -209,8 +209,8 @@
     <string name="Continueee">Continuar</string>
     <string name="card_number">Número do cartão:</string>
     <string name="expiration_date">Data de validade:</string>
-    <string name="cvv">CVV</string>
-    <string name="client">Cliente: </string>
+    <string name="cvv">CVV/CVC</string>
+    <string name="client">Cliente: </string>  
     <string name="name">Nome: </string>
     <string name="Email">Email: </string>
     <string name="cpf">Cpf: </string>

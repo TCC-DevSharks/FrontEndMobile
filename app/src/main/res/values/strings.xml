@@ -211,7 +211,7 @@
     <string name="Continueee">Continue</string>
     <string name="card_number">Card number:</string>
     <string name="expiration_date">Expiration date:</string>
-    <string name="cvv">CVV</string>
+    <string name="cvv">CVV/CVC</string>
     <string name="client">Customer: </string>
     <string name="name">Name: </string>
     <string name="Email">Email: </string>
