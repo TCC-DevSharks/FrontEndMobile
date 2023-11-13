@@ -120,9 +120,6 @@ fun PaymentScreen(
                     response: Response<ViaCep>
 
                 ) {
-
-                    println(response)
-
                     if (response.code() == 200) {
                         viewModel.bairro = response.body()!!.bairro
                         viewModel.cidade = response.body()!!.localidade
@@ -176,23 +173,6 @@ fun PaymentScreen(
         )
 
         Spacer(modifier = Modifier.height(30.dp))
-
-//        Row(modifier = Modifier.padding(start = 26.dp, top = 35.dp)) {
-//            Image(painter = painterResource(id = R.drawable.arrow_circle),
-//                contentDescription = null,
-//                Modifier
-//                    .clickable {
-//                    }
-//                    .size(40.dp)
-//            )
-//        }
-//
-//        Row(modifier = Modifier.padding(horizontal = 50.dp, vertical = 2.dp)) {
-//            TextComp(
-//                texto = R.string.pagseguro,
-//                fontSize = 19.sp
-//            )
-//        }
 
         //Tela de carregamento
         AnimatedVisibility(
@@ -679,23 +659,23 @@ fun PaymentScreen(
                                 response: Response<ResponseBody>
 
                             ) {
-                                println(response)
+
 
                                 if (response.isSuccessful) {
-
                                     var call =
-                                        RetrofitFactory().consult().insertConsult(consult)
+                                        RetrofitFactory().consult()
+                                            .insertConsult(consult)
 
-                                    call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                                    call.enqueue(object :
+                                        retrofit2.Callback<ResponseBody> {
                                         override fun onResponse(
                                             call: Call<ResponseBody>,
                                             response: Response<ResponseBody>
 
                                         ) {
                                             if (response.isSuccessful) {
-                                                var call =
-                                                    RetrofitFactory().consult()
-                                                        .insertConsult(consult)
+                                                var call = RetrofitFactory().schedule()
+                                                    .postSchedule(schedule)
 
                                                 call.enqueue(object :
                                                     retrofit2.Callback<ResponseBody> {
@@ -705,32 +685,7 @@ fun PaymentScreen(
 
                                                     ) {
                                                         if (response.isSuccessful) {
-                                                            var call = RetrofitFactory().schedule()
-                                                                .postSchedule(schedule)
-
-                                                            call.enqueue(object :
-                                                                retrofit2.Callback<ResponseBody> {
-                                                                override fun onResponse(
-                                                                    call: Call<ResponseBody>,
-                                                                    response: Response<ResponseBody>
-
-                                                                ) {
-                                                                    if (response.isSuccessful) {
-                                                                        navController.navigate("ConsultFinish")
-                                                                    }
-                                                                }
-
-                                                                override fun onFailure(
-                                                                    call: Call<ResponseBody>,
-                                                                    t: Throwable
-                                                                ) {
-                                                                    Log.i(
-                                                                        "ds2m",
-                                                                        "onFailure: ${t.message}"
-                                                                    )
-                                                                    println(t.message + t.cause)
-                                                                }
-                                                            })
+                                                            navController.navigate("ConsultFinish")
                                                         }
                                                     }
 

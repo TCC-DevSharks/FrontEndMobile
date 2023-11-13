@@ -174,7 +174,7 @@ fun insertComorbidity(viewModel: ModelPregnant){
 fun insertDeficiency(viewModel: ModelPregnant){
     var deficiency = Deficiency(
         viewModel.id,
-        if (viewModel.deficiencia.length == 0)" " else viewModel.deficiencia
+        if (viewModel.deficiencia.length == 0)"  " else viewModel.deficiencia
     )
     val  call = RetrofitFactory().pregnant().postDeficiency(deficiency)
 
@@ -201,7 +201,7 @@ fun insertDeficiency(viewModel: ModelPregnant){
 fun insertMedication(viewModel: ModelPregnant){
     var medication = Medication(
         viewModel.id,
-        if (viewModel.medicacao.length == 0)" " else viewModel.medicacao
+        if (viewModel.medicacao.length == 0)"  " else viewModel.medicacao
     )
     val  call = RetrofitFactory().pregnant().postMedication(medication)
 
@@ -288,7 +288,7 @@ fun GetDeficiency(pregnant: ModelPregnant){
         ) {
             if (response.body()!!.deficiencia.isNotEmpty()){
 
-                pregnant.comorbidades = response.body()!!.deficiencia[0].deficiencia
+                pregnant.deficiencia = response.body()!!.deficiencia[0].deficiencia
             }
 
         }
@@ -303,28 +303,26 @@ fun GetDeficiency(pregnant: ModelPregnant){
     })
 }
 
-//fun GetMedication(pregnant: ModelPregnant){
-//    val call = RetrofitFactory().pregnant().getMedication(pregnant.id)
-//
-//    call.enqueue(object : retrofit2.Callback<MedicationResponseList> {
-//        override fun onResponse(
-//            call: Call<MedicationResponseList>,
-//            response: Response<MedicationResponseList>
-//
-//        ) {
-//            if (response.body()!!.medicacao[0].medicacao.isNotEmpty()){
-//
-//                pregnant.comorbidades = response.body()!!.medicacao[0].medicacao
-//            }
-//
-//        }
-//
-//        override fun onFailure(call: Call<MedicationResponseList>, t: Throwable) {
-//            Log.i(
-//                "ds2m",
-//                "onFailure: ${t.message}"
-//            )
-//            println(t.message + t.cause)
-//        }
-//    })
-//}
+fun GetMedication(pregnant: ModelPregnant){
+    val call = RetrofitFactory().pregnant().getMedication(pregnant.id)
+
+    call.enqueue(object : retrofit2.Callback<MedicationResponseList> {
+        override fun onResponse(
+            call: Call<MedicationResponseList>,
+            response: Response<MedicationResponseList>
+
+        ) {
+            println(response.body())
+                pregnant.medicacao = response.body()!!.medicacao[0].medicacao
+
+        }
+
+        override fun onFailure(call: Call<MedicationResponseList>, t: Throwable) {
+            Log.i(
+                "ds2m",
+                "onFailure: ${t.message}"
+            )
+            println(t.message + t.cause)
+        }
+    })
+}

@@ -1,6 +1,10 @@
 package br.senai.sp.jandira.tcc.service.defaultMeal
 
+import br.senai.sp.jandira.tcc.model.diet.DietModelAdd
+import br.senai.sp.jandira.tcc.model.diet.DietModelAddMeal
+import br.senai.sp.jandira.tcc.model.diet.DietResponseListName
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DefaultMealResponseList
+import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.DietResponseListProf
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelDefaultMeal
 import br.senai.sp.jandira.tcc.model.modelDoctor.DefaultMeal.ModelFoodToDefaultMeal
 import okhttp3.ResponseBody
@@ -25,9 +29,40 @@ interface DietService {
     ): Call<ResponseBody>
 
     @POST("refeicao/padrao/alimento")
-    fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
+    fun postFoodToMealDefault(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
 
     @DELETE("refeicao/padrao/{id}")
     fun deleteDefaultMeal(
         @Path("id") idRefeicao: Int): Call<ResponseBody>
+
+    @POST("dieta")
+    fun addDiet(@Body() diet: DietModelAdd): Call<ResponseBody>
+
+    @GET("dieta/{id}")
+    fun dietValidation(@Path("id") id: Int): Call<DietResponseListName>
+
+    @POST("dieta/refeicao")
+    fun addMealToDiet(@Body() diet: DietModelAddMeal): Call<ResponseBody>
+
+    @GET("dieta/refeicao/{id}")
+    fun getMealDiet(@Path("id") id: Int): Call<DietResponseListProf>
+
+    @DELETE("dieta/refeicao/{id}")
+    fun deleteMealDiet(
+        @Path("id") idRefeicao: Int): Call<ResponseBody>
+
+    @POST("refeicao/alimento")
+    fun postFoodToMeal(@Body() meal: ModelFoodToDefaultMeal): Call<ResponseBody>
+
+    @DELETE("refeicao/{idRefeicao}/alimento/{idAlimento}")
+    fun deleteFoodMeal(
+        @Path("idRefeicao") idRefeicao: Int,
+        @Path("idAlimento") idAlimento: Int
+    ): Call<ResponseBody>
+
+    @POST("refeicao/alimento/{idRefeicao}/padrao/{idRefeicaoPadrao}")
+    fun addFoodDefaultToMeal(
+        @Path("idRefeicao") idRefeicao: Int,
+        @Path("idRefeicaoPadrao") idRefeicaoPadrao: Int
+    ): Call<ResponseBody>
 }

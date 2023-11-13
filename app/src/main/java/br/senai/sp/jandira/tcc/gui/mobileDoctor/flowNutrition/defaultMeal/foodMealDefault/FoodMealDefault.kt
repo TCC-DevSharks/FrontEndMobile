@@ -1,6 +1,5 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodMealDefault
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -24,7 +23,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,13 +38,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.DeleteFoodDefaultMeal
-import br.senai.sp.jandira.tcc.calls.DeleteFoodMeal
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
@@ -57,17 +53,16 @@ import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Response
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodMeal(navController: NavController, modelFood: ModelFood) {
+fun FoodMealDefault(navController: NavController, modelFood: ModelFood) {
 
     val painter = painterResource(id = R.drawable.dieta)
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
     var effect by remember { mutableStateOf(true) }
 
     LaunchedEffect(effect){
-        val call = RetrofitFactory().food().getFoodMeal(modelFood.refeicao)
+        val call = RetrofitFactory().food().getFoodMealDefault(modelFood.refeicao)
 
         call.enqueue(object : retrofit2.Callback<FoodResponseList> {
             override fun onResponse(
@@ -91,37 +86,21 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
 
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(bottomBar = {
+        Scaffold(floatingActionButton = { Button(
+            onClick = {
+                      navController.navigate("foodCategory")
+            },
+            modifier = Modifier.size(70.dp),
+            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+            border = BorderStroke(width = 2.dp, Color.Black)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.baseline_add_24),
+                contentDescription = "",
+                modifier = Modifier.size(35.dp),
 
-            Row (modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly){
-                Button(
-                    onClick = {
-                        navController.navigate("foodCategoryPatient")
-                    },
-                    modifier = Modifier
-                        .width(190.dp)
-                        .height(40.dp),
-                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                ) {
-                    Text(text = "Adicionar Alimento",
-                        textAlign = TextAlign.Center)
-                }
-
-                Button(
-                    onClick = {
-                        navController.navigate("mealCopy")
-                    },
-                    modifier = Modifier
-                        .width(190.dp)
-                        .height(40.dp),
-                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                ) {
-                    Text(text = "Copiar Refeição",
-                            textAlign = TextAlign.Center)
-
-                }
-            }
-        }) {
+                )
+        }}) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -154,8 +133,7 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
                                 ) {
                                     Card(
                                         modifier = Modifier
-                                            .size(60
-                                                .dp),
+                                            .size(60.dp),
                                         shape = RoundedCornerShape(12.dp),
                                     ) {
                                         AsyncImage(
@@ -194,7 +172,7 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
                                     modifier = Modifier
                                         .size(30.dp)
                                         .clickable {
-                                            DeleteFoodMeal(
+                                            DeleteFoodDefaultMeal(
                                                 idAlimento = it.idAlimento,
                                                 idRefeicao = modelFood.refeicao
                                             )

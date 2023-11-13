@@ -8,3 +8,10 @@ data class DietResponse(
     val idRefeicao: Int,
     val horario: String
 )
+
+data class DietResponseName(
+    val idDieta: Int,
+    val gestante: String,
+)
+
+

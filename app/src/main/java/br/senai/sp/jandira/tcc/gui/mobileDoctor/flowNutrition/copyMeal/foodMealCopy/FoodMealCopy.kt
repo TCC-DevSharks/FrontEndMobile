@@ -1,6 +1,5 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodMeal
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.copyMeal.foodMealCopy
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -24,7 +23,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +44,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.DeleteFoodDefaultMeal
-import br.senai.sp.jandira.tcc.calls.DeleteFoodMeal
+import br.senai.sp.jandira.tcc.calls.PostFoodDefaultToMeal
+import br.senai.sp.jandira.tcc.componentes.CopyMealDialog
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.food.FoodResponse
 import br.senai.sp.jandira.tcc.model.food.FoodResponseList
@@ -57,17 +56,18 @@ import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Response
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodMeal(navController: NavController, modelFood: ModelFood) {
+fun FoodMealCopy(navController: NavController, modelFood: ModelFood) {
 
     val painter = painterResource(id = R.drawable.dieta)
     var food by remember { mutableStateOf(listOf<FoodResponse>()) }
     var effect by remember { mutableStateOf(true) }
+    var openDialog = remember { mutableStateOf(false) }
+
 
     LaunchedEffect(effect){
-        val call = RetrofitFactory().food().getFoodMeal(modelFood.refeicao)
+        val call = RetrofitFactory().food().getFoodMealDefault(modelFood.refeicaoPadrao)
 
         call.enqueue(object : retrofit2.Callback<FoodResponseList> {
             override fun onResponse(
@@ -89,38 +89,25 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
         })
     }
 
+    CopyMealDialog(openDialog =openDialog ) {
+        PostFoodDefaultToMeal(idRefeicao = modelFood.refeicaoPadrao, idRefeicaoPadrao = modelFood.refeicao)
+        openDialog.value = false
+        navController.navigate("addDiet")
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(bottomBar = {
-
-            Row (modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly){
-                Button(
-                    onClick = {
-                        navController.navigate("foodCategoryPatient")
-                    },
-                    modifier = Modifier
-                        .width(190.dp)
-                        .height(40.dp),
-                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                ) {
-                    Text(text = "Adicionar Alimento",
-                        textAlign = TextAlign.Center)
-                }
-
-                Button(
-                    onClick = {
-                        navController.navigate("mealCopy")
-                    },
-                    modifier = Modifier
-                        .width(190.dp)
-                        .height(40.dp),
-                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                ) {
-                    Text(text = "Copiar Refeição",
-                            textAlign = TextAlign.Center)
-
-                }
-            }
+        Scaffold(floatingActionButton = {                 Button(
+            onClick = {
+                openDialog.value = true
+            },
+            modifier = Modifier
+                .width(190.dp)
+                .height(40.dp),
+            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+        ) {
+            Text(text = "Copiar Refeição",
+                textAlign = TextAlign.Center)
+        }
         }) {
             Column(
                 modifier = Modifier
@@ -154,8 +141,7 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
                                 ) {
                                     Card(
                                         modifier = Modifier
-                                            .size(60
-                                                .dp),
+                                            .size(60.dp),
                                         shape = RoundedCornerShape(12.dp),
                                     ) {
                                         AsyncImage(
@@ -188,27 +174,12 @@ fun FoodMeal(navController: NavController, modelFood: ModelFood) {
                                         )
                                     }
                                 }
-                                Image(
-                                    painter = painterResource(id = R.drawable.baseline_horizontal_rule_24),
-                                    contentDescription = "",
-                                    modifier = Modifier
-                                        .size(30.dp)
-                                        .clickable {
-                                            DeleteFoodMeal(
-                                                idAlimento = it.idAlimento,
-                                                idRefeicao = modelFood.refeicao
-                                            )
-                                            effect = !effect
-                                        },
-                                    colorFilter = ColorFilter.tint(Color.Red)
-
-                                )
                             }
                         }
                     }
 
                 }else{
-                    Text(text = "Não há nenhum alimento adicionada a essa refeição, clique no botão para adicionar.",
+                    Text(text = "Não há nenhum alimento adicionada a essa refeição.",
                         fontSize = 20.sp,
                         fontWeight = FontWeight(600),
                         modifier = Modifier.padding(horizontal = 15.dp))

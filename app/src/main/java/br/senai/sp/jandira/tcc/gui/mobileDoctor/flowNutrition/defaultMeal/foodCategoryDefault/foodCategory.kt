@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.foodCategory
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodCategoryDefault
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -41,7 +41,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun FoodCategory(navController: NavController, modelFood: ModelFood){
+fun FoodCategoryDefault(navController: NavController, modelFood: ModelFood){
 
     var categorias by remember { mutableStateOf(listOf<FoodCategoryResponse>()) }
 
@@ -92,7 +92,7 @@ fun FoodCategory(navController: NavController, modelFood: ModelFood){
                                 .fillMaxWidth()
                                 .clickable {
                                            modelFood.categoria = it.id
-                                    navController.navigate("addFoodPatient")
+                                    navController.navigate("addFood")
                                 },
                             colors = CardDefaults.cardColors(containerColor = Color.White),
                             shape = RoundedCornerShape(10.dp),
