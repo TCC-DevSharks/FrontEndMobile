@@ -53,7 +53,7 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
 
             Column(
                 modifier = Modifier
-                    .padding(bottom = 70.dp)
+                    .padding(bottom = 20.dp)
             ) {
 
 

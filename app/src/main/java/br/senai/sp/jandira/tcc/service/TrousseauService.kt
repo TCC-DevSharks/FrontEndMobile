@@ -1,6 +1,8 @@
 package br.senai.sp.jandira.tcc.model.troussea
 
 import br.senai.sp.jandira.tcc.model.article.articleList
+import br.senai.sp.jandira.tcc.model.consultData.consultDataList
+import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineList
 import br.senai.sp.jandira.tcc.model.timeLine.timeLineSemanaList
 import br.senai.sp.jandira.tcc.model.troussea.trousseauBody.TrousseauBody
@@ -39,4 +41,8 @@ interface TrousseauService {
 
     @GET("timeline/{id}")
     fun getTimeLineID(@Path("id") id: Int): Call<timeLineSemanaList>
+
+    // obter dados de uma consulta
+    @GET("consulta/{id}")
+    fun getConsultData(@Path("id") id: Int): Call<consultDataList>
 }

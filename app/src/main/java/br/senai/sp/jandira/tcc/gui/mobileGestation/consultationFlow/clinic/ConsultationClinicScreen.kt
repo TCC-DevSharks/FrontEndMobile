@@ -78,7 +78,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
             Column(
                 modifier = Modifier
-                    .padding(bottom = 70.dp)
+                    .padding(bottom = 20.dp)
             ) {
 
 

@@ -132,7 +132,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
 
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Header(titulo = stringResource(id = R.string.select_patient),rota ="", navController = navController)
+            Header(titulo = stringResource(id = R.string.select_patient),rota ="dietSelect", navController = navController)
         }
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -164,9 +164,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                         Text(
                             text = stringResource(id = R.string.search_patient),
                             modifier = Modifier
-                                .align(Alignment.CenterVertically)
                                 .fillMaxWidth(),
-                            textAlign = TextAlign.Center
                         )
                     }
                 )
@@ -225,8 +223,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                             },
                         colors = CardDefaults.cardColors(Color(182, 182, 246, 100)),
                         border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
-
-                        shape = RoundedCornerShape(16.dp),
+                        shape = RoundedCornerShape(16.dp)
                     ) {
                         Row(
                             Modifier
@@ -240,7 +237,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
-                                    .size(55.dp)
+                                    .size(45.dp)
                                     .clip(CircleShape)
                             )
 
@@ -251,7 +248,7 @@ fun SelectPatient(professional: Professional, navController: NavController) {
                                     text = it.nome,
                                     color = Color.Black,
                                     fontWeight = FontWeight.Black,
-                                    fontSize = 20.sp,
+                                    fontSize = 15.sp,
                                 )
                             }
                         }

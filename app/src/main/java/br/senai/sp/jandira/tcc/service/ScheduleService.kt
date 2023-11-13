@@ -23,4 +23,6 @@ interface ScheduleService {
 
     @DELETE("agenda/{id}")
     fun deleteSchedule(@Path("id") id: Int): Call<ResponseBody>
+    @DELETE("consulta/{id}")
+    fun deleteConsult(@Path("id") id: Int): Call<ResponseBody>
 }

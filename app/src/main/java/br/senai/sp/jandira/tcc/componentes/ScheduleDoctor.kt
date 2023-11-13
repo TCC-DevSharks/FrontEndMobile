@@ -31,9 +31,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
@@ -43,7 +45,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ScheduleDoctor(professional: Professional) {
+fun ScheduleDoctor(professional: Professional, navController: NavController, medicalRecord: ModelMedicalRecord) {
 
     var pacientes by rememberSaveable {
         mutableStateOf(listOf<ConsultResponsePaciente>())
@@ -142,9 +144,9 @@ fun ScheduleDoctor(professional: Professional) {
                                 )
                             )
 
-                            LimitedText(text = paciente.nome, maxLength = 25) {
-                                // navController.navigate("Schedule")
-                            }
+                            LimitedText(text = paciente.nome, maxLength = 17) {
+                                medicalRecord.id_paciente = paciente.idGestante
+                                navController.navigate("patientProfile")                            }
                         }
 
                         Row(modifier = Modifier.fillMaxWidth()) {

@@ -34,6 +34,9 @@ import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.foodMe
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.defaultMeal.mealDefaults.MealDefaults
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectDiet.SelectDiet
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowNutrition.selectPatient.SelectPatient
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.medicalRecordMade.MedicalRecordMadeDataScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.medicalRecordMade.MedicalRecordMadeScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.patientProfile.PatientProfileScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.profileDataDoctor.ProfileDataDoctor
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts.ContatosScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages.MessagesScreen
@@ -109,7 +112,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Greeting("Android")
 
-
                 }
             }
         }
@@ -168,6 +170,14 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
                 "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
                 "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
+                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional )
+                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional )
+
+
                 "foodCategoryPatient" -> NavigationNutritionist(navController = navController, professional =professional )
                 "addFoodPatient" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMealPatient" -> NavigationNutritionist(navController = navController, professional =professional )
@@ -177,6 +187,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "addDiet" -> NavigationNutritionist(navController = navController, professional =professional )
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
+
                 else -> Navigation(navController,pregnant)
             }
         }
@@ -228,21 +239,21 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "catExercises") { StageExercises(navController,categories, exercises) }
             composable(route = "descExercises") { DescriptionExercises(navController, exercises) }
             composable(route = "Exercises") { Exercises(navController,categories, pregnant) }
-            composable(route = "DoctorHome") { DoctorHome (professional, navController,) }
+            composable(route = "DoctorHome") { DoctorHome (professional, navController, modelMedicalRecord) }
             composable(route = "guiaMaterno") { MaternalGuideScreen (navController, pregnant) }
             composable(route = "timeLine") { TimeLineScreen (pregnant,navController) }
             composable(route = "loginDoctor") { LoginDoctorScreen (navController, professional) }
             composable(route = "profileDoctor") { DoctorProfile (professional, navController) }
             composable(route = "profileDataDoctor") { ProfileDataDoctor (navController,professional) }
-            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController) }
+            composable(route = "DoctorSchedule") { DoctorSchedule (professional, navController, modelMedicalRecord) }
             composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional ,modelMedicalRecord) }
             composable(route = "medicalRecordAdd") { MedicalRecordAdd (navController, modelMedicalRecord) }
-            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional, clinic) }
+            composable(route = "AppointmentCanceled") { AppointmentCanceled(navController, pregnant, professional, clinic,modelMedicalRecord) }
             composable(route = "contactsChat") { ContatosScreen(navController, pregnant, chatModel) }
             composable(route = "messagesChat") { MessagesScreen(navController,pregnant, chatModel) }
-            composable(route = "query") { checkQuery (navController, pregnant ) }
+            composable(route = "query") { checkQuery (navController, pregnant, modelMedicalRecord ) }
             composable(route = "dietSelect") { SelectDiet (professional, navController) }
             composable(route = "medicalRecordSelect") { selectMedicalRecord (professional, navController, modelMedicalRecord) }
             composable(route = "medicalRecordSelectDate") { SelectDateMedicalRecord (navController, professional, modelMedicalRecord) }
@@ -252,6 +263,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "messagesChat") { MessagesScreen(navController, pregnant, chatModel) }
             composable(route = "nutritionSelect") { SelectPatient (professional, navController) }
             composable(route = "mealSelect") { MealDefaults (navController, professional, food) }
+            composable(route = "patientProfile") { PatientProfileScreen (navController,modelMedicalRecord) }
+            composable(route = "medicalRecordMade") { MedicalRecordMadeScreen (professional,modelMedicalRecord,modelMedicalRecord,navController) }
+            composable(route = "medicalRecordMadeData") { MedicalRecordMadeDataScreen (navController, modelMedicalRecord ) }
             composable(route = "foodCategory") { FoodCategoryDefault (navController, food) }
             composable(route = "addFood") { AddFoodToDefaultMeal (navController, food) }
             composable(route = "foodMeal") { FoodMealDefault (navController, food) }
@@ -261,6 +275,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
+
 
 
 

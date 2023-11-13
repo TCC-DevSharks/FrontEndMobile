@@ -153,7 +153,7 @@ fun MaternityBagScreen(navController: NavController, pregnant: ModelPregnant) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 85.dp)
+                        .padding(bottom = 20.dp)
                 ) {
                     items(mala) {
 

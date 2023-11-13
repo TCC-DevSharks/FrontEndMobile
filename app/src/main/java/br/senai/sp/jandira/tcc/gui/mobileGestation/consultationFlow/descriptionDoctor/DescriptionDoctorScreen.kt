@@ -165,7 +165,7 @@ fun DescriptionDoctorScreen(
             Spacer(modifier = Modifier.height(15.dp))
 
             Column(
-                modifier = Modifier.padding(horizontal = 28.dp, vertical = 16.dp),
+                modifier = Modifier.padding(horizontal = 28.dp, vertical = 16.dp)
             ) {
 
                 Row() {
@@ -190,20 +190,33 @@ fun DescriptionDoctorScreen(
                 }
             }
 
-            Row(
-                modifier = Modifier.padding(horizontal = 28.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Column(
+                modifier = Modifier.padding(horizontal = 28.dp)
             ) {
 
-                Text(
-                    modifier = Modifier.padding(end = 10.dp),
-                    text = stringResource(id = R.string.Service_charge),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight(900)
-                )
+                Row() {
+
+                    Text(
+                        text = stringResource(id = R.string.Service_charge),
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight(900),
+                    )
+
+                }
+
+                Row(modifier = Modifier.padding(top = 5.dp, bottom = 12.dp)) {
+
+                    Text(
+                        text = professional.valor,
+                        fontSize = 12.5.sp,
+                        fontWeight = FontWeight(300),
+                        lineHeight = 18.sp
+                    )
+
+                }
             }
 
-            Spacer(modifier = Modifier.height(35.dp))
+
 
             Row(
                 modifier = Modifier.padding(horizontal = 28.dp),

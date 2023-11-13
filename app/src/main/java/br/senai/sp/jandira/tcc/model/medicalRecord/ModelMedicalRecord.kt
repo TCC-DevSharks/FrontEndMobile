@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.model.medicalRecord
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import br.senai.sp.jandira.tcc.calls.extrairPrimeiroNome
 
 class ModelMedicalRecord {
 

@@ -51,6 +51,7 @@ import br.senai.sp.jandira.tcc.model.troussea.TrousseauListFavorite2
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponse2
 import br.senai.sp.jandira.tcc.model.troussea.TrousseauResponseFavorite2
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Response
 
@@ -110,7 +111,6 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
         ) {
 
             Header(
@@ -153,8 +153,8 @@ fun trousseauCategorySceen(navController: NavController, pregnant: ModelPregnant
                                 border = BorderStroke(4.dp, Color.White)
 
                             ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.avia),
+                                AsyncImage(
+                                    model = pregnant.foto,
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxSize()

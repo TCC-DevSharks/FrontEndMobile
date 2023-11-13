@@ -168,7 +168,7 @@ fun TrousseauScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 85.dp, top = 9.dp)
+                        .padding(bottom = 20.dp, top = 9.dp)
                 ) {
 
                     items(enxoval) {

@@ -44,6 +44,7 @@ import br.senai.sp.jandira.tcc.model.article.articleList
 import br.senai.sp.jandira.tcc.model.article.articleResponse
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +57,9 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
      var artigos by rememberSaveable {
         mutableStateOf(listOf<articleResponse>())
     }
+
+    val painter = painterResource(id = R.drawable.gravida_card)
+
 
     fun String.capitalizeFirstLetter(): String {
         return if (isNotEmpty()) {
@@ -71,7 +75,7 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp)
+                .padding(bottom = 20.dp)
         ) {
 
             Header(
@@ -118,7 +122,19 @@ fun MaternalGuideScreen(navController: NavController, pregnant: ModelPregnant) {
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop,
                                 model = artigo.imagem,
-                                contentDescription = null
+                                contentDescription = null,
+                                transform = { state ->
+                                    when (state) {
+                                        is AsyncImagePainter.State.Loading -> {
+                                            state.copy(painter = painter)
+                                        }
+                                        is AsyncImagePainter.State.Error -> {
+                                            state.copy(painter = painter)
+                                        }
+
+                                        else -> state
+                                    }
+                                }
                             )
                         }
                     }

@@ -20,6 +20,9 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 
+fun extrairPrimeiroNome(nomeCompleto: String): String {
+    return nomeCompleto.split(" ").firstOrNull() ?: ""
+}
 fun GetPregnant(viewModel: ModelPregnant){
     val call = RetrofitFactory().pregnant().getPregnant(viewModel.id)
     var gestante: List<PregnantResponse>
@@ -40,7 +43,7 @@ fun GetPregnant(viewModel: ModelPregnant){
                 viewModel.data_parto = it.data_parto
                 viewModel.email = it.email
                 viewModel.foto = it.foto
-                viewModel.nome = it.nome
+                viewModel.nome = extrairPrimeiroNome(it.nome)
                 viewModel.peso = it.peso
                 viewModel.senha = it.senha
                 viewModel.telefone = it.telefone

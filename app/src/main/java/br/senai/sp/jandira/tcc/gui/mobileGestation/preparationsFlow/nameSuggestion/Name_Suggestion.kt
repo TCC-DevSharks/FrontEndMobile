@@ -148,7 +148,7 @@ fun Name_Suggestion(navController: NavController, pregnant: ModelPregnant) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(250, 250, 254))
-                .padding(bottom = 90.dp)
+                .padding(bottom = 20.dp)
         ) {
 
             Column(modifier = Modifier.fillMaxWidth()) {

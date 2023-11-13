@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
+import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import retrofit2.Call
@@ -53,7 +55,11 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun DoctorSchedule(professional: Professional, navController: NavController) {
+fun DoctorSchedule(
+    professional: Professional,
+    navController: NavController,
+    medicalRecord: ModelMedicalRecord
+) {
 
     var selectedMonth by rememberSaveable {
         mutableStateOf(LocalDate.now().monthValue)
@@ -192,7 +198,12 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
 
         fun filterConsultsByCurrentMonth(consults: List<ConsultResponsePaciente>): List<ConsultResponsePaciente> {
             val currentMonth = LocalDate.now().monthValue
-            return consults.filter { LocalDate.parse(it.dia, formatter).monthValue == selectedMonth }
+            return consults.filter {
+                LocalDate.parse(
+                    it.dia,
+                    formatter
+                ).monthValue == selectedMonth
+            }
         }
 
         val filteredPacientes = filterConsultsByCurrentMonth(pacientes)
@@ -227,6 +238,10 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
                     Card(
                         modifier = Modifier
                             .size(width = 315.dp, height = 50.dp)
+                            .clickable {
+                               medicalRecord.id_paciente = paciente.idGestante
+                                navController.navigate("patientProfile")
+                            }
                             .padding(horizontal = 4.dp),
                         colors = CardDefaults.cardColors(Color.White),
                         shape = RoundedCornerShape(10.dp),
@@ -244,25 +259,6 @@ fun DoctorSchedule(professional: Professional, navController: NavController) {
                                     .weight(1f)
                                     .padding(end = 16.dp)
                             )
-
-//                            var isChecked by remember { mutableStateOf(false) }
-//
-//                            val dataConsulta = LocalDate.parse(paciente.dia, formatter)
-//
-//                            if (dataAtual != dataConsulta) {
-//                                isChecked = true
-//                            }
-//
-//                            Checkbox(
-//                                modifier = Modifier.height(30.dp),
-//                                checked = isChecked,
-//                                onCheckedChange = { isChecked = it },
-//                                colors = CheckboxDefaults.colors(
-//                                    checkmarkColor = Color(182,182,246),
-//                                    checkedColor = Color(182,182,246), // Cor quando marcado
-//                                    uncheckedColor = Color(182,182,246) // Cor quando não marcado
-//                                )
-//                            )
                         }
                     }
                 }

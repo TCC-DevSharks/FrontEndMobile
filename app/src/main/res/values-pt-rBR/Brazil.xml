@@ -206,11 +206,11 @@
     <string name="maternal_guide">Guia Materno</string>
     <string name="preparations">Preparativos</string>
     <string name="finish">Finalizar</string>
-    <string name="Continueee">Continuar -></string>
+    <string name="Continueee">Continuar</string>
     <string name="card_number">Número do cartão:</string>
     <string name="expiration_date">Data de validade:</string>
-    <string name="cvv">CVV</string>
-    <string name="client">Cliente: </string>
+    <string name="cvv">CVV/CVC</string>
+    <string name="client">Cliente: </string>  
     <string name="name">Nome: </string>
     <string name="Email">Email: </string>
     <string name="cpf">Cpf: </string>
@@ -234,7 +234,7 @@
     <string name="specialization">Especialidade: </string>
     <string name="professional">Profissional: </string>
     <string name="clinic">Clínica: </string>
-    <string name="pag">Ir para pagamento -> </string>
+    <string name="pag">Ir para pagamento</string>
     <string name="Select_a_date">Selecione uma data:</string>
     <string name="Service_charge">Taxa de serviço:</string>
     <string name="emailL">Email:</string>
@@ -255,6 +255,7 @@
     <string name="description_login_doctor">Pronto (a) para mais uma jornada de atendimento?</string>
     <string name="select_patient">Selecione um paciente</string>
     <string name="search_patient">Buscar paciente</string>
+    <string name="search_doctor">Buscar Profissional</string>
     <string name="all_">Todos</string>
     <string name="select_one_patients">Selecione um de seus pacientes:</string>
     <string name="select_consult">Selecione uma das consultas:</string>
@@ -267,5 +268,7 @@
 
     <string name="development">Desenvolvimento</string>
     <string name="how_many_months">Quantos meses?</string>
+
+    <string name="patietent_profile">Dados da Paciente</string>
 
 </resources>

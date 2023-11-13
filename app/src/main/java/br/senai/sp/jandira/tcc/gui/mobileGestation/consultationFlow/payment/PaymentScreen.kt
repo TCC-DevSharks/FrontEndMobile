@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -393,24 +394,23 @@ fun PaymentScreen(
                 .padding(horizontal = 18.dp), bottomBar = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.Top
                 ) {
                     Button(
                         onClick = {
                             visibleCard = false
                             visible = true
-                        },
-                        modifier = Modifier
-                            .width(250.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(
-                                182,
-                                182,
-                                246
-                            )
-                        )
-                    ) {
+                        }, modifier = Modifier
+                                .width(320.dp)
+                            .offset(x = 0.dp, y = (-170).dp)
+                            .height(55.dp),
 
+                        colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
+
+                        shape = RoundedCornerShape(16.dp),
+
+                        ) {
                         Text(
                             text = stringResource(id = R.string.Continueee),
                             color = Color.White,
@@ -444,14 +444,17 @@ fun PaymentScreen(
 
                         OutlinedTextField(
                             value = numeroCartao,
-                            onValueChange =
-                            { numeroCartao = it },
-                            modifier = Modifier.padding(start = 15.dp, top = 5.dp, bottom = 5.dp),
-                            colors = TextFieldDefaults.textFieldColors(
+                            onValueChange = { numeroCartao = it },
+                            modifier = Modifier
+                                .padding(start = 15.dp, top = 5.dp, bottom = 5.dp)
+                                .border(1.dp, Color(200, 209, 225), shape = RoundedCornerShape(10.dp)),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
                                 containerColor = Color.White,
+                                textColor = Color(200, 209, 225)
                             ),
                             shape = RoundedCornerShape(10.dp)
                         )
+
 
                         Spacer(modifier = Modifier.height(10.dp))
 
@@ -472,19 +475,17 @@ fun PaymentScreen(
                             Box(
                                 modifier = Modifier
                                     .padding(start = 15.dp)
-                                    .border(
-                                        1.dp,
-                                        Color.Black,
-                                        shape = RoundedCornerShape(10.dp)
-                                    ) // Defina o raio desejado (8.dp) para a borda
-                            ) {
+                                    .border(1.dp, Color(200, 209, 225), shape = RoundedCornerShape(10.dp)),
+
+                                ) {
                                 Text(
                                     text = mesVencimento,
                                     modifier = Modifier
                                         .width(100.dp)
                                         .clickable(onClick = { expanded = true })
                                         .background(Color.White)
-                                        .padding(16.dp)
+                                        .padding(16.dp),
+                                    color = Color(200, 209, 225)
                                 )
                                 DropdownMenu(
                                     expanded = expanded,
@@ -512,19 +513,17 @@ fun PaymentScreen(
                             )
 
                             Box(
-                                modifier = Modifier.border(
-                                    1.dp,
-                                    Color.Black,
-                                    shape = RoundedCornerShape(10.dp)
-                                )
-                            ) {
+                                modifier = Modifier.border(1.dp, Color(200, 209, 225), shape = RoundedCornerShape(10.dp)),
+
+                                ) {
                                 Text(
                                     text = anoVencimento,
                                     modifier = Modifier
                                         .width(100.dp)
                                         .clickable(onClick = { expandedYears = true })
                                         .background(Color.White)
-                                        .padding(16.dp)
+                                        .padding(16.dp),
+                                    color = Color(200, 209, 225)
                                 )
                                 DropdownMenu(
                                     expanded = expandedYears,
@@ -562,9 +561,11 @@ fun PaymentScreen(
                         { cvv = it },
                         modifier = Modifier
                             .padding(start = 15.dp, top = 5.dp, bottom = 5.dp)
-                            .width(100.dp),
+                            .width(100.dp)
+                            .border(1.dp, Color(200, 209, 225), shape = RoundedCornerShape(10.dp)),
                         colors = TextFieldDefaults.textFieldColors(
                             containerColor = Color.White,
+                            textColor = Color(200, 209, 225)
                         ),
                         shape = RoundedCornerShape(10.dp)
                     )
@@ -1099,7 +1100,7 @@ fun PaymentScreen(
                                 Spacer(modifier = Modifier.height(1.dp))
                                 Row() {
                                     Text(
-                                        text = "R$" + professional.valor,
+                                        text = professional.valor,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 15.sp
                                     )
