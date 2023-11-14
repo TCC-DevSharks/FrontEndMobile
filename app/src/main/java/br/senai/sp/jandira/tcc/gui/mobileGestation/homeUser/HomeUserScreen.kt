@@ -342,7 +342,7 @@ fun HomeUserScreen(
 
                     Button(
                         modifier = Modifier.size(360.dp, 50.dp),
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate("forum")},
                         colors = ButtonDefaults.buttonColors(Color(182, 182, 246, 23)),
                         border = BorderStroke(.3.dp, Color(182, 182, 246)),
                         shape = RoundedCornerShape(16.dp)
