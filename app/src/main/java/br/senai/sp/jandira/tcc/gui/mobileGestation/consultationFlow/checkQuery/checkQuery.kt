@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.extrairPrimeiroNome
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
@@ -112,9 +113,6 @@ fun checkQuery(
         ) {
             items(gestante) { gestante ->
 
-                modelMedicalRecord.id_consulta = gestante.id
-
-
                 Card(
                     modifier = Modifier
                         .width(360.dp)
@@ -155,7 +153,7 @@ fun checkQuery(
                             ) {
 
                                 Text(
-                                    text = stringResource(id = R.string.consultation_with) + " " + gestante.profissional,
+                                    text = stringResource(id = R.string.consultation_with) + " " + extrairPrimeiroNome(gestante.profissional),
                                     fontWeight = FontWeight(400),
                                     fontSize = 14.sp,
                                     color = Color.Gray,

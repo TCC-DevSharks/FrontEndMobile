@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
@@ -85,10 +86,6 @@ fun AppointmentCanceled(
     modelMedicalRecord: ModelMedicalRecord
 ) {
 
-    var numeroCartao by remember { mutableStateOf("") }
-    var mesVencimento by remember { mutableStateOf("") }
-    var anoVencimento by remember { mutableStateOf("") }
-    var cvv by remember { mutableStateOf("") }
     val context = LocalContext.current
 
 
@@ -109,10 +106,6 @@ fun AppointmentCanceled(
             Log.i("", "T${t.message}: ")
         }
     })
-
-    var gestante by rememberSaveable {
-        mutableStateOf(listOf<MedicalRecordDataConsult>())
-    }
 
 
     Box(
@@ -150,8 +143,7 @@ fun AppointmentCanceled(
             Spacer(modifier = Modifier.height(15.dp))
 
             LazyColumn(modifier = Modifier.padding(horizontal = 30.dp)) {
-                items(consultas) {
-                    consulta ->
+                items(consultas) { consulta ->
 
                     Column(
                         modifier = Modifier
@@ -275,6 +267,9 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            GetCep(viewModel, consulta.cep)
+
                             Row() {
                                 Text(
                                     text = viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil",
@@ -353,6 +348,12 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetCep(
+                                consulta.cepClinica,
+                                clinic
+                            )
+
                             Row() {
                                 Text(
                                     text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil",
@@ -379,7 +380,9 @@ fun AppointmentCanceled(
                                     Spacer(modifier = Modifier.height(1.dp))
                                     Row() {
                                         Text(
-                                            text = consulta.profissional, fontWeight = FontWeight.Bold, fontSize = 15.sp
+                                            text = consulta.profissional,
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 15.sp
                                         )
                                     }
                                 }
@@ -506,6 +509,8 @@ fun AppointmentCanceled(
         var isCardVisible by remember { mutableStateOf(false) }
         var isConfirmationVisible by remember { mutableStateOf(false) }
 
+        var areScreensVisible by remember { mutableStateOf(true) }
+
 
         Column(
             modifier = Modifier
@@ -521,87 +526,98 @@ fun AppointmentCanceled(
                     isCardVisible = true
                 })
         }
-        if (isCardVisible) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .then(
-                        Modifier
-                            .background(MaterialTheme.colorScheme.background)
-                            .background(color = Color.Black.copy(alpha = 0.5f))
-                    )
-                    .align(Alignment.Center) // Centralizar a Box
-            ) {
-                Card(
+        if (areScreensVisible) {
+            if (isCardVisible) {
+                Box(
                     modifier = Modifier
-                        .width(290.dp)
-                        .height(290.dp)
-                        .align(Alignment.Center), // Centralizar o Card
-                    colors = CardDefaults.cardColors(Color.White)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Deseja cancelar a consulta?",
-                            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        .fillMaxSize()
+                        .then(
+                            Modifier
+                                .background(MaterialTheme.colorScheme.background)
+                                .background(color = Color.Black.copy(alpha = 0.5f))
                         )
-                        Spacer(modifier = Modifier.height(30.dp))
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceEvenly
+                        .align(Alignment.Center) // Centralizar a Box
+                ) {
+                    Card(
+                        modifier = Modifier
+                            .width(290.dp)
+                            .height(290.dp)
+                            .align(Alignment.Center), // Centralizar o Card
+                        colors = CardDefaults.cardColors(Color.White)
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.cancelar),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(50.dp)
-                                    .clickable {
-                                    isCardVisible = false
-                                    navController.popBackStack()
-                                    }
+                            Text(
+                                text = "Deseja cancelar a consulta?",
+                                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
                             )
+                            Spacer(modifier = Modifier.height(30.dp))
 
-                            Image(
-                                painter = painterResource(id = R.drawable.correct),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(50.dp)
-                                    .clickable {
-                                        isConfirmationVisible = true
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.cancelar),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                        .clickable {
+                                            isCardVisible = false
+                                            navController.popBackStack()
+                                        }
+                                )
 
-                                        val handler = android.os.Handler()
+                                Image(
+                                    painter = painterResource(id = R.drawable.correct),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                        .clickable {
+                                            isConfirmationVisible = true
 
-                                        val delayMillis = 2500L
+                                            val handler = android.os.Handler()
 
-                                        handler.postDelayed({
-                                            isConfirmationVisible = false
+                                            val delayMillis = 2500L
 
-                                            // Agora, você pode realizar a ação que deseja após a confirmação sumir, como a navegação.
-                                            var call = RetrofitFactory().schedule().deleteConsult(modelMedicalRecord.id_consulta)
+                                            handler.postDelayed({
+                                                isConfirmationVisible = false
 
-                                            call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                                                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                                                    if (response.isSuccessful) {
-                                                        navController.navigate("query")
+                                                // Agora, você pode realizar a ação que deseja após a confirmação sumir, como a navegação.
+                                                var call = RetrofitFactory().schedule()
+                                                    .deleteConsult(modelMedicalRecord.id_consulta)
+
+                                                call.enqueue(object :
+                                                    retrofit2.Callback<ResponseBody> {
+                                                    override fun onResponse(
+                                                        call: Call<ResponseBody>,
+                                                        response: Response<ResponseBody>
+                                                    ) {
+                                                        if (response.isSuccessful) {
+                                                            navController.navigate("query")
+                                                        }
                                                     }
-                                                }
 
-                                                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                                                    Log.i("ds2m", "onFailure: ${t.message}")
-                                                    println(t.message + t.cause)
-                                                }
-                                            })
-                                        }, delayMillis)
-                                    }
+                                                    override fun onFailure(
+                                                        call: Call<ResponseBody>,
+                                                        t: Throwable
+                                                    ) {
+                                                        Log.i("ds2m", "onFailure: ${t.message}")
+                                                        println(t.message + t.cause)
+                                                    }
+                                                })
+                                                areScreensVisible = false
+                                            }, delayMillis)
+                                        }
 
-                            )
+                                )
+                            }
                         }
                     }
                 }

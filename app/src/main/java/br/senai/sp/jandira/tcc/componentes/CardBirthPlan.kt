@@ -49,6 +49,7 @@ fun CardBirthPlan(
                     .size(30.dp)
             )
 
+
             Spacer(modifier = Modifier.width(15.dp))
 
             Text(
