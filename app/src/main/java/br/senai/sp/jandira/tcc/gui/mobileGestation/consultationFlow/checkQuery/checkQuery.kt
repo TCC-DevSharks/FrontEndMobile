@@ -193,6 +193,7 @@ fun checkQuery(
                                 modifier = Modifier
                                     .width(80.dp)
                                     .clickable {
+
                                         modelMedicalRecord.id_consulta = gestante.id
                                         Log.i("Teste 5", "${gestante.id}")
                                         navController.navigate("AppointmentCanceled")

@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface PaymentService {
-    @POST("pagseguro")
+    @POST("pagamento")
     fun insertPayment(@Body payment: PaymentResponse): Call<ResponseBody>
 
 }
