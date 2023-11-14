@@ -69,6 +69,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
@@ -276,6 +277,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
+            composable(route = "forum") { ForumScreen (navController, pregnant) }
 
 
 
