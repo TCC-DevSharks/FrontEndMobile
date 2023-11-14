@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 //Coloque aqui o nav bar
 data class BottomNavigationItem(
@@ -42,36 +43,43 @@ data class BottomNavigationItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
-    navController: NavController
+    navController: NavController,
+    pregnant: ModelPregnant
 ){
     val items = listOf(
         BottomNavigationItem(
-            title = "Início",
+            title = "Exercícios",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
             hasNews = false,
-            route = "home"
+            route = "Exercises"
+        ),  BottomNavigationItem(
+            title = "Dieta",
+            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            hasNews = false,
+            route = "Food"
         ),
         BottomNavigationItem(
-            title = "Agenda",
+            title = "Home",
             selectedIcon = Icons.Filled.Menu,
             unselectedIcon = Icons.Outlined.Menu,
             hasNews = false,
-            route = "home"
+            route = "homeUser"
         ),
         BottomNavigationItem(
-            title = "Alertas",
+            title = "Chat",
             selectedIcon = Icons.Filled.Notifications,
             unselectedIcon = Icons.Outlined.Notifications,
             hasNews = true,
-            route = "home"
+            route = "contactsChat"
         ),
         BottomNavigationItem(
-            title = "Perfil",
+            title = "Médico",
             selectedIcon = Icons.Filled.Person,
             unselectedIcon = Icons.Outlined.Person,
             hasNews = true,
-            route = "home"
+            route = "speciality"
         ),
     )
     var selectedItemIndex by rememberSaveable {

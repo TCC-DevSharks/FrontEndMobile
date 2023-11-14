@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.senai.sp.jandira.limpeanapp.home.components.HomeTopBar
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
@@ -149,7 +150,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         bottomBar = {
             when (currentRoute.value){
                 "home" -> {
-//                    HomeTopBar(navController = navController)
+//                    HomeTopBar(navController = navController, pregnant)
                     }
                 "start" -> {}
                 "login" -> {}
@@ -188,7 +189,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
 
-                else -> Navigation(navController,pregnant)
+                else -> HomeTopBar(navController,pregnant)
             }
         }
     ) {
