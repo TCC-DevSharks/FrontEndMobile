@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
@@ -85,10 +86,6 @@ fun AppointmentCanceled(
     modelMedicalRecord: ModelMedicalRecord
 ) {
 
-    var numeroCartao by remember { mutableStateOf("") }
-    var mesVencimento by remember { mutableStateOf("") }
-    var anoVencimento by remember { mutableStateOf("") }
-    var cvv by remember { mutableStateOf("") }
     val context = LocalContext.current
 
 
@@ -109,10 +106,6 @@ fun AppointmentCanceled(
             Log.i("", "T${t.message}: ")
         }
     })
-
-    var gestante by rememberSaveable {
-        mutableStateOf(listOf<MedicalRecordDataConsult>())
-    }
 
 
     Box(
@@ -275,6 +268,9 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            GetCep(viewModel, consulta.cep)
+
                             Row() {
                                 Text(
                                     text = viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil",
@@ -353,6 +349,9 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetCep(consulta.cepClinica, clinic)
+
                             Row() {
                                 Text(
                                     text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil",

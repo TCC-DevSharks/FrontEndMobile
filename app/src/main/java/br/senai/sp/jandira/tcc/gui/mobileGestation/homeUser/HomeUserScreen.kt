@@ -54,6 +54,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetAlergy
+import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.calls.GetComorbidity
 import br.senai.sp.jandira.tcc.calls.GetDeficiency
 import br.senai.sp.jandira.tcc.calls.GetEndereco
@@ -131,6 +132,7 @@ fun HomeUserScreen(
         GetDeficiency(pregnant)
         GetComorbidity(pregnant)
 //        GetMedication(pregnant)
+        GetCep(pregnant, pregnant.cep)
     }
         Box(
             modifier = Modifier
