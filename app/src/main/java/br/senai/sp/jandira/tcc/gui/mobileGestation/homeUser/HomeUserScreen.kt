@@ -355,12 +355,13 @@ fun HomeUserScreen(
                     Button(
                         modifier = Modifier.size(360.dp, 50.dp),
                         onClick = {
-                            println(forum)
+                            println(forum.mysql)
                             println(pregnant.id)
-                                  if (forum.mysql == pregnant.id)
-                                    openDialog.value = true
-                                  else
-                            navController.navigate("forum")
+                                  if (forum.mysql !== pregnant.id){
+                                      openDialog.value = true
+
+                                  }else{
+                                      navController.navigate("forum") }
                                   },
                         colors = ButtonDefaults.buttonColors(Color(182, 182, 246, 23)),
                         border = BorderStroke(.3.dp, Color(182, 182, 246)),
