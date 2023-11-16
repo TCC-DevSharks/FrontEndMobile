@@ -34,6 +34,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -49,6 +50,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +78,9 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
             )
 
 
-            Row(modifier = Modifier.padding(20.dp)) {
+            Row(modifier = Modifier
+                .padding(20.dp)
+                .border(BorderStroke(2.dp, Color(182, 182, 246)))) {
 
                 Column() {
 
@@ -87,11 +91,13 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant) {
                         border = BorderStroke(2.5.dp, Color(182, 182, 246))
 
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.avia),
-                            contentDescription = null,
+                        AsyncImage(
+                            model = pregnant.foto,
+                            contentDescription = "",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier
+                                .size(65.dp)
+                                .clip(CircleShape)
                         )
 
                     }

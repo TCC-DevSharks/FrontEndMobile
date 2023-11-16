@@ -7,6 +7,7 @@ import br.senai.sp.jandira.tcc.model.troussea.TrousseauService
 import br.senai.sp.jandira.tcc.service.defaultMeal.DietService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 class RetrofitFactory {
@@ -90,6 +91,10 @@ class RetrofitFactory {
 
     fun Diet(): DietService{
         return retrofitFactory.create(DietService::class.java)
+    }
+
+    fun Forum(): ForumService{
+        return  retrofitFactory.create(ForumService::class.java)
     }
 }
 

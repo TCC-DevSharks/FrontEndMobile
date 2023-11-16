@@ -92,6 +92,7 @@ import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
+import br.senai.sp.jandira.tcc.model.forum.user.ModelUser
 import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
@@ -139,6 +140,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
+    val forum = ModelUser()
 
     val currentRoute = remember { mutableStateOf("start") }
 
@@ -208,7 +210,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "forgot_email") { ForgotPasswordEmailScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController, viewModel) }
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController, pregnant, modelSchedule) }
+            composable(route = "homeUser") { HomeUserScreen (navController, pregnant, modelSchedule, forum) }
             composable(route = "navigation") { Navigation (navController, pregnant) }
             composable(route = "bag") { MaternityBagScreen (navController, pregnant) }
             composable("trousseau/{category}") { backStackEntry ->
