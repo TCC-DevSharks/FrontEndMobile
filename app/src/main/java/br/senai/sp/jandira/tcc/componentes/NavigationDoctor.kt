@@ -1,6 +1,8 @@
 package br.senai.sp.jandira.limpeanapp.home.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
@@ -24,20 +26,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 //Coloque aqui o nav bar
 data class BottomNavigationItem(
     val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val hasNews: Boolean,
-    val badgeCount: Int? = null,
+    val selectedIcon: Int,
+    val modifier: Modifier,
     val route : String
 )
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,52 +54,53 @@ fun HomeTopBar(
     val items = listOf(
         BottomNavigationItem(
             title = "Exercícios",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-            hasNews = false,
-            route = "Exercises"
-        ),  BottomNavigationItem(
+            selectedIcon = R.drawable.dumbbell_cinza,
+
+            route = "Exercises",
+            modifier = Modifier.size(24.dp)
+        ),
+        BottomNavigationItem(
             title = "Dieta",
-            selectedIcon = Icons.Filled.Home,
-            unselectedIcon = Icons.Outlined.Home,
-            hasNews = false,
-            route = "Food"
+            selectedIcon =  R.drawable.utensils_cinza,
+
+            route = "Food",
+            modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
             title = "Home",
-            selectedIcon = Icons.Filled.Menu,
-            unselectedIcon = Icons.Outlined.Menu,
-            hasNews = false,
-            route = "homeUser"
+            selectedIcon =  R.drawable.house_branco,
+
+            route = "homeUser",
+            modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
             title = "Chat",
-            selectedIcon = Icons.Filled.Notifications,
-            unselectedIcon = Icons.Outlined.Notifications,
-            hasNews = true,
-            route = "contactsChat"
+            selectedIcon =  R.drawable.chat_cinza,
+
+            route = "contactsChat",
+            modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
             title = "Médico",
-            selectedIcon = Icons.Filled.Person,
-            unselectedIcon = Icons.Outlined.Person,
-            hasNews = true,
-            route = "speciality"
+            selectedIcon =  R.drawable.doctor,
+
+            route = "speciality",
+            modifier = Modifier.size(24.dp)
         ),
     )
     var selectedItemIndex by rememberSaveable {
-        mutableStateOf(0)
+        mutableStateOf(2)
     }
 
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor =Color(245,245,245),
         contentColor = MaterialTheme.colorScheme.onBackground
     ) {
         items.forEachIndexed { index,item ->
             NavigationBarItem(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                    indicatorColor = MaterialTheme.colorScheme.primary,
+                    indicatorColor = Color(245,245,245),
                     selectedTextColor = MaterialTheme.colorScheme.primary,
                     unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
@@ -110,27 +116,20 @@ fun HomeTopBar(
                     )
                 },
                 icon = {
-                    BadgedBox(
-                        badge = {
-                            if(item.badgeCount != null) {
-                                Badge {
-                                    Text(text = item.badgeCount.toString())
-                                }
-                            } else if(item.hasNews) {
-                                Badge()
-                            }
-                        }
-                    ) {
-                        Icon(
-                            imageVector = if (index == selectedItemIndex) {
-                                item.selectedIcon
-                            } else item.unselectedIcon,
-                            contentDescription = item.title
+
+                        Image(
+                            painter =
+                                painterResource(id = item.selectedIcon),
+                            contentDescription = item.title,
+                            modifier = Modifier.size(24.dp),
+                            colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
+                            else ColorFilter.tint(Color(209, 209, 214))
                         )
-                    }
+
                 }
             )
         }
     }
+
 
 }

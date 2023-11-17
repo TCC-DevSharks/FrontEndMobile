@@ -422,10 +422,10 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     Row() {
 
-                        Image(
-                            painter = painterResource(id = R.drawable.sair),
-                            contentDescription = null
-                        )
+//                        Image(
+//                            painter = painterResource(id = R.drawable.sair),
+//                            contentDescription = null
+//                        )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
                             text = stringResource(id = R.string.your_account)
