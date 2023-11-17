@@ -138,7 +138,7 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                                 val destination = "${logradouro}, ${bairro}, ${cidade}, Brazil"
                                 val origin = "${pregnant.logradouro}, ${pregnant.bairro}, ${pregnant.cidade}, Brazil"
-                                val key = "AIzaSyCLmZ-N0L89OzMsvIm8bcphurXZPSdBlDg"
+                                val key = "AIzaSyAJLO-6hLv6ao_hbBwZ4aCiu2v2HmxhxOo"
 
 
                                 if (response.isSuccessful) {
