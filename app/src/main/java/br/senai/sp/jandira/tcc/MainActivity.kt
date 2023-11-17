@@ -83,6 +83,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWee
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
+import br.senai.sp.jandira.tcc.gui.mobileGestation.testeMap.MapScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine.TimeLineScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
@@ -198,7 +199,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     ) {
         AnimatedNavHost(
             navController = navController,
-            startDestination = "start",
+            startDestination = "testemap",
             Modifier.padding(it)
         ) {
             composable(route = "home") { CadastroScren (navController) }
@@ -280,6 +281,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
             composable(route = "forum") { ForumScreen (navController, pregnant) }
+            composable(route = "testemap") { MapScreen () }
 
 
 

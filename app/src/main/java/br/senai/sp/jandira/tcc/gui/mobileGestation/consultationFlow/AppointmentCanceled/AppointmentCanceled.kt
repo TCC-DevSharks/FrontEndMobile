@@ -56,6 +56,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetCep
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
@@ -275,6 +276,9 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            br.senai.sp.jandira.tcc.calls.GetCep(viewModel, consulta.cep)
+
                             Row() {
                                 Text(
                                     text = viewModel.logradouro + ", " + viewModel.numero + ", " + viewModel.bairro + ", " + viewModel.cidade + ", " + viewModel.estado + ", Brasil",
@@ -353,6 +357,9 @@ fun AppointmentCanceled(
                                 )
                             }
                             Spacer(modifier = Modifier.height(1.dp))
+
+                            GetCep(consulta.cepClinica, clinic)
+
                             Row() {
                                 Text(
                                     text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil",
