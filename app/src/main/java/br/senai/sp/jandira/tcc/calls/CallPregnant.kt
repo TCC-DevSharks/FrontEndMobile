@@ -313,7 +313,7 @@ fun GetMedication(pregnant: ModelPregnant){
 
         ) {
             println(response.body())
-                pregnant.medicacao = response.body()!!.medicacao[0].medicacao
+//                pregnant.medicacao = response.body()!!.medicacao[0].medicacao
 
         }
 

@@ -57,6 +57,7 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.componentes.ButtonPurple
 import br.senai.sp.jandira.tcc.componentes.Header
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetCep
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
@@ -268,7 +269,7 @@ fun AppointmentCanceled(
                             }
                             Spacer(modifier = Modifier.height(1.dp))
 
-                            GetCep(viewModel, consulta.cep)
+                            br.senai.sp.jandira.tcc.calls.GetCep(viewModel, consulta.cep)
 
                             Row() {
                                 Text(
@@ -349,10 +350,7 @@ fun AppointmentCanceled(
                             }
                             Spacer(modifier = Modifier.height(1.dp))
 
-                            br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetCep(
-                                consulta.cepClinica,
-                                clinic
-                            )
+                            GetCep(consulta.cepClinica, clinic)
 
                             Row() {
                                 Text(
@@ -589,19 +587,12 @@ fun AppointmentCanceled(
                                             handler.postDelayed({
                                                 isConfirmationVisible = false
 
-                                                // Agora, você pode realizar a ação que deseja após a confirmação sumir, como a navegação.
-                                                var call = RetrofitFactory().schedule()
-                                                    .deleteConsult(modelMedicalRecord.id_consulta)
-
-                                                call.enqueue(object :
-                                                    retrofit2.Callback<ResponseBody> {
-                                                    override fun onResponse(
-                                                        call: Call<ResponseBody>,
-                                                        response: Response<ResponseBody>
-                                                    ) {
-                                                        if (response.isSuccessful) {
-                                                            navController.navigate("query")
-                                                        }
+                                            call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                                                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                                                    Log.e("asd", "${response}")
+                                                    Log.e("asd", "${response}")
+                                                    if (response.isSuccessful) {
+                                                        navController.navigate("query")
                                                     }
 
                                                     override fun onFailure(

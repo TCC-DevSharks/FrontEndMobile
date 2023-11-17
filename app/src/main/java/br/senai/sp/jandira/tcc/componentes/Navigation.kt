@@ -111,7 +111,7 @@ fun Navigation(navController: NavController, pregnant: ModelPregnant) {
                     if (
                         pregnant.alergia.isEmpty() ||
 //                        pregnant.deficiencia.isEmpty() ||
-                        pregnant.medicacao.isEmpty() ||
+//                        pregnant.medicacao.isEmpty() ||
                         pregnant.comorbidades.isEmpty() ||
                         pregnant.cpf.isEmpty()
                         ){

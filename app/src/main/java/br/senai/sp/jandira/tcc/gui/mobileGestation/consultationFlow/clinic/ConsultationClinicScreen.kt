@@ -55,6 +55,7 @@ import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryCep
 import br.senai.sp.jandira.tcc.service.RetrofitFactoryMaps
 import coil.compose.AsyncImage
+import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Response
 
@@ -156,7 +157,6 @@ fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregn
 
                                         ) {
                                             if(response.isSuccessful){
-
                                                 matrix = response.body()!!.rows
 
                                                 matrix.map { it ->

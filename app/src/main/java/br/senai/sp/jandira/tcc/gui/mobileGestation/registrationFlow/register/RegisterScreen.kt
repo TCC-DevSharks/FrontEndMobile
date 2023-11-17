@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,7 @@ import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.model.ModelRegister
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.sql.Timestamp
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -57,6 +59,11 @@ fun RegisterScreen(navController: NavController, viewModel: ModelRegister) {
     var maxCharNome = 150
     var maxCharEmail = 255
     var maxCharPhone = 15
+
+
+    LaunchedEffect(Unit){
+        viewModel.foto = "https://firebasestorage.googleapis.com/v0/b/bebe-vindo.appspot.com/o/9516172-uma-linha-desenho-de-mulher-gravida-feliz-vetor.jpg?alt=media&token=c7cfad6a-650d-4929-a73a-eee634db2d4b"
+    }
 
     val storage = Firebase.storage
     val storageRef = storage.reference

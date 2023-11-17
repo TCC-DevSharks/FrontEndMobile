@@ -153,7 +153,7 @@ fun checkQuery(
                             ) {
 
                                 Text(
-                                    text = stringResource(id = R.string.consultation_with) + " " + extrairPrimeiroNome(gestante.profissional),
+                                    text = stringResource(id = R.string.consultation_with) + " " + extrairPrimeiroNome( gestante.profissional),
                                     fontWeight = FontWeight(400),
                                     fontSize = 14.sp,
                                     color = Color.Gray,
@@ -191,6 +191,7 @@ fun checkQuery(
                                 modifier = Modifier
                                     .width(80.dp)
                                     .clickable {
+
                                         modelMedicalRecord.id_consulta = gestante.id
                                         Log.i("Teste 5", "${gestante.id}")
                                         navController.navigate("AppointmentCanceled")

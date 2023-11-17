@@ -69,6 +69,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
@@ -82,6 +83,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWee
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
+import br.senai.sp.jandira.tcc.gui.mobileGestation.testeMap.MapScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine.TimeLineScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
@@ -91,6 +93,7 @@ import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
+import br.senai.sp.jandira.tcc.model.forum.user.ModelUser
 import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
@@ -138,6 +141,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
+    val forum = ModelUser()
 
     val currentRoute = remember { mutableStateOf("start") }
 
@@ -195,7 +199,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     ) {
         AnimatedNavHost(
             navController = navController,
-            startDestination = "start",
+            startDestination = "testemap",
             Modifier.padding(it)
         ) {
             composable(route = "home") { CadastroScren (navController) }
@@ -207,7 +211,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "forgot_email") { ForgotPasswordEmailScreen (navController) }
             composable(route = "week") { GestationWeekScreen (navController, viewModel) }
             composable(route = "calendar") { CalendarScreen (navController, viewModel) }
-            composable(route = "homeUser") { HomeUserScreen (navController, pregnant, modelSchedule) }
+            composable(route = "homeUser") { HomeUserScreen (navController, pregnant, modelSchedule, forum) }
             composable(route = "navigation") { Navigation (navController, pregnant) }
             composable(route = "bag") { MaternityBagScreen (navController, pregnant) }
             composable("trousseau/{category}") { backStackEntry ->
@@ -276,6 +280,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
+            composable(route = "forum") { ForumScreen (navController, pregnant) }
+            composable(route = "testemap") { MapScreen () }
 
 
 

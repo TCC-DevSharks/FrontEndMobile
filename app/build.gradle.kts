@@ -112,6 +112,10 @@ dependencies {
     //Youtube
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
+    //Google Maps
+        implementation ("com.google.maps.android:maps-compose:2.11.4")
+        implementation ("com.google.android.gms:play-services-maps:18.1.0")
+
 
 
 
