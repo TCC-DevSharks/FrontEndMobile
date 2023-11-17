@@ -270,5 +270,9 @@
     <string name="how_many_months">Quantos meses?</string>
 
     <string name="patietent_profile">Dados da Paciente</string>
+    <string name="exit_accont">Sair da conta</string>
+    <string name="your_account">Deseja sair da sua conta?</string>
+
+
 
 </resources>

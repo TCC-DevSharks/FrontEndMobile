@@ -154,7 +154,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         bottomBar = {
             when (currentRoute.value){
                 "home" -> {
-//                    HomeTopBar(navController = navController)
+//                    HomeTopBar(navController = navController, pregnant)
                     }
                 "start" -> {}
                 "login" -> {}
@@ -193,7 +193,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
 
-                else -> Navigation(navController,pregnant)
+                else -> HomeTopBar(navController,pregnant)
             }
         }
     ) {

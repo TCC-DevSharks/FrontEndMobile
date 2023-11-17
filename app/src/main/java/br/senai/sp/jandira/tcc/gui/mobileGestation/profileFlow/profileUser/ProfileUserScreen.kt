@@ -403,13 +403,13 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Card(
-                modifier = Modifier.size(width = 350.dp, height = 140.dp),
+                modifier = Modifier.size(width = 350.dp, height = 90.dp),
                 colors = CardDefaults.cardColors(Color.White)
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         modifier = Modifier.padding(top = 10.dp, start = 15.dp),
-                        text = stringResource(id = R.string.others),
+                        text = stringResource(id = R.string.exit_accont),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
@@ -422,52 +422,46 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                 ) {
                     Row() {
 
-                        Image(
-                            painter = painterResource(id = R.drawable.letter),
-                            contentDescription = null
-                        )
+//                        Image(
+//                            painter = painterResource(id = R.drawable.sair),
+//                            contentDescription = null
+//                        )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.contact)
+                            text = stringResource(id = R.string.your_account)
                         )
 
                     }
 
+                    var switchCheckedState by remember { mutableStateOf(false) }
 
-                    Row {
+                    Switch(
+                        modifier = Modifier.padding(bottom = 20.dp),
+                        checked = switchCheckedState,
+                        onCheckedChange = {
+                            switchCheckedState = it
 
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
+                            if (it) {
+                                navController.navigate("home")
+                            } else {
+                                // Código para quando o Switch estiver desligado
+                            }
+                        },
+
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = if (switchCheckedState)
+                                Color(182, 182, 246) else Color(217, 217, 217),
+                            checkedTrackColor = Color(182, 182, 246, 51),
+                            checkedBorderColor = Color(182, 182, 246),
+                            uncheckedThumbColor = Color(217, 217, 217),
+                            uncheckedTrackColor = Color.White,
+                            disabledCheckedBorderColor = Color(182, 182, 246)
                         )
 
-                    }
+                    )
 
 
                 }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row() {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.verification),
-                            contentDescription = null
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.politic)
-                        )
-
-                    }
-
-                }
-
-
             }
         }
 

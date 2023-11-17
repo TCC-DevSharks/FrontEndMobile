@@ -153,7 +153,6 @@ fun birthPlanScreen(
 
             if (selectedColumnInOtherScreen == 1) {
 
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
