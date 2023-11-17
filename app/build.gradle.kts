@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
 }
 
 
@@ -113,8 +115,9 @@ dependencies {
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
     //Google Maps
-        implementation ("com.google.maps.android:maps-compose:2.11.4")
-        implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-maps:18.0.2")
+    implementation ("com.google.maps.android:maps-compose:2.2.0")
+//    implementation ("com.google.maps.android:maps-compose:2.11.4")
 
 
 

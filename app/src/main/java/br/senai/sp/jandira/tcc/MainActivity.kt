@@ -73,6 +73,8 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapFragment
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapsScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategorySceen
@@ -83,7 +85,6 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.gestationWee
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.register.RegisterScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.registrationFlow.registerPassword.RegisterPasswordScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.scheduleAdd.ScheduleAdd
-import br.senai.sp.jandira.tcc.gui.mobileGestation.testeMap.MapScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine.TimeLineScreen
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.ModelRegister
@@ -127,7 +128,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-
 
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
@@ -199,7 +199,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     ) {
         AnimatedNavHost(
             navController = navController,
-            startDestination = "testemap",
+            startDestination = "maps",
             Modifier.padding(it)
         ) {
             composable(route = "home") { CadastroScren (navController) }
@@ -281,9 +281,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
             composable(route = "forum") { ForumScreen (navController, pregnant) }
-            composable(route = "testemap") { MapScreen () }
-
-
+            composable(route = "maps") { MapsScreen () }
 
 
         }
