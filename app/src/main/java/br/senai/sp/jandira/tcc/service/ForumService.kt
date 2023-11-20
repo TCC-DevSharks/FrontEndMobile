@@ -36,4 +36,7 @@ interface ForumService {
 
     @POST("forum/mensagem")
     fun postMessage(@Body message: PostMessages): Call<ResponseBody>
+
+    @GET("forum/topico/categoria/{id}")
+    fun getTopicsCategory(@Path("id")id: String): Call<ResponseTopicList>
 }

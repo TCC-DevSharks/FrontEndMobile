@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.forum
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -65,7 +66,11 @@ import br.senai.sp.jandira.tcc.model.forum.ModelForum
 import br.senai.sp.jandira.tcc.model.forum.category.ResponseCategory
 import br.senai.sp.jandira.tcc.model.forum.topic.PostTopic
 import br.senai.sp.jandira.tcc.model.forum.topic.ResponseTopic
+import br.senai.sp.jandira.tcc.model.forum.topic.ResponseTopicList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import retrofit2.Call
+import retrofit2.Response
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
@@ -77,6 +82,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
     var categorias by remember { mutableStateOf(listOf<ResponseCategory>()) }
     var topicos by remember { mutableStateOf(listOf<ResponseTopic>()) }
     var selectedOption by remember { mutableStateOf("Categoria") }
+    var selectedOptionFilter by remember { mutableStateOf("Categoria") }
 
     var topico by remember { mutableStateOf("") }
     var tituloTopico by remember { mutableStateOf("") }
@@ -282,6 +288,70 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                     }
                 }
 
+            }
+            
+            Row(modifier = Modifier
+                .padding(vertical = 5.dp, horizontal = 15.dp)
+                .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                Text(text = "Filtrar pela categoria:")
+
+                var expanded by remember { mutableStateOf(false) }
+
+
+                Column {
+                    DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        categorias.forEach {
+                            DropdownMenuItem(
+                                text = { Text(it.category) },
+                                onClick = {
+                                    selectedOptionFilter = it.category
+
+                                    val call = RetrofitFactory().Forum().getTopicsCategory(it.category)
+
+                                    call.enqueue(object : retrofit2.Callback<ResponseTopicList> {
+                                        override fun onResponse(
+                                            call: Call<ResponseTopicList>,
+                                            response: Response<ResponseTopicList>
+
+                                        ) {
+                                            Log.e("forum","${response}")
+                                            topicos = response.body()!!.topics
+                                        }
+
+                                        override fun onFailure(call: Call<ResponseTopicList>, t: Throwable) {
+                                            Log.i(
+                                                "ds2m",
+                                                "onFailure: ${t.message}"
+                                            )
+                                            println(t.message + t.cause)
+                                        }
+                                    })
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+
+                    Button(
+                        onClick = {
+                            expanded = !expanded
+                        },
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(35.dp),
+                        colors = ButtonDefaults.buttonColors(Color(211, 211, 250)),
+
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Text(selectedOptionFilter)
+                    }
+                }
             }
 
             LazyColumn(){
