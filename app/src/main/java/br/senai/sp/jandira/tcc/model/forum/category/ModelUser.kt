@@ -1,8 +1,7 @@
-package br.senai.sp.jandira.tcc.model.forum.user
+package br.senai.sp.jandira.tcc.model.forum.category
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 class ModelUser {
