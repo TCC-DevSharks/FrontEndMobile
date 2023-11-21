@@ -71,6 +71,18 @@ fun NavigationNutritionist(navController: NavController, professional: Professio
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
+                    navController.navigate("DoctorHome")
+
+                }) {
+                Image(
+                    painter = painterResource(id = R.drawable.home_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
+
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.clickable {
                     navController.navigate("medicalRecordSelect")
 
                 }) {
