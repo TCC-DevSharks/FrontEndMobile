@@ -53,15 +53,36 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import retrofit2.Call
 import retrofit2.Response
+import android.content.Context
+import android.location.Address
+import android.location.Geocoder
+import android.os.AsyncTask
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import br.senai.sp.jandira.tcc.model.clinic.ModelCep
+import java.io.IOException
 
 @Composable
 fun ConsultationDescriptionClinicScreen(
     navController: NavController,
     clinic: Clinic,
-    professional: Professional
+    professional: Professional,
+    modelCep: ModelCep
 ) {
 
+
     GetCep(clinic.cep, clinic)
+
+    Log.e("teste", "${modelCep.latitude}")
+    Log.e("teste2", "${modelCep.longitude}")
+
+    val singapore = LatLng(modelCep.latitude, modelCep.longitude)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(singapore, 16f)
+    }
 
     Column(
         modifier = Modifier
@@ -154,10 +175,8 @@ fun ConsultationDescriptionClinicScreen(
                     modifier = Modifier.padding(start = 30.dp)
                 ) {
 
-                    val singapore = LatLng(-23.5286115, -46.8985321)
-                    val cameraPositionState = rememberCameraPositionState {
-                        position = CameraPosition.fromLatLngZoom(singapore, 16f)
-                    }
+
+
                     GoogleMap(
                         modifier = Modifier
                             .width(300.dp)
@@ -318,8 +337,50 @@ fun ConsultationDescriptionClinicScreen(
 
     }
 
-
 }
+
+class GetLatLongFromCep(private val context: Context, private val cep: String, private val modelCep: ModelCep) : AsyncTask<Void, Void, Pair<Double, Double>>() {
+
+    var latitude: Double? = null
+    var longitude: Double? = null
+
+    override fun doInBackground(vararg params: Void?): Pair<Double, Double>? {
+        return getLatLongFromCep()
+    }
+
+    override fun onPostExecute(result: Pair<Double, Double>?) {
+        super.onPostExecute(result)
+        if (result != null) {
+            latitude = result.first
+            longitude = result.second
+            modelCep.latitude = latitude as Double
+            modelCep.longitude = longitude as Double
+            // Aqui você pode usar a latitude e longitude (result.first e result.second) conforme necessário
+//            Log.d("LatLng", "Latitude: ${result.first}, Longitude: ${result.second}")
+//            Log.d("LatLng", "var Latitude: ${latitude}, var Longitude: ${longitude}")
+        } else {
+            Log.e("LatLng", "Não foi possível obter a latitude e longitude.")
+        }
+    }
+
+    private fun getLatLongFromCep(): Pair<Double, Double>? {
+        val geocoder = Geocoder(context)
+        try {
+            val addresses: MutableList<Address>? = geocoder.getFromLocationName(cep, 1)
+            if (addresses != null) {
+                if (addresses.isNotEmpty()) {
+                    val latitude = addresses[0].latitude
+                    val longitude = addresses[0].longitude
+                    return Pair(latitude, longitude)
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+}
+
 
 fun GetCep(cep: String, clinic: Clinic) {
     val call = RetrofitFactoryCep().getCep().getCep(cep)

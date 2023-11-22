@@ -92,6 +92,7 @@ import br.senai.sp.jandira.tcc.model.ModelSpeciality
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
+import br.senai.sp.jandira.tcc.model.clinic.ModelCep
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
 import br.senai.sp.jandira.tcc.model.forum.user.ModelUser
@@ -142,6 +143,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
     val forum = ModelUser()
+    val modelCep = ModelCep()
 
     val currentRoute = remember { mutableStateOf("start") }
 
@@ -232,8 +234,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileData") { ProfileData (navController, pregnant) }
             composable(route = "insertEndress") { AddressScreen (navController, pregnant) }
             composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, pregnant, speciality) }
-            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, pregnant) }
-            composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional) }
+            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, pregnant, modelCep) }
+            composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional, modelCep) }
             composable(route = "ConsultDoctor") { DoctorScreen (navController,professional,pregnant, clinic) }
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional,pregnant) }

@@ -6,6 +6,9 @@ import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.clinic.ClinicResponseList
 import br.senai.sp.jandira.tcc.model.clinic.ClinicSpecialityResponseList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 
@@ -31,6 +34,38 @@ fun GetClinicSpeciality(speciality: Int, clinic: Clinic){
             println(t.message + t.cause)
         }
     })
+}
+
+fun obterLatitudeLongitudePorCEP(cep: String): Pair<Double, Double>? {
+    val apiKey = "AIzaSyAJLO-6hLv6ao_hbBwZ4aCiu2v2HmxhxOo"
+    val client = OkHttpClient()
+    val url = "https://maps.googleapis.com/maps/api/geocode/json?address=$cep&key=$apiKey"
+
+    val request = Request.Builder()
+        .url(url)
+        .build()
+
+    client.newCall(request).execute().use { response ->
+        if (!response.isSuccessful) {
+            // Tratar erro na chamada da API
+            return null
+        }
+
+        val responseBody = response.body?.string()
+        val json = JSONObject(responseBody)
+
+        val results = json.getJSONArray("results")
+
+        if (results.length() > 0) {
+            val location = results.getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
+            val latitude = location.getDouble("lat")
+            val longitude = location.getDouble("lng")
+            return Pair(latitude, longitude)
+        } else {
+            // Tratar caso não haja resultados para o CEP
+            return null
+        }
+    }
 }
 
 fun GetClinic(id: Int, clinic: Clinic, navController: NavController){
