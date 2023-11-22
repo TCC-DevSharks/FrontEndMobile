@@ -14,28 +14,28 @@ import retrofit2.Response
 import java.time.LocalTime
 
 fun GetForumUser(id: Int, user: ModelUser) {
-
-    val call = RetrofitFactory().Forum().getOneUser(id)
-
-    call.enqueue(object : retrofit2.Callback<ResponseOneUser> {
-        override fun onResponse(
-            call: Call<ResponseOneUser>,
-            response: Response<ResponseOneUser>
-
-        ) {
-            Log.e("forum","${response.body()}")
-            user._id = response.body()!!._id
-            user.foto = response.body()!!.foto
-            user.mysql = response.body()!!.mysql
-            user.username = response.body()!!.username
-        }
-
-        override fun onFailure(call: Call<ResponseOneUser>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
+//
+//    val call = RetrofitFactory().Forum().getOneUser(id)
+//
+//    call.enqueue(object : retrofit2.Callback<ResponseOneUser> {
+//        override fun onResponse(
+//            call: Call<ResponseOneUser>,
+//            response: Response<ResponseOneUser>
+//
+//        ) {
+//            Log.e("forum","${response.body()}")
+//            user._id = response.body()!!._id
+//            user.foto = response.body()!!.foto
+//            user.mysql = response.body()!!.mysql
+//            user.username = response.body()!!.username
+//        }
+//
+//        override fun onFailure(call: Call<ResponseOneUser>, t: Throwable) {
+//            Log.i(
+//                "ds2m",
+//                "onFailure: ${t.message}"
+//            )
+//            println(t.message + t.cause)
+//        }
+//    })
 }

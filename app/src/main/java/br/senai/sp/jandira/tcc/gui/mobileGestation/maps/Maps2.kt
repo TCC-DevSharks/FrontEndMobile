@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.maps
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.CameraPosition
@@ -29,16 +31,18 @@ fun MapsScreen() {
 
     Column (modifier = Modifier.fillMaxSize()) {
 
-        Column (modifier = Modifier.size(200.dp)) {
+        Column (modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
 
-            val singapore = LatLng(1.35, 103.87)
+
+
+            val singapore = LatLng(-23.5286115,-46.8985321)
             val cameraPositionState = rememberCameraPositionState {
-                position = CameraPosition.fromLatLngZoom(singapore, 100f)
+                position = CameraPosition.fromLatLngZoom(singapore, 16f)
             }
             GoogleMap(
                 modifier = Modifier
                     .width(360.dp)
-                    .height(180.dp),
+                    .height(580.dp),
                 cameraPositionState = cameraPositionState
             ) {
                 Marker(
@@ -48,31 +52,6 @@ fun MapsScreen() {
                 )
             }
 
-            var uiSettings by remember { mutableStateOf(MapUiSettings()) }
-            var properties by remember {
-                mutableStateOf(MapProperties(mapType = MapType.SATELLITE))
-            }
-
-            Box(Modifier.fillMaxSize()) {
-                GoogleMap(
-                    modifier = Modifier.matchParentSize(),
-                    properties = properties,
-                    uiSettings = uiSettings
-                )
-                Switch(
-                    checked = uiSettings.zoomControlsEnabled,
-                    onCheckedChange = {
-                        uiSettings = uiSettings.copy(zoomControlsEnabled = it)
-                    }
-                )
-            }
-
         }
-
-
-
     }
-
-
-
 }

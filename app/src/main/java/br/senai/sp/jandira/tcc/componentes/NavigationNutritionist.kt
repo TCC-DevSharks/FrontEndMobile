@@ -30,41 +30,72 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.limpeanapp.home.components.BottomNavigationItem
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.professional.Professional
 
+data class BottomNavigation(
+    val title: String,
+    val selectedIcon: Int,
+    val modifier: Modifier,
+    val route: String,
+)
+
 @Composable
-fun NavigationNutritionist(navController: NavController, professional: Professional) {
+fun NavigationNutritionist(
+    navController: NavController,
+    professional: Professional,
+    pregnant: ModelPregnant
+) {
 
     val items = listOf(
         BottomNavigationItem(
+            title = "Exercícios",
+            selectedIcon = R.drawable.dumbbell_cinza,
+
+            route = "Exercises",
+            modifier = Modifier.size(24.dp)
+        ),
+        BottomNavigationItem(
             title = "Dieta",
-            selectedIcon =  R.drawable.utensils_cinza,
+            selectedIcon = R.drawable.utensils_cinza,
 
             route = "Food",
             modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
             title = "Home",
-            selectedIcon =  R.drawable.house_branco,
+            selectedIcon = R.drawable.house_branco,
 
             route = "homeUser",
             modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
             title = "Chat",
-            selectedIcon =  R.drawable.chat_cinza,
+            selectedIcon = R.drawable.chat_cinza,
 
             route = "contactsChat",
             modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
-            title = "Médico",
-            selectedIcon =  R.drawable.doctor,
+            title = "Consulta",
+            selectedIcon = R.drawable.doctor,
 
-            route = "speciality",
+            route = if (
+                pregnant.alergia.isEmpty() ||
+//                        pregnant.deficiencia.isEmpty() ||
+                pregnant.medicacao.isEmpty() ||
+                pregnant.comorbidades.isEmpty() ||
+                pregnant.cpf.isEmpty()
+            ) {
+                "insertEndress"
+            } else {
+                "speciality"
+            },
             modifier = Modifier.size(24.dp)
         ),
-    )
+
+        )
+
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(2)
     }

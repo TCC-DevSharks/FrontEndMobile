@@ -165,33 +165,33 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "week" -> {}
                 "calendar" -> {}
                 "loginDoctor" -> {}
-                "profileDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
-                "DoctorHome" -> NavigationNutritionist(navController = navController, professional =professional )
-                "profileDataDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
-                "DoctorSchedule" -> NavigationNutritionist(navController = navController, professional =professional )
-                "dietSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional )
-                "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
-                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional )
+                "profileDoctor" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "DoctorHome" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "profileDataDoctor" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "DoctorSchedule" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "dietSelect" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordSelect" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
 
-                "foodCategoryPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFoodPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMealPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addDiet" -> NavigationNutritionist(navController = navController, professional =professional )
-                "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodCategoryPatient" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "addFoodPatient" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMealPatient" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "addDiet" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
                 else -> HomeTopBar(navController,pregnant)
             }
@@ -199,7 +199,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     ) {
         AnimatedNavHost(
             navController = navController,
-            startDestination = "maps",
+            startDestination = "start",
             Modifier.padding(it)
         ) {
             composable(route = "home") { CadastroScren (navController) }
