@@ -49,9 +49,9 @@ import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetLatLongFromCep
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ModelCep
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
-import br.senai.sp.jandira.tcc.model.clinic.ModelCep
 import br.senai.sp.jandira.tcc.model.google.DistanceMatrix
 import br.senai.sp.jandira.tcc.model.google.ElementsResponseList
 import br.senai.sp.jandira.tcc.model.viaCep.ViaCep
@@ -63,16 +63,14 @@ import retrofit2.Call
 import retrofit2.Response
 
 @Composable
-fun ConsultationClinicScreen(
-    navController: NavController, clinic: Clinic, pregnant: ModelPregnant,
-    modelCep: ModelCep
-) {
+fun ConsultationClinicScreen(navController: NavController, clinic: Clinic, pregnant: ModelPregnant,modelCep: ModelCep) {
 
-    LaunchedEffect(Unit) {
-        GetCep(pregnant, pregnant.cep)
+    LaunchedEffect(Unit){
+        GetCep(pregnant,pregnant.cep)
     }
 
     val context = LocalContext.current
+
 
     var matrix by remember { mutableStateOf(listOf<ElementsResponseList>()) }
 
@@ -91,11 +89,12 @@ fun ConsultationClinicScreen(
             ) {
 
 
-                Header(
-                    titulo = stringResource(id = R.string.header_speciality),
-                    rota = "speciality",
-                    navController = navController
-                )
+
+                    Header(
+                        titulo = stringResource(id = R.string.header_speciality),
+                        rota = "speciality",
+                        navController = navController
+                    )
 
                 Spacer(modifier = Modifier.height(13.dp))
 
@@ -124,14 +123,10 @@ fun ConsultationClinicScreen(
                 Spacer(modifier = Modifier.height(35.dp))
 
 
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    items(clinic.clinica.distinctBy { it.id }) { it ->
+                LazyColumn(modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally){
+                    items(clinic.clinica.distinctBy { it.id }){ it ->
 
-                        clinic.cep = it.cep
-                        GetLatLongFromCep(context, clinic.cep, modelCep = modelCep)
 
                         val call = RetrofitFactoryCep().getCep().getCep(it.cep)
 
@@ -149,29 +144,26 @@ fun ConsultationClinicScreen(
                                 val bairro = response.body()!!.bairro
 
                                 val destination = "${logradouro}, ${bairro}, ${cidade}, Brazil"
-                                val origin =
-                                    "${pregnant.logradouro}, ${pregnant.bairro}, ${pregnant.cidade}, Brazil"
+                                val origin = "${pregnant.logradouro}, ${pregnant.bairro}, ${pregnant.cidade}, Brazil"
                                 val key = "AIzaSyCLmZ-N0L89OzMsvIm8bcphurXZPSdBlDg"
 
 
                                 if (response.isSuccessful) {
 
-                                    val callDistance =
-                                        RetrofitFactoryMaps().getDistance().getMatrix(
-                                            origins = origin,
-                                            destinations = destination,
-                                            key = key,
-                                            mode = "driving"
+                                    val callDistance = RetrofitFactoryMaps().getDistance().getMatrix(
+                                        origins = origin,
+                                        destinations = destination,
+                                        key = key,
+                                        mode = "driving"
                                         )
 
-                                    callDistance.enqueue(object :
-                                        retrofit2.Callback<DistanceMatrix> {
+                                    callDistance.enqueue(object : retrofit2.Callback<DistanceMatrix> {
                                         override fun onResponse(
                                             call: Call<DistanceMatrix>,
                                             response: Response<DistanceMatrix>
 
                                         ) {
-                                            if (response.isSuccessful) {
+                                            if(response.isSuccessful){
                                                 matrix = response.body()!!.rows
 
                                                 matrix.map { it ->
@@ -181,17 +173,14 @@ fun ConsultationClinicScreen(
                                                     }
                                                 }
 
-                                            } else {
+                                            }else{
                                                 distance = "0.0"
                                                 duration = "0.0"
                                             }
 
                                         }
 
-                                        override fun onFailure(
-                                            call: Call<DistanceMatrix>,
-                                            t: Throwable
-                                        ) {
+                                        override fun onFailure(call: Call<DistanceMatrix>, t: Throwable) {
                                             Log.i(
                                                 "dsm",
                                                 "onFailure: ${t.message}"
@@ -218,20 +207,23 @@ fun ConsultationClinicScreen(
                                 .width(340.dp)
                                 .height(150.dp)
                                 .padding(bottom = 14.dp)
-                                .clickable {
+                                .clickable ( onClick = {
                                     GetClinic(it.id, clinic, navController)
-                                },
+                                    Log.i("D", "${it.cep} ")
+                                    GetLatLongFromCep(context, it.cep, modelCep = modelCep)
+                                }
+                        ),
                             colors = CardDefaults.cardColors(Color(236, 238, 255)),
-                            border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
+                            border = BorderStroke(width = 1.dp, color = Color(182,182,246)),
 
                             shape = RoundedCornerShape(16.dp),
                         ) {
-                            Row(
+                            Row (
                                 Modifier
                                     .fillMaxSize(),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
-                            ) {
+                            ){
                                 AsyncImage(
                                     model = it.foto,
                                     contentDescription = "",
@@ -251,29 +243,25 @@ fun ConsultationClinicScreen(
                                         fontSize = 30.sp,
                                     )
 
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Row (verticalAlignment = Alignment.CenterVertically){
                                         Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.baseline_location_on_24),
-                                                contentDescription = "",
-                                            )
+                                            Icon(painter = painterResource(id = R.drawable.baseline_location_on_24),
+                                                contentDescription = "",)
 
                                             Spacer(modifier = Modifier.width(5.dp))
 
-                                            Text(text = distance)
+                                            Text(text = distance )
                                         }
 
                                         Spacer(modifier = Modifier.width(20.dp))
 
                                         Row(verticalAlignment = Alignment.CenterVertically) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.car_24),
-                                                contentDescription = "",
-                                            )
+                                            Icon(painter = painterResource(id = R.drawable.car_24),
+                                                contentDescription = "",)
 
                                             Spacer(modifier = Modifier.width(5.dp))
 
-                                            Text(text = duration)
+                                            Text(text = duration )
                                         }
                                     }
                                 }

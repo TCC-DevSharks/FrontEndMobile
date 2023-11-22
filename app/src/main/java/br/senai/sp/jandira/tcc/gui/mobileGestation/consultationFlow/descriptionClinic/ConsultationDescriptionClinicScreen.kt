@@ -62,9 +62,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import br.senai.sp.jandira.tcc.model.clinic.ModelCep
 import java.io.IOException
 
+
+class ModelCep {
+    var latitude by mutableStateOf(0.0)
+    var longitude by mutableStateOf(0.0)
+
+
+}
 @Composable
 fun ConsultationDescriptionClinicScreen(
     navController: NavController,
@@ -72,14 +78,21 @@ fun ConsultationDescriptionClinicScreen(
     professional: Professional,
     modelCep: ModelCep
 ) {
+    val context = LocalContext.current
 
 
     GetCep(clinic.cep, clinic)
+
+    val cep = clinic.cep
+    val task = GetLatLongFromCep(context, cep, modelCep = modelCep)
+    task.execute()
 
     Log.e("teste", "${modelCep.latitude}")
     Log.e("teste2", "${modelCep.longitude}")
 
     val singapore = LatLng(modelCep.latitude, modelCep.longitude)
+
+
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(singapore, 16f)
     }
@@ -351,10 +364,8 @@ class GetLatLongFromCep(private val context: Context, private val cep: String, p
     override fun onPostExecute(result: Pair<Double, Double>?) {
         super.onPostExecute(result)
         if (result != null) {
-            latitude = result.first
-            longitude = result.second
-            modelCep.latitude = latitude as Double
-            modelCep.longitude = longitude as Double
+            modelCep.latitude = result.first
+            modelCep.longitude = result.second
             // Aqui você pode usar a latitude e longitude (result.first e result.second) conforme necessário
 //            Log.d("LatLng", "Latitude: ${result.first}, Longitude: ${result.second}")
 //            Log.d("LatLng", "var Latitude: ${latitude}, var Longitude: ${longitude}")
