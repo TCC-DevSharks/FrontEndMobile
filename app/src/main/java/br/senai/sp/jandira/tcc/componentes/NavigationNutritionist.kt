@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -37,7 +36,7 @@ data class BottomNavigation(
     val title: String,
     val selectedIcon: Int,
     val modifier: Modifier,
-    val route: String,
+    val route: () -> Unit,
 )
 
 @Composable
