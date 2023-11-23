@@ -78,6 +78,8 @@ fun GetClinic(id: Int, clinic: Clinic, navController: NavController){
             response: Response<ClinicResponseList>
 
         ) {
+
+
             if (response.code() == 200){
                 response.body()!!.clinica.map {
                     clinic.id = it.id
@@ -91,6 +93,7 @@ fun GetClinic(id: Int, clinic: Clinic, navController: NavController){
                     clinic.numero = it.numero
                     clinic.cep = it.cep
                 }
+
 
                 navController.navigate("DescriptionClinic")
 

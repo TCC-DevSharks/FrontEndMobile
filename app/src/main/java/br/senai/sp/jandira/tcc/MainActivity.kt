@@ -60,7 +60,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.Addr
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.checkQuery.checkQuery
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ConsultationClinicScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.ModelCep
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ModelCep
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionDoctor.DescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.payment.PaymentScreen

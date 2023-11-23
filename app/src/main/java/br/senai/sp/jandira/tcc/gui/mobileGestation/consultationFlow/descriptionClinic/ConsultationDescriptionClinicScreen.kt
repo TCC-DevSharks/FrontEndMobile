@@ -60,17 +60,12 @@ import android.os.AsyncTask
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ModelCep
 import java.io.IOException
 
-
-class ModelCep {
-    var latitude by mutableStateOf(0.0)
-    var longitude by mutableStateOf(0.0)
-
-
-}
 @Composable
 fun ConsultationDescriptionClinicScreen(
     navController: NavController,
@@ -79,6 +74,10 @@ fun ConsultationDescriptionClinicScreen(
     modelCep: ModelCep
 ) {
     val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+
+    }
 
 
     GetCep(clinic.cep, clinic)
@@ -90,7 +89,11 @@ fun ConsultationDescriptionClinicScreen(
     Log.e("teste", "${modelCep.latitude}")
     Log.e("teste2", "${modelCep.longitude}")
 
-    val singapore = LatLng(modelCep.latitude, modelCep.longitude)
+
+
+    var singapore by rememberSaveable {
+        mutableStateOf(LatLng(modelCep.latitude, modelCep.longitude))
+    }
 
 
     val cameraPositionState = rememberCameraPositionState {
@@ -260,7 +263,7 @@ fun ConsultationDescriptionClinicScreen(
                     )
 
                     Text(
-                        text = " " + clinic.email,
+                        text = " " + clinic.telefone,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -354,9 +357,6 @@ fun ConsultationDescriptionClinicScreen(
 
 class GetLatLongFromCep(private val context: Context, private val cep: String, private val modelCep: ModelCep) : AsyncTask<Void, Void, Pair<Double, Double>>() {
 
-    var latitude: Double? = null
-    var longitude: Double? = null
-
     override fun doInBackground(vararg params: Void?): Pair<Double, Double>? {
         return getLatLongFromCep()
     }
@@ -366,9 +366,6 @@ class GetLatLongFromCep(private val context: Context, private val cep: String, p
         if (result != null) {
             modelCep.latitude = result.first
             modelCep.longitude = result.second
-            // Aqui você pode usar a latitude e longitude (result.first e result.second) conforme necessário
-//            Log.d("LatLng", "Latitude: ${result.first}, Longitude: ${result.second}")
-//            Log.d("LatLng", "var Latitude: ${latitude}, var Longitude: ${longitude}")
         } else {
             Log.e("LatLng", "Não foi possível obter a latitude e longitude.")
         }
@@ -382,6 +379,8 @@ class GetLatLongFromCep(private val context: Context, private val cep: String, p
                 if (addresses.isNotEmpty()) {
                     val latitude = addresses[0].latitude
                     val longitude = addresses[0].longitude
+                    modelCep.latitude = latitude
+                    modelCep.longitude = longitude
                     return Pair(latitude, longitude)
                 }
             }
