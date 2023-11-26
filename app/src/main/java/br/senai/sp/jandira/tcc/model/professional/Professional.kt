@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.model.professional
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import br.senai.sp.jandira.tcc.model.professional.consult.ProfessionalConsultResponse
 
 class Professional {
     var crm by mutableStateOf("")
@@ -12,6 +13,7 @@ class Professional {
     var nome by mutableStateOf("")
     var id by mutableStateOf(0)
     var profissional by mutableStateOf(listOf<ProfessionalSpecialityResponse>())
+    var consulta by mutableStateOf(listOf<ProfessionalConsultResponse>())
     var email by mutableStateOf("")
     var senha by mutableStateOf("")
     var foto by mutableStateOf("")
