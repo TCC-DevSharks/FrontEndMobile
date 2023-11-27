@@ -29,8 +29,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,17 +57,17 @@ import br.senai.sp.jandira.tcc.calls.GetComorbidity
 import br.senai.sp.jandira.tcc.calls.GetDeficiency
 import br.senai.sp.jandira.tcc.calls.GetEndereco
 import br.senai.sp.jandira.tcc.calls.GetForumUser
-import br.senai.sp.jandira.tcc.calls.GetMedication
 import br.senai.sp.jandira.tcc.calls.GetPregnant
+import br.senai.sp.jandira.tcc.calls.PostForumUser
 import br.senai.sp.jandira.tcc.componentes.CardPreparations
 import br.senai.sp.jandira.tcc.componentes.ForumDialog
 import br.senai.sp.jandira.tcc.componentes.MarternalGuide
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.Schedule
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.article.articleList
 import br.senai.sp.jandira.tcc.model.article.articleResponse
-import br.senai.sp.jandira.tcc.model.forum.user.ModelUser
+import br.senai.sp.jandira.tcc.model.forum.ModelForum
+import br.senai.sp.jandira.tcc.model.forum.user.PostUser
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
 import br.senai.sp.jandira.tcc.model.schedule.Schedule
 import br.senai.sp.jandira.tcc.model.schedule.ScheduleList
@@ -89,7 +87,7 @@ fun HomeUserScreen(
     navController: NavController,
     pregnant: ModelPregnant,
     modelSchedule: ModelSchedule,
-    forum: ModelUser
+    forum: ModelForum
 ) {
     var openDialog = remember { mutableStateOf(false) }
 
@@ -141,10 +139,20 @@ fun HomeUserScreen(
 //        GetMedication(pregnant)
         GetCep(pregnant, pregnant.cep)
         GetForumUser(pregnant.id, forum)
+        println("123")
     }
 
     ForumDialog(openDialog =openDialog){
 
+        var user = PostUser(
+            username = pregnant.nome,
+            foto = pregnant.foto,
+            mysql = pregnant.id,
+            age  =22
+        )
+
+        PostForumUser(user)
+        GetForumUser(pregnant.id, forum)
     }
 
         Box(
@@ -357,9 +365,7 @@ fun HomeUserScreen(
                     Button(
                         modifier = Modifier.size(360.dp, 50.dp),
                         onClick = {
-                            println(forum.mysql)
-                            println(pregnant.id)
-                                  if (forum.mysql !== pregnant.id){
+                            if (forum.mysql !== pregnant.id){
                                       openDialog.value = true
 
                                   }else{
