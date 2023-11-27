@@ -33,6 +33,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -58,18 +59,63 @@ import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
 import br.senai.sp.jandira.tcc.model.professional.Professional
+import br.senai.sp.jandira.tcc.model.professional.consult.ProfessionalConsultResponse
+import br.senai.sp.jandira.tcc.model.professional.consult.ProfessionalConsultResponseList
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import java.lang.Math.ceil
+import java.lang.Math.min
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun DescriptionDoctorScreen(
     navController: NavController, professional: Professional,
 ) {
     val context = LocalContext.current
+    var dateConsult by remember { mutableStateOf(listOf<String>()) }
+
+    LaunchedEffect(Unit){
+
+        val call = RetrofitFactory().getProfessional().getProfissionalConsult(professional.id)
+
+        call.enqueue(object : retrofit2.Callback<ProfessionalConsultResponseList> {
+            override fun onResponse(
+                call: Call<ProfessionalConsultResponseList>,
+                response: Response<ProfessionalConsultResponseList>
+
+            ) {
+               professional.consulta = response.body()!!.pacientes
+                println(response.body())
+            }
+
+            override fun onFailure(call: Call<ProfessionalConsultResponseList>, t: Throwable) {
+                Log.i(
+                    "ds2m",
+                    "onFailure: ${t.message}"
+                )
+                println(t.message + t.cause)
+            }
+        })
+
+    }
+
+    LaunchedEffect(professional.consulta){
+        professional.consulta.map {
+
+            dateConsult = dateConsult + it.dia
+        }
+    }
+
+
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -207,7 +253,7 @@ fun DescriptionDoctorScreen(
                 Row(modifier = Modifier.padding(top = 5.dp, bottom = 12.dp)) {
 
                     Text(
-                        text = professional.valor,
+                        text = "R$ " + professional.valor,
                         fontSize = 12.5.sp,
                         fontWeight = FontWeight(300),
                         lineHeight = 18.sp
@@ -259,6 +305,7 @@ fun DescriptionDoctorScreen(
 
                             val isSelectedDate = date == selectedDate
 
+                            Log.e("123", "${selectedDate}, ${dateConsult}")
 
                             Button(
                                 onClick = {
@@ -300,12 +347,21 @@ fun DescriptionDoctorScreen(
                     }
                 }
 
+
+
+
+
                 if (selectedDate != null) {
                     item {
                         Spacer(modifier = Modifier.height(10.dp))
 
-                        val startTime = LocalTime.of(10, 0) // Horário inicial
-                        val endTime = LocalTime.of(18, 0) // Horário final
+                        val hora_inicio = professional.inicio_atendimento.substring(0, 2).toInt()
+                        val minutos_inicio = professional.inicio_atendimento.substring(3, 5).toInt()
+                        val hora_fim = professional.fim_atendimento.substring(0, 2).toInt()
+                        val minutos_fim = professional.fim_atendimento.substring(3, 5).toInt()
+
+                        val startTime = LocalTime.of(hora_inicio, minutos_inicio) // Horário inicial
+                        val endTime = LocalTime.of(hora_fim, minutos_fim) // Horário final
                         val interval = Duration.ofMinutes(30) // Intervalo de 30 minutos
 
                         // Lista de horários
@@ -326,9 +382,6 @@ fun DescriptionDoctorScreen(
                         ) {
                             for (i in 0 until columnCount) {
                                 Column(
-                                    modifier = Modifier
-                                        .height(140.dp)
-                                        .verticalScroll(rememberScrollState()),
                                     verticalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     for (j in 0 until wordsPerColumn) {
@@ -337,6 +390,9 @@ fun DescriptionDoctorScreen(
 
                                             val time = times[index]
                                             val isSelected = time == selectedTime
+                                            Log.e("", "${times}")
+                                            Log.e("", "${times}")
+
                                             Text(
                                                 text = "${times[index]}",
                                                 modifier = Modifier.clickable {

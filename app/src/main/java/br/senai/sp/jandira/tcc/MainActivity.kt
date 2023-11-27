@@ -70,6 +70,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.allExercises.Ex
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExercices.DescriptionExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.stageExercices.StageExercises
 import br.senai.sp.jandira.tcc.gui.mobileGestation.foodFlow.changeFood.ChangeFoodScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumMessageScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
@@ -95,7 +96,7 @@ import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.clinic.Clinic
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.model.food.ModelFood
-import br.senai.sp.jandira.tcc.model.forum.user.ModelUser
+import br.senai.sp.jandira.tcc.model.forum.ModelForum
 import br.senai.sp.jandira.tcc.model.medicalRecord.ModelMedicalRecord
 import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.model.schedule.ModelSchedule
@@ -142,7 +143,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
-    val forum = ModelUser()
+    val forum = ModelForum()
     val modelCep = ModelCep()
 
     val currentRoute = remember { mutableStateOf("start") }
@@ -195,7 +196,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
-                else -> HomeTopBar(navController,pregnant)
+                else -> HomeTopBar(navController = navController, pregnant =pregnant )
             }
         }
     ) {
@@ -282,9 +283,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
-            composable(route = "forum") { ForumScreen (navController, pregnant) }
             composable(route = "maps") { MapsScreen () }
-
+            composable(route = "forum") { ForumScreen (navController, pregnant, forum) }
+            composable(route = "forumMessage") { ForumMessageScreen (navController, pregnant, forum) }
+//            composable(route = "testezinho") { testezinho () }
 
         }
     }
