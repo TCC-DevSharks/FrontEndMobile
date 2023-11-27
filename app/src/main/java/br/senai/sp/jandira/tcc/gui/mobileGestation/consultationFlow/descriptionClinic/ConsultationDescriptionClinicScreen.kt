@@ -75,10 +75,6 @@ fun ConsultationDescriptionClinicScreen(
 ) {
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-
-    }
-
 
     GetCep(clinic.cep, clinic)
 
