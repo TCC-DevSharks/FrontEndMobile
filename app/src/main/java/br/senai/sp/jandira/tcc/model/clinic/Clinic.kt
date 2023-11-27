@@ -25,3 +25,8 @@ class Clinic {
     var cidade by mutableStateOf("")
 
 }
+
+class ModelCep {
+    var latitude by mutableStateOf(0.0)
+    var longitude by mutableStateOf(0.0)
+}

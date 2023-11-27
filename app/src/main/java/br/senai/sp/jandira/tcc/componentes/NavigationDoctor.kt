@@ -1,41 +1,36 @@
 package br.senai.sp.jandira.limpeanapp.home.components
 
-import android.content.res.Configuration
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.BottomNavigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 //Coloque aqui o nav bar
@@ -43,7 +38,8 @@ data class BottomNavigationItem(
     val title: String,
     val selectedIcon: Int,
     val modifier: Modifier,
-    val route : String
+    val route: String,
+
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,13 +77,71 @@ fun HomeTopBar(
             modifier = Modifier.size(24.dp)
         ),
         BottomNavigationItem(
-            title = "Médico",
+            title = "Consulta",
             selectedIcon =  R.drawable.doctor,
 
-            route = "speciality",
+            route = if (
+                pregnant.alergia.isEmpty() ||
+                pregnant.medicacao.isEmpty() ||
+                pregnant.comorbidades.isEmpty() ||
+                pregnant.cpf.isEmpty()
+            ) {
+                "insertEndress"
+            } else {
+                "speciality"
+            }
+            ,
             modifier = Modifier.size(24.dp)
+
         ),
     )
+
+    val context = LocalContext.current
+
+    // Variável para armazenar a rota atual
+    var currentRoute by remember { mutableStateOf("homeUser") }
+
+
+
+
+    // Registro de um callback para interceptar o botão de voltar
+    val onBackPressedCallback = rememberUpdatedState(newValue = {
+        navController.navigate("homeUser"){
+            popUpTo(navController.graph.findStartDestination().id){
+                saveState = true
+            }
+            launchSingleTop = true
+        }
+    })
+
+    DisposableEffect(currentRoute) {
+        val currentActivity = (context as? ComponentActivity)
+
+        val callback = object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                navController.navigate("homeUser") {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                }
+            }
+        }
+
+        // Adiciona o callback à atividade
+        currentActivity?.onBackPressedDispatcher?.addCallback(callback)
+
+        // Remove o callback quando o DisposableEffect for descartado
+        onDispose {
+            callback.remove()
+        }
+    }
+
+
+    Log.e("aaaaaa", "${pregnant.alergia.length}")
+    Log.e("mmmmmmm", "${pregnant.medicacao.length}")
+    Log.e("cccccc", "${pregnant.comorbidades.length}")
+    Log.e("pfpfpfpfpf", "${pregnant.cpf.length}")
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(2)
     }

@@ -59,6 +59,7 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.address.Addr
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.addressFinish.ConsultationAddressFinishScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.checkQuery.checkQuery
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ConsultationClinicScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ModelCep
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionDoctor.DescriptionDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.payment.PaymentScreen
@@ -73,6 +74,8 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapFragment
+import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapsScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategorySceen
@@ -127,7 +130,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-
     val navController = rememberAnimatedNavController()
     val viewModel = ModelRegister()
     val pregnant = ModelPregnant()
@@ -140,7 +142,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
-    val forum = ModelForum()
+    val forum = ModelUser()
+    val modelCep = ModelCep()
 
     val currentRoute = remember { mutableStateOf("start") }
 
@@ -164,33 +167,33 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "week" -> {}
                 "calendar" -> {}
                 "loginDoctor" -> {}
-                "profileDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
-                "DoctorHome" -> NavigationNutritionist(navController = navController, professional =professional )
-                "profileDataDoctor" -> NavigationNutritionist(navController = navController, professional =professional )
-                "DoctorSchedule" -> NavigationNutritionist(navController = navController, professional =professional )
-                "dietSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional )
-                "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
-                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional )
-                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional )
+                "profileDoctor" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "DoctorHome" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "profileDataDoctor" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "DoctorSchedule" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "dietSelect" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordSelect" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "medicalRecordAdd" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "nutritionSelect" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "mealSelect" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "medicalRecordSelectDate" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "patientProfile" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordMade" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "medicalRecordMadeData" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
 
-                "foodCategoryPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFoodPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMealPatient" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addFood" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional )
-                "addDiet" -> NavigationNutritionist(navController = navController, professional =professional )
-                "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
-                "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional )
+                "foodCategoryPatient" -> NavigationNutritionist(navController = navController, professional =professional, pregnant )
+                "addFoodPatient" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMealPatient" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodCategory" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "addFood" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMeal" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "addDiet" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
                 else -> Navigation(navController = navController, pregnant =pregnant )
             }
@@ -231,8 +234,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "profileData") { ProfileData (navController, pregnant) }
             composable(route = "insertEndress") { AddressScreen (navController, pregnant) }
             composable(route = "consultationEndress") { ConsultationAddressFinishScreen (navController, pregnant, speciality) }
-            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, pregnant) }
-            composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional) }
+            composable(route = "ConsultClinic") { ConsultationClinicScreen (navController,clinic, pregnant, modelCep) }
+            composable(route = "DescriptionClinic") { ConsultationDescriptionClinicScreen (navController, clinic, professional, modelCep) }
             composable(route = "ConsultDoctor") { DoctorScreen (navController,professional,pregnant, clinic) }
             composable(route = "DescriptionDoctor") { DescriptionDoctorScreen (navController,professional) }
             composable(route = "ConsultFinish") { ConsultationRegisterScreen (navController,professional,pregnant) }
@@ -279,6 +282,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
+            composable(route = "maps") { MapsScreen () }
             composable(route = "forum") { ForumScreen (navController, pregnant, forum) }
             composable(route = "forumMessage") { ForumMessageScreen (navController, pregnant, forum) }
         }
