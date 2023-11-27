@@ -14,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.senai.sp.jandira.limpeanapp.home.components.HomeTopBar
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
@@ -142,7 +143,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val exercises = ModelExercises()
     val modelMedicalRecord = ModelMedicalRecord()
     val chatModel = ChatModel()
-    val forum = ModelUser()
+    val forum = ModelForum()
     val modelCep = ModelCep()
 
     val currentRoute = remember { mutableStateOf("start") }
@@ -195,7 +196,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
-                else -> Navigation(navController = navController, pregnant =pregnant )
+                else -> HomeTopBar(navController = navController, pregnant =pregnant )
             }
         }
     ) {
@@ -285,6 +286,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "maps") { MapsScreen () }
             composable(route = "forum") { ForumScreen (navController, pregnant, forum) }
             composable(route = "forumMessage") { ForumMessageScreen (navController, pregnant, forum) }
+//            composable(route = "testezinho") { testezinho () }
+
         }
     }
 

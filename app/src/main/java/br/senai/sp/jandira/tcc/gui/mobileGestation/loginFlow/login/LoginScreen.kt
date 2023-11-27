@@ -52,7 +52,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
     var email by rememberSaveable { mutableStateOf("") }
 
-    email = "g@g.com"
+    email = "i@i.com"
 //    email = "i@i.com"
     password = "123"
 
