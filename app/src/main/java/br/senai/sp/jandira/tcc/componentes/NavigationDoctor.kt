@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.componentes.BottomNavigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 
 //Coloque aqui o nav bar
@@ -82,13 +81,13 @@ fun HomeTopBar(
 
             route = if (
                 pregnant.alergia.isEmpty() ||
-                pregnant.medicacao.isEmpty() ||
                 pregnant.comorbidades.isEmpty() ||
                 pregnant.cpf.isEmpty()
             ) {
-                "insertEndress"
-            } else {
                 "speciality"
+            } else {
+                "insertEndress"
+
             }
             ,
             modifier = Modifier.size(24.dp)

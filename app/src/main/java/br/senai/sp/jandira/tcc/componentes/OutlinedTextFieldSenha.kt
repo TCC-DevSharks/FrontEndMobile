@@ -59,9 +59,9 @@ fun OutlinedTextFieldSenha(
             Text(text = stringResource(id = texto))
         },
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color(243, 243, 243),
-            unfocusedIndicatorColor = Color(243, 243, 243),
-            focusedIndicatorColor = Color(243, 243, 243),
+            containerColor = Color.White,
+            focusedIndicatorColor = Color(182, 182, 246),
+            unfocusedIndicatorColor = Color(182, 182, 246)
 //
         ),
         trailingIcon = {

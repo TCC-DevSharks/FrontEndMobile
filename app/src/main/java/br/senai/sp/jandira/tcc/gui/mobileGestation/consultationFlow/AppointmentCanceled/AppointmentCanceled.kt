@@ -491,7 +491,7 @@ fun AppointmentCanceled(
                             Spacer(modifier = Modifier.height(1.dp))
                             Row() {
                                 Text(
-                                    text = "R$200" + professional.valor,
+                                    text = "R$: " + professional.valor,
                                     fontWeight = FontWeight.Bold, fontSize = 15.sp
                                 )
                             }

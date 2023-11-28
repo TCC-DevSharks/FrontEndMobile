@@ -55,14 +55,13 @@ fun LoginDoctorScreen(navController: NavController, professional: Professional) 
     var email by rememberSaveable { mutableStateOf("") }
 
     LaunchedEffect(Unit){
-        email = "m@m.com"
+//        email = "r@q.com"
+//        email = "claudia@c.com"
         password = "123"
     }
 
+    var login by remember { mutableStateOf(0) }
 
-    var login by remember {
-        mutableStateOf(listOf<Login>())
-    }
     var visible by remember { mutableStateOf(false) }
 
 
@@ -100,8 +99,10 @@ fun LoginDoctorScreen(navController: NavController, professional: Professional) 
             ) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp),
+
+                    ) {
                     Text(
                         text = stringResource(id = R.string.error_password),
                         color = Color.Red
@@ -162,13 +163,11 @@ fun LoginDoctorScreen(navController: NavController, professional: Professional) 
 
                             ) {
                                 //Duas exclamações significam que pode vir nulo
-                                login = response.body()!!.doctor
+                                login = response.body()!!.doctor.id
 
-                                if (login[0].id !== 0) {
+                                if (login !== 0) {
+                                        professional.id = login
 
-                                    login.forEach {
-                                        professional.id = it.id
-                                    }
                                     navController.navigate("DoctorHome")
 
                                 } else {

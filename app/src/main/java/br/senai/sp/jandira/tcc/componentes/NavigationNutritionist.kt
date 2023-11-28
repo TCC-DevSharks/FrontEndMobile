@@ -32,12 +32,12 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.professional.Professional
 
-data class BottomNavigation(
-    val title: String,
-    val selectedIcon: Int,
-    val modifier: Modifier,
-    val route: () -> Unit,
-)
+//data class BottomNavigation(
+//    val title: String,
+//    val selectedIcon: Int,
+//    val modifier: Modifier,
+//    val route: () -> Unit,
+//)
 
 @Composable
 fun NavigationNutritionist(
@@ -46,97 +46,87 @@ fun NavigationNutritionist(
     pregnant: ModelPregnant
 ) {
 
-    val items = listOf(
-        BottomNavigationItem(
-            title = "Exercícios",
-            selectedIcon = R.drawable.dumbbell_cinza,
-
-            route = "Exercises",
-            modifier = Modifier.size(24.dp)
-        ),
-        BottomNavigationItem(
-            title = "Dieta",
-            selectedIcon = R.drawable.utensils_cinza,
-
-            route = "Food",
-            modifier = Modifier.size(24.dp)
-        ),
-        BottomNavigationItem(
-            title = "Home",
-            selectedIcon = R.drawable.house_branco,
-
-            route = "homeUser",
-            modifier = Modifier.size(24.dp)
-        ),
-        BottomNavigationItem(
-            title = "Chat",
-            selectedIcon = R.drawable.chat_cinza,
-
-            route = "contactsChat",
-            modifier = Modifier.size(24.dp)
-        ),
-        BottomNavigationItem(
-            title = "Consulta",
-            selectedIcon = R.drawable.doctor,
-
-            route = if (
-                pregnant.alergia.isEmpty() ||
-//                        pregnant.deficiencia.isEmpty() ||
-                pregnant.medicacao.isEmpty() ||
-                pregnant.comorbidades.isEmpty() ||
-                pregnant.cpf.isEmpty()
-            ) {
-                "insertEndress"
-            } else {
-                "speciality"
-            },
-            modifier = Modifier.size(24.dp)
-        ),
-
-        )
-
-    var selectedItemIndex by rememberSaveable {
-        mutableStateOf(2)
-    }
-
-    NavigationBar(
-        containerColor =Color(245,245,245),
-        contentColor = MaterialTheme.colorScheme.onBackground
-    ) {
-        items.forEachIndexed { index,item ->
-            NavigationBarItem(
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                    indicatorColor = Color(245,245,245),
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                    unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                selected = selectedItemIndex == index,
-                onClick = {
-                    selectedItemIndex = index
-                    navController.navigate(item.route)
-                },
-                label = {
-                    Text(
-                        text = item.title,
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                },
-                icon = {
-
-                    Image(
-                        painter =
-                        painterResource(id = item.selectedIcon),
-                        contentDescription = item.title,
-                        modifier = Modifier.size(24.dp),
-                        colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
-                        else ColorFilter.tint(Color(209, 209, 214))
-                    )
-
-                }
-            )
-        }
-    }
+//    val items = listOf(
+//        BottomNavigationItem(
+//            title = "Dieta",
+//            selectedIcon = R.drawable.utensils_cinza,
+//
+//            route = "dietSelect",
+//            modifier = Modifier.size(24.dp)
+//        ),
+//        BottomNavigationItem(
+//            title = "Chat",
+//            selectedIcon = R.drawable.chat_cinza,
+//
+//            route = "DoctorHome",
+//            modifier = Modifier.size(24.dp)
+//        ),
+//        BottomNavigationItem(
+//            title = "Home",
+//            selectedIcon = R.drawable.home_cinza,
+//
+//            route = "DoctorHome",
+//            modifier = Modifier.size(24.dp)
+//        ),
+//        BottomNavigationItem(
+//            title = "Prontuario",
+//            selectedIcon = R.drawable.clipboard_doctor,
+//
+//            route = "medicalRecordSelect",
+//            modifier = Modifier.size(24.dp)
+//        ),
+//        BottomNavigationItem(
+//            title = "Agenda",
+//            selectedIcon = R.drawable.calendar_doctor,
+//
+//            route = "doctorSchedule",
+//            modifier = Modifier.size(24.dp)
+//        ),
+//
+//        )
+//
+//    var selectedItemIndex by rememberSaveable {
+//        mutableStateOf(2)
+//    }
+//
+//    NavigationBar(
+//        containerColor =Color(245,245,245),
+//        contentColor = MaterialTheme.colorScheme.onBackground
+//    ) {
+//        items.forEachIndexed { index,item ->
+//            NavigationBarItem(
+//                colors = NavigationBarItemDefaults.colors(
+//                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+//                    indicatorColor = Color(245,245,245),
+//                    selectedTextColor = MaterialTheme.colorScheme.primary,
+//                    unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+//                ),
+//                selected = selectedItemIndex == index,
+//                onClick = {
+//                    selectedItemIndex = index
+//                    navController.navigate(item.route)
+//                },
+//                label = {
+//                    Text(
+//                        text = item.title,
+//                        style = MaterialTheme.typography.labelSmall,
+//                    )
+//                },
+//                icon = {
+//
+//                    Image(
+//                        painter =
+//                        painterResource(id = item.selectedIcon),
+//                        contentDescription = item.title,
+//                        modifier = Modifier.size(24.dp),
+//                        colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
+//                        else ColorFilter.tint(Color(209, 209, 214))
+//                    )
+//
+//                }
+//            )
+//        }
+//    }
 
     Row(
         modifier = Modifier

@@ -787,7 +787,7 @@ fun PaymentScreen(
                                             .size(35.dp)
                                     )
                                     Text(
-                                        text = "Consulta com nutricionista"
+                                        text = "Consulta com ${professional.especialidade}"
                                     )
                                 }
                             }

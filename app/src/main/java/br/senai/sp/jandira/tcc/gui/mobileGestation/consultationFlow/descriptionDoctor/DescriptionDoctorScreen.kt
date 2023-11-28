@@ -1,16 +1,11 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionDoctor
 
-import android.content.Context
-import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,10 +19,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -35,9 +28,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,42 +39,66 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeft
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
+import br.senai.sp.jandira.tcc.model.consult.ConsultList
+import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
 import br.senai.sp.jandira.tcc.model.professional.Professional
-import br.senai.sp.jandira.tcc.model.professional.consult.ProfessionalConsultResponse
 import br.senai.sp.jandira.tcc.model.professional.consult.ProfessionalConsultResponseList
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
-import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Math.ceil
-import java.lang.Math.min
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 @Composable
 fun DescriptionDoctorScreen(
     navController: NavController, professional: Professional,
 ) {
     val context = LocalContext.current
+
     var dateConsult by remember { mutableStateOf(listOf<String>()) }
 
+    var pacientes by rememberSaveable {
+        mutableStateOf(listOf<ConsultResponsePaciente>())
+    }
+
+    val times = mutableListOf<LocalTime>()
+
+    var Horas = pacientes.map { it.hora }
+
+
     LaunchedEffect(Unit){
+
+
+        val callPaci = RetrofitFactory().consult().getConsult(professional.id)
+
+        callPaci.enqueue(object : Callback<ConsultList> {
+            override fun onResponse(
+                call: Call<ConsultList>,
+                response: Response<ConsultList>
+            ) {
+                pacientes = response.body()!!.pacientes
+                println(pacientes)
+
+            }
+
+            override fun onFailure(call: Call<ConsultList>, t: Throwable) {
+                Log.i("hgf", "${pacientes}")
+            }
+        })
 
         val call = RetrofitFactory().getProfessional().getProfissionalConsult(professional.id)
 
@@ -113,6 +130,7 @@ fun DescriptionDoctorScreen(
         }
     }
 
+//    times.filter { Horas.contains(it) }
 
 
 
@@ -365,7 +383,7 @@ fun DescriptionDoctorScreen(
                         val interval = Duration.ofMinutes(30) // Intervalo de 30 minutos
 
                         // Lista de horários
-                        val times = mutableListOf<LocalTime>()
+//                        val times = mutableListOf<LocalTime>()
                         var currentTime = startTime
 
                         while (currentTime <= endTime) {
@@ -396,6 +414,7 @@ fun DescriptionDoctorScreen(
                                             Text(
                                                 text = "${times[index]}",
                                                 modifier = Modifier.clickable {
+
                                                     selectedTime = time
                                                     DataHora.selectedTime = time.toString()
                                                 },
@@ -421,7 +440,7 @@ fun DescriptionDoctorScreen(
                     {
 
 
-                        if (selectedDate != null && selectedTime != null) {
+                        if (selectedDate != null && selectedTime != null  ) {
                             navController.navigate("Payment")
 
                         } else {

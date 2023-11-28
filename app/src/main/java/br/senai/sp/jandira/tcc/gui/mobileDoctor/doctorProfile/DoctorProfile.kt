@@ -242,7 +242,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_person_outline_24),
                             contentDescription = null,
-                            tint = Color(182,182,246)
+                            tint = Color(182,182,246),
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -255,7 +257,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
 
                         Image(
                             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+
                         )
 
                     }
@@ -272,10 +276,12 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
 
                         Icon(
                             painter = painterResource(
-                                id = R.drawable.baseline_library_books_24
+                                id = R.drawable.baseline_library_books_24,
                             ),
                             contentDescription = null,
-                            tint = Color(182,182,246)
+                            tint = Color(182,182,246),
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -288,7 +294,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                             contentDescription = null,
-                            tint = Color.Gray
+                            tint = Color.Gray,
+                            modifier = Modifier.size(20.dp)
+
 
                         )
 
@@ -308,7 +316,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                                 id = R.drawable.graph
                             ),
                             contentDescription = null,
-                            tint =  Color(182,182,246)
+                            tint =  Color(182,182,246),
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -321,7 +331,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                             contentDescription = null,
-                            tint = Color.Gray
+                            tint = Color.Gray,
+                            modifier = Modifier.size(20.dp)
+
 
                         )
 
@@ -341,7 +353,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                                 id = R.drawable.baseline_insert_chart_24
                             ),
                             contentDescription = null,
-                            tint = Color(182,182,246)
+                            tint = Color(182,182,246),
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -354,7 +368,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                             contentDescription = null,
-                            tint = Color.Gray
+                            tint = Color.Gray,
+                            modifier = Modifier.size(20.dp)
+
 
                         )
 
@@ -393,7 +409,9 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         Icon(
                             painter = painterResource(id = R.drawable.bell),
                             contentDescription = null,
-                            tint =  Color(182,182,246)
+                            tint =  Color(182,182,246),
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -433,7 +451,6 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                 }
             }
         }
-
         Spacer(modifier = Modifier.height(30.dp))
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -441,13 +458,13 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Card(
-                modifier = Modifier.size(width = 350.dp, height = 140.dp),
+                modifier = Modifier.size(width = 350.dp, height = 90.dp),
                 colors = CardDefaults.cardColors(Color.White)
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Text(
                         modifier = Modifier.padding(top = 10.dp, start = 15.dp),
-                        text = stringResource(id = R.string.others),
+                        text = stringResource(id = R.string.exit_accont),
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
@@ -458,97 +475,50 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row() {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
 
-                        Icon(
-                            painter = painterResource(id = R.drawable.letter),
+                        Image(
+                            painter = painterResource(id = R.drawable.cancelar),
                             contentDescription = null,
-                            tint =  Color(182,182,246)
+                            modifier = Modifier.size(20.dp)
 
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.contact)
+                            text = stringResource(id = R.string.your_account)
                         )
 
                     }
 
+                    var switchCheckedState by remember { mutableStateOf(false) }
 
-                    Row {
+                    Switch(
+                        modifier = Modifier.padding(bottom = 20.dp),
+                        checked = switchCheckedState,
+                        onCheckedChange = {
+                            switchCheckedState = it
 
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
+                            if (it) {
+                                navController.navigate("home")
+                            } else {
+                                // Código para quando o Switch estiver desligado
+                            }
+                        },
+
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = if (switchCheckedState)
+                                Color(182, 182, 246) else Color(217, 217, 217),
+                            checkedTrackColor = Color(182, 182, 246, 51),
+                            checkedBorderColor = Color(182, 182, 246),
+                            uncheckedThumbColor = Color(217, 217, 217),
+                            uncheckedTrackColor = Color.White,
+                            disabledCheckedBorderColor = Color(182, 182, 246)
                         )
 
-                    }
+                    )
 
 
                 }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row() {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.verification),
-                            contentDescription = null,
-                            tint =  Color(182,182,246)
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.politic)
-                        )
-
-                    }
-
-                    Row {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
-                        )
-
-                    }
-
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row() {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_settings_24),
-                            contentDescription = null,
-                            tint =  Color(182,182,246)
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.Settings)
-                        )
-
-                    }
-
-                    Row {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                            contentDescription = null
-                        )
-
-                    }
-
-                }
-
-
             }
         }
 

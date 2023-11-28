@@ -173,7 +173,7 @@ fun DoctorHome(
 
                         Spacer(modifier = Modifier.height(5.5.dp))
 
-                        Row() {
+                        Row(modifier = Modifier.padding(bottom = 8.dp)) {
                             Text(
                                 text = professional.crm,
                                 fontSize = 15.sp,
