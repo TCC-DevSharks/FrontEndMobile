@@ -1,10 +1,18 @@
 package br.senai.sp.jandira.limpeanapp.home.components
 
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
@@ -15,22 +23,28 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
+import kotlinx.coroutines.delay
 
 //Coloque aqui o nav bar
 data class BottomNavigationItem(
@@ -99,9 +113,6 @@ fun HomeTopBar(
 
     // Variável para armazenar a rota atual
     var currentRoute by remember { mutableStateOf("homeUser") }
-
-
-
 
     // Registro de um callback para interceptar o botão de voltar
     val onBackPressedCallback = rememberUpdatedState(newValue = {
@@ -178,11 +189,8 @@ fun HomeTopBar(
                             colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
                             else ColorFilter.tint(Color(209, 209, 214))
                         )
-
                 }
             )
         }
     }
-
-
 }

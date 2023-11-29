@@ -230,7 +230,9 @@ fun ConsultationClinicScreen(
                                     Log.i("D", "${it.cep} ")
                                     val task = GetLatLongFromCep(context, it.cep, modelCep = modelCep)
                                     task.execute()
-                                    GetClinic(it.id, clinic)
+                                    Log.i("Da", "${task.execute()} ")
+                                    Log.i("De", "${modelCep.latitude} ")
+                                    GetClinic(it.id, clinic, navController)
                                 },
                             colors = CardDefaults.cardColors(Color(236, 238, 255)),
                             border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),

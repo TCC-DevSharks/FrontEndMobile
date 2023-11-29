@@ -31,6 +31,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -44,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -88,7 +90,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
     var tituloTopico by remember { mutableStateOf("") }
     var expanded = remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         GetCategorys(forum)
         GetForumTopic(forum)
     }
@@ -112,15 +114,19 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
 
             Card(
                 modifier = Modifier
-                    .padding(10.dp),
-                border = BorderStroke(2.5.dp, Color(182, 182, 246))
+                    .padding(10.dp)
+                    .shadow(elevation = 8.dp),
+                border = BorderStroke(2.5.dp, Color.White),
+                colors = CardDefaults.cardColors(Color.White)
 
             ) {
-                Column {
+                Column(modifier = Modifier.fillMaxWidth()) {
                     Row(
                         modifier = Modifier
-                            .padding(horizontal = 20.dp, vertical = 10.dp)
-                    ) {
+                            .padding(horizontal = 10.dp, vertical = 10.dp)
+                            .fillMaxWidth(),
+
+                        ) {
                         Card(
                             modifier = Modifier
                                 .size(65.dp),
@@ -139,8 +145,12 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
 
                         }
 
-                        Column(modifier = Modifier.padding(horizontal = 10.dp)) {
-                            Text(text = "Selecione a categoria do tópico:")
+                        Column(modifier = Modifier.padding(horizontal = 35.dp)) {
+                            Text(
+                                text = "Selecione a categoria do tópico:",
+                                color = Color(93, 93, 93),
+                                fontSize = 14.sp,
+                            )
 
                             var expanded by remember { mutableStateOf(false) }
 
@@ -161,25 +171,28 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                         )
                                     }
                                 }
-
                                 Button(
                                     onClick = {
                                         expanded = !expanded
                                     },
                                     modifier = Modifier
-                                        .width(250.dp)
+                                        .width(210.dp)
                                         .height(35.dp),
-                                    colors = ButtonDefaults.buttonColors(Color(211, 211, 250)),
+                                    colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
 
                                     shape = RoundedCornerShape(16.dp)
                                 ) {
-                                    Text(selectedOption)
+                                    Text(
+                                        selectedOption,
+                                        fontSize = 14.sp,
+                                    )
+
                                 }
                             }
                         }
-
-
                     }
+
+
 
                     Column(
                         modifier = Modifier
@@ -187,19 +200,23 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                     ) {
 
                         Column {
-
                             TextField(
                                 value = tituloTopico,
                                 onValueChange = { tituloTopico = it },
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color.White),
-                                shape = RoundedCornerShape(20.dp),
+                                    .height(60.dp)
+                                    .background(Color.White)
+                                    .border(
+                                        1.dp,
+                                        Color(182, 182, 246),
+                                        shape = RoundedCornerShape(10.dp)
+                                    ),
                                 label = {
                                     Text(
-                                        "Titulo",
+                                        "Titulo:",
                                         fontSize = 10.8.sp,
-                                        color = Color.Black
+                                        color = Color(182, 182, 246)
                                     )
                                 },
                                 keyboardOptions = KeyboardOptions(
@@ -214,20 +231,29 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                 singleLine = true
                             )
 
-                            Spacer(modifier = Modifier.height(5.dp))
 
-                            OutlinedTextField(
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+
+                            TextField(
                                 value = topico,
                                 onValueChange = { topico = it },
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color.White),
-                                shape = RoundedCornerShape(20.dp),
+                                    .height(60.dp)
+                                    .background(Color.White)
+                                    .border(
+                                        1.dp,
+                                        Color(182, 182, 246),
+                                        shape = RoundedCornerShape(10.dp)
+                                    ),
                                 label = {
                                     Text(
                                         "Crie seu tópico ${forum.username}:",
                                         fontSize = 10.8.sp,
-                                        color = Color.Black
+                                        color = Color(182, 182, 246)
+
                                     )
                                 },
                                 keyboardOptions = KeyboardOptions(
@@ -241,6 +267,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                 ),
                                 singleLine = true
                             )
+
 
                         }
 
@@ -270,8 +297,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                 modifier = Modifier
                                     .width(115.dp)
                                     .height(35.dp),
-                                colors = ButtonDefaults.buttonColors(Color(211, 211, 250)),
-
+                                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
                                 shape = RoundedCornerShape(16.dp),
 
                                 ) {
@@ -284,19 +310,25 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                             }
 
                         }
-
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
                 }
-
             }
-            
-            Row(modifier = Modifier
-                .padding(vertical = 5.dp, horizontal = 15.dp)
-                .fillMaxWidth(),
+
+
+
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 5.dp, horizontal = 15.dp)
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                Text(text = "Filtrar pela categoria:")
+            ) {
+                Text(
+                    text = "Filtrar pela categoria:",
+                    color = Color(93, 93, 93),
+                    fontSize = 14.sp,
+                )
 
                 var expanded by remember { mutableStateOf(false) }
 
@@ -312,7 +344,8 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                 onClick = {
                                     selectedOptionFilter = it.category
 
-                                    val call = RetrofitFactory().Forum().getTopicsCategory(it.category)
+                                    val call =
+                                        RetrofitFactory().Forum().getTopicsCategory(it.category)
 
                                     call.enqueue(object : retrofit2.Callback<ResponseTopicList> {
                                         override fun onResponse(
@@ -320,11 +353,14 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                             response: Response<ResponseTopicList>
 
                                         ) {
-                                            Log.e("forum","${response}")
+                                            Log.e("forum", "${response}")
                                             topicos = response.body()!!.topics
                                         }
 
-                                        override fun onFailure(call: Call<ResponseTopicList>, t: Throwable) {
+                                        override fun onFailure(
+                                            call: Call<ResponseTopicList>,
+                                            t: Throwable
+                                        ) {
                                             Log.i(
                                                 "ds2m",
                                                 "onFailure: ${t.message}"
@@ -338,39 +374,64 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                         }
                     }
 
-                    Button(
-                        onClick = {
-                            expanded = !expanded
-                        },
+                    Box(
                         modifier = Modifier
-                            .width(200.dp)
-                            .height(35.dp),
-                        colors = ButtonDefaults.buttonColors(Color(211, 211, 250)),
-
-                        shape = RoundedCornerShape(16.dp)
+                            .width(170.dp)
+                            .height(35.dp)
+                            .border(1.dp, Color(182, 182, 246), RoundedCornerShape(16.dp))
                     ) {
-                        Text(selectedOptionFilter)
+                        Button(
+                            onClick = {
+                                expanded = !expanded
+                            },
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            shape = RoundedCornerShape(16.dp)
+                        ) {
+                            Row {
+                                Text(
+                                    selectedOptionFilter,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(182, 182, 246)
+                                )
+                                Spacer(modifier = Modifier.width(0.dp))
+
+                                Icon(
+                                    painter = painterResource(id = R.drawable.baseline_arrow_downward_24),
+                                    contentDescription = null,
+                                    tint = Color(182, 182, 246),
+                                    modifier = Modifier
+                                        .width(24.dp)
+                                        .height(24.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
 
-            LazyColumn(){
-                items(topicos){
+
+
+
+            LazyColumn() {
+                items(topicos) {
                     Card(
                         modifier = Modifier
                             .fillMaxSize(1f)
-                            .padding(vertical = 8.dp)
+                            .width(50.dp)
+                            .padding(vertical = 8.dp, horizontal = 10.dp)
                             .clickable {
                                 forum.mensagemId = it._id
                                 println(forum.mensagemId)
                                 navController.navigate("forumMessage")
                             },
-                        colors = CardDefaults.cardColors(Color(182, 182, 246, 23)),
+                        colors = CardDefaults.cardColors(Color(182, 182, 246, 30)),
 
                         ) {
                         Row(
                             modifier = Modifier.padding(14.dp)
-                        ){
+                        ) {
                             Card(
                                 modifier = Modifier
                                     .size(55.dp),
@@ -423,11 +484,13 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                         .padding(top = 9.5.dp),
                                     horizontalArrangement = Arrangement.Start,
                                     verticalAlignment = Alignment.CenterVertically,
-                                ){
-                                    Text(text = it.category,
+                                ) {
+                                    Text(
+                                        text = it.category,
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight(400),
-                                        color = Color(209, 209, 214))
+                                        color = Color(209, 209, 214)
+                                    )
                                 }
                             }
                         }

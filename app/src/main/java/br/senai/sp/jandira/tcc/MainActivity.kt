@@ -196,7 +196,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
-                else -> Navigation(navController = navController, pregnant =pregnant )
+                else -> HomeTopBar(navController = navController, pregnant =pregnant )
             }
         }
     ) {
@@ -286,6 +286,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "maps") { MapsScreen () }
             composable(route = "forum") { ForumScreen (navController, pregnant, forum) }
             composable(route = "forumMessage") { ForumMessageScreen (navController, pregnant, forum) }
+//            composable(route = "testezinho") { testezinho () }
+
         }
     }
 
