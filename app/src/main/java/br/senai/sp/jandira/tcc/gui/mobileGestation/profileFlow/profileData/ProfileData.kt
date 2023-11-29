@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -191,7 +192,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -232,7 +235,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         },
@@ -270,7 +275,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -308,7 +315,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -345,7 +354,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -387,7 +398,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -429,7 +442,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         },
@@ -512,7 +527,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -588,7 +605,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }
@@ -627,7 +646,9 @@ fun ProfileData(navController: NavController, viewModel: ModelPregnant) {
                             Icon(
                                 painter = painterResource(id = R.drawable.editor_outlined),
                                 contentDescription = "",
-                                tint = Color(182, 182, 246)
+                                tint = Color(182, 182, 246),
+                                modifier = Modifier.size(20.dp)
+
                             )
 
                         }

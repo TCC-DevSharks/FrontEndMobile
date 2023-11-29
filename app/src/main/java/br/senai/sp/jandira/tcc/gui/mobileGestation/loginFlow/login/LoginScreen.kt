@@ -52,11 +52,6 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
     var email by rememberSaveable { mutableStateOf("") }
 
-<<<<<<< HEAD
-//    email = "g@g.com"
-=======
-    email = "i@i.com"
->>>>>>> a24d582caf12fde6846d58f8e01ac521a024d3fb
 //    email = "i@i.com"
     password = "123"
 
@@ -101,8 +96,10 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
             ) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp),
+
+                    ) {
                     Text(
                         text = stringResource(id = R.string.error_password),
                         color = Color.Red

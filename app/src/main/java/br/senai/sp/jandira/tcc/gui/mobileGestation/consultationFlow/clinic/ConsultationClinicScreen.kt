@@ -74,6 +74,7 @@ fun ConsultationClinicScreen(
     modelCep: ModelCep
 ) {
 
+    var selectItem by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(Unit) {
@@ -224,6 +225,8 @@ fun ConsultationClinicScreen(
                                 .height(150.dp)
                                 .padding(bottom = 14.dp)
                                 .clickable {
+
+                                    selectItem = true
                                     Log.i("D", "${it.cep} ")
                                     val task = GetLatLongFromCep(context, it.cep, modelCep = modelCep)
                                     task.execute()
@@ -291,6 +294,13 @@ fun ConsultationClinicScreen(
                         }
                     }
                 }
+            }
+        }
+
+        LaunchedEffect(selectItem) {
+            if (selectItem) {
+                delay(1500)
+                navController.navigate("DescriptionClinic")
             }
         }
 

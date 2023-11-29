@@ -273,11 +273,12 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
 
-                        Row() {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
 
                             Image(
                                 painter = painterResource(id = R.drawable.baseline_person_outline_24),
-                                contentDescription = null
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
                             )
                             Text(
                                 modifier = Modifier.padding(start = 15.dp),
@@ -303,11 +304,12 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row() {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
 
                         Image(
                             painter = painterResource(id = R.drawable.graph),
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -352,11 +354,13 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row() {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
 
                         Image(
                             painter = painterResource(id = R.drawable.bell),
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+
                         )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
@@ -420,12 +424,14 @@ fun ProfileUserScreen(navController: NavController, viewModel: ModelPregnant) {
                         .padding(top = 10.dp, start = 5.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row() {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
 
-//                        Image(
-//                            painter = painterResource(id = R.drawable.sair),
-//                            contentDescription = null
-//                        )
+                        Image(
+                            painter = painterResource(id = R.drawable.cancelar),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+
+                        )
                         Text(
                             modifier = Modifier.padding(start = 15.dp),
                             text = stringResource(id = R.string.your_account)

@@ -90,6 +90,7 @@ fun birthPlanScreen(
                 Log.i("BirthPlan", "onResponse: $favorite")
                 if (response.isSuccessful) {
                     val favoritoIds = favorite.map { it.item }
+
                     planoPartoFavorito = planoParto.filter { favoritoIds.contains(it.item) }
                 }
             }

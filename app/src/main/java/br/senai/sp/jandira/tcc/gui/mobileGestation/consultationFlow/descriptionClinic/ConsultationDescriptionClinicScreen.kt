@@ -62,6 +62,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic.ModelCep
 import java.io.IOException
@@ -75,7 +76,6 @@ fun ConsultationDescriptionClinicScreen(
 ) {
     val context = LocalContext.current
 
-
     GetCep(clinic.cep, clinic)
 
     val cep = clinic.cep
@@ -84,7 +84,6 @@ fun ConsultationDescriptionClinicScreen(
 
     Log.e("teste", "${modelCep.latitude}")
     Log.e("teste2", "${modelCep.longitude}")
-
 
 
     var singapore by rememberSaveable {
@@ -136,7 +135,8 @@ fun ConsultationDescriptionClinicScreen(
         Spacer(modifier = Modifier.height(15.dp))
 
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 28.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -150,11 +150,13 @@ fun ConsultationDescriptionClinicScreen(
 
             Spacer(modifier = Modifier.height(5.dp))
 
-            Column() {
+            Column(verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = clinic.descricao,
                     fontSize = 15.sp,
-                    color = Color(57, 57, 56)
+                    color = Color(57, 57, 56),
+                    textAlign = TextAlign.Center
                 )
 
             }
@@ -188,7 +190,6 @@ fun ConsultationDescriptionClinicScreen(
                 ) {
 
 
-
                     GoogleMap(
                         modifier = Modifier
                             .width(300.dp)
@@ -207,16 +208,19 @@ fun ConsultationDescriptionClinicScreen(
                 Spacer(modifier = Modifier.height(20.dp))
 
 
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 8.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
 
-                    Text(
-                        text = stringResource(id = R.string.emailL),
-                        fontSize = 17.sp,
-                        color = Color(57, 57, 56),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 18.sp
+                    Image(
+                        painter = painterResource(id = R.drawable.letter),
+                        contentDescription = null,
+                        modifier = Modifier.size(27.dp),
+                        colorFilter = ColorFilter.tint(Color(182,182,246))
                     )
+
+                    Spacer(modifier = Modifier.width(13.dp))
 
                     Text(
                         text = " " + clinic.email,
@@ -227,19 +231,22 @@ fun ConsultationDescriptionClinicScreen(
                     )
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 8.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.house_branco),
+                        contentDescription = null,
+                        modifier = Modifier.size(22.dp),
+                        colorFilter = ColorFilter.tint(Color(182,182,246))
+                    )
+
+                    Spacer(modifier = Modifier.width(13.dp))
+
                     Text(
-                        text = buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 17.sp
-                                )
-                            ) {
-                                append("Endereço: ")
-                            }
-                            append(clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil," + " " + clinic.cep)
-                        },
+                        text = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil," + " " + clinic.cep,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Start,
@@ -247,16 +254,19 @@ fun ConsultationDescriptionClinicScreen(
                     )
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 8.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                ) {
 
-                    Text(
-                        text = stringResource(id = R.string.emailL),
-                        fontSize = 17.sp,
-                        color = Color(57, 57, 56),
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 18.sp
+                    Image(
+                        painter = painterResource(id = R.drawable.phone),
+                        contentDescription = null,
+                        modifier = Modifier.size(22.dp),
+                        colorFilter = ColorFilter.tint(Color(182,182,246))
                     )
+
+                    Spacer(modifier = Modifier.width(13.dp))
 
                     Text(
                         text = " " + clinic.telefone,
@@ -326,9 +336,6 @@ fun ConsultationDescriptionClinicScreen(
 //                }
 
 
-
-
-
             }
         }
 
@@ -351,7 +358,11 @@ fun ConsultationDescriptionClinicScreen(
 
 }
 
-class GetLatLongFromCep(private val context: Context, private val cep: String, private val modelCep: ModelCep) : AsyncTask<Void, Void, Pair<Double, Double>>() {
+class GetLatLongFromCep(
+    private val context: Context,
+    private val cep: String,
+    private val modelCep: ModelCep
+) : AsyncTask<Void, Void, Pair<Double, Double>>() {
 
     override fun doInBackground(vararg params: Void?): Pair<Double, Double>? {
         return getLatLongFromCep()

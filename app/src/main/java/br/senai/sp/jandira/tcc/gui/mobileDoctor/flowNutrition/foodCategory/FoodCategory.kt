@@ -83,7 +83,10 @@ fun FoodCategory(navController: NavController, modelFood: ModelFood){
                     modifier = Modifier.padding(horizontal = 15.dp)
                 )
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                Spacer(modifier = Modifier.height(7.dp))
+
+
+                LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 9.dp)) {
                     items(categorias){
 
                         Card(
@@ -96,7 +99,7 @@ fun FoodCategory(navController: NavController, modelFood: ModelFood){
                                 },
                             colors = CardDefaults.cardColors(containerColor = Color.White),
                             shape = RoundedCornerShape(10.dp),
-                            border = BorderStroke(1.5.dp, Color.Black)
+                            border = BorderStroke(.5.dp, Color.Black)
                         ) {
                             Row(modifier = Modifier
                                 .padding(horizontal = 15.dp, vertical = 15.dp),
@@ -106,7 +109,7 @@ fun FoodCategory(navController: NavController, modelFood: ModelFood){
                                 Text(
                                     text = it.nome,
                                     color = Color(182, 182, 246),
-                                    fontSize = 20.sp,
+                                    fontSize = 17.5.sp,
                                     fontWeight = FontWeight.ExtraBold
                                 )
                             }

@@ -53,6 +53,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetMsg
 import br.senai.sp.jandira.tcc.calls.SendMsg
+import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.componentes.Chat
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
@@ -115,16 +116,8 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                 verticalAlignment = CenterVertically
             ) {
 
-                Row {
-//                ArrowLeftPurple(navController = , rota = )
-                    Image(painter = painterResource(id = R.drawable.arrow_circle),
-                        contentDescription = null,
-                        Modifier
-                            .clickable {
+                ArrowLeft(navController = navController, rota = "contactsChat")
 
-                            }
-                            .size(40.dp))
-                }
 
                 Row(
                     modifier = Modifier
