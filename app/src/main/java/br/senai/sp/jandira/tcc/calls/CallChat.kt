@@ -101,8 +101,6 @@ fun SendMsg(text: String, users: List<String>, sender: String, timestamp: LocalT
             response: Response<ResponseBody>
 
         ) {
-            Log.e("", "${response}")
-            Log.e("", "${sendMessage}")
         }
 
         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

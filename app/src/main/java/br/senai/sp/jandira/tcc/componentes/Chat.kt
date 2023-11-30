@@ -43,7 +43,6 @@ fun Chat(
 ) {
 
 
-
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

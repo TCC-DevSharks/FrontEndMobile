@@ -220,7 +220,6 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                             }
                         })
 
-                        GetMsg(chatModel.user,profissional, chatModel)
 
                         Row(modifier = Modifier.padding(vertical = 9.dp)) {
 

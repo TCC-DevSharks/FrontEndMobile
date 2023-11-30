@@ -232,7 +232,7 @@ fun ConsultationClinicScreen(
                                     task.execute()
                                     Log.i("Da", "${task.execute()} ")
                                     Log.i("De", "${modelCep.latitude} ")
-                                    GetClinic(it.id, clinic, navController)
+                                    GetClinic(it.id, clinic)
                                 },
                             colors = CardDefaults.cardColors(Color(236, 238, 255)),
                             border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),

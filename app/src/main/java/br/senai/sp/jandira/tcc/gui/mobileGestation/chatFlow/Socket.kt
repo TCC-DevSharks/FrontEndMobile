@@ -9,6 +9,7 @@ class SocketManager {
 
     init {
         try {
+//            socket = IO.socket("http://10.0.2.2:8080/")
             socket = IO.socket("https://api-bebevindo.azurewebsites.net/")
 //            handleMsgReceive { receivedMsg ->
 //                // Faça algo com a mensagem recebida, por exemplo, exibir em algum lugar na interface do usuário.

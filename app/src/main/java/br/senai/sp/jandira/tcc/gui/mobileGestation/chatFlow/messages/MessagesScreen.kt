@@ -61,6 +61,7 @@ import br.senai.sp.jandira.tcc.model.mongoDb.ChatDbResponse
 import coil.compose.AsyncImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 
@@ -95,6 +96,7 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     }
 
     LaunchedEffect(effect){
+        delay(500)
         GetMsg(user, profissional, chatModel)
     }
 

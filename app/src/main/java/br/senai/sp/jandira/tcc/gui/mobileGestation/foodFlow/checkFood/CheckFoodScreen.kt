@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -108,17 +109,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-        val currentDate = LocalDate.now()
-        val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
-
-        val dates = mutableListOf<LocalDate>()
-
-        var dateToAdd = currentDate
-
-        while (dateToAdd <= lastDayOfMonth) {
-            dates.add(dateToAdd)
-            dateToAdd = dateToAdd.plusDays(1)
-        }
 
         Column(
             modifier = Modifier
@@ -140,55 +130,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
 
             Spacer(modifier = Modifier.height(40.dp))
 
-
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-            ) {
-                items(dates.size) { index ->
-                    val formattedDate = dates[index].format(DateTimeFormatter.ofPattern("dd"))
-
-                    val dayOfWeek = dates[index].dayOfWeek
-
-                    val dayOfWeekName =
-                        dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("pt", "BR"))
-
-                    val isCurrentDate = dates[index] == currentDate // Verifica se é a data atual
-
-
-                    Column(
-                        modifier = Modifier
-                            .padding(10.dp)
-                            .size(50.dp, 70.dp)
-                            .background(
-                                if (isCurrentDate) Color(182, 182, 246) else Color(227, 228, 228),
-                                shape = RoundedCornerShape(10.dp)
-                            ),
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-
-                        Text(
-                            text = dayOfWeekName,
-                            color = if (isCurrentDate) Color.White else Color.Black,
-                            fontWeight = FontWeight(500),
-                            fontSize = 15.sp
-                        )
-
-                        Text(
-                            text = formattedDate,
-                            color = if (isCurrentDate) Color.White else Color.Black,
-                            fontWeight = FontWeight(500),
-                            fontSize = 15.sp
-                        )
-
-                    }
-
-
-                }
-            }
-
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(diet) {
 
@@ -198,9 +139,9 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                         modifier = Modifier
                             .padding(horizontal = 15.dp, vertical = 10.dp)
                             .fillMaxWidth(),
-                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                        shape = RoundedCornerShape(0.dp),
-                        border = BorderStroke(1.dp, Color.Black)
+                        colors = CardDefaults.cardColors(Color(182, 182, 246, 80)),
+                        shape = RoundedCornerShape(15.dp),
+                        border = BorderStroke(1.dp, Color(182, 182, 246))
                     ) {
                         Row(modifier = Modifier
                             .fillMaxSize()
@@ -211,13 +152,13 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                         ) {
                             Text(
                                 text = it.refeicao,
-                                color = Color(182, 182, 246),
+                                color = Color.Black,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.ExtraBold
                             )
 
                             Text(text = it.horario,
-                                color = Color(182, 182, 246),
+                                color = Color.Black,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.ExtraBold)
                         }
@@ -251,8 +192,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                             visible = visible,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color.White)
-                                .padding(bottom = 10.dp),
+                                .background(Color.White),
                             enter = fadeIn(
                                 initialAlpha = 0.8f
                             ),
@@ -260,17 +200,18 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                 animationSpec = tween(durationMillis = 50)
                             )
                         ) {
-                            Column(modifier = Modifier.fillMaxSize()) {
+                            Column(modifier = Modifier.fillMaxSize().background(Color(182, 182, 246, 80))) {
                                 for (it in meal) {
+
                                     Row(
                                         verticalAlignment = Alignment.CenterVertically,
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = 15.dp),
+                                            .padding(horizontal = 15.dp, vertical = 5.dp),
                                         horizontalArrangement = Arrangement.SpaceBetween
                                     ) {
 
-                                        Row(modifier = Modifier.padding(bottom = 10.dp),
+                                        Row(
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Card(
