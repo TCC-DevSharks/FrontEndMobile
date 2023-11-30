@@ -87,353 +87,61 @@ fun testezinho() {
 
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(x = (-30).dp),
+                        .fillMaxWidth(),
                     text = "Fórum",
                     textAlign = TextAlign.Center,
                     fontSize = 22.sp,
                     fontWeight = FontWeight(700)
                 )
             }
-
         }
 
         Card(
             modifier = Modifier
-                .padding(10.dp)
-                .shadow(elevation = 8.dp),
-            border = BorderStroke(2.5.dp, Color.White),
-            colors = CardDefaults.cardColors(Color.White)
-
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp, vertical = 10.dp)
-                        .fillMaxWidth(),
-
-                    ) {
-                    Card(
-                        modifier = Modifier
-                            .size(65.dp),
-                        shape = CircleShape,
-                        border = BorderStroke(2.5.dp, Color(182, 182, 246))
-
-                    ) {
-//                        AsyncImage(
-//                            model = pregnant.foto,
-//                            contentDescription = "",
-//                            contentScale = ContentScale.Crop,
-//                            modifier = Modifier
-//                                .size(65.dp)
-//                                .clip(CircleShape)
-//                        )
-
-                    }
-
-                    Column(modifier = Modifier.padding(horizontal = 35.dp)) {
-                        Text(
-                            text = "Selecione a categoria do tópico:",
-                            color = Color(93, 93, 93),
-                            fontSize = 14.sp,
-                            )
-
-                        var expanded by remember { mutableStateOf(false) }
-
-                        Spacer(Modifier.height(5.dp))
-
-                        Column {
-                            Button(
-                                onClick = {
-                                    expanded = !expanded
-                                },
-                                modifier = Modifier
-                                    .width(210.dp)
-                                    .height(35.dp),
-                                colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-
-                                shape = RoundedCornerShape(16.dp)
-                            ) {
-                                Text(
-                                    text = "selecione a categoria",
-                                    fontSize = 14.sp,
-                                )
-
-                            }
-                        }
-                    }
-                }
-
-
-
-                Column(
-                    modifier = Modifier
-                        .padding(start = 15.dp, end = 15.dp, bottom = 5.dp)
-                ) {
-
-                    Column {
-
-                        var tituloTextFieldValue by remember { mutableStateOf("") }
-                        TextField(
-                            value = tituloTextFieldValue,
-                            onValueChange = { newValue ->
-                                tituloTextFieldValue = newValue
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
-                                .background(Color.White)
-                                .border(1.dp, Color(182, 182, 246), shape = RoundedCornerShape(10.dp)),
-                            label = {
-                                Text(
-                                    "Titulo:",
-                                    fontSize = 10.8.sp,
-                                    color = Color(182, 182, 246)
-                                )
-                            },
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Text,
-                                imeAction = ImeAction.Next
-                            ),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent
-                            ),
-                            singleLine = true
-                        )
-
-
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        var tituloTextFieldValue2 by remember { mutableStateOf("") }
-                        TextField(
-                            value = tituloTextFieldValue2,
-                            onValueChange = { newValue ->
-                                tituloTextFieldValue2 = newValue
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
-                                .background(Color.White)
-                                .border(1.dp, Color(182, 182, 246), shape = RoundedCornerShape(10.dp)),
-                            label = {
-                                Text(
-                                    "Crie seu tópico {Usuario}:",
-                                    fontSize = 10.8.sp,
-                                    color = Color(182, 182, 246)
-
-                                )
-                            },
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Text,
-                                imeAction = ImeAction.Next
-                            ),
-                            colors = TextFieldDefaults.textFieldColors(
-                                containerColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent
-                            ),
-                            singleLine = true
-                        )
-
-
-
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-
-                        Button(
-                            onClick =
-                            {},
-                            modifier = Modifier
-                                .width(115.dp)
-                                .height(35.dp),
-                            colors = ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                            shape = RoundedCornerShape(16.dp),
-
-                            ) {
-                            Text(
-                                text = stringResource(id = R.string.publish),
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp
-                            )
-                        }
-
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
-            }
-        }
-        Row(modifier = Modifier
-            .padding(vertical = 5.dp, horizontal = 15.dp)
-            .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "Filtrar pela categoria:",
-                color = Color(93, 93, 93),
-                fontSize = 14.sp,
-            )
-
-            var expanded by remember { mutableStateOf(false) }
-
-
-            Column {
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-//                    categorias.forEach {
-//                        DropdownMenuItem(
-//                            text = { Text(it.category) },
-//                            onClick = {
-//                                selectedOptionFilter = it.category
-//
-//                                val call = RetrofitFactory().Forum().getTopicsCategory(it.category)
-//
-//                                call.enqueue(object : retrofit2.Callback<ResponseTopicList> {
-//                                    override fun onResponse(
-//                                        call: Call<ResponseTopicList>,
-//                                        response: Response<ResponseTopicList>
-//
-//                                    ) {
-//                                        Log.e("forum","${response}")
-//                                        topicos = response.body()!!.topics
-//                                    }
-//
-//                                    override fun onFailure(call: Call<ResponseTopicList>, t: Throwable) {
-//                                        Log.i(
-//                                            "ds2m",
-//                                            "onFailure: ${t.message}"
-//                                        )
-//                                        println(t.message + t.cause)
-//                                    }
-//                                })
-//                                expanded = false
-//                            }
-//                        )
-//                    }
-                }
-
-                Box(
-                    modifier = Modifier
-                        .width(170.dp)
-                        .height(35.dp)
-                        .border(1.dp, Color(182, 182, 246), RoundedCornerShape(16.dp))
-                ) {
-                    Button(
-                        onClick = {},
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                        shape = RoundedCornerShape(16.dp)
-                    ) {
-                        Row {
-                            Text(
-                                text = "Categoria",
-                                fontWeight = FontWeight.Bold,
-                                color = Color(182, 182, 246)
-                            )
-                            Spacer(modifier = Modifier.width(0.dp))
-
-                            Icon(
-                                painter = painterResource(id = R.drawable.baseline_arrow_downward_24),
-                                contentDescription = null,
-                                tint = Color(182, 182, 246),
-                                modifier = Modifier
-                                    .width(24.dp)
-                                    .height(24.dp)
-                            )
-                        }
-                    }
-                }
-
-            }
-        }
-
-        Card(
-            modifier = Modifier
-                .fillMaxSize(1f)
-                .width(50.dp)
-                .padding(vertical = 8.dp, horizontal = 10.dp)
-                .clickable {
-//                    forum.mensagemId = it._id
-//                    println(forum.mensagemId)
-//                    navController.navigate("forumMessage")
-                },
+                .width(400.dp)
+                .height(200.dp)
+                .padding(vertical = 8.dp, horizontal = 10.dp),
             colors = CardDefaults.cardColors(Color(182, 182, 246, 30)),
 
             ) {
             Row(
                 modifier = Modifier.padding(14.dp)
-            ){
+            ) {
                 Card(
                     modifier = Modifier
-                        .size(55.dp),
+                        .size(60.dp),
                     shape = CircleShape,
                     border = BorderStroke(1.5.dp, Color.Black),
 
                     ) {
-//                    AsyncImage(
-//                        model = it.user.foto,
-//                        contentDescription = "",
-//                        contentScale = ContentScale.Crop,
-//                        modifier = Modifier.fillMaxSize()
-//                    )
+//                        AsyncImage(
+//                            model = it.user.foto,
+//                            contentDescription = "",
+//                            contentScale = ContentScale.Crop,
+//                            modifier = Modifier.fillMaxSize()
+//                        )
                 }
-
-                Column(modifier = Modifier.padding(horizontal = 14.dp)) {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-
+                Column {
+                    Row(modifier = Modifier.padding(start = 15.dp, top = 2.dp)) {
                         Text(
-                            text = "nome",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight(800)
-                        )
-                        Text(
-                            text = "data",
-                            modifier = Modifier.padding(start = 14.dp),
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight(400),
-                            color = Color(209, 209, 214)
+                            text = "Titulo",
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold
                         )
                     }
-
-                    Row(modifier = Modifier.padding(top = 5.5.dp)) {
+                    Row(modifier = Modifier.padding(start = 15.dp)) {
                         Text(
-                            text = "titulo",
-                            fontSize = 13.5.sp,
-                            fontWeight = FontWeight(300),
-                            lineHeight = 19.sp
+                            text = "categoria: X",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Normal
                         )
                     }
-
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 9.5.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ){
-                        Text(text = "categoria",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight(400),
-                            color = Color(209, 209, 214))
-                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(5.dp))
+            Column {
+                Row(modifier = Modifier.padding(horizontal = 20.dp)) {
+                    Text(text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. ")
                 }
             }
         }

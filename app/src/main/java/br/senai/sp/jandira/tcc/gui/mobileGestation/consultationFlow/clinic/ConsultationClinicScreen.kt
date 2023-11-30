@@ -3,7 +3,6 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.clinic
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,7 +45,6 @@ import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.calls.GetCep
 import br.senai.sp.jandira.tcc.calls.GetClinic
 import br.senai.sp.jandira.tcc.componentes.Header
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.TextComp
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.descriptionClinic.GetLatLongFromCep
 import br.senai.sp.jandira.tcc.model.ModelPregnant

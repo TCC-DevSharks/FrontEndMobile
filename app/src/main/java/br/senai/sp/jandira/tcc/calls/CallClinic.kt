@@ -68,7 +68,7 @@ fun obterLatitudeLongitudePorCEP(cep: String): Pair<Double, Double>? {
     }
 }
 
-fun GetClinic(id: Int, clinic: Clinic,){
+fun GetClinic(id: Int, clinic: Clinic, navController: NavController,){
 
     val call = RetrofitFactory().clinic().getClinic(id)
 
