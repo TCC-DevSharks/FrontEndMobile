@@ -140,6 +140,7 @@ fun DescriptionDoctorScreen(
                 Log.i("HORARIOS DISPONIVEIS", "$horariosDisponiveis")
 
 
+
             }
 
             override fun onFailure(call: Call<ConsultList>, t: Throwable) {
@@ -412,16 +413,15 @@ fun DescriptionDoctorScreen(
                                 ) {
                                     for (j in 0 until wordsPerColumn) {
                                         val index = i * wordsPerColumn + j
-                                        if (index < horariosDisponiveis.size) {
+                                        if (index < times.size) {
 
-                                            val time = horariosDisponiveis[index]
+                                            val time = times[index]
                                             val isSelected = time == selectedTime
                                             Log.e("", "${times}")
-                                            Log.i("HORARIOS DISPONIVEIS", "${horariosDisponiveis[index]}")
-
+                                            Log.e("", "${times}")
 
                                             Text(
-                                                text = "${horariosDisponiveis[index]}",
+                                                text = "${times[index]}",
                                                 modifier = Modifier.clickable {
 
                                                     selectedTime = time
