@@ -56,9 +56,9 @@ fun AddressScreen(navController: NavController, pregnant: ModelPregnant) {
     var altura by remember { mutableStateOf("") }
     var peso by remember { mutableStateOf("") }
     var cpf by remember { mutableStateOf("") }
-    var alergia by remember { mutableStateOf("") }
-    var comorbidade by remember { mutableStateOf("") }
-    var medicacao by remember { mutableStateOf("") }
+    var alergia by remember { mutableStateOf(" ") }
+    var comorbidade by remember { mutableStateOf(" ") }
+    var medicacao by remember { mutableStateOf(" ") }
 
     LaunchedEffect(Unit){
         altura = pregnant.altura.toString()

@@ -89,24 +89,23 @@ fun HomeTopBar(
             route = "contactsChat",
             modifier = Modifier.size(24.dp)
         ),
-        BottomNavigationItem(
-            title = "Consulta",
-            selectedIcon =  R.drawable.doctor,
+        if (pregnant.alergia.isEmpty()){
+            BottomNavigationItem(
+                title = "Consulta",
+                selectedIcon =  R.drawable.doctor,
+                route ="insertEndress",
+                modifier = Modifier.size(24.dp)
 
-            route = if (
-                pregnant.alergia.isEmpty() ||
-                pregnant.comorbidades.isEmpty() ||
-                pregnant.cpf.isEmpty()
-            ) {
-                "speciality"
-            } else {
-                "insertEndress"
+            )
+        } else {
+            BottomNavigationItem(
+                title = "Consulta",
+                selectedIcon =  R.drawable.doctor,
+                route = "speciality",
+                modifier = Modifier.size(24.dp)
 
-            }
-            ,
-            modifier = Modifier.size(24.dp)
-
-        ),
+            )
+        }
     )
 
     val context = LocalContext.current
