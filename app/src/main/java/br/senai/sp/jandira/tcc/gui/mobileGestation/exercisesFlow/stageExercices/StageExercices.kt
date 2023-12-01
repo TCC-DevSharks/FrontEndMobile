@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.model.categories.CategoriesResponse
 import br.senai.sp.jandira.tcc.model.categories.CategoriesResponseList
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
@@ -53,12 +54,16 @@ import br.senai.sp.jandira.tcc.model.exercises.ExercisesResponseList
 import br.senai.sp.jandira.tcc.model.exercises.ModelExercises
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Composable
 fun StageExercises(navController: NavController, categories: ModelCategories, exercises: ModelExercises) {
+
+    var selectItem by remember { mutableStateOf(false) }
+
     var categoria by remember { mutableStateOf(listOf<ExercisesResponse>()) }
 
     LaunchedEffect(Unit){
@@ -86,6 +91,9 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
         modifier = Modifier
             .fillMaxSize()
     ) {
+
+        Header(titulo = categories.categoria, rota = "Exercises", navController = navController)
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -133,7 +141,9 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
             items(categoria){
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
@@ -192,8 +202,8 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
                                     .size(30.dp)
                                     .clip(CircleShape)
                                     .clickable {
+                                        selectItem = true
                                         exercises.id = it.id
-                                        navController.navigate("descExercises")
                                     }
                             )
                         }
@@ -202,4 +212,11 @@ fun StageExercises(navController: NavController, categories: ModelCategories, ex
             }
         }
     }
+    LaunchedEffect(selectItem) {
+        if (selectItem) {
+            delay(2200)
+            navController.navigate("descExercises")
+        }
+    }
+
 }

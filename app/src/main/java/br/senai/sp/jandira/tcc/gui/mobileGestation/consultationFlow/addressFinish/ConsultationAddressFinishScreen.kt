@@ -119,7 +119,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, pregnant: Mode
             }
 
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         Row(
             modifier = Modifier
                 .padding(start = 32.dp)
@@ -225,7 +225,7 @@ fun ConsultationAddressFinishScreen(navController: NavController, pregnant: Mode
 
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         ButtonPurple(
             navController = navController,
             texto = stringResource(id = R.string.finalize),

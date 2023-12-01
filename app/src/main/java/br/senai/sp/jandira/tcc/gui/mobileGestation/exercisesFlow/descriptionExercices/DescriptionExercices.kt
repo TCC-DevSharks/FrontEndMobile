@@ -3,6 +3,7 @@ package br.senai.sp.jandira.tcc.gui.mobileGestation.exercisesFlow.descriptionExe
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -38,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
+import br.senai.sp.jandira.tcc.componentes.Header
 import br.senai.sp.jandira.tcc.componentes.YoutubePlayer
 import br.senai.sp.jandira.tcc.model.exercises.ExerciseResponseList
 import br.senai.sp.jandira.tcc.model.exercises.ExercisesResponse
@@ -71,8 +75,6 @@ fun DescriptionExercises(navController: NavController, exercises: ModelExercises
                         exercises.descricao = it.descricao
                         exercises.video = it.video
                         exercises.categoria = it.categoria
-
-
                 }
             }
 
@@ -90,30 +92,48 @@ fun DescriptionExercises(navController: NavController, exercises: ModelExercises
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
+
+        Header(titulo = exercises.nome, rota = "catExercises", navController = navController)
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-                shape = RectangleShape,
-                colors = CardDefaults.cardColors(Color(182, 182, 246))
-            ) {
+            items(exercicios) {
 
-                if (exercises.video.isNotEmpty()){
-                    YoutubePlayer(
-                        youtubeVideoId = exercises.video,
-                        lifecycleOwner = LocalLifecycleOwner.current
-                    )
+                Card(
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp)
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    shape = RectangleShape,
+                    colors = CardDefaults.cardColors(Color.Transparent)
+                ) {
+
+                    if (it.video.isNotEmpty()){
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                        ) {
+                            YoutubePlayer(
+                                youtubeVideoId = exercises.video,
+                                lifecycleOwner = LocalLifecycleOwner.current
+                            )
+                        }
+                    }
+
                 }
-
             }
 
+
+
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Column(
             modifier = Modifier

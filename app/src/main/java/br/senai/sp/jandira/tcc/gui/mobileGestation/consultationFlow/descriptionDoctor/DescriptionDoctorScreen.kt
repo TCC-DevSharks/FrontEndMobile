@@ -75,11 +75,6 @@ fun DescriptionDoctorScreen(
         mutableStateOf(listOf<ConsultResponsePaciente>())
     }
 
-    val times = mutableListOf<LocalTime>()
-
-    var Horas = pacientes.map { it.hora }
-
-
     LaunchedEffect(Unit){
 
 
@@ -129,8 +124,6 @@ fun DescriptionDoctorScreen(
             dateConsult = dateConsult + it.dia
         }
     }
-
-//    times.filter { Horas.contains(it) }
 
 
 
@@ -383,7 +376,7 @@ fun DescriptionDoctorScreen(
                         val interval = Duration.ofMinutes(30) // Intervalo de 30 minutos
 
                         // Lista de horários
-//                        val times = mutableListOf<LocalTime>()
+                        val times = mutableListOf<LocalTime>()
                         var currentTime = startTime
 
                         while (currentTime <= endTime) {
@@ -440,7 +433,7 @@ fun DescriptionDoctorScreen(
                     {
 
 
-                        if (selectedDate != null && selectedTime != null  ) {
+                        if (selectedDate != null && selectedTime != null) {
                             navController.navigate("Payment")
 
                         } else {

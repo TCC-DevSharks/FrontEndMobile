@@ -45,6 +45,7 @@ import br.senai.sp.jandira.tcc.model.categories.CategoriesResponseList
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Response
 
@@ -52,6 +53,8 @@ import retrofit2.Response
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Exercises(navController: NavController, categories: ModelCategories, pregnant: ModelPregnant) {
+
+
     var categoria by remember { mutableStateOf(listOf<CategoriesResponse>()) }
 
     LaunchedEffect(Unit) {
@@ -79,7 +82,7 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
 
     Scaffold(
-        topBar = { Header(titulo = "Exercices",rota ="", navController = navController)}) {
+        topBar = { Header(titulo = "Exercices",rota ="homeUser", navController = navController)}) {
 
         Column(
             modifier = Modifier
@@ -189,10 +192,10 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
                             .size(width = 140.dp, height = 200.dp)
                             .padding(end = 10.dp)
                             .clickable {
+                                navController.navigate("catExercises")
                                 categories.id = it.id
                                 categories.categoria = it.nome
                                 categories.imagemCapa = it.imagem
-                                navController.navigate("catExercises")
                             },
                         colors = CardDefaults.cardColors(Color(182, 182, 246))
                     ) {
@@ -224,5 +227,6 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
             }
         }
     }
+
 
 }
