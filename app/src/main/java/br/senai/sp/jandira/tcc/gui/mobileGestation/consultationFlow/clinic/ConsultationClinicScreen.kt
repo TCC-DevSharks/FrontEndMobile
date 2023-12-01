@@ -227,7 +227,6 @@ fun ConsultationClinicScreen(
                                 .clickable {
 
                                     selectItem = true
-                                    Log.i("D", "${it.cep} ")
                                     val task = GetLatLongFromCep(context, it.cep, modelCep = modelCep)
                                     task.execute()
                                     GetClinic(it.id, clinic)

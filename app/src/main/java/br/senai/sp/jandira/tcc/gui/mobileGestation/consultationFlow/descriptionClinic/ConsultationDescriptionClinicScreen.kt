@@ -60,6 +60,7 @@ import android.os.AsyncTask
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ColorFilter
@@ -76,24 +77,23 @@ fun ConsultationDescriptionClinicScreen(
 ) {
     val context = LocalContext.current
 
-    GetCep(clinic.cep, clinic)
+    LaunchedEffect(Unit){
+        GetCep(clinic.cep, clinic)
 
+    }
     val cep = clinic.cep
     val task = GetLatLongFromCep(context, cep, modelCep = modelCep)
     task.execute()
 
-    Log.e("teste", "${modelCep.latitude}")
-    Log.e("teste2", "${modelCep.longitude}")
-
-
-    var singapore by rememberSaveable {
+    var marcador by remember {
         mutableStateOf(LatLng(modelCep.latitude, modelCep.longitude))
-    }
 
+    }
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 16f)
+        position = CameraPosition.fromLatLngZoom(marcador, 16f)
     }
+
 
     Column(
         modifier = Modifier
@@ -135,7 +135,8 @@ fun ConsultationDescriptionClinicScreen(
         Spacer(modifier = Modifier.height(15.dp))
 
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = 28.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -197,9 +198,9 @@ fun ConsultationDescriptionClinicScreen(
                         cameraPositionState = cameraPositionState
                     ) {
                         Marker(
-                            state = MarkerState(position = singapore),
-//                            title = clinic.razao_social,
-//                            snippet = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil"
+                            state = MarkerState(position = marcador),
+                            title = clinic.razao_social,
+                            snippet = clinic.logradouro + ", " + clinic.numero + ", " + clinic.bairro + ", " + clinic.cidade + ", " + clinic.estado + ", Brasil"
                         )
                     }
 
@@ -276,65 +277,6 @@ fun ConsultationDescriptionClinicScreen(
                         lineHeight = 18.sp
                     )
                 }
-
-
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Text(
-//                        text = stringResource(id = R.string.complement),
-//                        fontSize = 17.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Start,
-//                        fontWeight = FontWeight.Black,
-//                        lineHeight = 18.sp
-//                    )
-//
-//                    Text(
-//                        text = " " + clinic.complemento,
-//                        fontSize = 15.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Start,
-//                        lineHeight = 18.sp
-//                    )
-//                }
-//
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Text(
-//                        text = stringResource(id = R.string.Cep),
-//                        fontSize = 17.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Start,
-//                        fontWeight = FontWeight.Black,
-//                        lineHeight = 18.sp
-//                    )
-//
-//                    Text(
-//                        text = " " + clinic.cep,
-//                        fontSize = 15.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Start,
-//                        lineHeight = 18.sp
-//                    )
-//                }
-//
-//                Row(verticalAlignment = Alignment.CenterVertically) {
-//                    Text(
-//                        text = stringResource(id = R.string.phone),
-//                        fontSize = 17.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Center,
-//                        fontWeight = FontWeight.Black,
-//                        lineHeight = 18.sp
-//                    )
-//
-//                    Text(
-//                        text = " " + clinic.telefone,
-//                        fontSize = 15.sp,
-//                        color = Color(57, 57, 56),
-//                        textAlign = TextAlign.Center,
-//                        lineHeight = 18.sp
-//                    )
-//                }
-
 
             }
         }
@@ -430,9 +372,3 @@ fun GetCep(cep: String, clinic: Clinic) {
         }
     })
 }
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun ConsultationDescriptionClinicScreenPreview() {
-//    ConsultationDescriptionClinicScreen()
-//}
