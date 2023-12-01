@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -49,7 +48,6 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
-import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponseFavorite
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
 import br.senai.sp.jandira.tcc.model.professional.Professional
@@ -77,7 +75,47 @@ fun DescriptionDoctorScreen(
         mutableStateOf(listOf<ConsultResponsePaciente>())
     }
 
-    var favoritoIds = pacientes.map { it.hora }
+    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+
+    var selectedTime by remember { mutableStateOf<LocalTime?>(null) }
+
+
+    val currentDate = LocalDate.now().plusMonths(1)
+    val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
+
+    val dates = mutableListOf<LocalDate>()
+
+    var dateToAdd = LocalDate.now()
+
+    while (dateToAdd <= lastDayOfMonth) {
+        dates.add(dateToAdd)
+        dateToAdd = dateToAdd.plusDays(1)
+    }
+
+    val hora_inicio = professional.inicio_atendimento.substring(0, 2).toInt()
+    val minutos_inicio = professional.inicio_atendimento.substring(3, 5).toInt()
+    val hora_fim = professional.fim_atendimento.substring(0, 2).toInt()
+    val minutos_fim = professional.fim_atendimento.substring(3, 5).toInt()
+
+    val startTime = LocalTime.of(hora_inicio, minutos_inicio) // Horário inicial
+    val endTime = LocalTime.of(hora_fim, minutos_fim) // Horário final
+    val interval = Duration.ofMinutes(30) // Intervalo de 30 minutos
+
+    // Lista de horários
+
+    val times = mutableListOf<LocalTime>()
+
+    var horariosDisponiveis = mutableListOf<LocalTime>()
+
+    var currentTime = startTime
+
+    while (currentTime <= endTime) {
+        times.add(currentTime)
+        currentTime = currentTime.plus(interval)
+    }
+
+    val columnCount = 3
+    val wordsPerColumn = ceil(times.size / columnCount.toDouble()).toInt()
 
     LaunchedEffect(Unit){
 
@@ -90,7 +128,17 @@ fun DescriptionDoctorScreen(
                 response: Response<ConsultList>
             ) {
                 pacientes = response.body()!!.pacientes
-                println(pacientes)
+
+                pacientes = response.body()!!.pacientes
+
+                val favHora = pacientes.map { it.hora.take(5) }
+
+                 horariosDisponiveis = times.filter { time -> favHora.none { it == time.format(DateTimeFormatter.ofPattern("HH:mm")) } }
+                     .toMutableList()
+
+                Log.i("TIMES", "$times")
+                Log.i("HORARIOS DISPONIVEIS", "$horariosDisponiveis")
+
 
             }
 
@@ -295,25 +343,10 @@ fun DescriptionDoctorScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
 
-            var selectedTime by remember { mutableStateOf<LocalTime?>(null) }
-
-
-            val currentDate = LocalDate.now().plusMonths(1)
-            val lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth())
-
-            val dates = mutableListOf<LocalDate>()
-
-            var dateToAdd = LocalDate.now()
-
-            while (dateToAdd <= lastDayOfMonth) {
-                dates.add(dateToAdd)
-                dateToAdd = dateToAdd.plusDays(1)
-            }
 
             LazyColumn(modifier = Modifier.padding(start = 28.dp, end = 28.dp, bottom = 30.dp)) {
-                item   {
+                item {
                     LazyRow() {
                         items(dates.size) { index ->
                             val date = dates[index]
@@ -369,60 +402,35 @@ fun DescriptionDoctorScreen(
                 if (selectedDate != null) {
                     item {
                         Spacer(modifier = Modifier.height(10.dp))
-
-                        val hora_inicio = professional.inicio_atendimento.substring(0, 2).toInt()
-                        val minutos_inicio = professional.inicio_atendimento.substring(3, 5).toInt()
-                        val hora_fim = professional.fim_atendimento.substring(0, 2).toInt()
-                        val minutos_fim = professional.fim_atendimento.substring(3, 5).toInt()
-
-                        val startTime = LocalTime.of(hora_inicio, minutos_inicio) // Horário inicial
-                        val endTime = LocalTime.of(hora_fim, minutos_fim) // Horário final
-                        val interval = Duration.ofMinutes(30) // Intervalo de 30 minutos
-
-                        // Lista de horários
-                        val times = mutableListOf<LocalTime>()
-                        var currentTime = startTime
-
-                        while (currentTime <= endTime) {
-                            times.add(currentTime)
-                            currentTime = currentTime.plus(interval)
-                        }
-
-                        val columnCount = 3
-                        val wordsPerColumn = ceil(times.size / columnCount.toDouble()).toInt()
-
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             for (i in 0 until columnCount) {
-                                LazyColumn(
+                                Column(
                                     verticalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    items(favoritoIds.distinctBy { times }) {
+                                    for (j in 0 until wordsPerColumn) {
+                                        val index = i * wordsPerColumn + j
+                                        if (index < horariosDisponiveis.size) {
 
-                                        for (j in 0 until wordsPerColumn) {
-                                            val index = i * wordsPerColumn + j
-                                            if (index < times.size) {
+                                            val time = horariosDisponiveis[index]
+                                            val isSelected = time == selectedTime
+                                            Log.e("", "${times}")
+                                            Log.i("HORARIOS DISPONIVEIS", "${horariosDisponiveis[index]}")
 
-                                                val time = times[index]
-                                                val isSelected = time == selectedTime
-                                                Log.e("", "${times}")
-                                                Log.e("", "${times}")
 
-                                                Text(
-                                                    text = "${times[index]}",
-                                                    modifier = Modifier.clickable {
+                                            Text(
+                                                text = "${horariosDisponiveis[index]}",
+                                                modifier = Modifier.clickable {
 
-                                                        selectedTime = time
-                                                        DataHora.selectedTime = time.toString()
-                                                    },
-                                                    color = if (isSelected) Color(182, 182, 246)
-                                                    else Color(0, 0, 0)
-                                                )
-                                            }
+                                                    selectedTime = time
+                                                    DataHora.selectedTime = time.toString()
+                                                },
+                                                color = if (isSelected) Color(182, 182, 246)
+                                                else Color(0, 0, 0)
+                                            )
                                         }
-
                                     }
                                 }
                             }

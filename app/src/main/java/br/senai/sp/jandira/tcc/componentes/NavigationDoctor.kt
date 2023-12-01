@@ -176,7 +176,7 @@ fun HomeTopBar(
                     Text(
                         text = item.title,
                         style = MaterialTheme.typography.labelSmall,
-                    )
+                        color = if (selectedItemIndex == index) Color(182,182,246) else Color(209, 209, 214))
                 },
                 icon = {
 
