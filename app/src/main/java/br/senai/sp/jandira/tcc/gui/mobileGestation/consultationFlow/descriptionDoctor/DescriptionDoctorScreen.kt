@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -48,6 +49,7 @@ import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.componentes.ArrowLeft
 import br.senai.sp.jandira.tcc.gui.mobileGestation.consultationFlow.doctor.DataHora
+import br.senai.sp.jandira.tcc.model.birthPlan.BirthPlanResponseFavorite
 import br.senai.sp.jandira.tcc.model.consult.ConsultList
 import br.senai.sp.jandira.tcc.model.consult.ConsultResponsePaciente
 import br.senai.sp.jandira.tcc.model.professional.Professional
@@ -74,6 +76,8 @@ fun DescriptionDoctorScreen(
     var pacientes by rememberSaveable {
         mutableStateOf(listOf<ConsultResponsePaciente>())
     }
+
+    var favoritoIds = pacientes.map { it.hora }
 
     LaunchedEffect(Unit){
 
@@ -309,7 +313,7 @@ fun DescriptionDoctorScreen(
             }
 
             LazyColumn(modifier = Modifier.padding(start = 28.dp, end = 28.dp, bottom = 30.dp)) {
-                item {
+                item   {
                     LazyRow() {
                         items(dates.size) { index ->
                             val date = dates[index]
@@ -392,29 +396,33 @@ fun DescriptionDoctorScreen(
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             for (i in 0 until columnCount) {
-                                Column(
+                                LazyColumn(
                                     verticalArrangement = Arrangement.SpaceBetween
                                 ) {
-                                    for (j in 0 until wordsPerColumn) {
-                                        val index = i * wordsPerColumn + j
-                                        if (index < times.size) {
+                                    items(favoritoIds.distinctBy { times }) {
 
-                                            val time = times[index]
-                                            val isSelected = time == selectedTime
-                                            Log.e("", "${times}")
-                                            Log.e("", "${times}")
+                                        for (j in 0 until wordsPerColumn) {
+                                            val index = i * wordsPerColumn + j
+                                            if (index < times.size) {
 
-                                            Text(
-                                                text = "${times[index]}",
-                                                modifier = Modifier.clickable {
+                                                val time = times[index]
+                                                val isSelected = time == selectedTime
+                                                Log.e("", "${times}")
+                                                Log.e("", "${times}")
 
-                                                    selectedTime = time
-                                                    DataHora.selectedTime = time.toString()
-                                                },
-                                                color = if (isSelected) Color(182, 182, 246)
-                                                else Color(0, 0, 0)
-                                            )
+                                                Text(
+                                                    text = "${times[index]}",
+                                                    modifier = Modifier.clickable {
+
+                                                        selectedTime = time
+                                                        DataHora.selectedTime = time.toString()
+                                                    },
+                                                    color = if (isSelected) Color(182, 182, 246)
+                                                    else Color(0, 0, 0)
+                                                )
+                                            }
                                         }
+
                                     }
                                 }
                             }

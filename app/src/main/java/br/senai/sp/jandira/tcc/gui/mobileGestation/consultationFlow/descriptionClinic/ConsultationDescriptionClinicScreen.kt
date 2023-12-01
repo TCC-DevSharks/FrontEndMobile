@@ -187,13 +187,13 @@ fun ConsultationDescriptionClinicScreen(
 
 
                 Column(
-                    modifier = Modifier.padding(start = 30.dp)
+//                    modifier = Modifier.padding(horizontal = 15.dp)
                 ) {
 
 
                     GoogleMap(
                         modifier = Modifier
-                            .width(300.dp)
+                            .fillMaxWidth()
                             .height(180.dp),
                         cameraPositionState = cameraPositionState
                     ) {
