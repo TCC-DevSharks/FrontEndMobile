@@ -83,7 +83,7 @@ fun ChangeFoodScreen(navController: NavController, modelFood: ModelFood, pregnan
 
             Header(
                 titulo = if (food.isNotEmpty()) food[0].categoria else stringResource(id = R.string.header_food),
-                rota = "",
+                rota = "Food",
                 navController = navController
             )
             Row(

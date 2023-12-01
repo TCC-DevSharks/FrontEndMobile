@@ -117,7 +117,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
 
             Header(
                 titulo = stringResource(id = R.string.header_food),
-                rota = "",
+                rota = "HomeUser",
                 navController = navController
             )
 
