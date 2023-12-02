@@ -146,11 +146,6 @@ fun HomeTopBar(
         }
     }
 
-
-    Log.e("aaaaaa", "${pregnant.alergia.length}")
-    Log.e("mmmmmmm", "${pregnant.medicacao.length}")
-    Log.e("cccccc", "${pregnant.comorbidades.length}")
-    Log.e("pfpfpfpfpf", "${pregnant.cpf.length}")
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(2)
     }
