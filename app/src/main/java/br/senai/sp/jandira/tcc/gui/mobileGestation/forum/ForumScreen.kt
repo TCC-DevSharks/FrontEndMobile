@@ -108,7 +108,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
 
             Header(
                 titulo = stringResource(id = R.string.header_forum),
-                rota = "",
+                rota = "homeUser",
                 navController = navController
             )
 

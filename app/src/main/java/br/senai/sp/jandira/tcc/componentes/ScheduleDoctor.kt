@@ -42,6 +42,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -123,6 +124,11 @@ fun ScheduleDoctor(professional: Professional, navController: NavController, med
 
                     var isChecked by remember { mutableStateOf(false) }
 
+                    val horaMarcada = LocalTime.parse(paciente.hora.take(5))
+                    val horaAtual = LocalTime.now()
+
+                    isChecked = horaAtual.isAfter(horaMarcada)
+
 
                     Row(
                         modifier = Modifier
@@ -159,6 +165,7 @@ fun ScheduleDoctor(professional: Professional, navController: NavController, med
                             )
                         }
                     }
+
                 }
             }
 
