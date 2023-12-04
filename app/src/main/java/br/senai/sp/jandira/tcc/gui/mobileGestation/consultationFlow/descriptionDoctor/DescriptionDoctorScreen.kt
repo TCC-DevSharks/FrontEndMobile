@@ -117,7 +117,10 @@ fun DescriptionDoctorScreen(
     val columnCount = 3
     val wordsPerColumn = ceil(times.size / columnCount.toDouble()).toInt()
 
-    LaunchedEffect(Unit){
+    val dateList = professional.consulta.map { Pair(it.dia, it.hora) }
+
+
+    LaunchedEffect(Unit) {
 
 
         val callPaci = RetrofitFactory().consult().getConsult(professional.id)
@@ -133,8 +136,14 @@ fun DescriptionDoctorScreen(
 
                 val favHora = pacientes.map { it.hora.take(5) }
 
-                 horariosDisponiveis = times.filter { time -> favHora.none { it == time.format(DateTimeFormatter.ofPattern("HH:mm")) } }
-                     .toMutableList()
+                horariosDisponiveis = times.filter { time ->
+                    favHora.none {
+                        it == time.format(
+                            DateTimeFormatter.ofPattern("HH:mm")
+                        )
+                    }
+                }
+                    .toMutableList()
 
                 Log.i("TIMES", "$times")
                 Log.i("HORARIOS DISPONIVEIS", "$horariosDisponiveis")
@@ -155,8 +164,8 @@ fun DescriptionDoctorScreen(
                 response: Response<ProfessionalConsultResponseList>
 
             ) {
-               professional.consulta = response.body()!!.pacientes
-                println(response.body())
+                professional.consulta = response.body()!!.pacientes
+                Log.e("consulta", "${response.body()}")
             }
 
             override fun onFailure(call: Call<ProfessionalConsultResponseList>, t: Throwable) {
@@ -170,7 +179,7 @@ fun DescriptionDoctorScreen(
 
     }
 
-    LaunchedEffect(professional.consulta){
+    LaunchedEffect(professional.consulta) {
         professional.consulta.map {
 
             dateConsult = dateConsult + it.dia
@@ -353,8 +362,6 @@ fun DescriptionDoctorScreen(
 
                             val isSelectedDate = date == selectedDate
 
-                            Log.e("123", "${selectedDate}, ${dateConsult}")
-
                             Button(
                                 onClick = {
 
@@ -362,10 +369,8 @@ fun DescriptionDoctorScreen(
                                     var newData =
                                         date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
 
-                                    Log.i("Click", "DescriptionDoctorScreen: ${newData}")
                                     DataHora.selectedDate = newData.toString()
 
-                                    // Se a data já estiver selecionada, deseleciona
                                     if (selectedDate == date) {
                                         selectedDate = null
                                     } else {
@@ -395,10 +400,6 @@ fun DescriptionDoctorScreen(
                     }
                 }
 
-
-
-
-
                 if (selectedDate != null) {
                     item {
                         Spacer(modifier = Modifier.height(10.dp))
@@ -412,24 +413,31 @@ fun DescriptionDoctorScreen(
                                 ) {
                                     for (j in 0 until wordsPerColumn) {
                                         val index = i * wordsPerColumn + j
-                                        if (index < horariosDisponiveis.size) {
+                                        if (index < times.size) {
 
-                                            val time = horariosDisponiveis[index]
+                                            val time = times[index]
                                             val isSelected = time == selectedTime
-                                            Log.e("", "${times}")
-                                            Log.i("HORARIOS DISPONIVEIS", "${horariosDisponiveis[index]}")
 
+                                            val isDateSelected =
+                                                dateList.any { it.first == DataHora.selectedDate && it.second == "${times[index]}:000" }
 
-                                            Text(
-                                                text = "${horariosDisponiveis[index]}",
-                                                modifier = Modifier.clickable {
+                                            if (isDateSelected) {
+                                                Text(
+                                                    text = "${times[index]}",
+                                                    color = Color.Red
+                                                )
+                                            } else {
+                                                Text(
+                                                    text = "${times[index]}",
+                                                    modifier = Modifier.clickable {
 
-                                                    selectedTime = time
-                                                    DataHora.selectedTime = time.toString()
-                                                },
-                                                color = if (isSelected) Color(182, 182, 246)
-                                                else Color(0, 0, 0)
-                                            )
+                                                        selectedTime = time
+                                                        DataHora.selectedTime = time.toString()
+                                                    },
+                                                    color = if (isSelected) Color(182, 182, 246)
+                                                    else Color(0, 0, 0)
+                                                )
+                                            }
                                         }
                                     }
                                 }

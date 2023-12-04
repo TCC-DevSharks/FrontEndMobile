@@ -160,63 +160,69 @@ fun DescriptionExercises(navController: NavController, exercises: ModelExercises
             Row() {
                 Text(
                     text = "Descriptions",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.ExtraBold
 
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
             Row() {
                 Text(text = exercises.descricao,
-                    color = Color.LightGray,
-                    fontSize = 13.sp
+                    color = Color.Gray,
+                    fontSize = 15.sp
                 )
 
             }
 
         }
-//
-//        Spacer(modifier = Modifier.height(10.dp))
-//
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 20.dp),
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Text(
-//                text = "How To Do It",
-//                fontSize = 15.sp,
-//                fontWeight = FontWeight.Bold
-//            )
-//            Text(
-//                text = "4 Steps",
-//                fontSize = 15.sp,
-//                fontWeight = FontWeight.Light,
-//                color = Color(27, 26, 26)
-//
-//            )
-//        }
-//
-//        Spacer(modifier = Modifier.height(10.dp))
-//
-//        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-//
-////            .horizontalScroll(
-////            rememberScrollState()
-////        ),
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(horizontal = 20.dp),
-//                // horizontalArrangement = Arrangement.SpaceBetween
-//            ) {
-//                Text(
-//                    text = "01",
-//                    fontSize = 18.sp,
-//                    fontWeight = FontWeight.Light,
-//                    color = Color(182, 182, 246)
-//                )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Passo a Passo",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.ExtraBold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                // horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Coloque uma mão no peito e a outra no abdômen.\n" +
+                            "Inspire lentamente pelo nariz, sentindo o abdômen se expandir. Conte até quatro.\n" +
+                            "Expire pelo nariz, esvaziando completamente o ar. Conte até seis.\n" +
+                            "Foque na respiração abdominal, mantendo o peito relativamente estável.\n" +
+                            "Repita este ciclo por cinco minutos, mantendo um ritmo constante.\n" +
+                            "\n" +
+                            "Coloque a mão direita na frente do rosto, com a ponta do dedo indicador e do dedo médio entre as sobrancelhas.\n" +
+                            "Use o polegar direito para fechar a narina direita e o dedo anelar para fechar a narina esquerda.\n" +
+                            "Feche a narina direita e inspire pela esquerda.\n" +
+                            "Feche a narina esquerda, abra a direita e expire.\n" +
+                            "Continue este padrão, alternando a respiração por cinco minutos.\n" +
+                            "Mantenha o ritmo lento e constante, focando na transição suave entre as narinas.\n" +
+                            "\n" +
+                            "Solte as mãos, respire naturalmente por alguns momentos.\n" +
+                            "Traga a consciência de volta ao corpo, aos sons ao redor.\n" +
+                            "Abra os olhos suavemente.\n" +
+                            "Estique os braços e as pernas suavemente antes de se levantar.",
+                    fontSize = 15.sp,
+                    color = Color.Black
+                )
+            }
+        }
 //
 //                Spacer(modifier = Modifier.width(50.dp))
 //
