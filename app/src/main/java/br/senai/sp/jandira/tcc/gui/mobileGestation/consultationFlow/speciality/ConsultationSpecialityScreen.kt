@@ -59,7 +59,7 @@ fun ConsultationSpecialityScreen(navController: NavController, speciality: Model
 
                     Header(
                         titulo = stringResource(id = R.string.header_speciality),
-                        rota = "",
+                        rota = "homeUser",
                         navController = navController
                     )
 

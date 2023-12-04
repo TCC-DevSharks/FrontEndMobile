@@ -27,17 +27,17 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.senai.sp.jandira.limpeanapp.home.components.BottomNavigationItem
+import br.senai.sp.jandira.limpeanapp.home.components.BottomNavigation
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.professional.Professional
 
-//data class BottomNavigation(
-//    val title: String,
-//    val selectedIcon: Int,
-//    val modifier: Modifier,
-//    val route: () -> Unit,
-//)
+data class BottomNavigationDoctor(
+    val title: String,
+    val selectedIcon: Int,
+    val modifier: Modifier,
+    val route: String,
+)
 
 @Composable
 fun NavigationNutritionist(
@@ -46,176 +46,179 @@ fun NavigationNutritionist(
     pregnant: ModelPregnant
 ) {
 
-//    val items = listOf(
-//        BottomNavigationItem(
-//            title = "Dieta",
-//            selectedIcon = R.drawable.utensils_cinza,
+    val itemsDoctor = listOf(
+//        if (professional.especialidade == "Nutricionista"){
+//            BottomNavigation(
+//                title = "Dieta",
+//                selectedIcon =  R.drawable.utensils_branco,
+//                route ="dietSelect",
+//                modifier = Modifier.size(24.dp)
 //
-//            route = "dietSelect",
-//            modifier = Modifier.size(24.dp)
-//        ),
-//        BottomNavigationItem(
-//            title = "Chat",
-//            selectedIcon = R.drawable.chat_cinza,
-//
-//            route = "DoctorHome",
-//            modifier = Modifier.size(24.dp)
-//        ),
-//        BottomNavigationItem(
-//            title = "Home",
-//            selectedIcon = R.drawable.home_cinza,
-//
-//            route = "DoctorHome",
-//            modifier = Modifier.size(24.dp)
-//        ),
-//        BottomNavigationItem(
-//            title = "Prontuario",
-//            selectedIcon = R.drawable.clipboard_doctor,
-//
-//            route = "medicalRecordSelect",
-//            modifier = Modifier.size(24.dp)
-//        ),
-//        BottomNavigationItem(
-//            title = "Agenda",
-//            selectedIcon = R.drawable.calendar_doctor,
-//
-//            route = "doctorSchedule",
-//            modifier = Modifier.size(24.dp)
-//        ),
-//
-//        )
-//
-//    var selectedItemIndex by rememberSaveable {
-//        mutableStateOf(2)
-//    }
-//
-//    NavigationBar(
-//        containerColor =Color(245,245,245),
-//        contentColor = MaterialTheme.colorScheme.onBackground
-//    ) {
-//        items.forEachIndexed { index,item ->
-//            NavigationBarItem(
-//                colors = NavigationBarItemDefaults.colors(
-//                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-//                    indicatorColor = Color(245,245,245),
-//                    selectedTextColor = MaterialTheme.colorScheme.primary,
-//                    unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
-//                ),
-//                selected = selectedItemIndex == index,
-//                onClick = {
-//                    selectedItemIndex = index
-//                    navController.navigate(item.route)
-//                },
-//                label = {
-//                    Text(
-//                        text = item.title,
-//                        style = MaterialTheme.typography.labelSmall,
-//                    )
-//                },
-//                icon = {
-//
-//                    Image(
-//                        painter =
-//                        painterResource(id = item.selectedIcon),
-//                        contentDescription = item.title,
-//                        modifier = Modifier.size(24.dp),
-//                        colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
-//                        else ColorFilter.tint(Color(209, 209, 214))
-//                    )
-//
-//                }
 //            )
-//        }
-//    }
+//        } ,
+        BottomNavigationDoctor(
+            title = "Chat",
+            selectedIcon = R.drawable.chat_cinza,
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .height(70.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+            route = "DoctorHome",
+            modifier = Modifier.size(24.dp)
+        ),
+        BottomNavigationDoctor(
+            title = "Home",
+            selectedIcon = R.drawable.home_cinza,
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp, vertical = 7.7.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
+            route = "DoctorHome",
+            modifier = Modifier.size(24.dp)
+        ),
+        BottomNavigationDoctor(
+            title = "Prontuario",
+            selectedIcon = R.drawable.clipboard_doctor,
 
-            if (professional.especialidade == "Nutricionista") {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
-                    navController.navigate("dietSelect")
+            route = "medicalRecordSelect",
+            modifier = Modifier.size(24.dp)
+        ),
+        BottomNavigationDoctor(
+            title = "Agenda",
+            selectedIcon = R.drawable.calendar_doctor,
 
-                }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.utensils_cinza),
-                        contentDescription = null,
-                        modifier = Modifier.size(27.dp)
-                    )
-                }
-            }
+            route = "doctorSchedule",
+            modifier = Modifier.size(24.dp)
+        ),
 
+        )
 
-
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.clickable {
-//                        navController.navigate("register")
-
-                }) {
-                Image(
-                    painter = painterResource(id = R.drawable.chat_cinza),
-                    contentDescription = null,
-                    modifier = Modifier.size(27.dp)
-                )
-            }
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.clickable {
-                    navController.navigate("DoctorHome")
-
-                }) {
-                Image(
-                    painter = painterResource(id = R.drawable.home_cinza),
-                    contentDescription = null,
-                    modifier = Modifier.size(27.dp)
-                )
-            }
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.clickable {
-                    navController.navigate("medicalRecordSelect")
-
-                }) {
-                Image(
-                    painter = painterResource(id = R.drawable.clipboard_doctor),
-                    contentDescription = null,
-                    modifier = Modifier.size(27.dp)
-                )
-            }
-
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.clickable {
-                    navController.navigate("doctorSchedule")
-
-                }) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.calendar_doctor),
-                    contentDescription = null,
-                    modifier = Modifier.size(27.dp)
-                )
-
-            }
-
-
-        }
-
-
+    var selectedItemIndex by rememberSaveable {
+        mutableStateOf(1)
     }
+
+    NavigationBar(
+        containerColor =Color(245,245,245),
+        contentColor = MaterialTheme.colorScheme.onBackground
+    ) {
+        itemsDoctor.forEachIndexed { index, item ->
+            NavigationBarItem(
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                    indicatorColor = Color(245,245,245),
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+                selected = selectedItemIndex == index,
+                onClick = {
+                    selectedItemIndex = index
+                    navController.navigate(item.route)
+                },
+                label = {
+                    Text(
+                        text = item.title,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (selectedItemIndex == index) Color(182,182,246) else Color(209, 209, 214)
+                    )
+                },
+                icon = {
+
+                    Image(
+                        painter =
+                        painterResource(id = item.selectedIcon),
+                        contentDescription = item.title,
+                        modifier = Modifier.size(24.dp),
+                        colorFilter = if (selectedItemIndex == index) ColorFilter.tint(Color(182,182,246))
+                        else ColorFilter.tint(Color(209, 209, 214))
+                    )
+
+                }
+            )
+        }
+    }
+
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .background(Color.White)
+//            .height(70.dp),
+//        horizontalArrangement = Arrangement.Center,
+//        verticalAlignment = Alignment.CenterVertically
+//    ) {
+//
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 18.dp, vertical = 7.7.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceEvenly
+//        ) {
+//
+//            if (professional.especialidade == "Nutricionista") {
+//                Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+//                    navController.navigate("dietSelect")
+//
+//                }) {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.utensils_cinza),
+//                        contentDescription = null,
+//                        modifier = Modifier.size(27.dp)
+//                    )
+//                }
+//            }
+//
+//
+//
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier.clickable {
+////                        navController.navigate("register")
+//
+//                }) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.chat_cinza),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(27.dp)
+//                )
+//            }
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier.clickable {
+//                    navController.navigate("DoctorHome")
+//
+//                }) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.home_cinza),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(27.dp)
+//                )
+//            }
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier.clickable {
+//                    navController.navigate("medicalRecordSelect")
+//
+//                }) {
+//                Image(
+//                    painter = painterResource(id = R.drawable.clipboard_doctor),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(27.dp)
+//                )
+//            }
+//
+//
+//            Box(contentAlignment = Alignment.Center,
+//                modifier = Modifier.clickable {
+//                    navController.navigate("doctorSchedule")
+//
+//                }) {
+//
+//                Image(
+//                    painter = painterResource(id = R.drawable.calendar_doctor),
+//                    contentDescription = null,
+//                    modifier = Modifier.size(27.dp)
+//                )
+//
+//            }
+//
+//
+//        }
+//
+//
+//    }
 
 }

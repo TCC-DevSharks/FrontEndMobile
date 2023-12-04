@@ -42,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -117,7 +118,7 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
 
             Header(
                 titulo = stringResource(id = R.string.header_food),
-                rota = "",
+                rota = "HomeUser",
                 navController = navController
             )
 
@@ -162,7 +163,6 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.ExtraBold)
                         }
-                        println(it)
 
                         var meal by remember { mutableStateOf(listOf<FoodResponse>()) }
 
@@ -261,7 +261,8 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
                                                     food.id = it.idCategoria
                                                     println(it)
                                                     navController.navigate("FoodChange")
-                                                }
+                                                },
+                                            colorFilter = ColorFilter.tint(Color.Black)
                                         )
                                     }
                                 }

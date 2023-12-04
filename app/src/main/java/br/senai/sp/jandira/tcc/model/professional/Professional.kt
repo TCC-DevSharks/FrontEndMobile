@@ -25,7 +25,7 @@ class Professional {
     var data_nascimento by mutableStateOf("")
     var inicio_atendimento by mutableStateOf("")
     var fim_atendimento by mutableStateOf("")
-    var valor by mutableStateOf("")
+    var valor by mutableStateOf("200")
     var sexo by mutableStateOf("")
     var complemento by mutableStateOf("")
     var id_endereco by mutableStateOf(0)

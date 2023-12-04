@@ -1,21 +1,10 @@
 package br.senai.sp.jandira.limpeanapp.home.components
 
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTransformGestures
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -23,31 +12,25 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import br.senai.sp.jandira.tcc.R
 import br.senai.sp.jandira.tcc.model.ModelPregnant
-import kotlinx.coroutines.delay
 
 //Coloque aqui o nav bar
-data class BottomNavigationItem(
+data class BottomNavigation(
     val title: String,
     val selectedIcon: Int,
     val modifier: Modifier,
@@ -61,28 +44,28 @@ fun HomeTopBar(
     pregnant: ModelPregnant
 ){
     val items = listOf(
-        BottomNavigationItem(
+        BottomNavigation(
             title = "Exercícios",
             selectedIcon = R.drawable.dumbbell_cinza,
 
             route = "Exercises",
             modifier = Modifier.size(24.dp)
         ),
-        BottomNavigationItem(
+        BottomNavigation(
             title = "Dieta",
             selectedIcon =  R.drawable.utensils_cinza,
 
             route = "Food",
             modifier = Modifier.size(24.dp)
         ),
-        BottomNavigationItem(
+        BottomNavigation(
             title = "Home",
             selectedIcon =  R.drawable.house_branco,
 
             route = "homeUser",
             modifier = Modifier.size(24.dp)
         ),
-        BottomNavigationItem(
+        BottomNavigation(
             title = "Chat",
             selectedIcon =  R.drawable.chat_cinza,
 
@@ -90,7 +73,7 @@ fun HomeTopBar(
             modifier = Modifier.size(24.dp)
         ),
         if (pregnant.alergia.isEmpty()){
-            BottomNavigationItem(
+            BottomNavigation(
                 title = "Consulta",
                 selectedIcon =  R.drawable.doctor,
                 route ="insertEndress",
@@ -98,7 +81,7 @@ fun HomeTopBar(
 
             )
         } else {
-            BottomNavigationItem(
+            BottomNavigation(
                 title = "Consulta",
                 selectedIcon =  R.drawable.doctor,
                 route = "speciality",
@@ -146,11 +129,6 @@ fun HomeTopBar(
         }
     }
 
-
-    Log.e("aaaaaa", "${pregnant.alergia.length}")
-    Log.e("mmmmmmm", "${pregnant.medicacao.length}")
-    Log.e("cccccc", "${pregnant.comorbidades.length}")
-    Log.e("pfpfpfpfpf", "${pregnant.cpf.length}")
     var selectedItemIndex by rememberSaveable {
         mutableStateOf(2)
     }
