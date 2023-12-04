@@ -188,64 +188,114 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
 
                 Card(
                     modifier = Modifier
-                        .padding(10.dp),
-                    border = BorderStroke(2.5.dp, Color(182, 182, 246))
+                        .width(400.dp)
+                        .height(200.dp)
+                        .padding(vertical = 8.dp, horizontal = 10.dp),
+                    colors = CardDefaults.cardColors(Color(182, 182, 246, 30)),
 
-                ) {
-                    Column {
-                        Row(
+                    ) {
+                    Row(
+                        modifier = Modifier.padding(14.dp)
+                    ) {
+                        Card(
                             modifier = Modifier
-                                .padding(horizontal = 20.dp, vertical = 10.dp)
-                        ) {
-                            Card(
-                                modifier = Modifier
-                                    .size(65.dp),
-                                shape = CircleShape,
-                                border = BorderStroke(2.5.dp, Color(182, 182, 246))
+                                .size(60.dp),
+                            shape = CircleShape,
+                            border = BorderStroke(1.5.dp, Color.Black),
 
                             ) {
-                                AsyncImage(
-                                    model = pregnant.foto,
-                                    contentDescription = "",
-                                    contentScale = ContentScale.Crop,
-                                    modifier = Modifier
-                                        .size(65.dp)
-                                        .clip(CircleShape)
+                        AsyncImage(
+                            model = pregnant.foto,
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                        }
+                        Column {
+                            Row(modifier = Modifier.padding(start = 15.dp, top = 2.dp)) {
+                                Text(
+                                    text = title,
+                                    fontSize = 23.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
                             }
-
-                            Row(modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(30.dp, 80.dp)
-                                .verticalScroll(rememberScrollState()),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = title,
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold)
+                            Row(modifier = Modifier.padding(start = 15.dp)) {
+                                Text(
+                                    text = category,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Normal
+                                )
                             }
                         }
-                        Row(modifier = Modifier
-                            .heightIn(30.dp, 250.dp)
-                            .verticalScroll(rememberScrollState())
-                            .padding(5.dp)
-                        ) {
+                    }
+                    Spacer(modifier = Modifier.height(5.dp))
+                    Column {
+                        Row(modifier = Modifier.padding(horizontal = 20.dp)) {
                             Text(text = text)
                         }
-
-                        Row (modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(5.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ){
-                            Text(text = category)
-
-                            Text(text = date)
-                        }
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
                 }
+
+//                Card(
+//                    modifier = Modifier
+//                        .padding(10.dp),
+//                    border = BorderStroke(2.5.dp, Color(182, 182, 246))
+//
+//                ) {
+//                    Column {
+//                        Row(
+//                            modifier = Modifier
+//                                .padding(horizontal = 20.dp, vertical = 10.dp)
+//                        ) {
+//                            Card(
+//                                modifier = Modifier
+//                                    .size(65.dp),
+//                                shape = CircleShape,
+//                                border = BorderStroke(2.5.dp, Color(182, 182, 246))
+//
+//                            ) {
+//                                AsyncImage(
+//                                    model = pregnant.foto,
+//                                    contentDescription = "",
+//                                    contentScale = ContentScale.Crop,
+//                                    modifier = Modifier
+//                                        .size(65.dp)
+//                                        .clip(CircleShape)
+//                                )
+//                            }
+//
+//                            Row(modifier = Modifier
+//                                .fillMaxWidth()
+//                                .heightIn(30.dp, 80.dp)
+//                                .verticalScroll(rememberScrollState()),
+//                                horizontalArrangement = Arrangement.Center,
+//                                verticalAlignment = Alignment.CenterVertically
+//                            ) {
+//                                Text(text = title,
+//                                    fontSize = 20.sp,
+//                                    fontWeight = FontWeight.Bold)
+//                            }
+//                        }
+//                        Row(modifier = Modifier
+//                            .heightIn(30.dp, 250.dp)
+//                            .verticalScroll(rememberScrollState())
+//                            .padding(5.dp)
+//                        ) {
+//                            Text(text = text)
+//                        }
+//
+//                        Row (modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(5.dp),
+//                            horizontalArrangement = Arrangement.SpaceBetween
+//                        ){
+//                            Text(text = category)
+//
+//                            Text(text = date)
+//                        }
+//                    }
+//                    Spacer(modifier = Modifier.height(10.dp))
+//                }
 
                 if (mensagens.isNotEmpty()){
                     LazyColumn{
