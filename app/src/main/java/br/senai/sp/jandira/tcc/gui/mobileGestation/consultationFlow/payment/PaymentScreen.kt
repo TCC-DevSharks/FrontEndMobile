@@ -159,7 +159,79 @@ fun PaymentScreen(
         LaunchedEffect(erro) {
 
             if (erro == true) {
-                println("Enrou")
+                println("Entrou")
+                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                
+
+                var consult = ConsultResponse(
+                    dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
+                    hora = DataHora.selectedTime + ":00",
+                    id_gestante = viewModel.id,
+                    id_profissional = professional.id
+                )
+
+                var schedule = ScheduleResponse(
+
+                    dia = "${LocalDate.parse(DataHora.selectedDate, formatter)}",
+                    titulo = "${professional.especialidade}",
+                    lembrete = 0,
+                    descricao = "Consulta na ${clinic.razao_social}",
+                    id_gestante = viewModel.id
+                )
+
+
+                var call =
+                    RetrofitFactory().consult()
+                        .insertConsult(consult)
+
+                call.enqueue(object :
+                    retrofit2.Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+
+                    ) {
+                        if (response.isSuccessful) {
+                            var call = RetrofitFactory().schedule()
+                                .postSchedule(schedule)
+
+                            call.enqueue(object :
+                                retrofit2.Callback<ResponseBody> {
+                                override fun onResponse(
+                                    call: Call<ResponseBody>,
+                                    response: Response<ResponseBody>
+
+                                ) {
+                                    if (response.isSuccessful) {
+                                        navController.navigate("ConsultFinish")
+                                    }
+                                }
+
+                                override fun onFailure(
+                                    call: Call<ResponseBody>,
+                                    t: Throwable
+                                ) {
+                                    Log.i(
+                                        "ds2m",
+                                        "onFailure: ${t.message}"
+                                    )
+                                    println(t.message + t.cause)
+                                }
+                            })
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<ResponseBody>,
+                        t: Throwable
+                    ) {
+                        Log.i(
+                            "ds2m",
+                            "onFailure: ${t.message}"
+                        )
+                        println(t.message + t.cause)
+                    }
+                })
                 delay(3000)
                 navController.navigate("ConsultFinish")
             }

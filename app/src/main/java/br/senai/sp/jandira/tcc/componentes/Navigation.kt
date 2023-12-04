@@ -29,7 +29,112 @@ import br.senai.sp.jandira.tcc.model.ModelPregnant
 @Composable
 fun Navigation(navController: NavController, pregnant: ModelPregnant) {
 
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(236, 236, 255))
+    ) {
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 7.7.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+
+            Box(contentAlignment = Alignment.Center, modifier = Modifier
+                .clickable {
+                    navController.navigate("Exercises")
+
+                }) {
+                Image(
+                    painter = painterResource(id = R.drawable.dumbbell_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+
+            }
+
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.clickable {
+                    navController.navigate("Food")
+
+            }) {
+                Image(
+                    painter = painterResource(id = R.drawable.utensils_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
+
+
+
+
+            Box(
+                modifier = Modifier
+                    .background(Color(182, 182, 246), CircleShape)
+                    .size(60.dp)
+                    .clickable {
+                            navController.navigate("homeUser")
+                    }, contentAlignment = Alignment.Center
+            ) {
+
+                Image(
+                    painter = painterResource(id = R.drawable.house_branco),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp),
+                )
+            }
+
+
+
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.clickable {
+                        navController.navigate("contactsChat")
+
+                }) {
+                Image(
+                    painter = painterResource(id = R.drawable.chat_cinza),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
+
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.clickable {
+
+                    Log.e("a", "${pregnant.alergia.length}")
+                    Log.e("m", "${pregnant.medicacao.length}")
+                    Log.e("c", "${pregnant.comorbidades.length}")
+                    Log.e("pf", "${pregnant.cpf.length}")
+                    if (
+                        pregnant.alergia.isEmpty() ||
+//                        pregnant.deficiencia.isEmpty() ||
+//                        pregnant.medicacao.isEmpty() ||
+                        pregnant.comorbidades.isEmpty() ||
+                        pregnant.cpf.isEmpty()
+                        ){
+                        navController.navigate("insertEndress")
+                    }else{
+                        navController.navigate("speciality")
+                    }
+
+                }) {
+
+                Image(
+                    painter = painterResource(id = R.drawable.doctor),
+                    contentDescription = null,
+                    modifier = Modifier.size(27.dp)
+                )
+
+            }
+
+
+        }
+
+
+    }
 
 
 }
