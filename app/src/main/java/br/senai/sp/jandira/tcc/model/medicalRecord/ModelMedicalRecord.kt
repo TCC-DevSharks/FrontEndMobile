@@ -19,5 +19,6 @@ class ModelMedicalRecord {
     var profissional by mutableStateOf("")
     var gestante by mutableStateOf("")
     var fotoGestante by mutableStateOf("")
+    var cancelarConsulta by mutableStateOf("")
 
 }

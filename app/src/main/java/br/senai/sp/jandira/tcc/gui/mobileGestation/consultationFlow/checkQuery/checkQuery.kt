@@ -193,6 +193,7 @@ fun checkQuery(
                                     .clickable {
 
                                         modelMedicalRecord.id_consulta = gestante.id
+                                        modelMedicalRecord.cancelarConsulta = gestante.dia
                                         Log.i("Teste 5", "${gestante.id}")
                                         navController.navigate("AppointmentCanceled")
 

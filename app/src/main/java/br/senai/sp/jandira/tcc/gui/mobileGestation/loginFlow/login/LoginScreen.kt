@@ -54,7 +54,7 @@ fun LoginScreen(navController: NavController, viewModel: ModelPregnant) {
 
 
     LaunchedEffect(Unit){
-        email = "i@i.com"
+//        email = "m@c.com"
         password = "123"
     }
 

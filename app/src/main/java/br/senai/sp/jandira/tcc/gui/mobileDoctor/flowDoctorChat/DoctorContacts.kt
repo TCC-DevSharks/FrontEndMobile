@@ -1,11 +1,7 @@
-package br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.contacts
+package br.senai.sp.jandira.tcc.gui.mobileDoctor.flowDoctorChat
 
-import SocketManager
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,13 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,66 +26,65 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
-import br.senai.sp.jandira.tcc.calls.GetChatProfissional
-import br.senai.sp.jandira.tcc.calls.GetChatUser
-import br.senai.sp.jandira.tcc.calls.GetMsg
 import br.senai.sp.jandira.tcc.componentes.ArrowLeft
-import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
-import br.senai.sp.jandira.tcc.model.chatUser.ChatUserResponse
-import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
-import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
-import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
-import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
+import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultListMedicalRecord
+import br.senai.sp.jandira.tcc.model.medicalRecord.ConsultResponseMedicalRecord
+import br.senai.sp.jandira.tcc.model.professional.Professional
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatModel: ChatModel) {
+fun DoctorContactScreen(navController: NavController, pregnant: ModelPregnant, chatModel: ChatModel, professional: Professional) {
 
-    LaunchedEffect(Unit) {
-        Consult(pregnant)
-        GetChatUser(pregnant.email, chatModel)
-    }
-
-    var consult by remember { mutableStateOf(listOf<MedicalRecordDataConsult>()) }
-
-    if (pregnant.consult.isNotEmpty()) {
-        pregnant.consult.map { pgconsult ->
-            if (!consult.any { it.emailProfissional == pgconsult.emailProfissional }) {
-                consult = consult + pgconsult
-            }
-        }
+    var pacientes by rememberSaveable {
+        mutableStateOf(listOf<ConsultResponseMedicalRecord>())
     }
 
     var searchText by remember { mutableStateOf("") }
 
-    val consultFiltrados = consult.filter { it.profissional.contains(searchText, ignoreCase = true) }
+    val pacientesFiltrados = pacientes.filter { it.nome.contains(searchText, ignoreCase = true) }
+        .distinctBy { it.idGestante }
 
+    var call = RetrofitFactory().consult().getConsultMedicalRecord(professional.id)
+
+    call.enqueue(object : Callback<ConsultListMedicalRecord> {
+        override fun onResponse(
+            call: Call<ConsultListMedicalRecord>,
+            response: Response<ConsultListMedicalRecord>
+        ) {
+            pacientes = response.body()!!.pacientes
+
+
+        }
+
+        override fun onFailure(call: Call<ConsultListMedicalRecord>, t: Throwable) {
+            Log.i("paciente", "${t.message}")
+        }
+    })
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -112,7 +104,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
                 Row() {
 
-                    ArrowLeft(navController = navController, rota = "homeUser")
+                    ArrowLeft(navController = navController, rota = "DoctorHome")
                 }
 
                 Row() {
@@ -128,7 +120,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
                         ) {
                             AsyncImage(
-                                model = pregnant.foto,
+                                model = professional.foto,
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -169,7 +161,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                         .width(355.dp),
                     shape = RoundedCornerShape(40.dp),
                     label = {
-                        Text(stringResource(id = R.string.search_doctor))
+                        Text(stringResource(id = R.string.search_patient))
                     },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -186,40 +178,38 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
             Spacer(modifier = Modifier.height(20.dp))
 
-
-            if (consult.isNotEmpty()) {
-
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 25.dp)
                 ) {
-                    items(consultFiltrados) {
+                    items(pacientesFiltrados) {
 
-                        var profissional by remember { mutableStateOf("") }
-
-                        val call = RetrofitFactory().ChatService().getUser(it.emailProfissional, "Profissional")
-
-                        call.enqueue(object : retrofit2.Callback<ChatUserResponse> {
-                            override fun onResponse(
-                                call: Call<ChatUserResponse>,
-                                response: Response<ChatUserResponse>
-
-                            ) {
-
-                                chatModel.profissional = response.body()!!._id;
-                                profissional = response.body()!!._id;
-                            }
-
-                            override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
-                                Log.i(
-                                    "ds2m",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
+//                        var profissional by remember { mutableStateOf("") }
+//
+//                        val call = RetrofitFactory().ChatService().getUser(it.emailProfissional, "Profissional")
+//
+//                        call.enqueue(object : Callback<ChatUserResponse> {
+//                            override fun onResponse(
+//                                call: Call<ChatUserResponse>,
+//                                response: Response<ChatUserResponse>
+//
+//                            ) {
+//
+//                                chatModel.profissional = response.body()!!._id;
+//                                profissional = response.body()!!._id;
+//
+//                                Log.i("", "$profissional")
+//                            }
+//
+//                            override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
+//                                Log.i(
+//                                    "ds2m",
+//                                    "onFailure: ${t.message}"
+//                                )
+//                                println(t.message + t.cause)
+//                            }
+//                        })
 
 
                         Row(modifier = Modifier.padding(vertical = 9.dp)) {
@@ -229,11 +219,13 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                     .fillMaxSize()
                                     .size(390.dp, 80.dp)
                                     .clickable {
-                                        chatModel.foto = it.foto
-                                        chatModel.nomeProfissional = it.profissional
-                                        navController.navigate("messagesChat")
+//                                        chatModel.foto = it.foto
+//                                        chatModel.nomeProfissional = it.profissional
+                                        navController.navigate("DoctorMessage")
                                     },
-                                colors = CardDefaults.cardColors(Color(182, 182, 246, 65)),
+                                colors = CardDefaults.cardColors(Color(255, 255, 255)),
+                                border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
+                                shape = RoundedCornerShape(16.dp),
                             ) {
 
                                 Column(
@@ -242,7 +234,7 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                         .padding(horizontal = 11.dp),
                                     verticalArrangement = Arrangement.Center,
 
-                                ) {
+                                    ) {
 
                                     Row(
                                         modifier = Modifier
@@ -280,57 +272,12 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
                                                 Text(
                                                     modifier = Modifier.padding(start = 26.dp),
-                                                    text = it.profissional,
+                                                    text = it.nome,
                                                     fontSize = 18.sp,
                                                     fontWeight = FontWeight.Bold
                                                 )
 
-                                                Text(
-                                                    modifier = Modifier.padding(start = 26.dp),
-                                                    text = it.clinica,
-                                                    fontSize = 14.sp,
-                                                    fontWeight = FontWeight.Bold,
-                                                    color = Color(157, 157, 156),
-
-                                                    )
                                             }
-//                                            Row(
-//                                                verticalAlignment = Alignment.CenterVertically,
-//                                                horizontalArrangement = Arrangement.SpaceBetween,
-//                                                modifier = Modifier
-//                                                    .padding(vertical = 13.dp)
-//                                                    .fillMaxWidth()
-//                                            ) {
-//
-//                                                Text(
-//                                                    modifier = Modifier.padding(start = 26.dp),
-//                                                    text = "You have to be more carefull...",
-//                                                    fontSize = 11.sp,
-//                                                    color = Color(157, 157, 156),
-//                                                    fontWeight = FontWeight.Bold
-//                                                )
-
-//                                                Row(verticalAlignment = Alignment.CenterVertically) {
-//
-//                                                    Box(
-//                                                        modifier = Modifier
-//                                                            .background(Color(182, 182, 246), CircleShape)
-//                                                            .size(7.dp),
-//                                                        contentAlignment = Alignment.Center
-//                                                    ) {}
-//                                                    Text(
-//                                                        modifier = Modifier.padding(
-//                                                            start = 5.dp,
-//                                                            end = 15.dp
-//                                                        ),
-//                                                        text = "27 Oct",
-//                                                        fontSize = 11.sp,
-//                                                        color = Color(157, 157, 156),
-//                                                        fontWeight = FontWeight.Bold
-//                                                    )
-//                                                }
-
-//                                            }
 
                                         }
 
@@ -347,70 +294,9 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     }
                 }
 
-            }
 
-
-//
-//
-//            Row(
-//                modifier = Modifier.padding(horizontal = 25.dp, vertical = 20.dp)
-//            ) {
-//                Text(
-//                    text = stringResource(id = R.string.All_Messages),
-//                    fontSize = 20.sp,
-//                    fontWeight = FontWeight(900)
-//                )
-//            }
 
         }
     }
 
-
-}
-
-fun Consult(pregnant: ModelPregnant) {
-
-    val call = RetrofitFactory().consult().getConsultPatient(pregnant.id)
-
-    call.enqueue(object : retrofit2.Callback<MedicalRecordListDataConsult> {
-        override fun onResponse(
-            call: Call<MedicalRecordListDataConsult>,
-            response: Response<MedicalRecordListDataConsult>
-
-        ) {
-            pregnant.consult = response.body()!!.gestante
-            Log.i("fgfgfg", "${pregnant.consult}")
-        }
-
-        override fun onFailure(call: Call<MedicalRecordListDataConsult>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
-}
-
-fun FindUserPregnant(pregnant: ModelPregnant, chatModel: ChatModel) {
-
-    val call = RetrofitFactory().ChatService().getUser(pregnant.email, "Gestante")
-
-    call.enqueue(object : retrofit2.Callback<ChatUserResponse> {
-        override fun onResponse(
-            call: Call<ChatUserResponse>,
-            response: Response<ChatUserResponse>
-
-        ) {
-            chatModel.user = response.body()!!._id
-        }
-
-        override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
-            Log.i(
-                "ds2m",
-                "onFailure: ${t.message}"
-            )
-            println(t.message + t.cause)
-        }
-    })
 }

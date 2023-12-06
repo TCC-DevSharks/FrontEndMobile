@@ -75,6 +75,9 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.logging.Handler
 
 @Composable
@@ -495,7 +498,7 @@ fun AppointmentCanceled(
                                     fontWeight = FontWeight.Bold, fontSize = 15.sp
                                 )
                             }
-                            Spacer(modifier = Modifier.height(90.dp))
+                            Spacer(modifier = Modifier.height(65.dp))
                         }
                     }
                 }
@@ -511,21 +514,37 @@ fun AppointmentCanceled(
 
         var areScreensVisible by remember { mutableStateOf(true) }
 
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 40.dp)
-        ) {
-            ButtonPurple(
-                navController = navController,
-                texto = "Cancelar",
-                rota = "query",
-                onclick = {
-                    isCardVisible = true
-                })
+        val dataModel = LocalDate.parse(modelMedicalRecord.cancelarConsulta, formatter)
+
+        val horaAtual = LocalTime.now()
+
+
+        // Obtendo a data atual
+        val dataAtual = LocalDate.now()
+
+        if (dataModel.isEqual(dataAtual) || dataModel.isAfter(dataAtual)) {
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 10.dp)
+            ) {
+                ButtonPurple(
+                    navController = navController,
+                    texto = "Cancelar",
+                    rota = "query",
+                    onclick = {
+
+                        isCardVisible = true
+                    })
+            }
+
         }
+
+
         if (areScreensVisible) {
             if (isCardVisible) {
                 Box(

@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.limpeanapp.home.components.HomeTopBar
 import br.senai.sp.jandira.tcc.componentes.Navigation
 import br.senai.sp.jandira.tcc.componentes.NavigationNutritionist
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowDoctorChat.DoctorContactScreen
+import br.senai.sp.jandira.tcc.gui.mobileDoctor.flowDoctorChat.DoctorMessageScreen
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorHome.DoctorHome
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorProfile.DoctorProfile
 import br.senai.sp.jandira.tcc.gui.mobileDoctor.doctorSchedule.DoctorSchedule
@@ -75,8 +77,6 @@ import br.senai.sp.jandira.tcc.gui.mobileGestation.forum.ForumScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.login.LoginDoctorScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.maternalGuide.MaternalGuideScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.loginFlow.forgotPassword.ForgotPasswordEmailScreen
-import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapFragment
-import br.senai.sp.jandira.tcc.gui.mobileGestation.maps.MapsScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlan.birthPlanScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.birthPlanCategory.birthPlanCategoryScreen
 import br.senai.sp.jandira.tcc.gui.mobileGestation.preparationsFlow.trousseauCategory.trousseauCategorySceen
@@ -195,6 +195,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 "addDiet" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
                 "mealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
                 "foodMealCopy" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "DoctorContact" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
+                "DoctorMessage" -> NavigationNutritionist(navController = navController, professional =professional , pregnant)
 
                 else -> HomeTopBar(navController = navController, pregnant =pregnant )
             }
@@ -283,11 +285,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             composable(route = "foodMealPatient") { FoodMeal (navController, food)}
             composable(route = "mealCopy") { MealCopy (navController,professional, food) }
             composable(route = "foodMealCopy") { FoodMealCopy (navController, food) }
-            composable(route = "maps") { MapsScreen () }
             composable(route = "forum") { ForumScreen (navController, pregnant, forum) }
             composable(route = "forumMessage") { ForumMessageScreen (navController, pregnant, forum) }
-//            composable(route = "testezinho") { testezinho () }
-
+            composable(route = "DoctorContact") { DoctorContactScreen (navController, pregnant, chatModel, professional) }
+            composable(route = "DoctorMessage") { DoctorMessageScreen () }
         }
     }
 

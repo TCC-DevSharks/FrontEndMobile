@@ -1,8 +1,10 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.timeLine
 
 import android.util.Log
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -66,6 +69,23 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
             mutableStateOf(listOf<timeLineResonse>())
         }
 
+        var selectedItem by remember { mutableStateOf(pregnant.semana_gestacao) }
+
+        val painter = painterResource(id = R.drawable.feto_preview)
+
+        val scrollState = rememberLazyListState()
+
+
+
+        LaunchedEffect(Unit) {
+            val lastIndex = selectedItem * 268
+            if (lastIndex >= 0) {
+                scrollState.animateScrollBy(lastIndex.toFloat(), tween(5000))
+            }
+        }
+
+
+
         var call = RetrofitFactory().getTrousseauService().getTimeLine()
         call.enqueue(object : Callback<timeLineList> {
             override fun onResponse(call: Call<timeLineList>, response: Response<timeLineList>) {
@@ -95,12 +115,13 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            var selectedItem by remember { mutableStateOf(pregnant.semana_gestacao) }
 
             Log.i("fdfdf", "${selectedItem}")
 
             LazyRow(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                state = scrollState
+
             ) {
                 items(timeLine) { semana ->
 
@@ -205,6 +226,18 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                 contentScale = ContentScale.Fit,
                                 model = semana.imagem,
                                 contentDescription = null,
+                                transform = { state ->
+                                    when (state) {
+                                        is AsyncImagePainter.State.Loading -> {
+                                            state.copy(painter = painter)
+                                        }
+                                        is AsyncImagePainter.State.Error -> {
+                                            state.copy(painter = painter)
+                                        }
+
+                                        else -> state
+                                    }
+                                }
                             )
                         }
 

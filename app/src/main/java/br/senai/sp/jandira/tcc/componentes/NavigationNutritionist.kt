@@ -167,7 +167,7 @@ fun NavigationNutritionist(
 
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier.clickable {
-//                        navController.navigate("register")
+                        navController.navigate("DoctorContact")
 //                    isNutricionistaSelected = false
 //                    isChatSelected = true
 //                    isHomeSelected = false
