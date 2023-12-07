@@ -221,6 +221,7 @@ fun ConsultationClinicScreen(
                             modifier = Modifier
                                 .width(340.dp)
                                 .height(150.dp)
+                                .padding(horizontal = 10.dp)
                                 .padding(bottom = 14.dp)
                                 .clickable {
 
@@ -256,7 +257,7 @@ fun ConsultationClinicScreen(
                                         text = it.razao_social,
                                         color = Color.Black,
                                         fontWeight = FontWeight.Bold,
-                                        fontSize = 30.sp,
+                                        fontSize = 25.sp,
                                     )
 
                                     Row(verticalAlignment = Alignment.CenterVertically) {

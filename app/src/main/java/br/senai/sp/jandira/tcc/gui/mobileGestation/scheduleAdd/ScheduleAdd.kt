@@ -197,12 +197,9 @@ fun ScheduleAdd(
                     tfv = it.copy(text = formattedDate, selection = TextRange(formattedDate.length))
                                 },
                 modifier = Modifier
-                    .width(355.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(182, 182, 246),
+                    .width(355.dp),
                         shape = RoundedCornerShape(20.dp)
-                    ),
+                    ,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 ),
