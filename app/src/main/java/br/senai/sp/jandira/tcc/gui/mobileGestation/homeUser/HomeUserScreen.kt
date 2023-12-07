@@ -44,6 +44,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -236,6 +238,7 @@ fun HomeUserScreen(
                                         text = stringResource(id = R.string.hi) + " " + pregnant.nome + "!",
                                         fontSize = 30.sp,
                                         fontWeight = FontWeight.ExtraBold,
+                                        fontFamily = FontFamily(Font(R.font.outfit_semibold)),
                                         color = Color(182, 182, 246)
                                     )
 
@@ -253,6 +256,7 @@ fun HomeUserScreen(
                                         text = stringResource(id = R.string.feeling_today),
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight(600),
+                                        fontFamily = FontFamily(Font(R.font.outfit_medium)),
                                         color = Color(182, 182, 246)
                                     )
 
@@ -287,8 +291,10 @@ fun HomeUserScreen(
                                             ),
                                             fontSize = 21.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = Color(182, 182, 246)
-                                        )
+                                            color = Color(182, 182, 246),
+                                            fontFamily = FontFamily(Font(R.font.outfit_medium)),
+
+                                            )
 
                                     }
                                     Spacer(modifier = Modifier.height(10.dp))
@@ -351,6 +357,8 @@ fun HomeUserScreen(
                     Text(
                         text = stringResource(id = R.string.space_pregnancy_and_conversation),
                         fontSize = 15.7.sp,
+                        fontFamily = FontFamily(Font(R.font.outfit_medium)),
+
                         fontWeight = FontWeight(300),
                     )
                 }
@@ -392,6 +400,7 @@ fun HomeUserScreen(
                                 modifier = Modifier.padding(start = 15.dp),
                                 text = "Fórum",
                                 fontSize = 16.sp,
+                                fontFamily = FontFamily(Font(R.font.outfit_medium)),
                                 color = Color(182, 182, 246),
                             )
                         }
@@ -408,6 +417,8 @@ fun HomeUserScreen(
                 ) {
 
                     Text(
+                        fontFamily = FontFamily(Font(R.font.outfit_medium)),
+
                         text = stringResource(id = R.string.maternal_guide),
                         fontSize = 15.7.sp,
                         fontWeight = FontWeight(300),
@@ -472,6 +483,7 @@ fun HomeUserScreen(
                 ) {
 
                     Text(
+                        fontFamily = FontFamily(Font(R.font.outfit_medium)),
                         text = stringResource(id = R.string.preparations),
                         fontSize = 15.7.sp,
                         fontWeight = FontWeight(300),

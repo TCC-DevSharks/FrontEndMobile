@@ -11,9 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import br.senai.sp.jandira.tcc.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +39,10 @@ fun OutlinedTextFieldTodos(
             .width(355.dp),
         shape = shape,
         label = {
-            Text(text = texto)
+            Text(text = texto,
+                fontFamily = FontFamily(Font(R.font.outfit_medium)
+                )
+            )
         },
         keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Next),
         colors = TextFieldDefaults.textFieldColors(

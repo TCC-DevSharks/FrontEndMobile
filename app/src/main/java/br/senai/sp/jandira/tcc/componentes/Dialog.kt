@@ -25,11 +25,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import br.senai.sp.jandira.tcc.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +61,9 @@ fun ShowDialog(
                     onValueChange = {
                                     onValueChangeAltura(it)
                     },
-                    label = { Text("Altura") },
+                    label = { Text("Altura",
+                        fontFamily = FontFamily(Font(R.font.outfit_medium))
+                    ) },
                     modifier = Modifier
                         .width(300.dp)
                         .padding(top= 20.dp),
@@ -76,7 +81,9 @@ fun ShowDialog(
                     onValueChange = {
                                     onValueChangePeso(it)
                     },
-                    label = { Text("Peso") },
+                    label = { Text("Peso",
+                        fontFamily = FontFamily(Font(R.font.outfit_medium))
+                    ) },
                     modifier = Modifier
                         .width(300.dp),
                     shape = RoundedCornerShape(20.dp),
@@ -92,10 +99,14 @@ fun ShowDialog(
                 Row(modifier =Modifier.width(300.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Button(onClick ={openDialog.value = false}) {
-                        Text(text = "Cancelar")
+                        Text(text = "Cancelar",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                     Button(onClick = onclick) {
-                        Text("Salvar")
+                        Text("Salvar",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                 }
 

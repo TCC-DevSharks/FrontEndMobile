@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +45,7 @@ fun SubHeader(
         Text(
             text = leftText,
             fontSize = 17.sp,
+            fontFamily = FontFamily(Font(R.font.outfit_medium)),
             fontWeight = FontWeight(500),
             modifier = Modifier.clickable {
                 selectedColumn = 1
@@ -54,6 +57,7 @@ fun SubHeader(
 
         )
         Text(
+            fontFamily = FontFamily(Font(R.font.outfit_medium)),
             text = rightText,
             fontSize = 17.sp,
             fontWeight = FontWeight(500),

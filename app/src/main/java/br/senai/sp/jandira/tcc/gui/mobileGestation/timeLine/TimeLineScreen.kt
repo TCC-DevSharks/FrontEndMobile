@@ -37,6 +37,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -156,7 +158,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                 text = "${semana.id}",
                                 fontWeight = FontWeight(500),
                                 fontSize = 17.sp,
-                                color = if (isItemSelected) Color.White else Color.Black
+                                color = if (isItemSelected) Color.White else Color.Black,
+                                fontFamily = FontFamily(Font(R.font.outfit_medium))
                             )
                         }
                     }
@@ -207,6 +210,7 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                             text = "${semana.comparacao}",
                             fontSize = 14.sp,
                             fontWeight = FontWeight(500),
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
                         )
                     }
 
@@ -265,7 +269,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             textAlign = TextAlign.Center,
                                             fontWeight = FontWeight(900),
                                             fontSize = 15.sp,
-                                            color = Color(182, 182, 246)
+                                            color = Color(182, 182, 246),
+                                            fontFamily = FontFamily(Font(R.font.outfit_semibold))
                                         )
                                     }
 
@@ -278,7 +283,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             fontWeight = FontWeight(600),
                                             fontSize = 13.sp,
                                             color = Color.Black,
-                                            lineHeight = 19.sp
+                                            lineHeight = 19.sp,
+                                            fontFamily = FontFamily(Font(R.font.outfit_medium))
 
                                         )
                                     }
@@ -293,7 +299,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             textAlign = TextAlign.Center,
                                             fontWeight = FontWeight(900),
                                             fontSize = 15.sp,
-                                            color = Color(182, 182, 246)
+                                            color = Color(182, 182, 246),
+                                            fontFamily = FontFamily(Font(R.font.outfit_semibold))
                                         )
                                     }
 
@@ -306,7 +313,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             fontWeight = FontWeight(600),
                                             fontSize = 13.sp,
                                             color = Color.Black,
-                                            lineHeight = 19.sp
+                                            lineHeight = 19.sp,
+                                            fontFamily = FontFamily(Font(R.font.outfit_medium))
 
                                         )
                                     }
@@ -321,7 +329,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             textAlign = TextAlign.Center,
                                             fontWeight = FontWeight(900),
                                             fontSize = 15.sp,
-                                            color = Color(182, 182, 246)
+                                            color = Color(182, 182, 246),
+                                            fontFamily = FontFamily(Font(R.font.outfit_semibold))
                                         )
                                     }
 
@@ -334,7 +343,8 @@ fun TimeLineScreen(pregnant: ModelPregnant, navController: NavController) {
                                             fontWeight = FontWeight(600),
                                             fontSize = 13.sp,
                                             color = Color.Black,
-                                            lineHeight = 19.sp
+                                            lineHeight = 19.sp,
+                                            fontFamily = FontFamily(Font(R.font.outfit_medium))
 
                                         )
                                     }

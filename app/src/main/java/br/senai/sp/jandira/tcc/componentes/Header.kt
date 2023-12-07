@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,7 +56,8 @@ fun Header(
             text = titulo,
             textAlign = TextAlign.Center,
             fontSize = 22.sp,
-            fontWeight = FontWeight(700)
+            fontWeight = FontWeight(700),
+            fontFamily = FontFamily(Font(R.font.outfit_medium))
         )
     }
 

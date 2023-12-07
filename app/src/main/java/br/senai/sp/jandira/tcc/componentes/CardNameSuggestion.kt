@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
@@ -73,7 +75,9 @@ fun CardNameSuggestion(
             ) {
                 Row() {
                     Text(
-                        text = nome, fontSize = 20.sp
+                        text = nome, fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.outfit_medium))
+
                     )
                 }
                 Row() {

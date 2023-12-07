@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.TCC" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Custom font style -->
+    <style name="CustomFont">
+        <item name="android:fontFamily">@font/outfit_medium</item>
+    </style>
+    
+    
 </resources>

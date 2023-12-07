@@ -15,10 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import br.senai.sp.jandira.tcc.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +50,9 @@ fun DateField(
                 .width(355.dp),
         shape = RoundedCornerShape(20.dp),
         label = {
-            Text(text = stringResource(id = texto))
+            Text(text = stringResource(id = texto),
+                fontFamily = FontFamily(Font(R.font.outfit_medium))
+            )
         },
         keyboardOptions = KeyboardOptions(keyboardType = meuType, imeAction = ImeAction.Done),
         colors = TextFieldDefaults.textFieldColors(

@@ -199,7 +199,7 @@ fun DescriptionDoctorScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
+
         ) {
 
 
@@ -355,91 +355,97 @@ fun DescriptionDoctorScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
 
+            Column {
+                LazyColumn(
+                    modifier = Modifier.padding(
+                        start = 28.dp,
+                        end = 28.dp,
+                        bottom = 30.dp
+                    )
+                ) {
+                    item {
+                        LazyRow() {
+                            items(dates.size) { index ->
+                                val date = dates[index]
+
+                                val isSelectedDate = date == selectedDate
+
+                                Button(
+                                    onClick = {
 
 
-            LazyColumn(modifier = Modifier.padding(start = 28.dp, end = 28.dp, bottom = 30.dp)) {
-                item {
-                    LazyRow() {
-                        items(dates.size) { index ->
-                            val date = dates[index]
+                                        var newData =
+                                            date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
 
-                            val isSelectedDate = date == selectedDate
+                                        DataHora.selectedDate = newData.toString()
 
-                            Button(
-                                onClick = {
+                                        if (selectedDate == date) {
+                                            selectedDate = null
+                                        } else {
+                                            selectedDate = date
+                                        }
+                                    },
+                                    modifier = Modifier
+                                        .size(92.dp, 43.dp)
+                                        .padding(start = 4.5.dp),
+                                    colors = if (isSelectedDate) ButtonDefaults.buttonColors(
+                                        Color(243, 243, 243)
+                                    ) else ButtonDefaults.buttonColors(Color(182, 182, 246)),
+                                    shape = RoundedCornerShape(10.dp)
+                                ) {
+                                    Text(
+                                        text = date.format(DateTimeFormatter.ofPattern("dd/MM")),
+                                        fontSize = 13.5.sp,
+                                        textAlign = TextAlign.Center,
+                                        fontWeight = FontWeight(900),
+                                        color = if (isSelectedDate)
+                                            Color.Black
+                                        else Color.White
 
-
-                                    var newData =
-                                        date.format(DateTimeFormatter.ofPattern("dd/MM/YYYY"))
-
-                                    DataHora.selectedDate = newData.toString()
-
-                                    if (selectedDate == date) {
-                                        selectedDate = null
-                                    } else {
-                                        selectedDate = date
-                                    }
-                                },
-                                modifier = Modifier
-                                    .size(92.dp, 43.dp)
-                                    .padding(start = 4.5.dp),
-                                colors = if (isSelectedDate) ButtonDefaults.buttonColors(
-                                    Color(243, 243, 243)
-                                ) else ButtonDefaults.buttonColors(Color(182, 182, 246)),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Text(
-                                    text = date.format(DateTimeFormatter.ofPattern("dd/MM")),
-                                    fontSize = 13.5.sp,
-                                    textAlign = TextAlign.Center,
-                                    fontWeight = FontWeight(900),
-                                    color = if (isSelectedDate)
-                                        Color.Black
-                                    else Color.White
-
-                                )
+                                    )
+                                }
                             }
                         }
                     }
-                }
 
-                if (selectedDate != null) {
-                    item {
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            for (i in 0 until columnCount) {
-                                Column(
-                                    verticalArrangement = Arrangement.SpaceBetween
-                                ) {
-                                    for (j in 0 until wordsPerColumn) {
-                                        val index = i * wordsPerColumn + j
-                                        if (index < times.size) {
+                    if (selectedDate != null) {
+                        item {
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceEvenly
+                            ) {
+                                for (i in 0 until columnCount) {
+                                    Column(
+                                        verticalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        for (j in 0 until wordsPerColumn) {
+                                            val index = i * wordsPerColumn + j
+                                            if (index < times.size) {
 
-                                            val time = times[index]
-                                            val isSelected = time == selectedTime
+                                                val time = times[index]
+                                                val isSelected = time == selectedTime
 
-                                            val isDateSelected =
-                                                dateList.any { it.first == DataHora.selectedDate && it.second == "${times[index]}:000" }
+                                                val isDateSelected =
+                                                    dateList.any { it.first == DataHora.selectedDate && it.second == "${times[index]}:000" }
 
-                                            if (isDateSelected) {
-                                                Text(
-                                                    text = "${times[index]}",
-                                                    color = Color.Red
-                                                )
-                                            } else {
-                                                Text(
-                                                    text = "${times[index]}",
-                                                    modifier = Modifier.clickable {
+                                                if (isDateSelected) {
+                                                    Text(
+                                                        text = "${times[index]}",
+                                                        color = Color.Red
+                                                    )
+                                                } else {
+                                                    Text(
+                                                        text = "${times[index]}",
+                                                        modifier = Modifier.clickable {
 
-                                                        selectedTime = time
-                                                        DataHora.selectedTime = time.toString()
-                                                    },
-                                                    color = if (isSelected) Color(182, 182, 246)
-                                                    else Color(0, 0, 0)
-                                                )
+                                                            selectedTime = time
+                                                            DataHora.selectedTime = time.toString()
+                                                        },
+                                                        color = if (isSelected) Color(182, 182, 246)
+                                                        else Color(0, 0, 0)
+                                                    )
+                                                }
                                             }
                                         }
                                     }
@@ -449,6 +455,8 @@ fun DescriptionDoctorScreen(
                     }
                 }
             }
+
+
 
             Column(
                 modifier = Modifier

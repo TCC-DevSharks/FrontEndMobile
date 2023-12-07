@@ -237,6 +237,7 @@ fun ConsultationClinicScreen(
                         ) {
                             Row(
                                 Modifier
+                                    .padding(horizontal = 10.dp)
                                     .fillMaxSize(),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically

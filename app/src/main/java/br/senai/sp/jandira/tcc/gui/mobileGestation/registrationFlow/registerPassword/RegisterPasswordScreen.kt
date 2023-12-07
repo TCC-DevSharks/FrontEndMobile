@@ -25,6 +25,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.senai.sp.jandira.tcc.R
@@ -79,7 +81,8 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = stringResource(id = R.string.fields_not_match),
-                    color = Color.Red
+                    color = Color.Red,
+                    fontFamily = FontFamily(Font(R.font.outfit_medium))
 
                 )
             }
@@ -102,7 +105,8 @@ fun RegisterPasswordScreen(navController: NavController, viewModel: ModelRegiste
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = stringResource(id = R.string.empty_fields),
-                    color = Color.Red
+                    color = Color.Red,
+                    fontFamily = FontFamily(Font(R.font.outfit_medium))
 
                 )
             }

@@ -22,9 +22,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import br.senai.sp.jandira.tcc.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +49,9 @@ fun AddMealDialog(
                 verticalArrangement = Arrangement.Center) {
                 
                 Text(text = "Adicione um nome para a refeição:",
-                    modifier =Modifier.padding(start = 30.dp))
+                    modifier =Modifier.padding(start = 30.dp),
+                    fontFamily = FontFamily(Font(R.font.outfit_medium))
+                )
 
                 Spacer(modifier = Modifier.height(6.dp))
 
@@ -74,10 +79,14 @@ fun AddMealDialog(
                 Row(modifier =Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
                     Button(onClick ={openDialog.value = false}) {
-                        Text(text = "Cancelar")
+                        Text(text = "Cancelar",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                     Button(onClick = onclick) {
-                        Text("Criar")
+                        Text("Criar",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                 }
 

@@ -11,10 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun ButtonHome(
@@ -44,6 +47,8 @@ fun ButtonHome(
                 fontSize = 20.sp,
                 fontWeight = FontWeight(800),
                 color = Color.Black,
+                fontFamily = FontFamily(Font(R.font.outfit_semibold))
+
             )
 
         }

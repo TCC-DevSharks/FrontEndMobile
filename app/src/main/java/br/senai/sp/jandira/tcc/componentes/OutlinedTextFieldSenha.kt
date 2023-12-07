@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -56,7 +58,9 @@ fun OutlinedTextFieldSenha(
         shape = RoundedCornerShape(20.dp),
 
         label = {
-            Text(text = stringResource(id = texto))
+            Text(text = stringResource(id = texto),
+                fontFamily = FontFamily(Font(R.font.outfit_medium))
+            )
         },
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White,

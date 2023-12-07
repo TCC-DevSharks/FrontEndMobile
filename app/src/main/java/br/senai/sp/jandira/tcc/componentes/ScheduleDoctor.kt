@@ -27,6 +27,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -111,6 +113,8 @@ fun ScheduleDoctor(professional: Professional, navController: NavController, med
                         fontSize = 17.sp,
                         modifier = Modifier.padding(start = 18.dp),
                         fontWeight = FontWeight.SemiBold,
+                        fontFamily = FontFamily(Font(R.font.outfit_semibold))
+
                     )
 
                 }
@@ -161,7 +165,9 @@ fun ScheduleDoctor(professional: Professional, navController: NavController, med
                                 text = "${paciente.hora.take(5)}h",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
-                                textAlign = TextAlign.End
+                                textAlign = TextAlign.End,
+                                fontFamily = FontFamily(Font(R.font.outfit_medium))
+
                             )
                         }
                     }

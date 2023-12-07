@@ -22,9 +22,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import br.senai.sp.jandira.tcc.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +48,9 @@ fun CopyMealDialog(
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 
                 Text(text = "Gostaria de copiar estes alimentos para a refeição selecionada?",
-                    modifier =Modifier.padding(start = 30.dp))
+                    modifier =Modifier.padding(start = 30.dp),
+                    fontFamily = FontFamily(Font(R.font.outfit_medium))
+                )
 
 
                 Spacer(modifier = Modifier.height(36.dp))
@@ -53,10 +58,14 @@ fun CopyMealDialog(
                 Row(modifier =Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
                     Button(onClick ={openDialog.value = false}) {
-                        Text(text = "Não")
+                        Text(text = "Não",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                     Button(onClick = onclick) {
-                        Text("Sim")
+                        Text("Sim",
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
                     }
                 }
 

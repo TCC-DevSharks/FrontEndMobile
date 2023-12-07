@@ -40,6 +40,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -71,9 +73,16 @@ fun ScheduleAdd(
 
     var tarefas by remember { mutableStateOf("") }
     var descricao by remember { mutableStateOf("") }
-    var data by remember { mutableStateOf("") }
+    var data by remember { mutableStateOf(modelSchedule.dia) }
     var id by remember { mutableStateOf(0) }
     val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        tarefas = modelSchedule.titulo
+        descricao = modelSchedule.descricao
+        data = modelSchedule.dia
+        println(data)
+    }
 
     var tfv by remember {
         val selection = TextRange(data.length)
@@ -81,11 +90,9 @@ fun ScheduleAdd(
         mutableStateOf(textFieldValue)
     }
 
-    LaunchedEffect(Unit) {
-        tarefas = modelSchedule.titulo
-        descricao = modelSchedule.descricao
-        data = modelSchedule.dia
-    }
+    Log.i("agenda", "$tfv")
+
+
     Column(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Header(titulo = stringResource(id = R.string.schedule),
@@ -106,7 +113,8 @@ fun ScheduleAdd(
                 Text(
                     text = stringResource(id = R.string.tasks),
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.outfit_semibold))
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
@@ -117,19 +125,15 @@ fun ScheduleAdd(
                 value = tarefas,
                 onValueChange = { tarefas = it },
                 modifier = Modifier
-                    .width(355.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(182, 182, 246),
-                        shape = RoundedCornerShape(20.dp)
-                    ),
+                    .width(355.dp),
+                        shape = RoundedCornerShape(20.dp),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.White,
-                    focusedIndicatorColor = Color(243, 243, 243),
-                    unfocusedIndicatorColor = Color(243, 243, 243)
+                    focusedIndicatorColor = Color(182, 182, 246),
+                    unfocusedIndicatorColor = Color(182, 182, 246)
                 ),
                 singleLine = true
             )
@@ -144,7 +148,8 @@ fun ScheduleAdd(
                 Text(
                     text = stringResource(id = R.string.description),
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.outfit_semibold))
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -155,19 +160,16 @@ fun ScheduleAdd(
                 singleLine = false, // Permitir várias linhas
                 modifier = Modifier
                     .width(355.dp)
-                    .height(250.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(182, 182, 246),
+                    .height(250.dp),
                         shape = RoundedCornerShape(20.dp)
-                    ),
+                   ,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.White,
-                    focusedIndicatorColor = Color(243, 243, 243),
-                    unfocusedIndicatorColor = Color(243, 243, 243)
+                    focusedIndicatorColor = Color(182, 182, 246),
+                    unfocusedIndicatorColor = Color(182, 182, 246)
                 )
             )
 
@@ -183,7 +185,8 @@ fun ScheduleAdd(
                 Text(
                     text = stringResource(id = R.string.date),
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.outfit_semibold))
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
@@ -198,24 +201,22 @@ fun ScheduleAdd(
                                 },
                 modifier = Modifier
                     .width(355.dp),
-                        shape = RoundedCornerShape(20.dp)
-                    ,
+                        shape = RoundedCornerShape(20.dp),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = Color.White,
-                    focusedIndicatorColor = Color(243, 243, 243),
-                    unfocusedIndicatorColor = Color(243, 243, 243)
+                    focusedIndicatorColor = Color(182, 182, 246),
+                    unfocusedIndicatorColor = Color(182, 182, 246)
                 ),
                 singleLine = true
             )
 
 
         }
-        Spacer(modifier = Modifier.height(15.dp))
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         Row(
             modifier = Modifier
@@ -233,57 +234,61 @@ fun ScheduleAdd(
                 Image(
                     painter = painterResource(id = R.drawable.lixeirinha),
                     contentDescription = null,
-                    modifier = Modifier.size(27.dp).clickable {
-                        var call = RetrofitFactory().schedule().deleteSchedule(modelSchedule.id)
+                    modifier = Modifier
+                        .size(27.dp)
+                        .clickable {
+                            var call = RetrofitFactory()
+                                .schedule()
+                                .deleteSchedule(modelSchedule.id)
 
-                        call.enqueue(object : retrofit2.Callback<ResponseBody> {
-                            override fun onResponse(
-                                call: Call<ResponseBody>,
-                                response: Response<ResponseBody>
+                            call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                                override fun onResponse(
+                                    call: Call<ResponseBody>,
+                                    response: Response<ResponseBody>
 
-                            ) {
-                                if (response.isSuccessful){
-                                    val backgroundColor = Color.Gray
-                                    val contentColor = Color.White
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val backgroundColor = Color.Gray
+                                        val contentColor = Color.White
 
-                                    val toast = Toast(context)
-                                    toast.setGravity(Gravity.CENTER, 0, 20)
-                                    toast.duration = Toast.LENGTH_SHORT
+                                        val toast = Toast(context)
+                                        toast.setGravity(Gravity.CENTER, 0, 20)
+                                        toast.duration = Toast.LENGTH_SHORT
 
-                                    val textView = TextView(context).apply {
-                                        text = "Evento removido com sucesso"
-                                        textSize = 18f // Tamanho da fonte aumentado
-                                        setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
-                                        setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
-                                        setPadding(
-                                            36,
-                                            36,
-                                            36,
-                                            36
-                                        ) // Valores inteiros em pixels para padding
+                                        val textView = TextView(context).apply {
+                                            text = "Evento removido com sucesso"
+                                            textSize = 18f // Tamanho da fonte aumentado
+                                            setBackgroundColor(backgroundColor.toArgb()) // Converter a cor para ARGB
+                                            setTextColor(contentColor.toArgb()) // Converter a cor para ARGB
+                                            setPadding(
+                                                36,
+                                                36,
+                                                36,
+                                                36
+                                            ) // Valores inteiros em pixels para padding
+                                        }
+
+                                        toast.view = textView
+                                        toast.show()
                                     }
 
-                                    toast.view = textView
-                                    toast.show()
                                 }
 
-                            }
+                                override fun onFailure(
+                                    call: Call<ResponseBody>,
+                                    t: Throwable
+                                ) {
+                                    Log.i(
+                                        "ds2m",
+                                        "onFailure: ${t.message}"
+                                    )
+                                    println(t.message + t.cause)
+                                }
+                            })
 
-                            override fun onFailure(
-                                call: Call<ResponseBody>,
-                                t: Throwable
-                            ) {
-                                Log.i(
-                                    "ds2m",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
+                            navController.navigate("homeUser")
 
-                        navController.navigate("homeUser")
-
-                    },
+                        },
                 )
             }
             Box(

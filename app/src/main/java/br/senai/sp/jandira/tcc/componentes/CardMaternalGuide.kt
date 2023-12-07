@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -114,7 +116,8 @@ fun MarternalGuide(
                             text = titulo,
                             color = Color(182, 182, 246),
                             fontSize = 15.9.sp,
-                            fontWeight = FontWeight(900),
+                            fontFamily = FontFamily(Font(R.font.outfit_semibold)),
+                                    fontWeight = FontWeight(900),
                             lineHeight = 15.5.sp, // Ajuste a altura das linhas conforme necessário
 
                         )

@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.tcc.R
@@ -40,7 +42,9 @@ fun Comp(
                 .fillMaxWidth()
                 .padding(top = 5.dp)
         ) {
-            Text(text = textoHeader, modifier = Modifier.padding(start = 20.dp))
+            Text(text = textoHeader, modifier = Modifier.padding(start = 20.dp),
+                fontFamily = FontFamily(Font(R.font.outfit_medium))
+            )
             Image(
                 painter = painterResource(id = R.drawable.baseline_edit_note_24),
                 contentDescription = null,
@@ -55,7 +59,9 @@ fun Comp(
                 text = textoMain,
                 fontSize = 13.sp,
                 color = Color(182, 182, 246),
-                modifier = Modifier.padding(start = 25.dp)
+                modifier = Modifier.padding(start = 25.dp),
+                fontFamily = FontFamily(Font(R.font.outfit_medium))
+
             )
         }
     }

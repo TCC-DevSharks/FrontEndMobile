@@ -12,10 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.senai.sp.jandira.tcc.R
 
 @Composable
 fun CardCategoryPreparativos(
@@ -53,7 +56,9 @@ fun CardCategoryPreparativos(
                 text = category.capitalizeFirstLetter(),
                 color = Color(182,182,246),
                 fontSize = 16.sp,
-                fontWeight = FontWeight(700)
+                fontWeight = FontWeight(700),
+                fontFamily = FontFamily(Font(R.font.outfit_semibold))
+
             )
 
 

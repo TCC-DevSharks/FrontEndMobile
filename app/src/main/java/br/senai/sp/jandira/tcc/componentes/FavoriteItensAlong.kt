@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,6 +71,7 @@ fun FavoriteItensAlong(
                         text = textTitle,
                         fontSize = 18.sp,
                         fontWeight = FontWeight(700),
+                        fontFamily = FontFamily(Font(R.font.outfit_semibold))
                     )
 
                 }
@@ -106,7 +109,8 @@ fun FavoriteItensAlong(
                         text = textDescription,
                         fontSize = 14.sp, // Reduced font size
                         fontWeight = FontWeight.Normal, // Use FontWeight.Normal enum
-                        color = Color.Gray
+                        color = Color.Gray,
+                        fontFamily = FontFamily(Font(R.font.outfit_medium))
                     )
                 }
 

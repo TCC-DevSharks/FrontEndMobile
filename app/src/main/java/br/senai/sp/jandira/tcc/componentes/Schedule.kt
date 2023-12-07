@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.tcc.componentes
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,6 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -92,6 +95,7 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
                             fontSize = 17.sp,
                             fontWeight = FontWeight.SemiBold,
                             textAlign = TextAlign.Center,
+                            fontFamily = FontFamily(Font(R.font.outfit_semibold)),
                             modifier = Modifier.clickable {
                                 modelSchedule.id = 0
                                 modelSchedule.dia = ""
@@ -153,6 +157,7 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
                            LimitedText(text = it.titulo , maxLength =25 ){
                                modelSchedule.id = it.id
                                modelSchedule.dia = it.dia
+                               Log.i("dsd", "${it.dia}")
                                modelSchedule.titulo = it.titulo
                                modelSchedule.descricao = it.descricao
                                modelSchedule.IdGestante = it.id_gestante
@@ -168,8 +173,9 @@ fun Schedule(agenda: List<Schedule>, navController: NavController, modelSchedule
                                 text = "${it.dia.take(5)}",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
-                                textAlign = TextAlign.End
-                            )
+                                textAlign = TextAlign.End,
+                                fontFamily = FontFamily(Font(R.font.outfit_semibold)),
+                                )
                         }
 
                     }
