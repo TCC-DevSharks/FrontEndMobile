@@ -72,7 +72,7 @@ fun HomeTopBar(
             route = "contactsChat",
             modifier = Modifier.size(24.dp)
         ),
-        if (pregnant.alergia.isEmpty()){
+        if (pregnant.alergia.isEmpty() && pregnant.cpf.isEmpty()){
             BottomNavigation(
                 title = "Consulta",
                 selectedIcon =  R.drawable.doctor,
@@ -90,6 +90,8 @@ fun HomeTopBar(
             )
         }
     )
+    println(pregnant.alergia)
+    println(pregnant.cpf)
 
     val context = LocalContext.current
 

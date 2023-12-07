@@ -194,12 +194,12 @@ fun DescriptionDoctorScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(rememberScrollState())
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-
         ) {
 
 
@@ -283,10 +283,11 @@ fun DescriptionDoctorScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Column(
-                modifier = Modifier.padding(horizontal = 28.dp, vertical = 16.dp)
+                modifier = Modifier
+                    .padding(horizontal = 28.dp, vertical = 8.dp)
             ) {
 
                 Row() {
@@ -299,7 +300,10 @@ fun DescriptionDoctorScreen(
 
                 }
 
-                Row(modifier = Modifier.padding(top = 5.dp, bottom = 12.dp)) {
+                Row(modifier = Modifier
+                    .padding(top = 5.dp, bottom = 12.dp)
+                )
+                   {
 
                     Text(
                         text = professional.descricao,
@@ -325,7 +329,7 @@ fun DescriptionDoctorScreen(
 
                 }
 
-                Row(modifier = Modifier.padding(top = 5.dp, bottom = 12.dp)) {
+                Row(modifier = Modifier.padding(top = 5.dp, bottom = 7.dp)) {
 
                     Text(
                         text = "R$ " + professional.valor,
@@ -370,8 +374,16 @@ fun DescriptionDoctorScreen(
 
                                 val isSelectedDate = date == selectedDate
 
-                                Button(
-                                    onClick = {
+            Column(modifier = Modifier.padding(start = 28.dp, end = 28.dp, bottom = 30.dp)) {
+                    LazyRow() {
+                        items(dates.size) { index ->
+                            val date = dates[index]
+
+                            val isSelectedDate = date == selectedDate
+
+                            Button(
+                                onClick = {
+
 
 
                                         var newData =
@@ -408,51 +420,50 @@ fun DescriptionDoctorScreen(
                         }
                     }
 
-                    if (selectedDate != null) {
-                        item {
-                            Spacer(modifier = Modifier.height(10.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceEvenly
-                            ) {
-                                for (i in 0 until columnCount) {
-                                    Column(
-                                        verticalArrangement = Arrangement.SpaceBetween
-                                    ) {
-                                        for (j in 0 until wordsPerColumn) {
-                                            val index = i * wordsPerColumn + j
-                                            if (index < times.size) {
 
-                                                val time = times[index]
-                                                val isSelected = time == selectedTime
+                if (selectedDate != null) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            for (i in 0 until columnCount) {
+                                Column(
+                                    verticalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    for (j in 0 until wordsPerColumn) {
+                                        val index = i * wordsPerColumn + j
+                                        if (index < times.size) {
 
-                                                val isDateSelected =
-                                                    dateList.any { it.first == DataHora.selectedDate && it.second == "${times[index]}:000" }
+                                            val time = times[index]
+                                            val isSelected = time == selectedTime
 
-                                                if (isDateSelected) {
-                                                    Text(
-                                                        text = "${times[index]}",
-                                                        color = Color.Red
-                                                    )
-                                                } else {
-                                                    Text(
-                                                        text = "${times[index]}",
-                                                        modifier = Modifier.clickable {
+                                            val isDateSelected =
+                                                dateList.any { it.first == DataHora.selectedDate && it.second == "${times[index]}:000" }
 
-                                                            selectedTime = time
-                                                            DataHora.selectedTime = time.toString()
-                                                        },
-                                                        color = if (isSelected) Color(182, 182, 246)
-                                                        else Color(0, 0, 0)
-                                                    )
-                                                }
+                                            if (isDateSelected) {
+                                                Text(
+                                                    text = "${times[index]}",
+                                                    color = Color.Red
+                                                )
+                                            } else {
+                                                Text(
+                                                    text = "${times[index]}",
+                                                    modifier = Modifier.clickable {
+
+                                                        selectedTime = time
+                                                        DataHora.selectedTime = time.toString()
+                                                    },
+                                                    color = if (isSelected) Color(182, 182, 246)
+                                                    else Color(0, 0, 0)
+                                                )
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-                    }
+
                 }
             }
 
