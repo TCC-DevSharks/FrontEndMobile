@@ -145,7 +145,8 @@ fun ConsultationDescriptionClinicScreen(
                 Text(
                     text = clinic.razao_social,
                     fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
                 )
             }
 

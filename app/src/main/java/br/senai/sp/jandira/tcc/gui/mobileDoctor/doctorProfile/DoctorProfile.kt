@@ -380,77 +380,77 @@ fun DoctorProfile(professional: Professional, navController: NavController) {
 
             }
         }
-        Spacer(modifier = Modifier.height(30.dp))
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Card(
-                modifier = Modifier.size(width = 350.dp, height = 90.dp),
-                colors = CardDefaults.cardColors(Color.White)
-            ) {
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        modifier = Modifier.padding(top = 10.dp, start = 15.dp),
-                        text = stringResource(id = R.string.notification),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, start = 5.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row() {
-
-                        Icon(
-                            painter = painterResource(id = R.drawable.bell),
-                            contentDescription = null,
-                            tint =  Color(182,182,246),
-                            modifier = Modifier.size(20.dp)
-
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = 15.dp),
-                            text = stringResource(id = R.string.notification_pop)
-                        )
-
-                    }
-
-                    var switchCheckedState by remember { mutableStateOf(false) }
-
-                    Switch(
-                        modifier = Modifier.padding(bottom = 20.dp),
-                        checked = switchCheckedState,
-                        onCheckedChange = {
-                            switchCheckedState = it
-
-                            if (it) {
-                                // Código para quando o Switch estiver ligado
-                            } else {
-                                // Código para quando o Switch estiver desligado
-                            }
-                        },
-
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = if (switchCheckedState)
-                                Color.White else  Color(182,182,246),
-                            checkedTrackColor = Color(182,182,246),
-                            checkedBorderColor =  Color(182,182,246),
-                            uncheckedThumbColor =  Color(182,182,246),
-                            uncheckedTrackColor = Color.White,
-                            disabledCheckedBorderColor = Color(255, 255, 255)
-                        )
-
-                    )
-
-
-                }
-            }
-        }
+//        Spacer(modifier = Modifier.height(30.dp))
+//        Column(
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//        ) {
+//            Card(
+//                modifier = Modifier.size(width = 350.dp, height = 90.dp),
+//                colors = CardDefaults.cardColors(Color.White)
+//            ) {
+//                Row(modifier = Modifier.fillMaxWidth()) {
+//                    Text(
+//                        modifier = Modifier.padding(top = 10.dp, start = 15.dp),
+//                        text = stringResource(id = R.string.notification),
+//                        fontWeight = FontWeight.Bold,
+//                        fontSize = 18.sp
+//                    )
+//                }
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(top = 10.dp, start = 5.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween
+//                ) {
+//                    Row() {
+//
+//                        Icon(
+//                            painter = painterResource(id = R.drawable.bell),
+//                            contentDescription = null,
+//                            tint =  Color(182,182,246),
+//                            modifier = Modifier.size(20.dp)
+//
+//                        )
+//                        Text(
+//                            modifier = Modifier.padding(start = 15.dp),
+//                            text = stringResource(id = R.string.notification_pop)
+//                        )
+//
+//                    }
+//
+//                    var switchCheckedState by remember { mutableStateOf(false) }
+//
+//                    Switch(
+//                        modifier = Modifier.padding(bottom = 20.dp),
+//                        checked = switchCheckedState,
+//                        onCheckedChange = {
+//                            switchCheckedState = it
+//
+//                            if (it) {
+//                                // Código para quando o Switch estiver ligado
+//                            } else {
+//                                // Código para quando o Switch estiver desligado
+//                            }
+//                        },
+//
+//                        colors = SwitchDefaults.colors(
+//                            checkedThumbColor = if (switchCheckedState)
+//                                Color.White else  Color(182,182,246),
+//                            checkedTrackColor = Color(182,182,246),
+//                            checkedBorderColor =  Color(182,182,246),
+//                            uncheckedThumbColor =  Color(182,182,246),
+//                            uncheckedTrackColor = Color.White,
+//                            disabledCheckedBorderColor = Color(255, 255, 255)
+//                        )
+//
+//                    )
+//
+//
+//                }
+//            }
+//        }
         Spacer(modifier = Modifier.height(30.dp))
         Column(
             modifier = Modifier.fillMaxWidth(),

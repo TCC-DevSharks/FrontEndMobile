@@ -91,7 +91,7 @@ fun DoctorContactScreen(navController: NavController, pregnant: ModelPregnant, c
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 90.dp, top = 24.dp)
+                .padding(top = 24.dp)
         ) {
 
             Row(
@@ -181,7 +181,8 @@ fun DoctorContactScreen(navController: NavController, pregnant: ModelPregnant, c
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 25.dp)
+                        .padding(horizontal = 25.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(pacientesFiltrados) {
 
@@ -211,86 +212,47 @@ fun DoctorContactScreen(navController: NavController, pregnant: ModelPregnant, c
 //                            }
 //                        })
 
-
-                        Row(modifier = Modifier.padding(vertical = 9.dp)) {
-
                             Card(
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .size(390.dp, 80.dp)
+                                    .width(340.dp)
                                     .clickable {
-//                                        chatModel.foto = it.foto
-//                                        chatModel.nomeProfissional = it.profissional
                                         navController.navigate("DoctorMessage")
-                                    },
-                                colors = CardDefaults.cardColors(Color(255, 255, 255)),
-                                border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
-                                shape = RoundedCornerShape(16.dp),
-                            ) {
-
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(horizontal = 11.dp),
-                                    verticalArrangement = Arrangement.Center,
-
-                                    ) {
-
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(start = 10.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-
-                                        Card(
-                                            modifier = Modifier
-                                                .size(58.dp),
-                                            shape = CircleShape,
-                                        ) {
-
-                                            AsyncImage(
-                                                model = it.foto,
-                                                contentDescription = "",
-                                                contentScale = ContentScale.Crop,
-                                                modifier = Modifier
-                                                    .size(100.dp)
-                                                    .clip(CircleShape)
-                                            )
-
-                                        }
-
-                                        Column(
-                                            modifier = Modifier
-                                                .fillMaxSize()
-                                                .padding(vertical = 10.dp),
-                                            verticalArrangement = Arrangement.SpaceBetween
-                                        ) {
-
-                                            Column(verticalArrangement = Arrangement.SpaceAround,
-                                                modifier = Modifier.fillMaxSize()) {
-
-                                                Text(
-                                                    modifier = Modifier.padding(start = 26.dp),
-                                                    text = it.nome,
-                                                    fontSize = 18.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
-
-                                            }
-
-                                        }
-
-
                                     }
+                                    .height(85.dp)
+                                    .padding(bottom = 14.dp),
+                                colors = CardDefaults.cardColors(Color(182, 182, 246, 100)),
+                                border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
+                                shape = RoundedCornerShape(16.dp)
+                            ) {
+                                Row(
+                                    Modifier
+                                        .fillMaxSize()
+                                        .padding(start = 20.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    AsyncImage(
+                                        model = it.foto,
+                                        contentDescription = "",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .size(45.dp)
+                                            .clip(CircleShape)
+                                    )
 
+                                    Spacer(modifier = Modifier.width(25.dp))
 
+                                    Column {
+                                        Text(
+                                            text = it.nome,
+                                            color = Color.Black,
+                                            fontWeight = FontWeight.Black,
+                                            fontSize = 15.sp,
+                                        )
+                                    }
                                 }
-
-
                             }
 
-                        }
+
                     }
                 }
 

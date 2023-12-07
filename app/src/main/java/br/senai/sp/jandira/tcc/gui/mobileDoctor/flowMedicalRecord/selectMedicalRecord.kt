@@ -149,7 +149,7 @@ fun selectMedicalRecord(professional: Professional, navController: NavController
                             }
                             .height(85.dp)
                             .padding(bottom = 14.dp),
-                        colors = CardDefaults.cardColors(Color(255, 255, 255)),
+                        colors = CardDefaults.cardColors(Color(182, 182, 246, 100)),
                         border = BorderStroke(width = 1.dp, color = Color(182, 182, 246)),
                         shape = RoundedCornerShape(16.dp)
                     ) {

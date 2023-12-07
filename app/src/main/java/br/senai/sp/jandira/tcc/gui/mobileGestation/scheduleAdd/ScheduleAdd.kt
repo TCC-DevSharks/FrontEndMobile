@@ -218,31 +218,6 @@ fun ScheduleAdd(
         }
         Spacer(modifier = Modifier.height(15.dp))
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 25.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row() {
-                Text(
-                    text = stringResource(id = R.string.reminder),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Normal
-                )
-            }
-            Spacer(modifier = Modifier.width(15.dp))
-            Row {
-
-                var switchCheckedState by remember { mutableStateOf(false) }
-
-                SwitchComp(switchCheckedState = switchCheckedState, onCheckedChange = {
-                    switchCheckedState = it
-                })
-
-            }
-        }
-
         Spacer(modifier = Modifier.height(10.dp))
 
         Row(

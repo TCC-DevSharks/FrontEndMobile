@@ -154,7 +154,7 @@ fun Chat(
                     Box(
                         modifier = Modifier
                             .background(
-                                Color(255, 218, 185),
+                                Color(182, 182, 246),
                                 RoundedCornerShape(10.dp)
                             ),
                     ) {
@@ -164,27 +164,26 @@ fun Chat(
                                 color = Color.Black,
                             ),
                             modifier = Modifier
-                                .padding(13.dp)
-                                .padding(bottom = 9.dp),
+                                .padding(13.dp),
                             textAlign = TextAlign.Start
                         )
 
 
-
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 12.dp)
-                                .align(Alignment.BottomStart),
-                            horizontalArrangement = Arrangement.Start
-                        ) {
-
-                            Text(
-                                text = "Tue",
-                                fontSize = 14.sp,
-                                color = Color(102, 97, 97, 95)
-                            )
-
-                        }
+//
+//                        Row(
+//                            modifier = Modifier
+//                                .padding(horizontal = 12.dp)
+//                                .align(Alignment.BottomStart),
+//                            horizontalArrangement = Arrangement.Start
+//                        ) {
+//
+//                            Text(
+//                                text = "Tue",
+//                                fontSize = 14.sp,
+//                                color = Color(102, 97, 97, 95)
+//                            )
+//
+//                        }
                     }
                 }
             }
