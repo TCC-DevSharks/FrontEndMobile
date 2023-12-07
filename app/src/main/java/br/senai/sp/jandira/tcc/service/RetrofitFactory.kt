@@ -11,8 +11,8 @@ import retrofit2.create
 
 
 class RetrofitFactory {
-//    private val URL_BASE = "https://api-bebevindo.azurewebsites.net/"
-    private val URL_BASE = "http://10.0.2.2:8080/"
+    private val URL_BASE = "https://api-bebevindo.azurewebsites.net/"
+//    private val URL_BASE = "http://10.0.2.2:8080/"
     private val retrofitFactory = Retrofit
         .Builder()
         .baseUrl(URL_BASE)
