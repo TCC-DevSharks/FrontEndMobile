@@ -64,9 +64,14 @@ import br.senai.sp.jandira.tcc.model.chatUser.ChatUserResponse
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordAll
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordDataConsult
 import br.senai.sp.jandira.tcc.model.medicalRecord.MedicalRecordListDataConsult
+import br.senai.sp.jandira.tcc.model.mongoDb.ChatDbResponse
 import br.senai.sp.jandira.tcc.model.nameSuggestion.NameSuggestionResponse
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 
@@ -188,40 +193,12 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
 
             if (consult.isNotEmpty()) {
-
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 25.dp)
                 ) {
                     items(consultFiltrados) {
-
-                        var profissional by remember { mutableStateOf("") }
-
-                        val call = RetrofitFactory().ChatService().getUser(it.emailProfissional, "Profissional")
-
-                        call.enqueue(object : retrofit2.Callback<ChatUserResponse> {
-                            override fun onResponse(
-                                call: Call<ChatUserResponse>,
-                                response: Response<ChatUserResponse>
-
-                            ) {
-
-                                chatModel.profissional = response.body()!!._id;
-                                profissional = response.body()!!._id;
-                            }
-
-                            override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
-                                Log.i(
-                                    "ds2m",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
-
-
                         Row(modifier = Modifier.padding(vertical = 9.dp)) {
 
                             Card(
@@ -229,9 +206,40 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                                     .fillMaxSize()
                                     .size(390.dp, 80.dp)
                                     .clickable {
+
+                                        val call = RetrofitFactory().ChatService().getUser(it.emailProfissional, "Profissional")
+
+                                        call.enqueue(object : retrofit2.Callback<ChatUserResponse> {
+                                            override fun onResponse(
+                                                call: Call<ChatUserResponse>,
+                                                response: Response<ChatUserResponse>
+
+                                            ) {
+
+                                                chatModel.profissional = response.body()!!._id;
+                                                Log.e("oi","${chatModel.profissional}")
+                                            }
+
+                                            override fun onFailure(call: Call<ChatUserResponse>, t: Throwable) {
+                                                Log.i(
+                                                    "ds2m",
+                                                    "onFailure: ${t.message}"
+                                                )
+                                                println(t.message + t.cause)
+                                            }
+                                        })
+
+
+                                        chatModel.msgs = emptyList()
                                         chatModel.foto = it.foto
                                         chatModel.nomeProfissional = it.profissional
-                                        navController.navigate("messagesChat")
+
+
+                                        CoroutineScope(Dispatchers.Main).launch{
+//                                            delay(800)
+                                            navController.navigate("messagesChat")
+                                        }
+
                                     },
                                 colors = CardDefaults.cardColors(Color(182, 182, 246, 65)),
                             ) {
@@ -294,74 +302,14 @@ fun ContatosScreen(navController: NavController, pregnant: ModelPregnant, chatMo
 
                                                     )
                                             }
-//                                            Row(
-//                                                verticalAlignment = Alignment.CenterVertically,
-//                                                horizontalArrangement = Arrangement.SpaceBetween,
-//                                                modifier = Modifier
-//                                                    .padding(vertical = 13.dp)
-//                                                    .fillMaxWidth()
-//                                            ) {
-//
-//                                                Text(
-//                                                    modifier = Modifier.padding(start = 26.dp),
-//                                                    text = "You have to be more carefull...",
-//                                                    fontSize = 11.sp,
-//                                                    color = Color(157, 157, 156),
-//                                                    fontWeight = FontWeight.Bold
-//                                                )
-
-//                                                Row(verticalAlignment = Alignment.CenterVertically) {
-//
-//                                                    Box(
-//                                                        modifier = Modifier
-//                                                            .background(Color(182, 182, 246), CircleShape)
-//                                                            .size(7.dp),
-//                                                        contentAlignment = Alignment.Center
-//                                                    ) {}
-//                                                    Text(
-//                                                        modifier = Modifier.padding(
-//                                                            start = 5.dp,
-//                                                            end = 15.dp
-//                                                        ),
-//                                                        text = "27 Oct",
-//                                                        fontSize = 11.sp,
-//                                                        color = Color(157, 157, 156),
-//                                                        fontWeight = FontWeight.Bold
-//                                                    )
-//                                                }
-
-//                                            }
-
                                         }
-
-
                                     }
-
-
                                 }
-
-
                             }
-
                         }
                     }
                 }
-
             }
-
-
-//
-//
-//            Row(
-//                modifier = Modifier.padding(horizontal = 25.dp, vertical = 20.dp)
-//            ) {
-//                Text(
-//                    text = stringResource(id = R.string.All_Messages),
-//                    fontSize = 20.sp,
-//                    fontWeight = FontWeight(900)
-//                )
-//            }
-
         }
     }
 

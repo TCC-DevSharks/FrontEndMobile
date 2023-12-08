@@ -1,11 +1,13 @@
 package br.senai.sp.jandira.tcc.gui.mobileGestation.chatFlow.messages
 
 import SocketManager
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
@@ -58,6 +60,7 @@ import br.senai.sp.jandira.tcc.componentes.Chat
 import br.senai.sp.jandira.tcc.model.ModelPregnant
 import br.senai.sp.jandira.tcc.model.chatMesssages.ChatModel
 import br.senai.sp.jandira.tcc.model.mongoDb.ChatDbResponse
+import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +69,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalTime
 
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatModel: ChatModel){
@@ -74,13 +78,26 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     var profissional = chatModel.profissional
     var effect by remember { mutableStateOf(true) }
     val scrollState = rememberLazyListState()
+    var msg by remember { mutableStateOf(listOf<ChatDbResponse>()) }
+
 
     socketManager.handleMsgReceive {
-        GetMsg(user, profissional, chatModel)
+        var chat = ChatDbResponse(
+            _id = user,
+            sender = profissional,
+            text = it,
+            timestamp = LocalTime.now(),
+            users = listOf(user, profissional)
+        )
+       Log.e("", "$it")
+        msg = msg + chat
+
     }
 
-    var msg by remember { mutableStateOf(listOf<ChatDbResponse>()) }
-    msg =  chatModel.msgs
+    CoroutineScope(Dispatchers.IO).launch {
+       msg = GetMsgs(user, profissional)
+    }
+
 
     LaunchedEffect(msg) {
         val lastIndex = msg.size.toFloat() * 200
@@ -90,15 +107,11 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     }
 
     LaunchedEffect(Unit){
-        GetMsg(user, profissional, chatModel)
+
         socketManager.connect()
         socketManager.addUser(user)
     }
 
-    LaunchedEffect(effect){
-        delay(500)
-        GetMsg(user, profissional, chatModel)
-    }
 
 
 
@@ -124,7 +137,7 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 49.dp),
+                        .padding(start = 20.dp),
                     verticalAlignment = CenterVertically,
                 ) {
 
@@ -156,8 +169,6 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                 }
 
             }
-
-
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -174,12 +185,14 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray)
+                .background(Color(182,182,246,50))
+                .border(BorderStroke(1.dp, Color(182,182,246)))
                 .align(Alignment.BottomCenter)
-                .padding(horizontal = 28.dp, vertical = 10.dp),
+                .padding(horizontal = 28.dp, vertical = 5.dp),
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+
 
             var message by rememberSaveable { mutableStateOf("") }
 
@@ -195,7 +208,7 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     Text(
                         text = "",
                         fontSize = 14.sp,
-                        color = Color(102, 97, 97, 95)
+                        color = Color.White
                     )
                 },
                 keyboardOptions = KeyboardOptions(
@@ -203,9 +216,10 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     imeAction = ImeAction.Next
                 ),
                 colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color(243, 243, 243),
-                    focusedIndicatorColor = Color(243, 243, 243),
-                    unfocusedIndicatorColor = Color(243, 243, 243)
+                    textColor = Color.White,
+                    containerColor = Color(182,182,246),
+                    focusedIndicatorColor = Color(182,182,246),
+                    unfocusedIndicatorColor = Color(182,182,246)
                 ),
                 singleLine = true
             )
@@ -219,9 +233,9 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                             socketManager.connect()
                             socketManager.sendMsg(profissional, message)
                             SendMsg(text = message, users = listOf(user, profissional), sender = user, timestamp = LocalTime.now() )
-                            effect = !effect
 
-                            Log.e("", "$msg")
+                            msg = GetMsgs(user, profissional)
+
                             message = ""
 
                         }
@@ -233,11 +247,24 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
                     contentDescription = null,
                     modifier = Modifier
                         .size(19.dp)
-                        .padding(end = 2.5.dp),
                 )
             }
         }
 
     }
 
+}
+
+fun GetMsgs(from: String, to: String): List<ChatDbResponse> {
+
+    val call = RetrofitFactory().MongoService().getMsg(from, to)
+
+    val response = call.execute()
+
+    if (response.isSuccessful) {
+        return response.body()!!.conversa
+    } else {
+        Log.i("ds2m", "onFailure: ${response.message()}")
+        return emptyList()
+    }
 }
