@@ -76,7 +76,6 @@ fun MessagesScreen(navController: NavController, pregnant: ModelPregnant, chatMo
     val socketManager = SocketManager()
     var user = chatModel.user
     var profissional = chatModel.profissional
-    var effect by remember { mutableStateOf(true) }
     val scrollState = rememberLazyListState()
     var msg by remember { mutableStateOf(listOf<ChatDbResponse>()) }
 

@@ -15,6 +15,9 @@ interface ProfessionalService {
     @GET("profissional/especialidade/{id}")
     fun getProfissionalSpeciality(@Path("id") id: Int): Call<ProfessionalSpecialityResponseList>
 
+    @GET("profissional/especialidade/{id}/{clinic}")
+    fun getProfissionalSpecialityClinic(@Path("id") id: Int, @Path("clinic") clinic: Int): Call<ProfessionalSpecialityResponseList>
+
     @GET("profissional/{id}")
     fun getProfissional(@Path("id") id: Int): Call<ProfessionalSpecialityResponseList>
 

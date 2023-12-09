@@ -14,9 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-fun GetProfessionalSpeciality(speciality: Int, professional: Professional, navController: NavController){
+fun GetProfessionalSpeciality(speciality: Int,clinic: Int, professional: Professional, navController: NavController){
 
-        val call = RetrofitFactory().getProfessional().getProfissionalSpeciality(speciality)
+        val call = RetrofitFactory().getProfessional().getProfissionalSpecialityClinic(speciality, clinic)
 
         call.enqueue(object : retrofit2.Callback<ProfessionalSpecialityResponseList> {
             override fun onResponse(

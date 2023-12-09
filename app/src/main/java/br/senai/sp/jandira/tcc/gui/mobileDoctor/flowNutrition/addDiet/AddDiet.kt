@@ -139,6 +139,8 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                 horario = horario
             )
 
+        println(meal)
+
             val call = RetrofitFactory().Diet().addMealToDiet(meal)
 
             call.enqueue(object : retrofit2.Callback<ResponseBody> {
@@ -147,6 +149,7 @@ fun AddDiet(navController: NavController, professional: Professional,food: Model
                     response: Response<ResponseBody>
 
                 ) {
+                    println(response)
 
                     if (response.isSuccessful){
                         openDialog.value = false

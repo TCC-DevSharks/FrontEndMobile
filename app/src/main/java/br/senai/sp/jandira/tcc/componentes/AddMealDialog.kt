@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -55,7 +57,9 @@ fun AddMealDialog(
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                Row(modifier =Modifier.fillMaxWidth().padding(start = 30.dp)){
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp)){
                     OutlinedTextField(
                         value = nome,
                         onValueChange = {
@@ -78,12 +82,18 @@ fun AddMealDialog(
 
                 Row(modifier =Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Button(onClick ={openDialog.value = false}) {
+                    Button(
+                        onClick ={openDialog.value = false},
+                        colors = ButtonDefaults.buttonColors(Color(182,182,246))
+                    ) {
                         Text(text = "Cancelar",
                             fontFamily = FontFamily(Font(R.font.outfit_medium))
                         )
                     }
-                    Button(onClick = onclick) {
+                    Button(
+                        onClick = onclick,
+                        colors = ButtonDefaults.buttonColors(Color(182,182,246))
+                        ) {
                         Text("Criar",
                             fontFamily = FontFamily(Font(R.font.outfit_medium))
                         )

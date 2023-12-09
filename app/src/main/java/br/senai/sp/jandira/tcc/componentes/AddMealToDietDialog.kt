@@ -47,7 +47,7 @@ fun AddMealToDietDialog(
                 .background(Color.White)
                 .width(400.dp)
                 .height(300.dp)
-                .border(border = BorderStroke(3.dp, Color.Black)),
+                .border(border = BorderStroke(3.dp, Color(184,184,246))),
                 verticalArrangement = Arrangement.Center) {
                 
                 Text(text = "Adicione um nome para a refeição:",

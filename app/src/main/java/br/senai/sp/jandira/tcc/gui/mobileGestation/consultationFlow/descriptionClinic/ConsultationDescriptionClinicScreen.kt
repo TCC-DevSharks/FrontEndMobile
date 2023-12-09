@@ -218,14 +218,14 @@ fun ConsultationDescriptionClinicScreen(
                     Image(
                         painter = painterResource(id = R.drawable.letter),
                         contentDescription = null,
-                        modifier = Modifier.size(27.dp),
+                        modifier = Modifier.size(22.dp),
                         colorFilter = ColorFilter.tint(Color(182,182,246))
                     )
 
                     Spacer(modifier = Modifier.width(13.dp))
 
                     Text(
-                        text = " " + clinic.email,
+                        text = clinic.email,
                         fontSize = 15.sp,
                         color = Color(57, 57, 56),
                         textAlign = TextAlign.Center,
@@ -290,7 +290,7 @@ fun ConsultationDescriptionClinicScreen(
                 texto = clinic.nomeEspecialidade + "s " + stringResource(id = R.string.check_nutritionists),
                 rota = "",
                 onclick = {
-                    GetProfessionalSpeciality(clinic.especialidade, professional, navController)
+                    GetProfessionalSpeciality(clinic.especialidade,clinic.id, professional, navController)
                 }, width = 300.dp, height = 48.dp, sizeText = 15.sp
             )
 

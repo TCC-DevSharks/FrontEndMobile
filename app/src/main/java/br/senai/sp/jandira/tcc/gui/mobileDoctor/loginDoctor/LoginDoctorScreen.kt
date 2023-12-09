@@ -55,7 +55,7 @@ fun LoginDoctorScreen(navController: NavController, professional: Professional) 
     var email by rememberSaveable { mutableStateOf("") }
 
     LaunchedEffect(Unit){
-//        email = "r@q.com"
+        email = "genivania.macedo@gmail.com"
 //        email = "claudia@c.com"
         password = "123"
     }
