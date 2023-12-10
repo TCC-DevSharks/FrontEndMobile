@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -43,7 +44,7 @@ fun ForumDialog(
                 .background(Color.White)
                 .width(400.dp)
                 .height(200.dp)
-                .border(border = BorderStroke(3.dp, Color.Black)),
+                .border(border = BorderStroke(3.dp, Color(182,182,246))),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 
@@ -57,11 +58,17 @@ fun ForumDialog(
 
                 Row(modifier =Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Button(onClick ={openDialog.value = false}) {
+                    Button(onClick ={openDialog.value = false},
+                        colors = ButtonDefaults.buttonColors(Color(136, 87, 224, 255))
+                    ) {
                         Text(text = "Não",
-                            fontFamily = FontFamily(Font(R.font.outfit_medium)))
+                            fontFamily = FontFamily(Font(R.font.outfit_medium))
+                        )
+
                     }
-                    Button(onClick = onclick) {
+                    Button(onClick = onclick,
+                        colors = ButtonDefaults.buttonColors(Color(136, 87, 224, 255))
+                    ) {
                         Text("Criar",
                             fontFamily = FontFamily(Font(R.font.outfit_medium)))
                     }

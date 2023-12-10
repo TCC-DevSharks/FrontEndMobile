@@ -141,9 +141,12 @@ fun HomeUserScreen(
 //        GetMedication(pregnant)
         GetCep(pregnant, pregnant.cep)
         GetForumUser(pregnant.id, forum)
-        println("123")
     }
 
+    LaunchedEffect(openDialog.value){
+        GetForumUser(pregnant.id, forum)
+
+    }
     ForumDialog(openDialog =openDialog){
 
         var user = PostUser(
@@ -154,7 +157,7 @@ fun HomeUserScreen(
         )
 
         PostForumUser(user)
-        GetForumUser(pregnant.id, forum)
+        openDialog.value = false
     }
 
         Box(

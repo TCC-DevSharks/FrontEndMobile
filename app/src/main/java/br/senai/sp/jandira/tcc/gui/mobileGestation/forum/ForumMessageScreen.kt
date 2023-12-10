@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -75,6 +76,7 @@ import br.senai.sp.jandira.tcc.model.forum.topic.ResponseMessageTopic
 import br.senai.sp.jandira.tcc.model.forum.topic.ResponseMessageTopicList
 import br.senai.sp.jandira.tcc.model.forum.topic.ResponseTopic
 import br.senai.sp.jandira.tcc.model.forum.topic.ResponseTopicList
+import br.senai.sp.jandira.tcc.model.forum.topic.ResponseUserTopic
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import kotlinx.coroutines.CoroutineScope
@@ -82,9 +84,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,36 +101,48 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
     var category by remember { mutableStateOf("") }
     var mensagens by remember { mutableStateOf(listOf<ResponseMessage>()) }
     var textoMensagem by remember { mutableStateOf("") }
-
-    LaunchedEffect(textoMensagem){
-        val call = RetrofitFactory().Forum().getMessageTopics(forum.mensagemId)
-
-        call.enqueue(object : retrofit2.Callback<ResponseMessageTopicList> {
-            override fun onResponse(
-                call: Call<ResponseMessageTopicList>,
-                response: Response<ResponseMessageTopicList>
-
-            ) {
-                Log.e("forum","${response.body()}")
-                if (response.isSuccessful){
-                    title = response.body()!!.topic.title
-                    text = response.body()!!.topic.text
-                    date = response.body()!!.topic.date
-                    category = response.body()!!.topic.category
-                    mensagens = response.body()!!.topic.messages
-                }
-
-            }
-
-            override fun onFailure(call: Call<ResponseMessageTopicList>, t: Throwable) {
-                Log.i(
-                    "ds2m",
-                    "onFailure: ${t.message}"
-                )
-                println(t.message + t.cause)
-            }
-        })
+    var user by remember {
+     mutableStateOf(ResponseUserTopic(
+         _id = "",
+         username = "",
+         foto = "",
+         mysql = "",
+         age = ""
+     )
+     )
     }
+   if (textoMensagem === ""){
+       println("oooo")
+       val call = RetrofitFactory().Forum().getMessageTopics(forum.mensagemId)
+
+       call.enqueue(object : retrofit2.Callback<ResponseMessageTopicList> {
+           override fun onResponse(
+               call: Call<ResponseMessageTopicList>,
+               response: Response<ResponseMessageTopicList>
+
+           ) {
+               if (response.isSuccessful){
+                   title = response.body()!!.topic.title
+                   text = response.body()!!.topic.text
+                   date = response.body()!!.topic.date
+                   category = response.body()!!.topic.category
+                   mensagens = response.body()!!.topic.messages
+                   user = response.body()!!.topic.user
+               }
+
+           }
+
+           override fun onFailure(call: Call<ResponseMessageTopicList>, t: Throwable) {
+               Log.i(
+                   "ds2m",
+                   "onFailure: ${t.message}"
+               )
+               println(t.message + t.cause)
+           }
+       })
+   }
+
+
     Scaffold(bottomBar = {
         Row (modifier = Modifier
             .fillMaxWidth()
@@ -189,7 +206,8 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
                 Card(
                     modifier = Modifier
                         .width(400.dp)
-                        .height(200.dp)
+                        .height(300.dp)
+                        .verticalScroll(rememberScrollState())
                         .padding(vertical = 8.dp, horizontal = 10.dp),
                     colors = CardDefaults.cardColors(Color(182, 182, 246, 30)),
 
@@ -205,7 +223,7 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
 
                             ) {
                         AsyncImage(
-                            model = pregnant.foto,
+                            model = user.foto,
                             contentDescription = "",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
@@ -229,77 +247,23 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
                         }
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Column {
+                    Column (){
                         Row(modifier = Modifier.padding(horizontal = 20.dp)) {
-                            Text(text = text)
+                            Text(
+                                text = text,
+
+                                )
                         }
                     }
                 }
 
-//                Card(
-//                    modifier = Modifier
-//                        .padding(10.dp),
-//                    border = BorderStroke(2.5.dp, Color(182, 182, 246))
-//
-//                ) {
-//                    Column {
-//                        Row(
-//                            modifier = Modifier
-//                                .padding(horizontal = 20.dp, vertical = 10.dp)
-//                        ) {
-//                            Card(
-//                                modifier = Modifier
-//                                    .size(65.dp),
-//                                shape = CircleShape,
-//                                border = BorderStroke(2.5.dp, Color(182, 182, 246))
-//
-//                            ) {
-//                                AsyncImage(
-//                                    model = pregnant.foto,
-//                                    contentDescription = "",
-//                                    contentScale = ContentScale.Crop,
-//                                    modifier = Modifier
-//                                        .size(65.dp)
-//                                        .clip(CircleShape)
-//                                )
-//                            }
-//
-//                            Row(modifier = Modifier
-//                                .fillMaxWidth()
-//                                .heightIn(30.dp, 80.dp)
-//                                .verticalScroll(rememberScrollState()),
-//                                horizontalArrangement = Arrangement.Center,
-//                                verticalAlignment = Alignment.CenterVertically
-//                            ) {
-//                                Text(text = title,
-//                                    fontSize = 20.sp,
-//                                    fontWeight = FontWeight.Bold)
-//                            }
-//                        }
-//                        Row(modifier = Modifier
-//                            .heightIn(30.dp, 250.dp)
-//                            .verticalScroll(rememberScrollState())
-//                            .padding(5.dp)
-//                        ) {
-//                            Text(text = text)
-//                        }
-//
-//                        Row (modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(5.dp),
-//                            horizontalArrangement = Arrangement.SpaceBetween
-//                        ){
-//                            Text(text = category)
-//
-//                            Text(text = date)
-//                        }
-//                    }
-//                    Spacer(modifier = Modifier.height(10.dp))
-//                }
-
                 if (mensagens.isNotEmpty()){
                     LazyColumn{
                         items(mensagens){
+                            val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+                            val formatoSaida = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+
+                            val data: Date = formatoEntrada.parse(it.date) ?: Date()
                             Card(
                                 modifier = Modifier
                                     .fillMaxSize(1f)
@@ -338,7 +302,7 @@ fun ForumMessageScreen(navController: NavController, pregnant: ModelPregnant, fo
                                                 fontWeight = FontWeight(800)
                                             )
                                             Text(
-                                                text = it.date,
+                                                text = formatoSaida.format(data),
                                                 modifier = Modifier.padding(start = 14.dp),
                                                 fontSize = 15.sp,
                                                 fontWeight = FontWeight(400),

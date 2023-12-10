@@ -73,9 +73,12 @@ import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,10 +91,13 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
 
     var topico by remember { mutableStateOf("") }
     var tituloTopico by remember { mutableStateOf("") }
-    var expanded = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         GetCategorys(forum)
+        GetForumTopic(forum)
+    }
+    if (topico === ""){
+        println("asd")
         GetForumTopic(forum)
     }
 
@@ -250,7 +256,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                     ),
                                 label = {
                                     Text(
-                                        "Crie seu tópico ${forum.username}:",
+                                        "Crie seu tópico: ",
                                         fontSize = 10.8.sp,
                                         color = Color(182, 182, 246)
 
@@ -416,6 +422,11 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
 
             LazyColumn() {
                 items(topicos) {
+                    val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+                    val formatoSaida = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+
+                    val data: Date = formatoEntrada.parse(it.date) ?: Date()
+
                     Card(
                         modifier = Modifier
                             .fillMaxSize(1f)
@@ -460,7 +471,7 @@ fun ForumScreen(navController: NavController, pregnant: ModelPregnant, forum: Mo
                                         fontWeight = FontWeight(800)
                                     )
                                     Text(
-                                        text = it.date,
+                                        text = formatoSaida.format(data),
                                         modifier = Modifier.padding(start = 14.dp),
                                         fontSize = 15.sp,
                                         fontWeight = FontWeight(400),
