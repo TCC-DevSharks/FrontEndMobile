@@ -47,6 +47,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -130,147 +131,161 @@ fun CheckFoodScreen(navController: NavController, pregnant: ModelPregnant, food:
             ) {}
 
             Spacer(modifier = Modifier.height(40.dp))
+            if (diet.isNotEmpty()){
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(diet) {
 
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(diet) {
+                        var visible by remember { mutableStateOf(false) }
 
-                    var visible by remember { mutableStateOf(false) }
-
-                    Card(
-                        modifier = Modifier
-                            .padding(horizontal = 15.dp, vertical = 10.dp)
-                            .fillMaxWidth(),
-                        colors = CardDefaults.cardColors(Color(182, 182, 246, 80)),
-                        shape = RoundedCornerShape(15.dp),
-                        border = BorderStroke(1.dp, Color(182, 182, 246))
-                    ) {
-                        Row(modifier = Modifier
-                            .fillMaxSize()
-                            .clickable { visible = !visible }
-                            .padding(horizontal = 15.dp, vertical = 15.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = it.refeicao,
-                                color = Color.Black,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.ExtraBold
-                            )
-
-                            Text(text = it.horario,
-                                color = Color.Black,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.ExtraBold)
-                        }
-
-                        var meal by remember { mutableStateOf(listOf<FoodResponse>()) }
-
-                        val call = RetrofitFactory().food().getFoodMeal(it.idRefeicao)
-
-                        call.enqueue(object : retrofit2.Callback<FoodResponseList> {
-                            override fun onResponse(
-                                call: Call<FoodResponseList>,
-                                response: Response<FoodResponseList>
-
-                            ) {
-                                meal = response.body()!!.alimentos
-                            }
-
-
-                            override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
-                                Log.i(
-                                    "ds2",
-                                    "onFailure: ${t.message}"
-                                )
-                                println(t.message + t.cause)
-                            }
-                        })
-
-
-                        AnimatedVisibility(
-                            visible = visible,
+                        Card(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color.White),
-                            enter = fadeIn(
-                                initialAlpha = 0.8f
-                            ),
-                            exit = fadeOut(
-                                animationSpec = tween(durationMillis = 50)
-                            )
+                                .padding(horizontal = 15.dp, vertical = 10.dp)
+                                .fillMaxWidth(),
+                            colors = CardDefaults.cardColors(Color(182, 182, 246, 80)),
+                            shape = RoundedCornerShape(15.dp),
+                            border = BorderStroke(1.dp, Color(182, 182, 246))
                         ) {
-                            Column(modifier = Modifier.fillMaxSize().background(Color(182, 182, 246, 80))) {
-                                for (it in meal) {
+                            Row(modifier = Modifier
+                                .fillMaxSize()
+                                .clickable { visible = !visible }
+                                .padding(horizontal = 15.dp, vertical = 15.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = it.refeicao,
+                                    color = Color.Black,
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.ExtraBold
+                                )
 
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 15.dp, vertical = 5.dp),
-                                        horizontalArrangement = Arrangement.SpaceBetween
-                                    ) {
+                                Text(text = it.horario,
+                                    color = Color.Black,
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.ExtraBold)
+                            }
+
+                            var meal by remember { mutableStateOf(listOf<FoodResponse>()) }
+
+                            val call = RetrofitFactory().food().getFoodMeal(it.idRefeicao)
+
+                            call.enqueue(object : retrofit2.Callback<FoodResponseList> {
+                                override fun onResponse(
+                                    call: Call<FoodResponseList>,
+                                    response: Response<FoodResponseList>
+
+                                ) {
+                                    meal = response.body()!!.alimentos
+                                }
+
+
+                                override fun onFailure(call: Call<FoodResponseList>, t: Throwable) {
+                                    Log.i(
+                                        "ds2",
+                                        "onFailure: ${t.message}"
+                                    )
+                                    println(t.message + t.cause)
+                                }
+                            })
+
+
+                            AnimatedVisibility(
+                                visible = visible,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.White),
+                                enter = fadeIn(
+                                    initialAlpha = 0.8f
+                                ),
+                                exit = fadeOut(
+                                    animationSpec = tween(durationMillis = 50)
+                                )
+                            ) {
+                                Column(modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color(182, 182, 246, 80))) {
+                                    for (it in meal) {
 
                                         Row(
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Card(
-                                                modifier = Modifier
-                                                    .size(60.dp),
-                                                shape = RoundedCornerShape(12.dp),
-                                            ) {
-
-                                                AsyncImage(
-                                                    model = it.imagem,
-                                                    contentDescription = "",
-                                                    contentScale = ContentScale.Crop,
-                                                    modifier = Modifier.fillMaxSize(),
-                                                transform = { state ->
-                                                    when (state) {
-                                                        is AsyncImagePainter.State.Loading -> {
-                                                            state.copy(painter = painter)
-                                                        }
-                                                        is AsyncImagePainter.State.Error -> {
-                                                            state.copy(painter = painter)
-                                                        }
-
-                                                        else -> state
-                                                    }
-                                                }
-                                                )
-                                            }
-
-                                            Spacer(modifier = Modifier.width(16.dp))
-
-                                            Column {
-                                                Text(
-                                                    text = it.nome,
-                                                    fontSize = 14.sp,
-                                                    fontWeight = FontWeight(800),
-                                                )
-                                            }
-
-                                        }
-
-                                        Image(
-                                            painter = painterResource(id = R.drawable.icon_arrow),
-                                            contentDescription = null,
+                                            verticalAlignment = Alignment.CenterVertically,
                                             modifier = Modifier
-                                                .size(35.dp)
-                                                .clickable {
-                                                    food.id = it.idCategoria
-                                                    println(it)
-                                                    navController.navigate("FoodChange")
-                                                },
-                                            colorFilter = ColorFilter.tint(Color.Black)
-                                        )
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 15.dp, vertical = 5.dp),
+                                            horizontalArrangement = Arrangement.SpaceBetween
+                                        ) {
+
+                                            Row(
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                Card(
+                                                    modifier = Modifier
+                                                        .size(60.dp),
+                                                    shape = RoundedCornerShape(12.dp),
+                                                ) {
+
+                                                    AsyncImage(
+                                                        model = it.imagem,
+                                                        contentDescription = "",
+                                                        contentScale = ContentScale.Crop,
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        transform = { state ->
+                                                            when (state) {
+                                                                is AsyncImagePainter.State.Loading -> {
+                                                                    state.copy(painter = painter)
+                                                                }
+                                                                is AsyncImagePainter.State.Error -> {
+                                                                    state.copy(painter = painter)
+                                                                }
+
+                                                                else -> state
+                                                            }
+                                                        }
+                                                    )
+                                                }
+
+                                                Spacer(modifier = Modifier.width(16.dp))
+
+                                                Column {
+                                                    Text(
+                                                        text = it.nome,
+                                                        fontSize = 14.sp,
+                                                        fontWeight = FontWeight(800),
+                                                    )
+                                                }
+
+                                            }
+
+                                            Image(
+                                                painter = painterResource(id = R.drawable.icon_arrow),
+                                                contentDescription = null,
+                                                modifier = Modifier
+                                                    .size(35.dp)
+                                                    .clickable {
+                                                        food.id = it.idCategoria
+                                                        println(it)
+                                                        navController.navigate("FoodChange")
+                                                    },
+                                                colorFilter = ColorFilter.tint(Color.Black)
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+            }else{
+                Column(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
+                    Text(text = "Você não possui nenhuma dieta, marque uma consulta com um(a) nutricionista para definir uma!",
+                        color = Color.Red,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        textAlign = TextAlign.Center
+                        )
+                }
             }
+
         }
     }
 }

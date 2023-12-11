@@ -45,6 +45,7 @@ import br.senai.sp.jandira.tcc.model.categories.CategoriesResponseList
 import br.senai.sp.jandira.tcc.model.categories.ModelCategories
 import br.senai.sp.jandira.tcc.service.RetrofitFactory
 import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter
 import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Response
@@ -55,6 +56,7 @@ import retrofit2.Response
 fun Exercises(navController: NavController, categories: ModelCategories, pregnant: ModelPregnant) {
 
 
+    val painter = painterResource(id = R.drawable.gravidacat)
     var categoria by remember { mutableStateOf(listOf<CategoriesResponse>()) }
 
     LaunchedEffect(Unit) {
@@ -82,7 +84,7 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
 
     Scaffold(
-        topBar = { Header(titulo = "Exercices",rota ="homeUser", navController = navController)}) {
+        topBar = { Header(titulo = "Exercícios'",rota ="homeUser", navController = navController)}) {
 
         Column(
             modifier = Modifier
@@ -126,10 +128,10 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
 
                         Column {
 
-                            Row(modifier = Modifier.width(150.dp)) {
+                            Row(modifier = Modifier.width(160.dp)) {
                                 Text(
                                     modifier = Modifier.padding(start = 20.dp),
-                                    text = "Today’s activity",
+                                    text = "Atividade Diária",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 30.sp
                                 )
@@ -218,7 +220,19 @@ fun Exercises(navController: NavController, categories: ModelCategories, pregnan
                             AsyncImage(
                                 model = it.imagem,
                                 contentDescription = "",
-                                modifier = Modifier.size(150.dp)
+                                modifier = Modifier.size(150.dp),
+                                transform = { state ->
+                                    when (state) {
+                                        is AsyncImagePainter.State.Loading -> {
+                                            state.copy(painter = painter)
+                                        }
+                                        is AsyncImagePainter.State.Error -> {
+                                            state.copy(painter = painter)
+                                        }
+
+                                        else -> state
+                                    }
+                                }
 
                             )
                         }
